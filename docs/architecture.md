@@ -6,9 +6,15 @@
 
 collect.js 提供 smoke/daily 两种规模及 all/minnano/javdb/male 四种来源选择。默认 smoke all，任一步非零退出立即停止后续任务。
 
-minnano 先采 minnano-rankings.json，bootstrap-roster 读取三种榜单新增 mnid，再由 profiles 回填、生成名字集合，daily 最后执行每日 400 人的头像补齐。名册仅覆盖榜单发现者；全站目录发现尚未实现。
+minnano 先采 minnano/rankings.json，bootstrap-roster 读取三种榜单新增 mnid，再由 profiles 回填、生成名字集合，daily 最后执行每日 400 人的头像补齐。名册仅覆盖榜单发现者；全站目录发现尚未实现。
 
 JavDB 的 actors-full-crawl 从三个影片维度发现人物，合并旧资料；uncensored-actresses-crawl 从 type=1 影片建立出演样本；最后累计女性名字。male 模式为固定种子搜索，不作为全库目录。
+
+## 数据目录
+
+relay/minnano 保存该站名册、榜单和原生 ID 头像；relay/javdb 保存演员资料、无码出演名单、固定姓名种子结果和共享 JavDB ID 头像；relay/derived 保存跨来源名字索引、补图关联与补图缓存。原生人物表不合并身份。
+
+路径唯一约定在 tools/lib/data-paths.js，所有采集器都引用同一组路径。新增来源不需要在多个采集器中重复硬编码目录。文件按需生成，不用空产物伪造完成状态。
 
 ## 公共工具
 

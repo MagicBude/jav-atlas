@@ -4,4 +4,4 @@ node_modules/
 .env
 .env.*
 !.env.example
-relay/actors_full_line_ok
+relay/javdb/.line-ok

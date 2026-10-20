@@ -4,7 +4,7 @@
  * @file 从 minnano 页面采集日、周、月榜，并为部分上榜人物补充头像。
  * 流程：依次读取三个榜单，每榜最多两页 → 按站内 ID 去重 → 处理最多 160 位人物的头像 → 写出榜单。
  * 输入：无需本地名册；依赖源站 HTML 的固定标签与类名。
- * 输出：仓库根 relay/minnano-rankings.json，以及 relay/avatars/<minnano ID>.jpg。
+ * 输出：仓库根 relay/minnano/rankings.json，以及 relay/minnano/avatars/<minnano ID>.jpg。
  * 约束：榜单为空抛错；头像任务失败由并发池转为 null，不阻止榜单写入。
  * 榜单先写同目录 .tmp 再 rename；这不构成 JSON 与所有头像之间的整体事务。
  * 运行：node tools/rank-relay.js。直接执行即产生网络请求和文件写入。
@@ -17,13 +17,14 @@
  */
 const fs = require('fs')
 const path = require('path')
-const { relayDir, writeJson, envInt } = require('./lib/runtime')
+const { writeJson, envInt } = require('./lib/runtime')
+const { dataPaths } = require('./lib/data-paths')
+const paths = dataPaths()
 
 const MN_BASE = 'https://www.minnano-av.com/'
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
-const RELAY_DIR = relayDir()
-const AVA_DIR = path.join(RELAY_DIR, 'avatars')
+const AVA_DIR = paths.minnanoAvatars
 const AVA_LIMIT = envInt('AVA_LIMIT', 160, 0, 10000) // 榜上去重后最多抓多少个头像
 const TIMEOUT = envInt('HTTP_TIMEOUT_MS', 20000, 1, 120000)
 
@@ -185,8 +186,8 @@ const pool = async (items, n, fn) => {
   })
   console.log('头像：新抓 ' + ok + '，已存在 ' + skip + '，共 ' + list.length + ' 个')
   // 阶段 3：头像允许部分失败；所有榜单至少非空后才用临时文件替换 JSON。
-  writeJson(path.join(RELAY_DIR, 'minnano-rankings.json'), out)
-  console.log('relay/minnano-rankings.json 已生成')
+  writeJson(paths.minnanoRankings, out)
+  console.log('relay/minnano/rankings.json 已生成')
 })().catch(e => {
   console.error('FAIL:', e.message)
   process.exit(1)

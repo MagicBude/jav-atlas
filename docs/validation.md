@@ -29,3 +29,7 @@ JavDB：在独立目录 .cache/live-javdb 中从空目录执行 smoke javdb，�
 ## 待验收
 
 小规模抓取、保存、上传与 Git 提交链路已验证；daily 规模、完整名册、JavDB 头像及网页性别复核尚未通过此次测试。定时任务仍默认不执行，浏览网站尚未实现。确认后再手动执行 daily，最后设置 ENABLE_SCHEDULE=true。当前 pending user acceptance。
+
+## 数据目录整理验证
+
+数据按 minnano、javdb、derived 分类，路径集中到 tools/lib/data-paths.js。5 份既有 JSON、3 张既有头像搬迁前后 SHA-256 完全一致，未重新抓取或修改记录。男演员种子明确采用 male-seed-actors.json；所有 JavDB 原生头像共用缓存，跨来源补图进入 derived/avatars。22 项离线回归覆盖空目录流水线、数据保护、跨来源姓名反查、路径分组、种子图片复用与补图位置。此次目录变更未再次触发线上抓取，云端网络与图片质量的结论仍以此前对应实测范围为准。当前 pending user acceptance。

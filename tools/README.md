@@ -11,7 +11,7 @@ npm run collect -- smoke all
 npm run collect -- smoke javdb
 ~~~
 
-collect.js 顺序执行并在失败时停止。bootstrap-roster.js 仅从新榜单建立初始名册，不代表完整目录。公共路径与 JSON 工具见 lib/runtime.js。
+collect.js 顺序执行并在失败时停止。bootstrap-roster.js 仅从新榜单建立初始名册，不代表完整目录。公共 JSON 工具见 lib/runtime.js；数据文件与图片目录的唯一约定见 lib/data-paths.js。
 
 ## 采集器
 
@@ -19,7 +19,7 @@ rank-relay.js 解析三种榜单并补部分头像，默认无名册也可运行
 
 actors-full-crawl.js 从三个影片维度发现人物，仅补新 ID，并按 map 结构复用补图缓存。uncensored-actresses-crawl.js 生成包含男女及未知的出演名单，uc_count 仅为本轮不同影片编号数。male-roster-relay.js 单独按固定种子搜索，不代表全站男演员目录。
 
-gen-female-names.js 将当前名册和已标为女性的人物姓名合并进已有集合，没有女性输入时不写空文件。所有采集器统一写 RELAY_DIR，默认仓库根 relay/，不再向 tools/relay/ 写产物。
+gen-female-names.js 将当前名册和已标为女性的人物姓名合并进已有集合，没有女性输入时不写空文件。所有采集器写入 RELAY_DIR 下的 minnano、javdb、derived 分类；默认总根是仓库 relay/。male 模式明确输出 javdb/male-seed-actors.json，并与普通 JavDB 采集共用 javdb/avatars。
 
 ## 人工复核
 

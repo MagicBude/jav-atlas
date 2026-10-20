@@ -2,14 +2,14 @@
  * @file 从本项目新抓取的三种榜单建立初始名册，保留已有条目及人工填写字段。
  * 这只是榜单发现入口，不代表全站目录；人物继续使用 minnano ID。
  */
-const path = require('path')
-const { relayDir, readJson, writeJson } = require('./lib/runtime')
-const dir = relayDir()
-const ranks = readJson(path.join(dir, 'minnano-rankings.json'), null)
-if (!ranks) throw new Error('请先抓取 minnano-rankings.json，再建立名册')
-const file = path.join(dir, 'minnano-actresses.json')
+const { readJson, writeJson } = require('./lib/runtime')
+const { dataPaths } = require('./lib/data-paths')
+const paths = dataPaths()
+const ranks = readJson(paths.minnanoRankings, null)
+if (!ranks) throw new Error('请先抓取 minnano/rankings.json，再建立名册')
+const file = paths.minnanoActresses
 const roster = readJson(file, [])
-if (!Array.isArray(roster)) throw new Error('minnano-actresses.json 必须是数组')
+if (!Array.isArray(roster)) throw new Error('minnano/actresses.json 必须是数组')
 const known = new Set(roster.filter(a => a && a.mnid).map(a => String(a.mnid)))
 let found = 0
 for (const mode of ['day', 'week', 'month']) {

@@ -24,6 +24,7 @@ global.fetch = async (url, options) => {
     if (u.pathname === '/images/test.jpg') return new Response(jpeg)
     throw new Error('未声明的 minnano fixture：' + url)
   }
+  if (u.hostname === 'tp.spfcas.com' && u.pathname === '/actor1.jpg') return new Response(jpeg)
   if (u.pathname.startsWith('/api/')) {
     if (process.env.FIXTURE_FAIL === 'javdb') throw new Error('offline: javdb failure')
     if (process.env.FIXTURE_FAIL === 'second-dimension' && u.searchParams.get('type') === '0')
@@ -50,7 +51,13 @@ global.fetch = async (url, options) => {
       data = {
         actor: { id, name: id === 'actor1' ? 'Test Actor' : 'Unknown Actor', videos_count: 42 }
       }
-    } else if (u.pathname.includes('/v2/search')) data = { actors: [] }
+      if (process.env.FIXTURE_AVATAR === '1' && id === 'actor1')
+        data.actor.avatar_url = 'https://tp.spfcas.com/actor1.jpg'
+    } else if (u.pathname.includes('/v2/search'))
+      data = {
+        actors:
+          process.env.FIXTURE_MALE === '1' ? [{ id: 'actor1', name: u.searchParams.get('q') }] : []
+      }
     else throw new Error('未声明的 API fixture：' + url)
     return Response.json({ success: 1, data })
   }

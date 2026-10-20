@@ -45,13 +45,15 @@ workflow 需要 contents: write；仓库或分支规则仍可能限制自动提�
 
 - tools/：采集器、统一入口、名册启动及公共 JSON/路径工具。
 - tests/：隔离临时目录中的合成网络测试，不访问源站或写项目数据。
-- relay/：真实采集 JSON / 头像。
+- relay/minnano/：minnano 榜单、人物名册与头像。
+- relay/javdb/：JavDB 演员、出演名单、男演员种子与共享头像。
+- relay/derived/：跨来源姓名索引与补图资料/图片。
 - .cache/：可忽略的本地测试数据或资料缓存。
 - web/：浏览端预留目录，尚无网站实现。
 
-RELAY_DIR 可覆盖产物目录，CACHE_DIR 可覆盖资料缓存目录；相对路径以工作目录为准。MOVIE_PAGES、UC_PAGES、PROFILE_LIMIT、AVA_LIMIT、FIX_LIMIT、AVA_CONC 等控制任务量，整数配置会校验范围。HTTP_TIMEOUT_MS 控制主要请求超时。WEB_GENDER=0 禁用网页复核，SKIP_IMAGES=1 禁用 JavDB 头像任务；榜单头像需用 AVA_LIMIT=0 单独关闭。
+目录路径统一由 tools/lib/data-paths.js 管理，RELAY_DIR 只覆盖数据总根，不改变内部来源分类。RELAY_DIR 可覆盖产物目录，CACHE_DIR 可覆盖资料缓存目录；相对路径以工作目录为准。MOVIE_PAGES、UC_PAGES、PROFILE_LIMIT、AVA_LIMIT、FIX_LIMIT、AVA_CONC 等控制任务量，整数配置会校验范围。HTTP_TIMEOUT_MS 控制主要请求超时。WEB_GENDER=0 禁用网页复核，SKIP_IMAGES=1 禁用 JavDB 头像任务；榜单头像需用 AVA_LIMIT=0 单独关闭。
 
-数据文件均按来源命名并多行保存，详见 [数据目录说明](relay/README.md)。头像仍用来源 ID 命名；[头像来源调研](docs/avatar-sources.md) 记录了 Gfriends 的能力与接入建议。
+数据文件均按来源命名并多行保存，详见 [数据目录说明](relay/README.md)。头像按来源 ID 命名并继续自行抓取，不接入外部头像库；[头像缓存说明](docs/avatar-sources.md) 记录了命名依据与备选方案调研。
 
 阅读：[工具索引](tools/README.md)、[架构](docs/architecture.md)、[代码规范](docs/code-style.md)、[验证记录](docs/validation.md)。
 
