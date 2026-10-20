@@ -1,0 +1,7 @@
+node_modules/
+.cache/
+*.tmp
+.env
+.env.*
+!.env.example
+relay/actors_full_line_ok
