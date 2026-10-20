@@ -1,13 +1,16 @@
-# JavDB 男优资料云端中转：Actions 机房直连国内线路（应用级签名，与账号无关），抓男优名单+头像，
-# 提交 relay/roster_male.json 与 relay/avatars_male/。前端演员页「男优」大 tab 首次从
-# raw.githubusercontent.com 拉回本地（国内可达），之后走本地缓存。
+# 固定种子男演员任务：搜索、详情及补图。注意脚本默认写 tools/relay，而本工作流提交根 relay；该路径问题本次保留。
+# 定时表达式使用 UTC，注释中的北京时间为 UTC+8；触发不等于准点完成。
+# concurrency 只防止同名任务重叠，不协调其他工作流的 git push。
+# contents: write 用于提交产物；分支规则或仓库权限仍可能阻止 push。
+# 源站可达性、IP 限流和身份判定须以实际运行结果为准。
 name: male-roster-relay
 
 on:
   schedule:
-    - cron: '40 21 * * *'   # UTC 21:40 = 北京时间 05:40，错开 rank-relay(21:30)
+    - cron: '40 21 * * *' # UTC 21:40 = 北京时间 05:40，错开 rank-relay(21:30)
   workflow_dispatch:
 
+# 以下仅声明运行权限，不改变代码或文件的公开/私有属性。
 permissions:
   contents: write
 
@@ -18,6 +21,7 @@ concurrency:
 jobs:
   relay:
     runs-on: ubuntu-latest
+    # checkout 获取当前仓库代码；setup-node 固定 Node 主版本；后续采集失败会阻止提交步骤。
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

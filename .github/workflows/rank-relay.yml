@@ -1,11 +1,13 @@
-# minnano 云端中转：Actions 机房直连抓榜单+头像，提交 relay/ 目录。
-# 家里宽带对 minnano-av.com 是 SNI 阻断（TCP 握手即 RST），用户侧改从
-# raw.githubusercontent.com 直连读取（国内可达），无需代理、无需 token。
+# minnano 榜单任务：先抓三种榜及部分头像，再按 full 条件执行不限量或 400 条名册补图；第二步依赖已有名册。
+# 定时表达式使用 UTC，注释中的北京时间为 UTC+8；触发不等于准点完成。
+# concurrency 只防止同名任务重叠，不协调其他工作流的 git push。
+# contents: write 用于提交产物；分支规则或仓库权限仍可能阻止 push。
+# 源站可达性、IP 限流和身份判定须以实际运行结果为准。
 name: rank-relay
 
 on:
   schedule:
-    - cron: '30 21 * * *'   # UTC 21:30 = 北京时间 05:30，日榜刚更新
+    - cron: '30 21 * * *' # UTC 21:30 = 北京时间 05:30，日榜刚更新
   workflow_dispatch:
     inputs:
       full:
@@ -13,6 +15,7 @@ on:
         required: false
         default: ''
 
+# 以下仅声明运行权限，不改变代码或文件的公开/私有属性。
 permissions:
   contents: write
 
@@ -23,6 +26,7 @@ concurrency:
 jobs:
   relay:
     runs-on: ubuntu-latest
+    # checkout 获取当前仓库代码；setup-node 固定 Node 主版本；后续采集失败会阻止提交步骤。
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
