@@ -13,10 +13,28 @@
  * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
  */
 
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 男优资料云端中转（GitHub Actions 内运行，机房直连无墙）：
+ * 1. 用 JavDB 移动端 API（国内线路 + 应用级签名，与账号无关）搜出男优 → 取详情
+ * 2. 写 relay/roster_male.json（字段与 actresses.json / JavDB actor 同构）
+ * 3. 抓头像 → relay/avatars_male/<id>.jpg（已存在则跳过）
+ *
+ * 与 rank-relay.js（minnano）不同：minnano 无男优榜/男优资料页，男优只能走 JavDB。
+ * 前端演员页新增「男优」大 tab，数据就是这份 roster_male.json（首次从 relay 拉回本地）。
+ * 无第三方依赖，Node 18+ 自带 fetch。
+ * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
+ * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ */
 const fs = require('fs')
 const path = require('path')
 const crypto = require('crypto')
 
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * ---- JavDB 移动端 API：国内线路 + 应用级签名（照抄 server.js 的 jdbSign） ----
+ * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ */
 const JDB_LINES = [
   'https://apidd.spthgb.com',
   'https://apidd.czssdgz.com',
@@ -44,6 +62,10 @@ function jdbSign() {
   )
 }
 
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 产物目录：Actions 里是仓库根的 relay/；本地自测可用 RELAY_DIR 覆盖或默认同级 relay/
+ */
 const RELAY_DIR = process.env.RELAY_DIR || path.join(__dirname, 'relay')
 const AVA_DIR = path.join(RELAY_DIR, 'avatars_male')
 const TIMEOUT = 20000
@@ -56,6 +78,11 @@ let LINE_OK = ''
  * @param {boolean} [binary] 真时读取 Buffer；默认读取 JSON。
  * @returns {Promise<object|Buffer>} 成功线路返回的 JSON 或二进制内容。
  * @throws {Error} 所有候选线路均失败时抛出最后一次错误。
+ */
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 国内线路直连（不继承任何代理环境变量，Actions 机房直连）
+ * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
  */
 async function jdbGet(rel, binary) {
   const order = LINE_OK ? [LINE_OK].concat(JDB_LINES.filter(x => x !== LINE_OK)) : JDB_LINES
@@ -97,6 +124,11 @@ async function jdbGet(rel, binary) {
  * @returns {Promise<Buffer>} 原始响应字节。
  * @throws {Error} HTTP 错误、超时或读取失败。
  */
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 图片：JavDB 图床（tp.spfcas.com 等）走绝对地址直连，不拼 /api/，不需要签名。
+ * 只带 UA / Referer；返回的是加密字节流，交给 imgMaybeDecrypt 解开。
+ */
 async function imgGet(url) {
   const ac = new AbortController()
   const timer = setTimeout(() => ac.abort(), TIMEOUT)
@@ -118,11 +150,21 @@ async function imgGet(url) {
  * @param {*} s 原始姓名或别名。
  * @returns {string} 比较用键，不用于替换展示姓名。
  */
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 名字归一化（照抄 server.js onNorm）：去空格/分隔符 + 小写，用于精确匹配
+ * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ */
 const onNorm = s =>
   String(s || '')
     .toLowerCase()
     .replace(/[\s　・·,，、/]+/g, '')
 
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 种子：知名 + 活跃男优（日文原名为主，含常见艺名/汉字写法）。
+ * 一个名字可能搜出同名/别名干扰项，所以下面靠归一化精确匹配挑真正那一个。
+ */
 const SEED = [
   // 高产/知名男优（JavDB 有正式档案，日文原名）
   '清水健',
@@ -169,6 +211,12 @@ const SEED = [
  * @param {Buffer} buf 下载得到的字节。
  * @returns {Buffer} 原 Buffer 或长度少 1 的新 Buffer；输入不被修改。
  */
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * JavDB 图床（tp.spfcas.com 等）返回的是加密字节流：首字节 = 异或密钥，其余每字节 ⊕ 密钥。
+ * 与 server.js 的 imgMaybeDecrypt 同款，解开后应是 JPEG/PNG/WebP/GIF。
+ * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ */
 function imgMaybeDecrypt(buf) {
   if (!buf || buf.length < 2) return buf
   const head4 = buf.subarray(0, 4).toString('binary')
@@ -192,6 +240,10 @@ function imgMaybeDecrypt(buf) {
  * @param {Array<object>} actors API 返回的候选列表。
  * @param {string} name 要搜索的姓名。
  * @returns {object|null} 首个命中的原对象或 null。
+ */
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 逐个搜名字 → 命中 actor → 取详情
  */
 function pickActor(actors, name) {
   const n = onNorm(name)

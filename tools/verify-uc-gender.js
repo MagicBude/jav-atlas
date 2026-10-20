@@ -10,6 +10,11 @@
  * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
  */
 
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 复核 uncensored_actresses.json 里被判为男优/未知的条目（只问这些，省请求）。
+ * 用法：node verify-uc-gender.js <输入> <输出> [并发]
+ */
 const fs = require('fs')
 const { execSync } = require('child_process')
 const UA =

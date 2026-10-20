@@ -3,6 +3,10 @@
 # concurrency 只防止同名任务重叠，不协调其他工作流的 git push。
 # contents: write 用于提交产物；分支规则或仓库权限仍可能阻止 push。
 # 源站可达性、IP 限流和身份判定须以实际运行结果为准。
+# JavDB 男优资料云端中转：Actions 机房直连国内线路（应用级签名，与账号无关），抓男优名单+头像，
+# 提交 relay/roster_male.json 与 relay/avatars_male/。前端演员页「男优」大 tab 首次从
+# raw.githubusercontent.com 拉回本地（国内可达），之后走本地缓存。
+# 补充：上述网络、数据规模或主应用部署说明为上游历史背景，当前仓库和运行环境尚未验证。
 name: male-roster-relay
 
 on:

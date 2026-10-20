@@ -14,6 +14,31 @@
  * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
  */
 
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * profiles-relay.js — minnano 全量资料页回填（必须在 GitHub Actions 上跑：家宽 SNI 阻断、
+ * 数据中心代理被站方 WAF 403，只有 Actions 机房 IP 能直连 minnano-av.com）。
+ *
+ * 读 relay/roster.json，对每条带 mnid 的记录抓 actress<mnid>.html，用与主仓
+ * tools/minnano-sync.js parseProfilePage 同一套口径解析并「只填空、不覆盖」：
+ *   愛称(nick) / 公式サイト(official) / 別名(alias) / 现用名(mcanon) /
+ *   生年月日・身高・三围・罩杯・血型・出身地・爱好・出演期间・出道作品・事务所・博客 /
+ *   标签(tags) / 相关女优(rel) / 头像路径(mimg)
+ *
+ * 背景：2026-10-02 发现主仓旧解析器漏掉「愛称」「公式サイト」两栏，且名册里大量
+ * 改名女优（如 小倉七海 → 兒玉七海）缺 mcanon → 前端按现用名搜不到人。
+ *
+ * 用法：
+ *   node tools/profiles-relay.js full     # 全量 ~2.5 万页（Actions 约 1~2 小时）
+ *   node tools/profiles-relay.js          # 增量：只抓「缺 nick 且缺 official」的（每日顺带）
+ *   ONLY=698899,677238 node tools/profiles-relay.js   # 只抓指定 mnid（无视缓存）
+ * 断点续跑：缓存 $TMPDIR/profiles-relay.json（每 200 条落盘一次）。
+ * 无第三方依赖，Node 18+ 自带 fetch。
+ * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
+ * 补充说明：实际默认筛选条件是缺 nick 或缺 official；ONLY 仍受 TTL 缓存过滤，缓存位于 TMPDIR 下 javpaco-profiles-relay 子目录。
+ * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ * 补充说明：缓存只在同一文件系统上存在才可复用，工作流未配置跨 runner 持久化；缓存成功不等同于名册文件已成功落盘。
+ */
 const fs = require('fs')
 const path = require('path')
 
@@ -25,6 +50,10 @@ const TMP = path.join(process.env.TMPDIR || '/tmp', 'javpaco-profiles-relay')
 const CACHE = path.join(TMP, 'profiles-relay.json')
 const CONC = 8
 const DELAY = 150 // 每个 worker 的最小迭代时间，单位毫秒；不是全局限流。
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * ms，实测 0.55s 间隔无限流，留足余量
+ */
 const PROF_TTL = 20 * 3600 * 1000
 
 const FULL = /^full$/i.test(process.argv[2] || '') || process.argv[2] === '0'
@@ -81,6 +110,11 @@ const sleep = ms => new Promise(s => setTimeout(s, ms))
  * @param {*} s 姓名文本。
  * @returns {string} 比较用字符串。
  */
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 名字归一（与主仓 acNorm 同思路，去掉 name-map 依赖：全角→半角、片假名→平假名、剔符号）
+ * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ */
 const cnorm = s =>
   String(s || '')
     .replace(/[\uFF01-\uFF5E]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xfee0))
@@ -121,6 +155,11 @@ async function get(url) {
  * 生日匹配时转 YYYY-MM-DD；未匹配的原文本不会得到严格日期校验。
  * @param {string} html 个人资料页 HTML。
  * @returns {object} canon、birthday、尺寸、简介、img、alias、tags 与 rel 等解析值。
+ */
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 与主仓 tools/minnano-sync.js parseProfilePage 同一套口径（改动必须两边同步）
+ * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
  */
 function parseProfilePage(html) {
   const kv = {}
@@ -228,6 +267,10 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
   } catch (_) {}
 
   // 阶段 2：ONLY 优先于 full；默认用逻辑或筛选缺少任一目标字段的人物。
+  /*
+   * 上游原注释（保留设计意图、历史故障与样本记录）：
+   * 待抓名单：ONLY 指定 > full 全量 > 增量（缺 nick/official 或整条没档案）
+   */
   let stale
   if (ONLY.length) stale = roster.filter(a => a && a.mnid && ONLY.includes(String(a.mnid)))
   else if (FULL) stale = roster.filter(a => a && a.mnid)
@@ -291,6 +334,11 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
         cache[a.mnid] = { fetchedAt: Date.now(), ok: true }
         ok++
 
+        /*
+         * 上游原注释（保留设计意图、历史故障与样本记录）：
+         * 只填空不覆盖：roster.json 是发给全部用户的兜底名册，手工修正过的值不许被冲掉
+         * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+         */
         if (p.canon && cnorm(p.canon) !== cnorm(a.name) && !a.mcanon) a.mcanon = p.canon
         for (const f of NEED) if (isEmpty(a[f]) && !isEmpty(p[f])) a[f] = p[f]
         if (!isEmpty(p.img) && isEmpty(a.mimg)) a.mimg = p.img

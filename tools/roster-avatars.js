@@ -12,6 +12,14 @@
  * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
  */
 
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 全量女优头像回填：读 roster.json（{mnid,name}[]）+ relay/rankings.json 榜上 id，
+ * 凡缺 avatars/<mnid>.jpg 的，逐个抓 minnano 资料页 og:image 存盘。
+ * 用法：node tools/roster-avatars.js [limit]   —— limit 为数字（每轮上限，默认 400）、
+ *       full/0 表示不限量（一次性全量回填，约 2.4 万个，Actions 里 1~2 小时）。
+ * 无第三方依赖，Node 18+ 自带 fetch。
+ */
 const fs = require('fs')
 const path = require('path')
 

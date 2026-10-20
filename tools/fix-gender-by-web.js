@@ -11,6 +11,13 @@
  * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
  */
 
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 用 JavDB 网页版演员页的 section-meta 判定性别（权威判据）。
+ * 规则：页面 section-meta 里有「男優」= 男优；没有 = 女优
+ * （女优页面的 section-meta 只有「NN 部影片」，不带性别字样）。
+ * 修正 actors_full.json 里被名册反查误判成男优的女优。
+ */
 const fs = require('fs')
 const { execSync } = require('child_process')
 
@@ -34,6 +41,11 @@ const PROXY = process.env.GENDER_PROXY || 'http://127.0.0.1:1082' // 上游使�
  * @param {string} id JavDB 人物 ID，直接用于构造 URL。
  * @returns {string} 页面正文；命令失败时返回空字符串。
  */
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 网页版要出海才拿得到
+ * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
+ */
 function fetchHtml(id) {
   try {
     return execSync(
@@ -53,6 +65,11 @@ function fetchHtml(id) {
 
   // 8 个逻辑 worker；同步 curl 会阻塞事件循环，网络请求实际串行。
   // 阶段 2：slots 保留目标顺序；空正文算失败，非空无标签正文仍被现有规则归为女性。
+  /*
+   * 上游原注释（保留设计意图、历史故障与样本记录）：
+   * 并发 8 路（串行 256 次要 10+ 分钟）
+   * 补充说明：该复核工具调用 execSync，实际网络请求仍阻塞串行执行；8 路仅为逻辑 worker。
+   */
   const realMale = [],
     realFemale = [],
     fail = []

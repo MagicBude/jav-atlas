@@ -12,6 +12,16 @@
  * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
  */
 
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * minnano 云端中转（GitHub Actions 内运行，机房直连无墙）：
+ * 1. 抓日/周/月女优榜 → relay/rankings.json（原始行 rank/id/name/works）
+ * 2. 抓榜上女优资料页头像 → relay/avatars/<mnid>.jpg（已存在则跳过）
+ * 服务端（server.js）在 minnano 直连失败时改从 raw.githubusercontent.com 读这两样。
+ * 无第三方依赖，Node 18+ 自带 fetch。
+ * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
+ * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ */
 const fs = require('fs')
 const path = require('path')
 
@@ -52,6 +62,10 @@ function parseRankRows(html) {
     const rank = +((chunk.match(/rnkcnt">(\d+)/) || [])[1] || 0)
     const id = (chunk.match(/actress(\d+)\.html/) || [])[1]
     // 接受 h2 或 h3 标题；这里依赖精确的类名、引号和标签排列，改版时需更新解析样本。
+    /*
+     * 上游原注释（保留设计意图、历史故障与样本记录）：
+     * minnano 2026-10 起把女优名从 <h2 class="ttl"> 改成 <h3 class="ttl">，故用 h[23] 兼容
+     */
     const name = mnStrip((chunk.match(/<h[23] class="ttl"><a[^>]*>([\s\S]*?)<\/a>/) || [])[1])
     const works = +((chunk.match(/<td[^>]*>\s*(\d{1,6})\s*<\/td>/) || [])[1] || 0)
     if (rank && id && name) rows.push({ rank, id, name, works })
@@ -127,6 +141,10 @@ const pool = async (items, n, fn) => {
   const ids = new Set()
   for (const [key, q] of modes) {
     // 最多读取两页，达到 100 条提前停止；第二页是否足够取决于源站当前分页。
+    /*
+     * 上游原注释（保留设计意图、历史故障与样本记录）：
+     * minnano 2026-10 起每页 50 条、分页参数 &page=N；抓前 2 页去重后凑满 Top100
+     */
     const seen = new Set()
     let rows = []
     for (let page = 1; page <= 2; page++) {

@@ -3,6 +3,10 @@
 # concurrency 只防止同名任务重叠，不协调其他工作流的 git push。
 # contents: write 用于提交产物；分支规则或仓库权限仍可能阻止 push。
 # 源站可达性、IP 限流和身份判定须以实际运行结果为准。
+# minnano 云端中转：Actions 机房直连抓榜单+头像，提交 relay/ 目录。
+# 家里宽带对 minnano-av.com 是 SNI 阻断（TCP 握手即 RST），用户侧改从
+# raw.githubusercontent.com 直连读取（国内可达），无需代理、无需 token。
+# 补充：上述网络、数据规模或主应用部署说明为上游历史背景，当前仓库和运行环境尚未验证。
 name: rank-relay
 
 on:

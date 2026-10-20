@@ -10,6 +10,14 @@
  * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
  */
 
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 生成 relay/female_names.json：女优名字集合（归一化前的原始名）。
+ * 用途：GitHub Actions 里没有 16MB 的 actresses.json（名册），名册反查那一级会整个失效，
+ *       导致新抓的演员全被判成男优。这份精简名单（只要名字）让 Actions 也能做名册反查。
+ * 来源：① minnano 名册 actresses.json  ② actors_full.json 里已判定为女优的（含 JavDB 独有欧美/无码演员）
+ *       ③ uncensored_actresses.json 里 gender==='f' 的
+ */
 const fs = require('fs'),
   path = require('path')
 const RELAY = path.join(__dirname, 'relay')

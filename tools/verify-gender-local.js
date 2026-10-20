@@ -11,6 +11,14 @@
  * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
  */
 
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 本地复核 actors_full.json 里「性别不可信」的条目（网页版 section-meta，权威判据）。
+ * 背景：GitHub Actions 里 javdb.com 被 Cloudflare 拦（403），名册又缺失 → 新增演员全被判男优。
+ * 本地（家庭宽带）直连 javdb.com 200，可以逐个问。
+ * 用法：node verify-gender-local.js <输入> <输出>
+ * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
+ */
 const fs = require('fs')
 const { execSync } = require('child_process')
 const UA =
@@ -22,6 +30,10 @@ const PROXY = process.env.WEB_PROXY || '' // 可按当前网络环境设置 WEB_
  * 有标签时，任一包含“男優”返回 m，否则返回 f；不做页面身份的额外校验。
  * @param {string} id JavDB 人物 ID。
  * @returns {string|null} m、f 或 null。
+ */
+/*
+ * 上游原注释（保留设计意图、历史故障与样本记录）：
+ * 本地一般直连即可；需要时 WEB_PROXY=http://127.0.0.1:1082
  */
 function webGender(id) {
   const cmd = `curl -s --max-time 25 ${PROXY ? '-x ' + PROXY + ' ' : ''}-A "${UA}" "https://javdb.com/actors/${id}"`
@@ -49,6 +61,10 @@ function webGender(id) {
   const d = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'))
   const list = d.list || []
   // 筛选所有来源标记不为网页复核的记录，不限于当前标为男性的记录。
+  /*
+   * 上游原注释（保留设计意图、历史故障与样本记录）：
+   * 只问「还没被网页版判过」的：男优（可能混女优）+ 来源不是 javdb-web-section-meta 的
+   */
   const targets = list.filter(a => a && a.id && a.genderSource !== 'javdb-web-section-meta')
   console.log('待复核 ' + targets.length + ' / 共 ' + list.length)
   // 阶段 2：slot 以原目标索引关联复核结果，防止回写到其他人物。
