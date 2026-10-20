@@ -7,13 +7,8 @@
  * 成功更新逐条 gender 与 genderSource；男女数量仅输出日志，不写根级汇总。
  * 输出直接覆盖指定文件，不创建父目录，不备份；可通过另一个输出路径保留原文件。
  *
- * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
- */
-
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 复核 uncensored_actresses.json 里被判为男优/未知的条目（只问这些，省请求）。
- * 用法：node verify-uc-gender.js <输入> <输出> [并发]
+ * 仅复核无码名单中尚未判为女性的记录，以减少请求；不会重新检查 gender=f 的记录。
+ * 命令：node tools/verify-uc-gender.js <输入> <输出> [worker 数]；同步 curl 决定实际请求串行。
  */
 const fs = require('fs')
 const { execSync } = require('child_process')
@@ -24,6 +19,7 @@ const PROXY = process.env.WEB_PROXY || ''
 /**
  * 同步调用 curl 复核人物页；无标签/请求失败返回 null，供调用方保留旧值。
  * 有标签时，任一包含“男優”返回 m，否则返回 f；不做页面身份的额外校验。
+ *
  * @param {string} id JavDB 人物 ID。
  * @returns {string|null} m、f 或 null。
  */

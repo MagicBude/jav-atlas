@@ -9,18 +9,11 @@
  * 榜单先写同目录 .tmp 再 rename；这不构成 JSON 与所有头像之间的整体事务。
  * 运行：node tools/rank-relay.js。直接执行即产生网络请求和文件写入。
  *
- * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
- */
-
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * minnano 云端中转（GitHub Actions 内运行，机房直连无墙）：
- * 1. 抓日/周/月女优榜 → relay/rankings.json（原始行 rank/id/name/works）
- * 2. 抓榜上女优资料页头像 → relay/avatars/<mnid>.jpg（已存在则跳过）
- * 服务端（server.js）在 minnano 直连失败时改从 raw.githubusercontent.com 读这两样。
- * 无第三方依赖，Node 18+ 自带 fetch。
- * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
- * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ * 数据分发：榜单保留 rank/id/name/works 原始字段，头像按 minnano ID 命名。
+ * 当使用端无法直连 minnano 时，可通过公开仓库的 raw.githubusercontent.com 或 CDN 读取 JSON 与头像。
+ * 抓取与消费解耦，不要求客户端持有 token；当前仓库未实现浏览端。
+ * 执行环境可使用 GitHub 托管 runner；家庭网络 SNI 阻断与机房可访问只是网络记录，需实际验证。
+ * 运行依赖：Node 18+ 内置 fetch，无第三方依赖。
  */
 const fs = require('fs')
 const path = require('path')
@@ -35,6 +28,7 @@ const TIMEOUT = 20000
 
 /**
  * 去除标签并解码当前支持的少量 HTML 实体，不是通用 HTML 解析器。
+ *
  * @param {*} s 原始片段，空值作为空字符串。
  * @returns {string} 去除首尾空白后的展示文本。
  */
@@ -52,6 +46,7 @@ function mnStrip(s) {
 /**
  * 按 <tr> 分块，只处理含 rnkno 的片段，兼容 h2/h3 的姓名标题。
  * 排名、ID、姓名缺任一项便丢弃；作品数缺失为 0；去重与 Top100 截断由调用方完成。
+ *
  * @param {string} html 榜单页面 HTML。
  * @returns {Array<{rank: number, id: string, name: string, works: number}>} 保留页面顺序的有效记录。
  */
@@ -63,8 +58,7 @@ function parseRankRows(html) {
     const id = (chunk.match(/actress(\d+)\.html/) || [])[1]
     // 接受 h2 或 h3 标题；这里依赖精确的类名、引号和标签排列，改版时需更新解析样本。
     /*
-     * 上游原注释（保留设计意图、历史故障与样本记录）：
-     * minnano 2026-10 起把女优名从 <h2 class="ttl"> 改成 <h3 class="ttl">，故用 h[23] 兼容
+     * 2026-10 的页面兼容记录：人物名标题由 h2 变为 h3，因此用 h[23] 同时接受两种结构。
      */
     const name = mnStrip((chunk.match(/<h[23] class="ttl"><a[^>]*>([\s\S]*?)<\/a>/) || [])[1])
     const works = +((chunk.match(/<td[^>]*>\s*(\d{1,6})\s*<\/td>/) || [])[1] || 0)
@@ -75,6 +69,7 @@ function parseRankRows(html) {
 
 /**
  * 按 URL 请求 HTML 或图片，单次超时 20 秒，不执行额外重试。
+ *
  * @param {string} url 请求地址。
  * @param {boolean} [binary] 真时读取图片字节，否则读取文本。
  * @returns {Promise<string|Buffer>} 响应正文；不在此处校验 HTML 或图片内容。
@@ -96,6 +91,7 @@ async function get(url, binary) {
 /**
  * 只接受长度大于 2048 且前两个字节匹配 JPEG/PNG 的数据。
  * 这不是完整图片解码校验；即使解码器识别 WebP/GIF，此判据仍会拒绝它们。
+ *
  * @param {Buffer|null} b 待校验内容。
  * @returns {boolean} 是否通过当前轻量判据。
  */
@@ -105,6 +101,7 @@ const isImg = b =>
 /**
  * 通过共享递增索引分配任务，限制同时等待的异步操作数量。
  * 索引在 await 前领取，因此不会重复分配；同步阻塞回调仍会阻塞其他 worker。
+ *
  * @param {Array<*>} items 待处理列表。
  * @param {number} n worker 数，由调用方提供。
  * @param {function(*, number): *} fn 每项处理函数，可返回 Promise。
@@ -142,8 +139,7 @@ const pool = async (items, n, fn) => {
   for (const [key, q] of modes) {
     // 最多读取两页，达到 100 条提前停止；第二页是否足够取决于源站当前分页。
     /*
-     * 上游原注释（保留设计意图、历史故障与样本记录）：
-     * minnano 2026-10 起每页 50 条、分页参数 &page=N；抓前 2 页去重后凑满 Top100
+     * 2026-10 的分页样本为每页 50 条，第二页通过 page=N 请求；最多抓两页并按 ID 去重，目标为 Top100。
      */
     const seen = new Set()
     let rows = []

@@ -1,12 +1,7 @@
-# JavDB 演员任务：先采集无码出演名单，再累积演员资料与头像。默认 UC_PAGES=300、MOVIE_PAGES=40；full 分别为 600、80。
-# 定时表达式使用 UTC，注释中的北京时间为 UTC+8；触发不等于准点完成。
-# concurrency 只防止同名任务重叠，不协调其他工作流的 git push。
-# contents: write 用于提交产物；分支规则或仓库权限仍可能阻止 push。
-# 源站可达性、IP 限流和身份判定须以实际运行结果为准。
-# JavDB 演员数据每日更新：全量演员（男女统一）+ 无码演员名单。
-# Actions 机房直连 JavDB 国内线路（应用级签名，与账号无关），无需翻墙。
-# 抓取原理见 tools/ 里两个脚本的注释：JavDB 没有演员目录端点，只能从影片反推。
-# 补充：上述网络、数据规模或主应用部署说明为上游历史背景，当前仓库和运行环境尚未验证。
+# JavDB 演员采集：先由无码影片反推人物，再更新演员集合与补图。
+# 使用移动端 API 的应用级签名，无需用户账号；人物目录端点曾返回空，因此采用影片反推。
+# 源站网络记录包括机房可访问、代理 WAF 403 与 Cloudflare 拦截，当前可达性需实测。
+# schedule 使用 UTC，北京时间为 UTC+8；触发时间不保证实际开始或完成时间。
 name: actors-relay
 
 on:
@@ -18,11 +13,11 @@ on:
         description: '填 full = 翻更多无码影片页（默认 260，约 203 页即饱和）'
         required: false
         default: ''
-
-# 以下仅声明运行权限，不改变代码或文件的公开/私有属性。
+# 提交采集结果需要 contents: write；仓库权限或分支规则仍可能拒绝写入。
 permissions:
   contents: write
 
+# 只限制本工作流的并行运行，不协调其他工作流的 git push。
 concurrency:
   group: actors-relay
   cancel-in-progress: false
@@ -32,25 +27,22 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
-      # ⚠️ 两个脚本默认把产物写在「脚本同级的 relay/」，但 Actions 里脚本在 tools/ 下，
-      #    仓库根的 relay/ 在上一层 —— 不指定就会写 tools/relay/ 直接 ENOENT 挂掉整个 job。
-      # 补充：这是上游曾出现的路径故障；当前两个脚本已具备 tools → 根 relay 回退，显式设置仍固定输出位置。
+      # 显式固定仓库根 relay/；脚本位于 tools/，产物目录在其上一层。
+      # 曾无条件写脚本同级 tools/relay/ 导致 ENOENT；脚本现在已有目录回退，仍保留此配置避免歧义。
       RELAY_DIR: relay
-      # 无码名单翻页数（约 203 页饱和，给 300 留余量）；全量演员每维度翻页数
-      # 补充：约 203 页是上游当时样本的经验，不代表全站覆盖；当前配置 daily=300/full=600，演员维度为 40/80。
+      # 无码影片分页样本约 203 页后不再发现新人物，默认留 300 页余量，不表示全站覆盖。
+      # full 将无码上限扩为 600；演员采集为每维度 40 页，full 为 80 页。
       UC_PAGES: ${{ inputs.full == 'full' && '600' || '300' }}
       MOVIE_PAGES: ${{ inputs.full == 'full' && '80' || '40' }}
-    # checkout 获取当前仓库代码；setup-node 固定 Node 主版本；后续采集失败会阻止提交步骤。
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # 性别判据：网页版 https://javdb.com/actors/<id> 的 section-meta（含「男優」= 男优）。
-      # Actions 机房可直连 javdb.com；仓库里没有 actresses.json（名册），名册反查那一级自动跳过。
-      # 补充：网络可达性是上游环境记录，可能与后来的 403 记录不同；实际以运行日志为准。
-      # 姓名反查优先读 female_names.json，再回退 actresses.json；缺后者不等于自动跳过整个反查。
-      # 当前仓库未复制数据，两个姓名来源均可能缺失，不能把默认结果当作已核实的性别。
+      # 网页检查 https://javdb.com/actors/<id> 的全部 section-meta，含“男優”判男性。
+      # 网页可能直连成功，也曾在 Actions 中返回 403；失败按脚本的旧名单或默认值兜底。
+      # 名字反查优先 female_names.json，再回退 actresses.json，不能因后者缺失就认定整级跳过。
+      # 当前仓库不预置这两份数据，缺失时需要关注 genderSource，不能将默认性别当作确认结果。
       - name: 抓 JavDB 无码演员名单（翻 type=1 无码影片反推）
         run: node tools/uncensored-actresses-crawl.js
       - name: 抓 JavDB 全量演员 + 女优补图

@@ -6,18 +6,11 @@
  * 失败保留旧值；成功更新逐条 gender、genderSource，以及根级 female / male。
  * 8 个 async worker 只分配索引，execSync 阻塞使网络复核依次完成。
  * 网络可达性依赖当前环境，不保证家庭宽带、Actions 或代理一定可用。
- * 输出为直接覆盖，没有自动备份；本次注释不改变既有错误处理。
+ * 输出为直接覆盖，没有自动备份；输入或输出错误仍按现有方式传播。
  *
- * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
- */
-
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 本地复核 actors_full.json 里「性别不可信」的条目（网页版 section-meta，权威判据）。
- * 背景：GitHub Actions 里 javdb.com 被 Cloudflare 拦（403），名册又缺失 → 新增演员全被判男优。
- * 本地（家庭宽带）直连 javdb.com 200，可以逐个问。
- * 用法：node verify-gender-local.js <输入> <输出>
- * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
+ * 用途：修正姓名输入缺失、网页不可用等原因造成的默认性别。
+ * 网络记录包含 Actions 403 与家庭网络 200，但实际状态会随 Cloudflare 和网络变化。
+ * 命令：node tools/verify-gender-local.js <输入> <输出>；使用 section-meta 中的男性标记复核。
  */
 const fs = require('fs')
 const { execSync } = require('child_process')
@@ -28,12 +21,11 @@ const PROXY = process.env.WEB_PROXY || '' // 可按当前网络环境设置 WEB_
 /**
  * 同步调用 curl 复核人物页；无标签/请求失败返回 null，供调用方保留旧值。
  * 有标签时，任一包含“男優”返回 m，否则返回 f；不做页面身份的额外校验。
+ *
+ * WEB_PROXY 留空不显式传 -x；需要代理时可配置 http://127.0.0.1:1082，具体取决于实际网络。
+ *
  * @param {string} id JavDB 人物 ID。
  * @returns {string|null} m、f 或 null。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 本地一般直连即可；需要时 WEB_PROXY=http://127.0.0.1:1082
  */
 function webGender(id) {
   const cmd = `curl -s --max-time 25 ${PROXY ? '-x ' + PROXY + ' ' : ''}-A "${UA}" "https://javdb.com/actors/${id}"`
@@ -62,8 +54,7 @@ function webGender(id) {
   const list = d.list || []
   // 筛选所有来源标记不为网页复核的记录，不限于当前标为男性的记录。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * 只问「还没被网页版判过」的：男优（可能混女优）+ 来源不是 javdb-web-section-meta 的
+   * 筛选条件是来源标记不等于 javdb-web-section-meta，包含男女记录；并非只检查当前男性人物。
    */
   const targets = list.filter(a => a && a.id && a.genderSource !== 'javdb-web-section-meta')
   console.log('待复核 ' + targets.length + ' / 共 ' + list.length)

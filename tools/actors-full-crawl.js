@@ -13,23 +13,10 @@
  * 当前保留的限制：旧 Map 引用不是快照、补图缓存形状不一致、空发现仍可能写出结果。
  * 运行：node tools/actors-full-crawl.js。直接写文件，不保证所有产物一起成功。
  *
- * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
- */
-
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * JavDB 全量演员资料中转（GitHub Actions 内运行，机房直连国内线路无墙）：
- * 1. 从「最新入库」影片列表反推全部演员（JavDB 没有演员目录端点，v1/actors 返回空）
- * 2. 每个演员取 v1/actors/{id} 完整资料 + 头像
- * 3. 性别判据：JavDB 女优有三围（bust/waist/hips），男优这些字段全空 —— JavDB 自身的数据习惯
- * 4. 写 relay/actors_full.json（男女统一，含 gender）+ relay/avatars_jdb/<id>.jpg
- *
- * 服务端（server.js）用它给演员页提供「正确的 JavDB 头像与资料」：
- * 库里有演员用库内资源，库里没有的用这份数据兜底。
- * 无第三方依赖，Node 18+ 自带 fetch。
- * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
- * 补充说明：当前实现已使用姓名集合与可选网页复核；未命中女性姓名集合不能证明是男性，三围缺失也不能作为可靠性别判据。
- * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ * 设计依据：人物发现依赖影片详情中的 actors，因为 v1/actors 曾返回空集合，无法用作演员目录。
+ * 人物详情取自 v1/actors/{id}；资料含 gender，头像使用 JavDB ID 命名。
+ * 资料与头像作为浏览端本地资源缺失时的兜底，不要求浏览端直接请求源站。当前仓库未实现该消费端。
+ * 运行依赖：Node 18+ 内置 fetch，无第三方采集依赖；API 与网页可能受不同网络限制。
  */
 const fs = require('fs')
 const path = require('path')
@@ -37,9 +24,7 @@ const crypto = require('crypto')
 const { execSync } = require('child_process')
 
 /*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * ---- JavDB 移动端 API：国内线路 + 应用级签名（照抄 server.js 的 jdbSign） ----
- * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ * JavDB 移动端 API：候选线路共享应用级签名算法，不使用用户账号或登录 token。
  */
 const JDB_LINES = [
   'https://apidd.spthgb.com',
@@ -52,6 +37,7 @@ const JDB_P2 = 'lpw6vgqzsp'
 
 /**
  * 构造当前请求的应用签名。时间戳单位是秒；MD5 输入为时间戳字符串与固定常量拼接。
+ *
  * @returns {string} 格式为 时间戳.固定标记.MD5十六进制摘要。
  */
 function jdbSign() {
@@ -69,10 +55,9 @@ function jdbSign() {
 }
 
 /*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 产物目录：Actions 里脚本在 tools/ 下跑，仓库根的 relay/ 在上一层；本地自测则与脚本同级。
- * ⚠️ 之前默认写 path.join(__dirname,'relay') → Actions 里变成 tools/relay（不存在）→ ENOENT 整个 job 失败。
- * 补充说明：当前这两个演员脚本已根据 tools 目录名回退到仓库根 relay；RELAY_DIR 显式配置仍用于固定工作流输出位置，路径错误说明保留为历史故障背景。
+ * 路径约定：脚本位于 tools/ 时，仓库根 relay/ 在上一层；其他位置使用脚本同级 relay/。
+ * 曾因无条件采用 path.join(__dirname, 'relay')，在 Actions 中写入 tools/relay 而触发 ENOENT。
+ * 当前通过目录判断回退，工作流仍显式设置 RELAY_DIR 固定产物位置。
  */
 const RELAY_DIR =
   process.env.RELAY_DIR ||
@@ -89,11 +74,10 @@ let LINE_OK = ''
 
 /**
  * 读取上次成功的 API 线路作为优先尝试对象。文件缺失/读取失败时保留当前 LINE_OK。
+ *
+ * 成功线路缓存跨次复用，避免每轮从第一条线路重新探测；它不记录人物采集进度。
+ *
  * @returns {void} 通过修改模块变量传递结果；不向调用者抛出读取异常。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 线路成功记录（跨次续跑，避免每次重探）
  */
 function loadLine() {
   try {
@@ -103,6 +87,7 @@ function loadLine() {
 
 /**
  * 持久化最近成功线路。它是请求偏好缓存，不是整个采集任务的断点。
+ *
  * @returns {void} 写入失败被忽略，不中断 API 请求。
  */
 function saveLine() {
@@ -114,6 +99,7 @@ function saveLine() {
 /**
  * 依次尝试 API 线路，优先复用成功线路；每条线路均有独立超时。
  * HTTP 非成功或 success 严格等于数字 0 时尝试下一条；没有对同一线路额外重试。
+ *
  * @param {string} rel 相对于 /api/ 的路径及查询串，不是完整 URL。
  * @param {boolean} [binary] 真时读取 Buffer；默认读取 JSON。
  * @returns {Promise<object|Buffer>} 成功线路返回的 JSON 或二进制内容。
@@ -160,13 +146,12 @@ async function jdbGet(rel, binary) {
 
 /**
  * 按绝对图片地址读取原始字节；请求不带 API 签名，也不自动执行 XOR 解码。
+ *
+ * 图床使用绝对 URL，不拼接 /api/，也不附 API 签名；读取的原始字节随后交给 imgMaybeDecrypt。
+ *
  * @param {string} url 图片绝对 URL；调用方负责来源限制与落盘。
  * @returns {Promise<Buffer>} 原始响应字节。
  * @throws {Error} HTTP 错误、超时或读取失败。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 图片走绝对地址直连（不拼 /api/）：JavDB 图床返回的是加密字节流，需解密
  */
 async function imgGet(url) {
   const ac = new AbortController()
@@ -186,6 +171,7 @@ async function imgGet(url) {
 /**
  * 按文件头粗略区分普通图片与 JavDB XOR 包装。已识别文件头或过短输入原样返回。
  * 未知头部时，取第 0 字节为密钥，对其余字节逐一异或；不会验证解码结果。
+ *
  * @param {Buffer} buf 下载得到的字节。
  * @returns {Buffer} 原 Buffer 或长度少 1 的新 Buffer；输入不被修改。
  */
@@ -210,6 +196,7 @@ const IMG_HOST_OK = /(^|\.)(spfcas\.com|jdbstatic\.com|javdb\d*\.com)$/i
 /**
  * 只接受长度大于 2048 且前两个字节匹配 JPEG/PNG 的数据。
  * 这不是完整图片解码校验；即使解码器识别 WebP/GIF，此判据仍会拒绝它们。
+ *
  * @param {Buffer|null} b 待校验内容。
  * @returns {boolean} 是否通过当前轻量判据。
  */
@@ -219,6 +206,7 @@ const isImg = b =>
 /**
  * 通过共享递增索引分配任务，限制同时等待的异步操作数量。
  * 索引在 await 前领取，因此不会重复分配；同步阻塞回调仍会阻塞其他 worker。
+ *
  * @param {Array<*>} items 待处理列表。
  * @param {number} n worker 数，由调用方提供。
  * @param {function(*, number): *} fn 每项处理函数，可返回 Promise。
@@ -244,11 +232,10 @@ const pool = async (items, n, fn) => {
 
 /**
  * 读取已有演员产物供增量合并。只补新 ID，不刷新旧人物详情。
+ *
+ * 增量策略：读取既有人物并仅补新增 ID。这里复用最终 JSON，不代表每一步都具备中断恢复能力。
+ *
  * @returns {{list: Array<object>}} 读取/解析失败时返回空 list，不区分缺文件与损坏。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * ---- 断点续跑：已抓到的演员直接复用，只补新的 ----
  */
 function loadPrev() {
   try {
@@ -260,16 +247,12 @@ function loadPrev() {
 
 /**
  * 将正则覆盖的片假名按 Unicode 偏移转成平假名；汉字原样保留。
+ *
+ * 姓名比较需要处理全角、假名、汉字写法与别名差异，但此处只执行 onKana 的假名转换及分隔符清理。
+ * 例如“松本いちか”与“松本一香”不能靠 Unicode 偏移互转，应依赖候选的姓名/别名字段覆盖。
+ *
  * @param {*} s 输入文本；假值按空字符串处理。
  * @returns {string} 转换后的字符串；不提供汉字读音、翻译或同义词映射。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 名字归一化（照抄 server.js onNorm + onKana）：用于精确匹配搜索结果。
- * ⚠️ 必须同时做「片假名/汉字 → 平假名」归一：名册写「松本いちか」、JavDB 写「松本一香」，
- * 不归一会漏判性别（松本一香是女优）。
- * 补充说明：代码实际只转换正则覆盖的假名字符，不会把汉字转换为读音；历史示例中的汉字与假名差异不能由此函数自动解决。
- * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
  */
 const onKana = s =>
   String(s || '').replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60))
@@ -277,6 +260,7 @@ const onKana = s =>
 /**
  * 统一姓名比较键：小写并删除指定空格、分隔符；是否转换假名取决于本文件实现。
  * 这是字符串比较规则，不保证同名是同一人，也不能替代跨来源身份映射。
+ *
  * @param {*} s 原始姓名或别名。
  * @returns {string} 比较用键，不用于替换展示姓名。
  */
@@ -288,13 +272,12 @@ const onNorm = s =>
 /**
  * 在搜索结果的 name/name_zht/other_name 中寻找归一化后完全相等的姓名。
  * 仅按英文逗号拆分拼接后的别名，返回第一个命中对象，不做模糊匹配。
+ *
+ * 搜索会混入同名或相近姓名，必须检查 name、name_zht 和 other_name 的精确归一化匹配，不能直接取首项。
+ *
  * @param {Array<object>} actors API 返回的候选列表。
  * @param {string} name 要搜索的姓名。
  * @returns {object|null} 首个命中的原对象或 null。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 逐个搜名字 → 命中 actor（归一化精确匹配，防抓错人：搜索会带出同名/别名干扰项）
  */
 function pickActor(actors, name) {
   const n = onNorm(name)
@@ -307,13 +290,12 @@ function pickActor(actors, name) {
 
 /**
  * 下载 minnano 的普通图片字节，附带该站 Referer，不经过 JavDB 解码。
+ *
+ * minnano 原图是普通 HTTPS 图片，无需 JavDB 的 XOR 还原；与图床请求使用不同的 Referer。
+ *
  * @param {string} url 完整图片 URL。
  * @returns {Promise<Buffer>} 响应内容；格式校验由调用方完成。
  * @throws {Error} HTTP、网络或响应读取失败。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * minnano 原图直取（不是 JavDB 图床，不加密，就是普通 https 图片）
  */
 async function plainImgGet(url) {
   const ac = new AbortController()
@@ -337,17 +319,15 @@ async function plainImgGet(url) {
 /**
  * 为外部 actresses.json 中缺 icon 的人物搜索补充资料，并写出补图映射。
  * 按作品数排序后最多选 FIX_LIMIT 条；不直接修改外部名册。
+ *
+ * 补图动机：缺人物头像时，消费端可能用影片封面代替，导致人物列表难以辨认。
+ * 名册采样记录：24,959 人中 1,141 人（约 4.6%）缺少 icon。
+ * 另一批 400 人中，JavDB 仅约 13% 有头像，但 276 人保留 minnano 原图地址。
+ * 因此按 JavDB 头像 → 名册 mimg 原图 → 无可用图片的顺序提供来源，不覆盖已有 icon。
+ * 这些数量用于解释补图策略，不代表当前仓库的数据规模。
+ *
  * @param {Map<string, object>} byId 现有演员映射；当前函数未使用此参数。
  * @returns {Promise<void>} 缺少可用名册时提前返回；文件写入异常向外传播。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 名册里没头像的女优 → JavDB 补资料+头像。
- * 背景：名册 24959 位里 1141 位（4.6%）icon 为空，前端 acAvatar 拿不到 icon 就拿影片封面顶着，
- * 用户看到的就是「很多演员小头像没有，用的却是影片封面」。
- * 三级来源：JavDB 图 →（JavDB 没图时）名册 mimg 的 minnano 原图 → 都没有才真的没图。
- * 实测：400 位缺头像女优里 JavDB 只 13% 有图，但 276 位名册存着 minnano 原图地址 → 大部分能补上。
- * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
  */
 async function fixActressesWithoutIcon(byId) {
   const FIX_OUT = path.join(RELAY_DIR, 'actress_fix.json')
@@ -422,9 +402,8 @@ async function fixActressesWithoutIcon(byId) {
   })
   // 直接覆盖目标，不使用临时文件；这是既有写入策略，不能保证中途异常时保留旧文件。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * ⚠️ 不用 renameSync：沙箱/部分文件系统会拦「覆盖式 rename」，直接 writeFileSync 覆盖
-   * 补充说明：这解释了上游选择直接写文件的背景，不代表所有平台的 rename 都会删除失败或被禁止。当前仍保持直接覆盖写入。
+   * 采用直接覆盖写入以兼容曾限制覆盖式 rename 的执行环境；该限制不是所有文件系统的通用行为。
+   * 直接写不具备临时文件替换的保护，异常时可能留下不完整目标文件。
    */
   fs.writeFileSync(
     FIX_OUT,
@@ -445,20 +424,17 @@ async function fixActressesWithoutIcon(byId) {
 }
 
 /*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * ---- 性别判定 ----
- * ⚠️ 不能用「JavDB 有没有三围」来判：实测 JavDB 只给少数女优填三围（116 位里仅 7 位），
- * 880 个被判「男优」里有 623 个（71%）其实是女优（安倍亜沙美/AIKA/松本一香…）—— 判据失效。
- * 可靠做法：**名册（minnano 全量女优，2.5 万）反查** —— 名字（含别名，归一化）命中名册 = 女优，
- * 否则 = 男优。名册没有的（比如 JavDB 独有的男优）就是男优，逻辑闭合。
- * 补充说明：当前实现已使用姓名集合与可选网页复核；未命中女性姓名集合不能证明是男性，三围缺失也不能作为可靠性别判据。
- * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ * 性别策略：不能用三围是否存在判断男女。116 位女性的样本中仅 7 位有三围；
+ * 另有 880 条按缺少三围判为男性的记录，其中 623 条（约 71%）实际为女性，如安倍亜沙美、AIKA、松本一香。
+ * 因此优先反查女性姓名集合（名册规模样本约 2.5 万人），未命中时再尝试网页。
+ * 现有代码未命中仍先返回 m；这是覆盖不足时的默认值，不能视为性别事实。
  */
 let FEM_NAMES = null
 
 /**
  * 首次使用时建立归一化女性姓名 Set，后续调用复用同一进程内缓存。
  * 优先读 female_names.json；没有条目时回退外部 actresses.json。读取失败被忽略。
+ *
  * @returns {Set<string>} 可能为空；空集合不能证明候选人物都是男性。
  */
 function loadFemaleNames() {
@@ -466,11 +442,9 @@ function loadFemaleNames() {
   FEM_NAMES = new Set()
 
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * ⚠️ 优先读 relay/female_names.json（精简版名册，0.75MB，已进仓库）：
-   * GitHub Actions 仓库里没有 16MB 的 actresses.json，没有它名册反查会整个失效
-   * → 新抓的演员全被判成男优（2026-10-07 实测一次跑进去 21 个假男优）。
-   * 补充说明：当前初始化未复制任何数据；姓名反查优先尝试 female_names.json，缺少 actresses.json 不等于有姓名集合时也跳过反查。
+   * 优先使用 female_names.json 的精简名字集合，避免每次携带完整 actresses.json。
+   * 体积样本约 0.75 MB 对 16 MB；文件是否存在取决于本次部署，当前仓库没有预置这些数据。
+   * 2026-10-07 的一次运行曾因姓名输入缺失而新增 21 条误标男性记录，因此两种输入都缺失时尤其要核查。
    */
   let roster = []
   try {
@@ -499,14 +473,12 @@ function loadFemaleNames() {
 /**
  * 将 gender=f 的人物姓名及别名合并进已有名字集合，仅数量增加时落盘。
  * 集合使用原始字符串；写入失败被忽略。调用方还需确保工作流提交该产物。
+ *
+ * 女性姓名集合需要随新人物与新别名增长；将本次 gender=f 的姓名合并回文件，避免反查覆盖逐渐落后。
+ * 此步骤只扩充已判结果，不会重新验证性别，也不负责将文件提交到 Git。
+ *
  * @param {Array<object>} list 本轮合并后的人物集合。
  * @returns {void} 不重新验证已有性别，不删除旧名字。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 回写 relay/female_names.json：把本次判定为女优的名字（含别名）并进精简名册。
- * 名册每天会漂移（新出道的女优），不回写的话 Actions 侧的反查名单会越用越旧，
- * 新演员就又只能靠「不是女优就是男优」瞎猜。
  */
 function updateFemaleNames(list) {
   try {
@@ -539,8 +511,9 @@ function updateFemaleNames(list) {
 }
 
 /**
- * 通过姓名集合做第一阶段性别推断。命中为 f，未命中仍返回原版默认 m。
+ * 通过姓名集合做第一阶段性别推断。命中为 f，未命中仍返回默认 m。
  * 未命中只是名单没有覆盖，不能当作事实确认；调用方用 rosterHit 决定是否网页复核。
+ *
  * @param {object} a 含 name、name_zht、other_name 的人物记录。
  * @returns {{gender: string, rosterHit: boolean}} 当前推断及其是否来自名册命中。
  */
@@ -552,33 +525,22 @@ function genderOf(a) {
   }
   // 未命中仅说明名单覆盖不足；现有代码仍返回 m，调用方可继续网页复核。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * 第一版 256 个「男优」里 152 个（59%）其实是女优。
-   */
-  /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * 实测名册反查漏判率极高（欧美/无码厂演员大多不在 minnano 名册里），
-   */
-  /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * 名册没命中 → 「可能是男优」，但必须过网页版复核：
+   * 样本中 256 条默认男性记录有 152 条（约 59%）实际为女性，说明默认值需要网页复核。
+   *
+   * 姓名集合对欧美人物和部分无码厂商人物覆盖有限，未命中比例高。
+   *
+   * 名册未命中时保留待复核标记，后续使用网页判断；现有默认 m 不是已确认结果。
    */
   return { gender: 'm', rosterHit: false }
 }
 
 /*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * ---- 性别复核：JavDB 网页版演员页的 section-meta（权威判据） ----
- * https://javdb.com/actors/<id> 里 <span class="section-meta"> 的内容：
- *   男优页 → 「男優, 5415 部影片」     女优页 → 「81 部影片」（不带性别字样）
- * ⇒ 规则：所有 section-meta 里有「男優」= 男优，没有 = 女优。
- * ⚠️ 必须 matchAll：section-meta 有多个，第一个常是**别名标签**
- *   （鮫島页面的「鮫島健介」、黒田悠斗的「黒田将稔…」），只取第一个会把真男优判成女优。
- * ⚠️ GitHub Actions 拿不到：javdb.com 挂在 Cloudflare 后面，机房 IP 一律 403「Just a moment...」
- *   （2026-10-07 实测：Actions 里 curl code=403，本地/家庭宽带直连 200）。所以 Actions 侧
- *   性别主要靠 relay/female_names.json 的名册反查，网页版只作为本地补充手段。
- * 拿不到页面时返回 null（保留名册反查的结果，不硬改）。
- * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
+ * 网页规则：检查 https://javdb.com/actors/<id> 中所有 section-meta。
+ * “男優, 5415 部影片”包含明确男性标记；“81 部影片”只含作品数，当前规则将其判为女性。
+ * 必须 matchAll：首个 section-meta 可能只是别名，如鮫島的“鮫島健介”、黒田悠斗的“黒田将稔…”。
+ * 只检查首项会把这些男性人物误判为女性；完全没有标签时返回 null。
+ * 2026-10-07 的网络记录中，Actions curl 收到 403 / “Just a moment...”，家庭网络收到 200。
+ * 机房地址可能受 Cloudflare 限制，网页与 API 的可达性需分别验证；网页失败保留姓名反查结果。
  */
 const WEB_UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
@@ -591,6 +553,7 @@ let webFailStreak = 0
 /**
  * 同步调用 curl 读取人物页并检查全部 section-meta；任何一项含“男優”即 m。
  * 无标签返回 null；连续 15 次无有效标签后设置本轮熔断，后续不再发请求。
+ *
  * @param {string} id JavDB 人物 ID。
  * @returns {string|null} m、f 或无法判断时的 null。
  */
@@ -630,10 +593,8 @@ function webGenderOf(id) {
 
   // 阶段 1：影片列表给出影片 ID，影片详情才提供 actors；两级请求不能混为同一端点。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * ① 翻影片列表，收集演员 id → 名字
-   * JavDB 没有演员目录端点（v1/actors 返回空、网页版也不支持性别筛选），只能从影片反推。
-   * 三个维度一起翻（全部/有码/无码），覆盖面比单一 latest 大不少。
+   * 影片发现：三种维度共同收集演员 ID 与名字，扩大单独 latest 列表的覆盖；影片详情提供人物关联。
+   * 目录端点返回空与页面不提供性别筛选，是选择影片反推而非逐人搜索的原因。
    */
   console.log('① 翻影片列表反推演员…')
   const found = new Map()
@@ -688,8 +649,7 @@ function webGenderOf(id) {
         )
       // 连续两页无新增便结束该维度；这是提前停止启发式，不能证明已遍历完整目录。
       /*
-       * 上游原注释（保留设计意图、历史故障与样本记录）：
-       * 该维度连续两页没新增演员 → 翻完了，换下一个维度
+       * 连续两页无新增便停止该维度并继续下一维度。这是节省请求的启发式，不能证明已完整遍历。
        */
       stall = added === 0 ? stall + 1 : 0
       if (stall >= 2) break
@@ -699,16 +659,14 @@ function webGenderOf(id) {
 
   // 阶段 2：旧记录优先，只有尚未出现的 ID 才请求人物详情；历史资料不会刷新。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * ② 合并上次结果，只补没抓过的
+   * 将已有演员集合并入 Map，待抓列表仅包含新 ID，避免重复请求已收录人物。
    */
   const prev = loadPrev()
   const byId = new Map((prev.list || []).map(a => [a.id, a]))
   // 注意：Map 别名共享新增记录及对象修改，不能用于恢复独立的历史状态。
   const PREV_BY_ID = byId // 与 byId 指向同一个 Map，并非旧版快照；安全阀的这一限制保持原样。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * 安全阀用：还原上一版性别
+   * 安全阀需要历史性别供恢复，但 PREV_BY_ID 与 byId 当前为共享引用，不是真正快照。
    */
   const MALE_BEFORE = (prev.list || []).filter(a => a.gender === 'm').length
   const todo = [...found.keys()].filter(id => !byId.get(id))
@@ -726,8 +684,7 @@ function webGenderOf(id) {
     if (!ac.id || !ac.name) return
     // 命中名册使用 f；未命中先使用默认 m，并以 pending-web 标记等待复核。
     /*
-     * 上游原注释（保留设计意图、历史故障与样本记录）：
-     * 性别：名册命中 = 女优（可靠）；没命中 → 先标 pending，稍后统一过网页版复核
+     * 命中名册写入 f；未命中先使用默认 m，genderSource 标记 pending-web，随后尝试网页复核。
      */
     const g = genderOf(ac)
     byId.set(id, {
@@ -759,9 +716,7 @@ function webGenderOf(id) {
 
   // 阶段 3：仅复核本次新增且名册未命中的人物，关闭复核会保留 pending-web。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * ②b 性别复核：本次新抓且名册没命中的，逐个问网页版 section-meta。
-   * 旧记录（已在文件里）性别已定，不重复问，避免每天全量重跑 1000 次请求。
+   * 网页复核只处理本次新增且未命中姓名集合的记录，不重复检查旧人物；避免每天产生约千次重复请求。
    */
   const pending = todo.map(id => byId.get(id)).filter(r => r && r.genderSource === 'pending-web')
   if (WEB_ON && pending.length) {
@@ -797,11 +752,11 @@ function webGenderOf(id) {
     list
   }
 
-  // 阶段 5：有条件触发原有安全阀；PREV_BY_ID 为共享引用，不能视为可靠历史快照。
+  // 阶段 5：有条件触发安全阀；PREV_BY_ID 为共享引用，不能视为可靠历史快照。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * ⚠️ 安全阀：名册（female_names.json）读不到 + 网页版也取不到 → 本次新增的性别全是瞎猜，
-   * 会把一批女优写进「男优」tab。这种情况只更新资料、不动名单：还原成上一版的性别。
+   * 保护意图：姓名输入为空且网页熔断时，避免新增人物被默认 m 批量写入男性列表。
+   * 条件为男性人数增量超过 5；尝试恢复旧记录性别，无旧记录则采用 unverified-default-f。
+   * 共享 Map 引用会影响恢复效果，不能认为此分支已经可靠保留了独立的旧版本。
    */
   const FEM_COUNT = loadFemaleNames().size
   if (WEB_DEAD && !FEM_COUNT && out.male - MALE_BEFORE > 5) {
@@ -821,7 +776,7 @@ function webGenderOf(id) {
     out.female = list.filter(a => a.gender === 'f').length
     out.male = list.filter(a => a.gender === 'm').length
   }
-  // 直接覆盖目标；发现集合为空也没有统一的失败拦截，保持原实现。
+  // 直接覆盖目标；发现集合为空也没有统一的失败拦截，保持当前实现。
   fs.writeFileSync(OUT_JSON, JSON.stringify(out))
   updateFemaleNames(list)
   console.log(
@@ -836,17 +791,13 @@ function webGenderOf(id) {
 
   // 阶段 6：读取外部名册做补图；名册缺失时跳过，JSON 主产物此前已经写出。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * ⑤ 名册里没头像的女优 → 用 JavDB 资料+头像补（名册 4.6% 缺头像，前端原来拿影片封面顶着）
-   * 输出 relay/actress_fix.json：{ 名字: {id, avatar_url, videos_count, ...} }。
-   * 只补「名册有这人、但 icon 为空」的那批 —— 有头像的不动，避免覆盖名册更好的图。
-   * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+   * 补图限定为名册中缺 icon 的人物，不替换已有头像；缺图率样本为 4.6%。
+   * actress_fix.json 实际结构为 { fetchedAt, count, map: { 名字: { id, avatar_url, videos_count, ... } } }。
    */
   await fixActressesWithoutIcon(byId)
 
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * ④ 头像：男优全量（JavDB 图）+ 女优补图（JavDB 图，没有则用名册 minnano 原图）
+   * 头像集合同时包含人物资料中的 JavDB 图片与缺图名册的补充来源；JavDB 无图时可用 minnano 原图。
    */
   let avOk = 0,
     avSkip = 0,

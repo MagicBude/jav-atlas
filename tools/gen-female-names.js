@@ -7,16 +7,9 @@
  * 函数 add 会限制原字符串长度再 trim；没有将大小写、假名或同义名字合并。
  * 运行：node tools/gen-female-names.js。不会自动创建输出目录；路径适配留待后续功能修改。
  *
- * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
- */
-
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 生成 relay/female_names.json：女优名字集合（归一化前的原始名）。
- * 用途：GitHub Actions 里没有 16MB 的 actresses.json（名册），名册反查那一级会整个失效，
- *       导致新抓的演员全被判成男优。这份精简名单（只要名字）让 Actions 也能做名册反查。
- * 来源：① minnano 名册 actresses.json  ② actors_full.json 里已判定为女优的（含 JavDB 独有欧美/无码演员）
- *       ③ uncensored_actresses.json 里 gender==='f' 的
+ * 名字集合用于让采集环境在没有完整名册时仍可做反查，保存归一化前的原始名字。
+ * 来源包括名册姓名与别名、actors_full.json 中 gender=f 的记录，以及无码名单中 gender=f 的记录。
+ * 完整名册体积样本约 16 MB；缺失全部姓名输入时默认性别可能失真，不能因生成了 JSON 就认为输入完整。
  */
 const fs = require('fs'),
   path = require('path')
@@ -25,6 +18,7 @@ const set = new Set()
 
 /**
  * 收集原始姓名：先校验真值及长度小于 60，再 trim 后加入 Set。
+ *
  * @param {*} n 原始名字；当前实现允许 trim 后的空串先进入 Set。
  * @returns {void} 最终输出前还会过滤空串。
  */
@@ -46,6 +40,7 @@ for (const a of roster) {
 /**
  * 从脚本指定 relay 目录读取人物 list，仅合并 gender=f 的姓名及别名。
  * 缺失文件、结构访问或解析错误均被忽略，可能使最终姓名集合不完整。
+ *
  * @param {string} f 相对于 RELAY 的 JSON 文件名。
  * @returns {void} 通过外层 Set 累积结果。
  */

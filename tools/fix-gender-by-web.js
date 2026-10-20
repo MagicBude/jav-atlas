@@ -8,15 +8,9 @@
  * 外层虽然创建 8 个 async worker，内部 execSync 仍阻塞执行，不是真正并行请求。
  * 输出路径可以与输入相同；写入为直接覆盖，运行前应了解该副作用。
  *
- * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
- */
-
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 用 JavDB 网页版演员页的 section-meta 判定性别（权威判据）。
- * 规则：页面 section-meta 里有「男優」= 男优；没有 = 女优
- * （女优页面的 section-meta 只有「NN 部影片」，不带性别字样）。
- * 修正 actors_full.json 里被名册反查误判成男优的女优。
+ * 用途：纠正演员集合中因姓名反查遗漏而默认标为男性的女性记录。
+ * 依据 section-meta 的“男優”标记区分男女；女性页面通常只有“NN 部影片”。
+ * 当前工具把非空但无标签的页面也当作女性，因此它与返回 null 的复核工具并不等价。
  */
 const fs = require('fs')
 const { execSync } = require('child_process')
@@ -33,18 +27,16 @@ const CLEAN = { ...process.env }
   'ALL_PROXY',
   'all_proxy'
 ].forEach(k => delete CLEAN[k])
-const PROXY = process.env.GENDER_PROXY || 'http://127.0.0.1:1082' // 上游使用的代理默认值；实际可达性需要运行验证。
+const PROXY = process.env.GENDER_PROXY || 'http://127.0.0.1:1082' // 代理默认值；实际可达性需要运行验证。
 
 /**
  * 通过系统 curl 和指定代理同步获取人物页。清除常见代理环境变量后使用显式 -x。
  * curl 未使用 -f，HTTP 错误页也可能成为非空正文；调用方必须理解该失败边界。
+ *
+ * 代理用于访问网页，默认地址仅表示配置选择；能否访问仍取决于当前网络。
+ *
  * @param {string} id JavDB 人物 ID，直接用于构造 URL。
  * @returns {string} 页面正文；命令失败时返回空字符串。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 网页版要出海才拿得到
- * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
  */
 function fetchHtml(id) {
   try {
@@ -66,9 +58,7 @@ function fetchHtml(id) {
   // 8 个逻辑 worker；同步 curl 会阻塞事件循环，网络请求实际串行。
   // 阶段 2：slots 保留目标顺序；空正文算失败，非空无标签正文仍被现有规则归为女性。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * 并发 8 路（串行 256 次要 10+ 分钟）
-   * 补充说明：该复核工具调用 execSync，实际网络请求仍阻塞串行执行；8 路仅为逻辑 worker。
+   * 8 个逻辑 worker 共享索引，但 execSync 同步阻塞，因此 curl 实际串行；256 次请求可能耗时超过 10 分钟。
    */
   const realMale = [],
     realFemale = [],

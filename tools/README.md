@@ -1,6 +1,6 @@
 # 工具阅读与运行索引
 
-所有文件名和行为保留上游版本。本轮只整理格式、重写与补充中文注释。建议先读每个文件顶部 @file，再沿“阶段”注释阅读主流程，最后阅读函数 JSDoc。格式与注释约定见 ../docs/code-style.md。
+建议先读每个文件顶部 @file，了解输入输出及运行约束，再沿阶段注释阅读主流程，最后阅读函数 JSDoc。文件名、配置和运行行为保持稳定；格式与注释约定见 [代码规范](../docs/code-style.md)。
 
 ## 建议阅读顺序
 
@@ -15,9 +15,9 @@
 
 ## 需要已有输入的工具
 
-roster-avatars 与 profiles-relay 需要仓库根 relay/roster.json，本次没有生成或复制该文件。
+roster-avatars 与 profiles-relay 需要仓库根 relay/roster.json，当前目录没有预置该文件。
 
-gen-female-names 使用 tools/actresses.json 和 tools/relay/ 下的演员文件，输出也在 tools/relay/；这些路径保留原样。male-roster-relay 默认同样输出到 tools/relay/，可用 RELAY_DIR 覆盖。
+gen-female-names 使用 tools/actresses.json 和 tools/relay/ 下的演员文件，输出也在 tools/relay/；这些路径需要与调用环境核对。male-roster-relay 默认同样输出到 tools/relay/，可用 RELAY_DIR 覆盖。
 
 actors-full-crawl 和 uncensored-actresses-crawl 默认使用仓库根 relay/，也支持 RELAY_DIR；名册和旧结果是可选输入，但缺失会影响性别推断与结果质量。
 
@@ -29,7 +29,7 @@ node tools/verify-gender-local.js input.json output.json
 node tools/verify-uc-gender.js input.json output.json 4
 ~~~
 
-输入路径为示例，不能直接执行而期待存在文件。三个工具都依赖系统 curl，使用前阅读各自代理参数和覆盖行为。fix-gender-by-web 不把非空无标签页面当作失败，另外两个工具会返回 null；不能视为等价工具。
+输入路径是示例，不能直接执行而期待存在文件。三个工具都依赖系统 curl，使用前阅读各自代理参数和覆盖行为。fix-gender-by-web 不把非空无标签页面当作失败，另外两个工具会返回 null；不能视为等价工具。
 
 ## 当前状态
 

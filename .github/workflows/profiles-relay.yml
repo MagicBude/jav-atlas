@@ -1,12 +1,8 @@
-# minnano 资料回填任务：依赖已有 relay/roster.json，只填空值。手动 scope 默认 full；定时运行未传 scope。
-# 定时表达式使用 UTC，注释中的北京时间为 UTC+8；触发不等于准点完成。
-# concurrency 只防止同名任务重叠，不协调其他工作流的 git push。
-# contents: write 用于提交产物；分支规则或仓库权限仍可能阻止 push。
-# 源站可达性、IP 限流和身份判定须以实际运行结果为准。
-# minnano 全量资料页回填：Actions 机房直连 minnano（家宽 SNI 阻断、数据中心代理被 WAF 403，
-# 只有 Actions 的 IP 能抓）。补全 愛称 / 公式サイト / 现用名 mcanon / 別名 等主仓旧解析器漏掉的字段，
-# 写回 relay/roster.json，NAS 容器每日 04:00 自动合并收货。
-# 补充：上述网络、数据规模或主应用部署说明为上游历史背景，当前仓库和运行环境尚未验证。
+# minnano 资料回填：读取已有名册，只补 nick、official、mcanon、alias 等缺失字段。
+# nick/official 的遗漏会造成资料不全，改名人物缺 mcanon 会影响现用名检索。
+# 资料用于定时同步消费；NAS 每日 04:00 合并是部署配置样例，当前仓库没有实现该消费流程。
+# 源站网络记录包括机房可访问、代理 WAF 403 与 Cloudflare 拦截，当前可达性需实测。
+# schedule 使用 UTC，北京时间为 UTC+8；触发时间不保证实际开始或完成时间。
 name: profiles-relay
 
 on:
@@ -18,11 +14,11 @@ on:
         default: 'full'
   schedule:
     - cron: '50 22 * * *' # UTC 22:50 = 北京时间 06:50，排在 rank-relay（21:30）之后
-
-# 以下仅声明运行权限，不改变代码或文件的公开/私有属性。
+# 提交采集结果需要 contents: write；仓库权限或分支规则仍可能拒绝写入。
 permissions:
   contents: write
 
+# 只限制本工作流的并行运行，不协调其他工作流的 git push。
 concurrency:
   group: profiles-relay
   cancel-in-progress: false
@@ -31,12 +27,13 @@ jobs:
   profiles:
     runs-on: ubuntu-latest
     timeout-minutes: 300
-    # checkout 获取当前仓库代码；setup-node 固定 Node 主版本；后续采集失败会阻止提交步骤。
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      # 手动 scope 默认 full（样本约 2.5 万页、1～2 小时），定时 scope 留空采用增量筛选。
+      # 增量是缺 nick 或 official；ONLY/full 也仍受脚本内部 TTL 过滤。
       - name: 抓取 minnano 资料页并回填名册
         run: node tools/profiles-relay.js ${{ github.event.inputs.scope || '' }}
       - name: 提交 relay 数据

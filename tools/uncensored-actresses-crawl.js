@@ -13,22 +13,10 @@
  * 失败边界：分页失败只结束翻页；安全阀有条件保留旧文件，不能保证所有空结果均受保护。
  * 运行：node tools/uncensored-actresses-crawl.js。不是全库出演经历查询。
  *
- * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
- */
-
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * JavDB「无码女优」名单（GitHub Actions 内运行，机房直连国内线路无墙）：
- * 思路：**不逐个查名字，而是翻 JavDB 的无码影片（type=1）反推演员** ——
- * 出现在无码影片里的演员，就是 JavDB 认定的无码演员。比对 2.5 万女优逐个搜名字
- * 便宜几个数量级（12 页 360 部影片 → 203 位女优）。
- * 性别再用「名册反查」判定（照抄 actors-full-crawl.js 的 genderOf）。
- * 产物 relay/uncensored_actresses.json：{ fetchedAt, count, list:[{id,name,videos_count,uc_codes}] }
- *
- * 判据说明：无码只体现在「影片 type=1 + 番号 n 前缀」，JavDB 没有演员维度的无码字段，
- * 所以「出现在无码影片里」就是最贴近 JavDB 口径的判据。
- * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
- * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ * 发现策略：翻 type=1 的影片而非逐个查询约 2.5 万名人物；12 页、360 部影片曾发现 203 位女性人物。
+ * 该样本解释影片反推的请求成本优势，不代表当前覆盖率。
+ * 演员没有独立的“无码”布尔字段，分类来自出演影片；影片记录可能带 n 前缀编号，本代码以 type=1 查询结果为准。
+ * 名单保留 id、name、videos_count、uc_codes 等字段，不表示人物只出演这类影片。
  */
 const fs = require('fs')
 const path = require('path')
@@ -36,9 +24,7 @@ const crypto = require('crypto')
 const { execSync } = require('child_process')
 
 /*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * ---- JavDB 移动端 API：国内线路 + 应用级签名（照抄 server.js 的 jdbSign） ----
- * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+ * JavDB 移动 API 使用应用级签名和多条候选线路；同一套签名规则也用于其他 JavDB 采集工具。
  */
 const JDB_LINES = [
   'https://apidd.spthgb.com',
@@ -51,6 +37,7 @@ const JDB_P2 = 'lpw6vgqzsp'
 
 /**
  * 构造当前请求的应用签名。时间戳单位是秒；MD5 输入为时间戳字符串与固定常量拼接。
+ *
  * @returns {string} 格式为 时间戳.固定标记.MD5十六进制摘要。
  */
 function jdbSign() {
@@ -81,6 +68,7 @@ let LINE_OK = ''
 /**
  * 依次尝试 API 线路，优先复用成功线路；每条线路均有独立超时。
  * HTTP 非成功或 success 严格等于数字 0 时尝试下一条；没有对同一线路额外重试。
+ *
  * @param {string} rel 相对于 /api/ 的路径及查询串，不是完整 URL。
  * @returns {Promise<object>} 成功线路返回的 JSON。
  * @throws {Error} 所有候选线路均失败时抛出最后一次错误。
@@ -121,6 +109,7 @@ async function jdbGet(rel) {
 /**
  * 通过共享递增索引分配任务，限制同时等待的异步操作数量。
  * 索引在 await 前领取，因此不会重复分配；同步阻塞回调仍会阻塞其他 worker。
+ *
  * @param {Array<*>} items 待处理列表。
  * @param {number} n worker 数，由调用方提供。
  * @param {function(*, number): *} fn 每项处理函数，可返回 Promise。
@@ -146,14 +135,11 @@ const pool = async (items, n, fn) => {
 
 /**
  * 将正则覆盖的片假名按 Unicode 偏移转成平假名；汉字原样保留。
+ *
+ * 姓名归一化只转换假名并清理分隔符，不会将汉字变成平假名读音；别名需由数据本身提供。
+ *
  * @param {*} s 输入文本；假值按空字符串处理。
  * @returns {string} 转换后的字符串；不提供汉字读音、翻译或同义词映射。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 名字归一化（含片假名/汉字→平假名，照抄 server.js 的 onKana + onNorm）
- * 补充说明：代码实际只转换正则覆盖的假名字符，不会把汉字转换为读音；历史示例中的汉字与假名差异不能由此函数自动解决。
- * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
  */
 const onKana = s =>
   String(s || '').replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60))
@@ -161,6 +147,7 @@ const onKana = s =>
 /**
  * 统一姓名比较键：小写并删除指定空格、分隔符；是否转换假名取决于本文件实现。
  * 这是字符串比较规则，不保证同名是同一人，也不能替代跨来源身份映射。
+ *
  * @param {*} s 原始姓名或别名。
  * @returns {string} 比较用键，不用于替换展示姓名。
  */
@@ -170,14 +157,14 @@ const onNorm = s =>
     .replace(/[\s　・·,，、/]+/g, '')
 
 /*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 名册（minnano 全量女优）→ 名字集合。命中 = 女优
+ * 将女性名册中的姓名及别名归一化后放入 Set，命中可作为女性来源；集合未命中不说明人物必为男性。
  */
 let FEM_NAMES = null
 
 /**
  * 首次使用时建立归一化女性姓名 Set，后续调用复用同一进程内缓存。
  * 优先读 female_names.json；没有条目时回退外部 actresses.json。读取失败被忽略。
+ *
  * @returns {Set<string>} 可能为空；空集合不能证明候选人物都是男性。
  */
 function loadFemaleNames() {
@@ -185,10 +172,8 @@ function loadFemaleNames() {
   FEM_NAMES = new Set()
 
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * ⚠️ 优先读 relay/female_names.json（精简版名册 0.75MB，已进仓库）：Actions 里没有 16MB 的
-   * actresses.json，没有它名册反查会整个失效 → 无码演员会被全判成男优。
-   * 补充说明：当前初始化未复制任何数据；姓名反查优先尝试 female_names.json，缺少 actresses.json 不等于有姓名集合时也跳过反查。
+   * 优先加载精简 female_names.json（体积样本约 0.75 MB），没有有效条目再尝试 actresses.json（约 16 MB）。
+   * 两份文件均未随初始化预置；均缺失时不能依赖名册反查，需保留复核与旧结果兜底。
    */
   let roster = []
   try {
@@ -215,11 +200,9 @@ function loadFemaleNames() {
 }
 
 /*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * ---- 性别复核：JavDB 网页版演员页的 section-meta（权威判据，照抄 actors-full-crawl.js） ----
- * 有多个 section-meta，第一个常是别名标签 → 必须 matchAll；含「男優」= 男优，否则女优。
- * 网页版要出海：本地跑需 WEB_PROXY（默认 127.0.0.1:1082），GitHub Actions 机房直连。
- * 补充说明：以上为上游特定环境的网络经验，不保证当前网络或 GitHub runner 仍具有相同可达性。
+ * 网页需检查全部 section-meta：首项可能只有别名，任一含“男優”才判为男性。
+ * 无有效标签返回 null；可设置 WEB_PROXY，或由 WEB_GENDER_LOCAL 提供 127.0.0.1:1082 默认代理。
+ * 本地与 Actions 的网页可达性可能不同，必须实际验证，不能假定某处一定直连可用。
  */
 const WEB_UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
@@ -232,6 +215,7 @@ let WEB_DEAD = false,
 /**
  * 同步调用 curl 读取人物页并检查全部 section-meta；任何一项含“男優”即 m。
  * 无标签返回 null；连续 15 次无有效标签后设置本轮熔断，后续不再发请求。
+ *
  * @param {string} id JavDB 人物 ID。
  * @returns {string|null} m、f 或无法判断时的 null。
  */
@@ -267,11 +251,10 @@ function webGenderOf(id) {
 
 /**
  * 为上一版名单建立 id: 和 n: 前缀的复用索引，并按记录统计女性人数。
+ *
+ * 旧名单按人物 ID 与归一化姓名建立复用键；新一轮无法判断时保留此前已有性别，减少判定漂移。
+ *
  * @returns {{map: Map<string, string>, female: number}} 读取/解析失败时为空映射和 0。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 上一版名单里的性别（按 id / 名字复用）：判定不出新结果时兜底，避免把已定好的性别改坏
  */
 function loadPrevGender() {
   const m = new Map()
@@ -292,11 +275,10 @@ function loadPrevGender() {
 /**
  * 读取全量演员产物，供相同 JavDB ID 的记录直接复用性别。
  * 不检查 genderSource 是否可靠；读取失败返回空 Map。
+ *
+ * actors_full.json 中相同 JavDB ID 的非空 gender 直接复用，减少请求，但不再检查其来源可靠性。
+ *
  * @returns {Map<string, string>} 人物 ID 到非空 gender 的映射。
- */
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 已判定过性别的全量演员表（actors_full.json）：同一 id 直接复用，省一次请求
  */
 function loadActorsFullGender() {
   const m = new Map()
@@ -346,8 +328,7 @@ function loadActorsFullGender() {
         if (code) found.get(a.id).codes.add(code)
         if (!cur && a.name) {
           /*
-           * 上游原注释（保留设计意图、历史故障与样本记录）：
-           * 名字已在 cur 里
+           * 人物名字已在新增 Map 记录中保存，此处无需再次赋值。
            */
         }
       }
@@ -386,21 +367,14 @@ function loadActorsFullGender() {
     } catch (_) {}
 
     /*
-     * 上游原注释（保留设计意图、历史故障与样本记录）：
-     * 性别判定：**男女都收进名单**，用 gender 字段标出来。
-     * 为什么不按名册反查筛女优：名册每天自动同步会漂移（本地 24959 → 线上 25431），
-     * 拿旧名册筛会把新名册里的无码演员漏掉；而且男优出现在无码影片里也是常态（混合厂片）。
-     * 前端按 gender 取女优即可，也不依赖名册。
-     * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
+     * 男女都保留，由消费端按 gender 筛选，避免在采集阶段用不完整女性名册直接丢弃人物。
+     * 名册规模曾从本地 24,959 变为 25,431；旧名册会漏掉新人物，而且混合厂商影片中也有男性出演。
      */
     const keys = [base.name].concat(String(alias).split(','))
     const isFemale = keys.some(k => k && fem.has(onNorm(k)))
 
     /*
-     * 上游原注释（保留设计意图、历史故障与样本记录）：
-     * 三级性别：① actors_full.json 已判定的（同 id 直接复用）
-     *            ② 名册反查命中 = 女优
-     *            ③ 都没有 → 待复核（'?'），稍后问网页版 section-meta
+     * 性别顺序：相同 ID 的 actors_full 结果 → 女性名册命中 → 问号待网页复核；记录 genderSource 便于区分依据。
      */
     let g = AF.get(id) || null,
       gs = g ? 'actors_full' : ''
@@ -427,10 +401,9 @@ function loadActorsFullGender() {
     })
   })
 
-  // 阶段 3：网页复核失败先尝试旧名单，仍无法确定时沿用原版默认 m。
+  // 阶段 3：网页复核失败先尝试旧名单，仍无法确定时沿用默认 m。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * ②b 待复核的问网页版 section-meta（名册/actors_full 都没判出来的那批）
+   * 只有名单与姓名集合都不能判断的记录才请求网页，避免每次重复复核全部人物。
    */
   const pending = out.list.filter(r => r.gender === '?')
   if (WEB_ON && pending.length) {
@@ -459,12 +432,9 @@ function loadActorsFullGender() {
 
   // 阶段 4：仅当网页熔断且女性数量大幅下降时保留旧文件；不是通用空结果保护。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * ⚠️ 安全阀：网页版不可用 + 判定出的女优比上一版少太多 → 保留旧名单不覆盖。
-   * Actions 里没有 actresses.json（名册反查失效），万一 javdb.com 也取不到，
-   * 会把两千多个无码演员全判成男优 → 前端「无码女优」tab 直接空掉。宁可不更新。
-   * 补充说明：主仓、前端、NAS 和历史数据规模描述的是上游使用背景；本仓库未包含对应主应用或原数据，不能据此认定这些功能已接入。
-   * 补充说明：当前初始化未复制任何数据；姓名反查优先尝试 female_names.json，缺少 actresses.json 不等于有姓名集合时也跳过反查。
+   * 保护意图：网页熔断且本次女性数不足旧名单 60% 时保留旧文件，避免消费端女性分类突然变空。
+   * 缺少姓名来源又无法访问网页时，曾有两千多条人物被默认男性的风险，因此不能盲目覆盖。
+   * 这一保护仅针对指定条件，不涵盖所有分页失败或空发现结果。
    */
   const prevFemale = PREV.female
   if (WEB_DEAD && prevFemale > 0 && isFem < prevFemale * 0.6) {
@@ -476,9 +446,8 @@ function loadActorsFullGender() {
 
   // 直接覆盖目标，未采用临时文件替换；不对所有平台的 rename 行为作推断。
   /*
-   * 上游原注释（保留设计意图、历史故障与样本记录）：
-   * 直接覆盖写：tmp+rename 需要删除旧文件，会被沙箱文件策略拒绝
-   * 补充说明：这解释了上游选择直接写文件的背景，不代表所有平台的 rename 都会删除失败或被禁止。当前仍保持直接覆盖写入。
+   * 写文件使用直接覆盖以兼容曾限制覆盖式 rename 的环境；并非所有平台都会拒绝 rename。
+   * 直接写中断可能损坏目标，与临时文件替换具有不同失败边界。
    */
   fs.writeFileSync(OUT_JSON, JSON.stringify(out))
   console.log(

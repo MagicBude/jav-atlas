@@ -9,16 +9,10 @@
  * 限制：失败记录不会持久化，后续运行仍可能从同一批缺图人物开始；不保证每日推进到所有人物。
  * 运行：node tools/roster-avatars.js 400。需要先有名册。
  *
- * 维护边界：本轮仅整理格式与注释，已知行为限制不在此处修复。
- */
-
-/*
- * 上游原注释（保留设计意图、历史故障与样本记录）：
- * 全量女优头像回填：读 roster.json（{mnid,name}[]）+ relay/rankings.json 榜上 id，
- * 凡缺 avatars/<mnid>.jpg 的，逐个抓 minnano 资料页 og:image 存盘。
- * 用法：node tools/roster-avatars.js [limit]   —— limit 为数字（每轮上限，默认 400）、
- *       full/0 表示不限量（一次性全量回填，约 2.4 万个，Actions 里 1~2 小时）。
- * 无第三方依赖，Node 18+ 自带 fetch。
+ * 数据来源：roster.json 的 mnid/name 与 rankings.json 的榜上 ID 合并，不回写名册。
+ * 从资料页 og:image 获取头像，仅为缺少有效体积文件的人物补图；full/0 表示不限任务数。
+ * 全量回填样本约 2.4 万张、1～2 小时，不能作为当前规模或耗时承诺。
+ * 使用 Node 18+ 内置 fetch，不增加第三方依赖。
  */
 const fs = require('fs')
 const path = require('path')
@@ -39,6 +33,7 @@ const limit = (() => {
 
 /**
  * 按 URL 请求 HTML 或图片，单次超时 20 秒，不执行额外重试。
+ *
  * @param {string} url 请求地址。
  * @param {boolean} [binary] 真时读取图片字节，否则读取文本。
  * @returns {Promise<string|Buffer>} 响应正文；不在此处校验 HTML 或图片内容。
@@ -60,6 +55,7 @@ async function get(url, binary) {
 /**
  * 只接受长度大于 2048 且前两个字节匹配 JPEG/PNG 的数据。
  * 这不是完整图片解码校验；即使解码器识别 WebP/GIF，此判据仍会拒绝它们。
+ *
  * @param {Buffer|null} b 待校验内容。
  * @returns {boolean} 是否通过当前轻量判据。
  */
@@ -69,6 +65,7 @@ const isImg = b =>
 /**
  * 通过共享递增索引分配任务，限制同时等待的异步操作数量。
  * 索引在 await 前领取，因此不会重复分配；同步阻塞回调仍会阻塞其他 worker。
+ *
  * @param {Array<*>} items 待处理列表。
  * @param {number} n worker 数，由调用方提供。
  * @param {function(*, number): *} fn 每项处理函数，可返回 Promise。
