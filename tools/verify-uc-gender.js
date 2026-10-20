@@ -5,12 +5,13 @@
  * WEB_PROXY 指定可选代理；curl 同步执行，worker 数不是实际网络并发数。
  * 复核规则同 verify-gender-local：无 section-meta 则保留旧值，有“男優”判 m，否则判 f。
  * 成功更新逐条 gender 与 genderSource；男女数量仅输出日志，不写根级汇总。
- * 输出直接覆盖指定文件，不创建父目录，不备份；可通过另一个输出路径保留原文件。
+ * 输出创建父目录并使用临时文件替换，不备份；可通过另一个输出路径保留原文件。
  *
  * 仅复核无码名单中尚未判为女性的记录，以减少请求；不会重新检查 gender=f 的记录。
  * 命令：node tools/verify-uc-gender.js <输入> <输出> [worker 数]；同步 curl 决定实际请求串行。
  */
 const fs = require('fs')
+const { writeJson } = require('./lib/runtime')
 const { execSync } = require('child_process')
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
@@ -94,5 +95,5 @@ function webGender(id) {
       ' · 男优 ' +
       list.filter(a => a.gender === 'm').length
   )
-  fs.writeFileSync(process.argv[3], JSON.stringify(d))
+  writeJson(process.argv[3], d)
 })()

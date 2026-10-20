@@ -6,13 +6,14 @@
  * 失败保留旧值；成功更新逐条 gender、genderSource，以及根级 female / male。
  * 8 个 async worker 只分配索引，execSync 阻塞使网络复核依次完成。
  * 网络可达性依赖当前环境，不保证家庭宽带、Actions 或代理一定可用。
- * 输出为直接覆盖，没有自动备份；输入或输出错误仍按现有方式传播。
+ * 输出使用临时文件替换，没有自动备份；输入或输出错误仍按现有方式传播。
  *
  * 用途：修正姓名输入缺失、网页不可用等原因造成的默认性别。
  * 网络记录包含 Actions 403 与家庭网络 200，但实际状态会随 Cloudflare 和网络变化。
  * 命令：node tools/verify-gender-local.js <输入> <输出>；使用 section-meta 中的男性标记复核。
  */
 const fs = require('fs')
+const { writeJson } = require('./lib/runtime')
 const { execSync } = require('child_process')
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
@@ -90,7 +91,7 @@ function webGender(id) {
   })
   d.female = list.filter(a => a.gender === 'f').length
   d.male = list.filter(a => a.gender === 'm').length
-  fs.writeFileSync(process.argv[3], JSON.stringify(d))
+  writeJson(process.argv[3], d)
   console.log(
     '复核成功 ' +
       ok +

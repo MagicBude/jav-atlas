@@ -4,14 +4,14 @@
  * @file 根据固定姓名种子采集 JavDB 男演员资料，不是全站男演员目录。
  * 流程：逐个搜索种子 → 归一化后精确匹配姓名/别名 → 请求人物详情 → 写 JSON → 并行补图。
  * 输入：代码内 SEED；环境变量 RELAY_DIR 可以覆盖产物目录。
- * 默认输出：仓库根 relay/roster_male.json 与 avatars_male/；RELAY_DIR 可覆盖。
+ * 默认输出：仓库根 relay/javdb-male-actors.json 与 avatars_male/；RELAY_DIR 可覆盖。
  * 所有采集器通过共享目录配置写入同一个 relay/，避免工作流提交目录与实际输出错位。
  * 请求：候选 API 线路逐个尝试；签名采用秒级时间戳和应用固定常量，不执行用户登录。
  * 限制：单个种子失败记入 missed；全体为空才抛错，部分缺失仍会覆盖上一版 JSON。
  * 运行：node tools/male-roster-relay.js。头像失败不回滚已写出的名单。
  *
  * 来源选择：minnano 不提供本脚本所需的男演员榜单或资料，因此通过 JavDB 搜索人物。
- * roster_male.json 保持与演员资料相近的字段，供浏览端男性列表首次获取后缓存。
+ * javdb-male-actors.json 保持与演员资料相近的字段，供浏览端男性列表首次获取后缓存。
  * 网络请求使用 Node 18+ 内置 fetch，无第三方依赖；网页和移动 API 的可达性可能不同。
  */
 const fs = require('fs')
@@ -302,9 +302,9 @@ function pickActor(actors, name) {
   out.missed = missed
   if (!out.list.length) throw new Error('男优解析为空（签名/线路/端点可能失效）')
 
-  writeJson(path.join(RELAY_DIR, 'roster_male.json'), out)
+  writeJson(path.join(RELAY_DIR, 'javdb-male-actors.json'), out)
   console.log(
-    'relay/roster_male.json 已生成：' +
+    'relay/javdb-male-actors.json 已生成：' +
       ok +
       ' 位（未命中 ' +
       missed.length +

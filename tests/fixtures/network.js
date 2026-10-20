@@ -45,6 +45,8 @@ global.fetch = async (url, options) => {
       if (process.env.FIXTURE_FAIL === 'actor-detail')
         throw new Error('offline: actor detail failure')
       const id = u.pathname.split('/').pop()
+      if (process.env.FIXTURE_REVERSE === '1' && id === 'actor1')
+        await new Promise(resolve => setTimeout(resolve, 25))
       data = {
         actor: { id, name: id === 'actor1' ? 'Test Actor' : 'Unknown Actor', videos_count: 42 }
       }

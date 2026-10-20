@@ -31,13 +31,14 @@ function readJson(file, fallback) {
  * 不保证多个文件的整体事务，也不允许并发进程向同一路径写入。
  * @param {string} file 目标 JSON 路径。
  * @param {*} value 要序列化的数据。
+ * @param {function} [replacer] 可选字段过滤器，遵循 JSON.stringify 规则。
  * @returns {void}
  * @throws {Error} 序列化、写入或重命名失败；不会降级为直接覆盖旧文件。
  */
-function writeJson(file, value) {
+function writeJson(file, value, replacer) {
   fs.mkdirSync(path.dirname(file), { recursive: true })
   const temp = file + '.tmp'
-  fs.writeFileSync(temp, JSON.stringify(value))
+  fs.writeFileSync(temp, serializeJson(value, replacer))
   fs.renameSync(temp, file)
 }
 
@@ -60,4 +61,24 @@ function envInt(name, fallback, min = 1, max = 100000) {
   return value
 }
 
-module.exports = { relayDir, readJson, writeJson, envInt }
+/**
+ * 序列化为两空格缩进的 UTF-8 JSON 文本，保留字段与数组顺序，并以换行结尾。
+ * 集合排序由各采集器按业务规则完成，这里不擅自重排榜单或关系样本。
+ * @param {*} value JSON 数据。
+ * @param {function} [replacer] 可选字段过滤器。
+ * @returns {string} 可直接写入的文本。
+ */
+function serializeJson(value, replacer) {
+  const text = JSON.stringify(value, replacer, 2)
+  if (text === undefined) throw new Error('顶层数据无法序列化为 JSON')
+  return text + '\n'
+}
+
+/** 用 Unicode 字符串顺序比较来源 ID，给相同业务排序值提供稳定的最后排序键。 */
+function compareIds(a, b) {
+  const left = String(a.id),
+    right = String(b.id)
+  return left < right ? -1 : left > right ? 1 : 0
+}
+
+module.exports = { relayDir, readJson, writeJson, envInt, serializeJson, compareIds }

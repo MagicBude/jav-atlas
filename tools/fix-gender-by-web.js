@@ -6,13 +6,14 @@
  * 重要差异：本工具仅将空响应视作失败，非空拦截页若没有 section-meta 仍会被当作女性。
  * 会刷新根级 female / male / genderSource，但不会逐条更新 genderSource。
  * 外层虽然创建 8 个 async worker，内部 execSync 仍阻塞执行，不是真正并行请求。
- * 输出路径可以与输入相同；写入为直接覆盖，运行前应了解该副作用。
+ * 输出路径可以与输入相同；写入为临时文件替换，运行前应了解该副作用。
  *
  * 用途：纠正演员集合中因姓名反查遗漏而默认标为男性的女性记录。
  * 依据 section-meta 的“男優”标记区分男女；女性页面通常只有“NN 部影片”。
  * 当前工具把非空但无标签的页面也当作女性，因此它与返回 null 的复核工具并不等价。
  */
 const fs = require('fs')
+const { writeJson } = require('./lib/runtime')
 const { execSync } = require('child_process')
 
 const UA =
@@ -121,7 +122,7 @@ function fetchHtml(id) {
   d.female = d.list.filter(a => a.gender === 'f').length
   d.male = d.list.filter(a => a.gender === 'm').length
   d.genderSource = 'javdb-web-section-meta'
-  fs.writeFileSync(process.argv[3], JSON.stringify(d))
+  writeJson(process.argv[3], d)
   console.log('\n已纠正 ' + changed + ' 位 → 女优 ' + d.female + ' · 男优 ' + d.male)
   if (fail.length) console.log('失败名单（保留原判）:', fail.slice(0, 10).join('、'))
 })()

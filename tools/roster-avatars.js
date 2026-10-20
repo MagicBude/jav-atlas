@@ -2,14 +2,14 @@
 
 /**
  * @file 为已有 minnano 名册补齐缺失头像，不创建或扩充人物名册。
- * 输入：仓库根 relay/roster.json；可选读取 rankings.json 并加入新上榜 ID。
+ * 输入：仓库根 relay/minnano-actresses.json；可选读取 minnano-rankings.json 并加入新上榜 ID。
  * 输出：relay/avatars/<minnano ID>.jpg。超过 2048 字节的现有文件直接复用。
  * 参数：[limit] 默认 400；full 或 0 表示不限量，其他值通过 parseInt 解释。
  * 流程：合并候选 ID → 筛出缺图记录 → 截取本轮数量 → 4 个 worker 抓资料页及图片。
  * 限制：失败记录不会持久化，后续运行仍可能从同一批缺图人物开始；不保证每日推进到所有人物。
  * 运行：node tools/roster-avatars.js 400。需要先有名册。
  *
- * 数据来源：roster.json 的 mnid/name 与 rankings.json 的榜上 ID 合并，不回写名册。
+ * 数据来源：minnano-actresses.json 的 mnid/name 与 minnano-rankings.json 的榜上 ID 合并，不回写名册。
  * 从资料页 og:image 获取头像，仅为缺少有效体积文件的人物补图；full/0 表示不限任务数。
  * 全量回填样本约 2.4 万张、1～2 小时，不能作为当前规模或耗时承诺。
  * 使用 Node 18+ 内置 fetch，不增加第三方依赖。
@@ -88,14 +88,14 @@ const pool = async (items, n, fn) => {
 
 ;(async () => {
   fs.mkdirSync(AVA_DIR, { recursive: true })
-  const roster = readJson(path.join(RELAY_DIR, 'roster.json'), null)
+  const roster = readJson(path.join(RELAY_DIR, 'minnano-actresses.json'), null)
   if (!Array.isArray(roster)) throw new Error('缺少名册：请先运行 bootstrap-roster.js')
   // 阶段 1：名册是必需输入；榜单是可选补充，不会回写名册。
   const ids = []
   for (const r of roster) if (r && r.mnid) ids.push(String(r.mnid))
   try {
     // 榜上 id 并入：新上榜的女优 roster 快照可能还没收录
-    const rk = JSON.parse(fs.readFileSync(path.join(RELAY_DIR, 'rankings.json'), 'utf8'))
+    const rk = JSON.parse(fs.readFileSync(path.join(RELAY_DIR, 'minnano-rankings.json'), 'utf8'))
     for (const k of ['day', 'week', 'month'])
       for (const r of rk[k] || []) if (r.id && !ids.includes(String(r.id))) ids.push(String(r.id))
   } catch (_) {}

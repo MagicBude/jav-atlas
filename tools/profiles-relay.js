@@ -2,7 +2,7 @@
 
 /**
  * @file 对已有 minnano 名册执行“只填空、不覆盖”的资料回填。
- * 输入/输出：RELAY_DIR/roster.json（默认仓库根 relay/）；仅处理包含 mnid 的记录，不发现新人物。
+ * 输入/输出：RELAY_DIR/minnano-actresses.json（默认仓库根 relay/）；仅处理包含 mnid 的记录，不发现新人物。
  * 字段：生日、身高、三围、别名、现用名、官网、标签、相关人物及图片 URL 等。
  * 参数：full（或 0）选取全部；默认选择 nick 或 official 至少一项缺失的记录。
  * 环境：ONLY 为逗号分隔的 mnid；它优先于 full，但仍受成功结果的 20 小时缓存过滤，并不强制刷新。
@@ -22,12 +22,12 @@
  */
 const fs = require('fs')
 const path = require('path')
-const { relayDir, readJson, envInt } = require('./lib/runtime')
+const { relayDir, readJson, writeJson, envInt } = require('./lib/runtime')
 
 const MN_BASE = 'https://www.minnano-av.com/'
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
-const ROSTER = path.join(relayDir(), 'roster.json')
+const ROSTER = path.join(relayDir(), 'minnano-actresses.json')
 const TMP = path.resolve(process.env.CACHE_DIR || path.join(__dirname, '..', '.cache', 'profiles'))
 const CACHE = path.join(TMP, 'profiles-relay.json')
 const CONC = 8
@@ -289,7 +289,7 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
    */
   const saveCache = () => {
     try {
-      fs.writeFileSync(CACHE, JSON.stringify(cache))
+      writeJson(CACHE, cache)
     } catch (_) {}
   }
   /**
@@ -298,9 +298,7 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
    * @returns {void} 写入/重命名失败向外抛出；与缓存保存不是原子组合。
    */
   const saveRoster = () => {
-    const t = ROSTER + '.tmp'
-    fs.writeFileSync(t, JSON.stringify(roster, dropEmpty))
-    fs.renameSync(t, ROSTER)
+    writeJson(ROSTER, roster, dropEmpty)
   }
   // 阶段 3：共享游标分配资料页任务；计数器在异步请求完成时更新。
   let cursor = 0

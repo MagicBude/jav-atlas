@@ -3,8 +3,8 @@
 /**
  * @file 从 JavDB 的 type=1 影片样本反推出演人物，男女均保留。
  * 文件名中的 actresses 不表示名单只有女性；调用方需按每条 gender 再筛选。
- * 输入：API、可选 female_names.json / actors_full.json / 上一版无码名单。
- * 输出：RELAY_DIR/uncensored_actresses.json，包含本轮采到的人物及影片编号样本。
+ * 输入：API、可选 female-name-index.json / javdb-actors.json / 上一版无码名单。
+ * 输出：RELAY_DIR/javdb-uncensored-actors.json，包含本轮采到的人物及影片编号样本。
  * 配置：UC_PAGES 默认 120，每页请求 30 部影片；连续三页无新增人物即提前结束。
  * 默认目录：统一仓库根 relay/；RELAY_DIR 可覆盖。
  * 性别优先级：已有全量演员记录 → 女性名册命中 → 网页 → 旧名单 → 未知状态。
@@ -19,7 +19,7 @@
  * 名单保留 id、name、videos_count、uc_codes 等字段，不表示人物只出演这类影片。
  */
 const path = require('path')
-const { relayDir, readJson, writeJson, envInt } = require('./lib/runtime')
+const { relayDir, readJson, writeJson, envInt, compareIds } = require('./lib/runtime')
 const crypto = require('crypto')
 const { execSync } = require('child_process')
 
@@ -56,7 +56,7 @@ function jdbSign() {
 
 // ⚠️ Actions 里脚本在 tools/ 下跑，仓库根的 relay/ 在上一层；本地自测时脚本和 relay/ 同级。
 const RELAY_DIR = relayDir()
-const OUT_JSON = path.join(RELAY_DIR, 'uncensored_actresses.json')
+const OUT_JSON = path.join(RELAY_DIR, 'javdb-uncensored-actors.json')
 const TIMEOUT = envInt('HTTP_TIMEOUT_MS', 20000, 1, 120000)
 const PAGES = envInt('UC_PAGES', 120, 1, 2000) // 翻多少页无码影片（每页 30 部）
 let LINE_OK = ''
@@ -159,7 +159,7 @@ let FEM_NAMES = null
 
 /**
  * 首次使用时建立归一化女性姓名 Set，后续调用复用同一进程内缓存。
- * 优先读 female_names.json；没有条目时回退当前 roster.json。文件缺失允许冷启动，损坏数据则中止。
+ * 优先读 female-name-index.json；没有条目时回退当前 minnano-actresses.json。文件缺失允许冷启动，损坏数据则中止。
  * 名字精简集合体积样本约 0.75 MB、完整名册约 16 MB；精简输入减少采集环境的名册依赖。
  * 2026-10-07 的运行记录曾因姓名输入缺失新增 21 条误标男性数据，因此不能将缺失输入解释为男性。
  *
@@ -167,12 +167,12 @@ let FEM_NAMES = null
  */
 function loadFemaleNames() {
   if (FEM_NAMES) return FEM_NAMES
-  const precise = readJson(path.join(RELAY_DIR, 'female_names.json'), { names: [] })
-  if (!Array.isArray(precise.names)) throw new Error('female_names.json 缺少 names 数组')
+  const precise = readJson(path.join(RELAY_DIR, 'female-name-index.json'), { names: [] })
+  if (!Array.isArray(precise.names)) throw new Error('female-name-index.json 缺少 names 数组')
   const roster = precise.names.length
     ? precise.names.map(name => ({ name }))
-    : readJson(path.join(RELAY_DIR, 'roster.json'), [])
-  if (!Array.isArray(roster)) throw new Error('roster.json 必须为数组')
+    : readJson(path.join(RELAY_DIR, 'minnano-actresses.json'), [])
+  if (!Array.isArray(roster)) throw new Error('minnano-actresses.json 必须为数组')
   FEM_NAMES = new Set()
   const push = name => {
     const key = onNorm(name)
@@ -247,7 +247,7 @@ function loadPrevGender() {
   const map = new Map()
   let female = 0
   const previous = readJson(OUT_JSON, { list: [] })
-  if (!Array.isArray(previous.list)) throw new Error('uncensored_actresses.json 缺少 list 数组')
+  if (!Array.isArray(previous.list)) throw new Error('javdb-uncensored-actors.json 缺少 list 数组')
   for (const a of previous.list) {
     if (!a) continue
     if (a.gender === 'f') female++
@@ -263,14 +263,14 @@ function loadPrevGender() {
  * 读取全量演员产物，供相同 JavDB ID 的记录直接复用性别。
  * 不检查 genderSource 是否可靠；文件不存在返回空 Map，损坏或结构错误则中止。
  *
- * actors_full.json 中相同 JavDB ID 的非空 gender 直接复用，减少请求，但不再检查其来源可靠性。
+ * javdb-actors.json 中相同 JavDB ID 的非空 gender 直接复用，减少请求，但不再检查其来源可靠性。
  *
  * @returns {Map<string, string>} 人物 ID 到非空 gender 的映射。
  */
 function loadActorsFullGender() {
   const map = new Map()
-  const previous = readJson(path.join(RELAY_DIR, 'actors_full.json'), { list: [] })
-  if (!Array.isArray(previous.list)) throw new Error('actors_full.json 缺少 list 数组')
+  const previous = readJson(path.join(RELAY_DIR, 'javdb-actors.json'), { list: [] })
+  if (!Array.isArray(previous.list)) throw new Error('javdb-actors.json 缺少 list 数组')
   for (const a of previous.list)
     if (a && a.id && ['f', 'm'].includes(a.gender)) map.set(a.id, a.gender)
   return map
@@ -435,7 +435,10 @@ function loadActorsFullGender() {
   out.count = out.list.length
   out.unknown = out.list.filter(r => r.gender === '?').length
   out.list.sort(
-    (a, b) => (b.uc_count || 0) - (a.uc_count || 0) || (b.videos_count || 0) - (a.videos_count || 0)
+    (a, b) =>
+      (b.uc_count || 0) - (a.uc_count || 0) ||
+      (b.videos_count || 0) - (a.videos_count || 0) ||
+      compareIds(a, b)
   )
 
   // 阶段 4：仅当网页熔断且女性数量大幅下降时保留旧文件；不是通用空结果保护。
@@ -459,7 +462,7 @@ function loadActorsFullGender() {
    */
   writeJson(OUT_JSON, out)
   console.log(
-    '③ relay/uncensored_actresses.json：无码演员 ' +
+    '③ relay/javdb-uncensored-actors.json：无码演员 ' +
       out.count +
       ' 位（判为女优 ' +
       isFem +

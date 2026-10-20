@@ -5,11 +5,11 @@
 const path = require('path')
 const { relayDir, readJson, writeJson } = require('./lib/runtime')
 const dir = relayDir()
-const ranks = readJson(path.join(dir, 'rankings.json'), null)
-if (!ranks) throw new Error('请先抓取 rankings.json，再建立名册')
-const file = path.join(dir, 'roster.json')
+const ranks = readJson(path.join(dir, 'minnano-rankings.json'), null)
+if (!ranks) throw new Error('请先抓取 minnano-rankings.json，再建立名册')
+const file = path.join(dir, 'minnano-actresses.json')
 const roster = readJson(file, [])
-if (!Array.isArray(roster)) throw new Error('roster.json 必须是数组')
+if (!Array.isArray(roster)) throw new Error('minnano-actresses.json 必须是数组')
 const known = new Set(roster.filter(a => a && a.mnid).map(a => String(a.mnid)))
 let found = 0
 for (const mode of ['day', 'week', 'month']) {

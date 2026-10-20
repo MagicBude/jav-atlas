@@ -4,7 +4,7 @@
  * @file 从 JavDB 影片中发现演员，合并旧人物资料并补充头像。
  * 发现范围：“全部/有码/无码”三个影片维度，默认各最多 20 页；连续两页无新增便提前结束。
  * 这里的 full 表示累积集合，不保证全站完整；已有 ID 直接复用，不刷新旧人物详情。
- * 输出：RELAY_DIR 下 actors_full.json、actress_fix.json、female_names.json、avatars_jdb/。
+ * 输出：RELAY_DIR 下 javdb-actors.json、avatar-supplements.json、female-name-index.json、avatars_jdb/。
  * 默认目录：所有采集器统一使用仓库根 relay/，RELAY_DIR 可覆盖。
  * 配置：MOVIE_PAGES=20，AVA_CONC=6，FIX_LIMIT=400；RELAY_DIR 可覆盖目录。
  * 性别：命中女性姓名集合即 f；未命中先为 ?，再尝试网页复核。没有命中不能证明是男性。
@@ -20,7 +20,7 @@
  */
 const fs = require('fs')
 const path = require('path')
-const { relayDir, readJson, writeJson, envInt } = require('./lib/runtime')
+const { relayDir, readJson, writeJson, envInt, compareIds } = require('./lib/runtime')
 const crypto = require('crypto')
 const { execSync } = require('child_process')
 
@@ -62,7 +62,7 @@ function jdbSign() {
  */
 const RELAY_DIR = relayDir()
 const AVA_DIR = path.join(RELAY_DIR, 'avatars_jdb')
-const OUT_JSON = path.join(RELAY_DIR, 'actors_full.json')
+const OUT_JSON = path.join(RELAY_DIR, 'javdb-actors.json')
 const TIMEOUT = envInt('HTTP_TIMEOUT_MS', 20000, 1, 120000)
 const MOVIE_PAGES = envInt('MOVIE_PAGES', 20, 1, 1000) // 翻多少页影片列表（每页 30 部）
 const AVA_CONC = envInt('AVA_CONC', 6, 1, 32) // 头像并发
@@ -236,7 +236,7 @@ const pool = async (items, n, fn) => {
  */
 function loadPrev() {
   const previous = readJson(OUT_JSON, { list: [] })
-  if (!Array.isArray(previous.list)) throw new Error('actors_full.json 缺少 list 数组')
+  if (!Array.isArray(previous.list)) throw new Error('javdb-actors.json 缺少 list 数组')
   return previous
 }
 
@@ -312,7 +312,7 @@ async function plainImgGet(url) {
 }
 
 /**
- * 为当前 roster.json 中缺 icon 的人物搜索补充资料，并写出补图映射。
+ * 为当前 minnano-actresses.json 中缺 icon 的人物搜索补充资料，并写出补图映射。
  * 按作品数排序后最多选 FIX_LIMIT 条；不直接修改当前名册。
  *
  * 补图动机：缺人物头像时，消费端可能用影片封面代替，导致人物列表难以辨认。
@@ -325,10 +325,10 @@ async function plainImgGet(url) {
  * @returns {Promise<void>} 缺少可用名册时提前返回；文件写入异常向外传播。
  */
 async function fixActressesWithoutIcon(byId) {
-  const FIX_OUT = path.join(RELAY_DIR, 'actress_fix.json')
-  const ROSTER = path.join(RELAY_DIR, 'roster.json')
+  const FIX_OUT = path.join(RELAY_DIR, 'avatar-supplements.json')
+  const ROSTER = path.join(RELAY_DIR, 'minnano-actresses.json')
   const roster = readJson(ROSTER, [])
-  if (!Array.isArray(roster)) throw new Error('roster.json 必须为数组')
+  if (!Array.isArray(roster)) throw new Error('minnano-actresses.json 必须为数组')
   const byName = new Map(roster.map(a => [a && a.name, a]))
   const need = roster
     .filter(a => a && a.name && !a.icon)
@@ -401,7 +401,7 @@ async function fixActressesWithoutIcon(byId) {
   const withJdb = Object.values(fix).filter(x => x.avatar_url).length
   const withMn = Object.values(fix).filter(x => !x.avatar_url && x.mimg).length
   console.log(
-    '   relay/actress_fix.json：共 ' +
+    '   relay/avatar-supplements.json：共 ' +
       Object.keys(fix).length +
       ' 条 · JavDB 图 ' +
       withJdb +
@@ -422,7 +422,7 @@ let FEM_NAMES = null
 
 /**
  * 首次使用时建立归一化女性姓名 Set，后续调用复用同一进程内缓存。
- * 优先读 female_names.json；没有条目时回退当前 roster.json。文件缺失允许冷启动，损坏数据则中止。
+ * 优先读 female-name-index.json；没有条目时回退当前 minnano-actresses.json。文件缺失允许冷启动，损坏数据则中止。
  * 名字精简集合体积样本约 0.75 MB、完整名册约 16 MB；精简输入减少采集环境的名册依赖。
  * 2026-10-07 的运行记录曾因姓名输入缺失新增 21 条误标男性数据，因此不能将缺失输入解释为男性。
  *
@@ -430,12 +430,12 @@ let FEM_NAMES = null
  */
 function loadFemaleNames() {
   if (FEM_NAMES) return FEM_NAMES
-  const precise = readJson(path.join(RELAY_DIR, 'female_names.json'), { names: [] })
-  if (!Array.isArray(precise.names)) throw new Error('female_names.json 缺少 names 数组')
+  const precise = readJson(path.join(RELAY_DIR, 'female-name-index.json'), { names: [] })
+  if (!Array.isArray(precise.names)) throw new Error('female-name-index.json 缺少 names 数组')
   const roster = precise.names.length
     ? precise.names.map(name => ({ name }))
-    : readJson(path.join(RELAY_DIR, 'roster.json'), [])
-  if (!Array.isArray(roster)) throw new Error('roster.json 必须为数组')
+    : readJson(path.join(RELAY_DIR, 'minnano-actresses.json'), [])
+  if (!Array.isArray(roster)) throw new Error('minnano-actresses.json 必须为数组')
   FEM_NAMES = new Set()
   const push = name => {
     const key = onNorm(name)
@@ -460,9 +460,9 @@ function loadFemaleNames() {
  * @returns {void} 不重新验证已有性别，不删除旧名字。
  */
 function updateFemaleNames(list) {
-  const file = path.join(RELAY_DIR, 'female_names.json')
+  const file = path.join(RELAY_DIR, 'female-name-index.json')
   const previous = readJson(file, { names: [] })
-  if (!Array.isArray(previous.names)) throw new Error('female_names.json 缺少 names 数组')
+  if (!Array.isArray(previous.names)) throw new Error('female-name-index.json 缺少 names 数组')
   const names = new Set(previous.names)
   const before = names.size
   for (const a of list) {
@@ -477,9 +477,9 @@ function updateFemaleNames(list) {
       fetchedAt: Date.now(),
       source: 'minnano-roster+javdb-verified',
       count: names.size,
-      names: [...names]
+      names: [...names].sort()
     })
-    console.log('   female_names.json：' + before + ' → ' + names.size)
+    console.log('   female-name-index.json：' + before + ' → ' + names.size)
   }
 }
 
@@ -725,7 +725,7 @@ function webGenderOf(id) {
 
   // 阶段 4：按来源总作品数降序输出；该指标不是本轮采到的影片数。
   const list = [...byId.values()].sort(
-    (a, b) => (Number(b.videos_count) || 0) - (Number(a.videos_count) || 0)
+    (a, b) => (Number(b.videos_count) || 0) - (Number(a.videos_count) || 0) || compareIds(a, b)
   )
   const out = {
     fetchedAt: Date.now(),
@@ -744,7 +744,7 @@ function webGenderOf(id) {
   writeJson(OUT_JSON, out)
   updateFemaleNames(list)
   console.log(
-    '③ relay/actors_full.json 已生成：共 ' +
+    '③ relay/javdb-actors.json 已生成：共 ' +
       out.count +
       ' 位（女优 ' +
       out.female +
@@ -758,7 +758,7 @@ function webGenderOf(id) {
   // 阶段 6：读取当前名册做补图；名册缺失时跳过，JSON 主产物此前已经写出。
   /*
    * 补图限定为名册中缺 icon 的人物，不替换已有头像；缺图率样本为 4.6%。
-   * actress_fix.json 实际结构为 { fetchedAt, count, map: { 名字: { id, avatar_url, videos_count, ... } } }。
+   * avatar-supplements.json 实际结构为 { fetchedAt, count, map: { 名字: { id, avatar_url, videos_count, ... } } }。
    */
   await fixActressesWithoutIcon(byId)
 
@@ -772,8 +772,8 @@ function webGenderOf(id) {
   let fixMap = {}
   try {
     fixMap =
-      (JSON.parse(fs.readFileSync(path.join(RELAY_DIR, 'actress_fix.json'), 'utf8')) || {}).map ||
-      {}
+      (JSON.parse(fs.readFileSync(path.join(RELAY_DIR, 'avatar-supplements.json'), 'utf8')) || {})
+        .map || {}
   } catch (_) {}
   // 阶段 7：合并演员头像与补图映射，允许图片失败，不回滚此前写出的 JSON。
   const avaList =
