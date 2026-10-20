@@ -14,6 +14,18 @@ JavDB：在独立目录 .cache/live-javdb 中从空目录执行 smoke javdb，�
 
 真实产物保留在本地忽略目录 .cache/live-javdb/，不会随代码提交；不包含其他仓库复制的数据。一次小规模成功不代表全量覆盖、网页性别判定、图片链路或长期自动更新已通过。
 
+## GitHub Actions 首次实测
+
+2026-10-20 北京时间 15:53，手动触发 smoke + all，运行成功：
+[查看运行日志](https://github.com/MagicBude/jav-atlas/actions/runs/39389469684)。
+
+- GitHub runner 上语法检查和 17 项离线测试通过。
+- minnano 日/周/月榜各 100 条，去重建立 156 人初始名册；头像 3 张，资料回填 3 人均成功。
+- JavDB 演员 78 人，其中女性 8、男性 0、未知 70；无码出演人物 31 人，其中女性 3、男性 0、未知 28。
+- 已有名册让部分姓名可确认，网页复核仍按 smoke 约定关闭，其余未知不是抓取失败。
+- collected-data 上传成功，机器人自动提交 7daef13，已同步回本地 relay/。
+- 已核对榜单条数、人物 ID 去重、JSON count 与列表长度、性别值域；数据均由本项目自行抓取。
+
 ## 待验收
 
-GitHub Actions 尚未触发验证；代码推送后应先手动 smoke，再验证 daily，最后设置 ENABLE_SCHEDULE=true。定时任务默认不执行，浏览网站尚未实现。当前 pending user acceptance。
+小规模抓取、保存、上传与 Git 提交链路已验证；daily 规模、完整名册、JavDB 头像及网页性别复核尚未通过此次测试。定时任务仍默认不执行，浏览网站尚未实现。确认后再手动执行 daily，最后设置 ENABLE_SCHEDULE=true。当前 pending user acceptance。
