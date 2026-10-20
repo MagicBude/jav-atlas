@@ -2,11 +2,11 @@
 
 /**
  * @file 对已有 minnano 名册执行“只填空、不覆盖”的资料回填。
- * 输入/输出：仓库根 relay/roster.json；仅处理包含 mnid 的记录，不发现新人物。
+ * 输入/输出：RELAY_DIR/roster.json（默认仓库根 relay/）；仅处理包含 mnid 的记录，不发现新人物。
  * 字段：生日、身高、三围、别名、现用名、官网、标签、相关人物及图片 URL 等。
  * 参数：full（或 0）选取全部；默认选择 nick 或 official 至少一项缺失的记录。
- * 环境：ONLY 为逗号分隔的 mnid；它优先于 full，但仍受 20 小时缓存过滤，并不强制刷新。
- * 缓存：<TMPDIR 或 /tmp>/javpaco-profiles-relay/profiles-relay.json；成功和失败都记录 fetchedAt。
+ * 环境：ONLY 为逗号分隔的 mnid；它优先于 full，但仍受成功结果的 20 小时缓存过滤，并不强制刷新。
+ * 缓存：<CACHE_DIR 或 .cache/profiles>/profiles-relay.json；成功和失败都记录 fetchedAt；失败记录下次立即重试。
  * 流程：读取名册及缓存 → 过滤候选 → 8 个 worker 解析/回填 → 每 200 条保存 → 结束再保存。
  * 限制：缓存读取失败视为空；缓存写入异常被忽略，名册读写异常由顶层捕获并非零退出。
  * 运行：node tools/profiles-relay.js [full]。网络可达性须在实际执行环境验证。
@@ -16,18 +16,19 @@
  * 2026-10-02 的解析记录发现 nick / official 漏项，以及“小倉七海 → 兒玉七海”这类改名缺 mcanon，影响现用名检索。
  * 全量样本约 2.5 万页、耗时约 1～2 小时；实际数量及速度取决于名册与源站。
  * 用法：node tools/profiles-relay.js full；增量省略参数；ONLY=698899,677238 可限制候选（此写法用于 POSIX shell）。
- * ONLY 仍受缓存过滤；缓存实际位于 <TMPDIR 或 /tmp>/javpaco-profiles-relay/profiles-relay.json，每 200 条保存。
+ * ONLY 仍受成功结果缓存过滤；缓存实际位于 <CACHE_DIR 或 .cache/profiles>/profiles-relay.json，每 200 条保存。
  * 网络记录包括家庭宽带 SNI 重置、代理 WAF 403 与 Actions 可访问等情况，不能据此保证只有某一种环境可用。
  * 本地缓存仅在同一文件系统存在时复用，工作流未配置跨 runner 持久化。
  */
 const fs = require('fs')
 const path = require('path')
+const { relayDir, readJson, envInt } = require('./lib/runtime')
 
 const MN_BASE = 'https://www.minnano-av.com/'
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
-const ROSTER = path.join(__dirname, '..', 'relay', 'roster.json')
-const TMP = path.join(process.env.TMPDIR || '/tmp', 'javpaco-profiles-relay')
+const ROSTER = path.join(relayDir(), 'roster.json')
+const TMP = path.resolve(process.env.CACHE_DIR || path.join(__dirname, '..', '.cache', 'profiles'))
 const CACHE = path.join(TMP, 'profiles-relay.json')
 const CONC = 8
 /*
@@ -35,7 +36,7 @@ const CONC = 8
  * 请求间隔约 0.55 秒的样本未触发限流，不能视作固定安全阈值。
  */
 const DELAY = 150
-// 缓存有效期 20 小时；成功和失败记录均受此寿命控制。
+// 缓存有效期 20 小时；成功记录受此寿命控制，失败允许下次重试。
 const PROF_TTL = 20 * 3600 * 1000
 
 const FULL = /^full$/i.test(process.argv[2] || '') || process.argv[2] === '0'
@@ -243,7 +244,9 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
 
 ;(async () => {
   // 阶段 1：读取已有名册，不能从空目录自行生成名册；输入错误由顶层处理。
-  const roster = JSON.parse(fs.readFileSync(ROSTER, 'utf8'))
+  const roster = readJson(ROSTER, null)
+  if (!Array.isArray(roster) || !roster.length)
+    throw new Error('名册为空：请先抓榜单并运行 bootstrap-roster.js')
   fs.mkdirSync(TMP, { recursive: true })
   let cache = {}
   try {
@@ -252,17 +255,19 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
 
   // 阶段 2：ONLY 优先于 full；默认用逻辑或筛选缺少任一目标字段的人物。
   /*
-   * 候选优先级：ONLY 指定 ID → full 全量 → nick 或 official 任一缺失。之后所有模式统一应用 TTL 缓存。
+   * 候选优先级：ONLY 指定 ID → full 全量 → nick 或 official 任一缺失。之后所有模式统一应用成功结果的 TTL 缓存。
    */
   let stale
   if (ONLY.length) stale = roster.filter(a => a && a.mnid && ONLY.includes(String(a.mnid)))
   else if (FULL) stale = roster.filter(a => a && a.mnid)
   else stale = roster.filter(a => a && a.mnid && (!a.nick || !a.official))
-  // ONLY/full 仅改变候选范围；成功与失败缓存都受 TTL 控制，不会因 ONLY 绕过缓存。
-  const targets = stale.filter(a => {
-    const c = cache[a.mnid]
-    return !c || Date.now() - c.fetchedAt > PROF_TTL
-  })
+  // ONLY/full 仅改变候选范围；只有成功缓存受 TTL 控制，失败下次重试，不会因 ONLY 绕过缓存。
+  const targets = stale
+    .filter(a => {
+      const c = cache[a.mnid]
+      return !c || !c.ok || Date.now() - c.fetchedAt > PROF_TTL
+    })
+    .slice(0, envInt('PROFILE_LIMIT', 100000))
   console.log(
     `名册 ${roster.length} · 有 mnid ${roster.filter(a => a && a.mnid).length} · 待抓 ${targets.length}${FULL ? '（全量）' : ONLY.length ? '（ONLY 指定）' : '（增量：缺 愛称/公式サイト）'}`
   )
@@ -315,8 +320,8 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
       try {
         html = await get(MN_BASE + 'actress' + a.mnid + '.html')
       } catch (_) {}
-      if (html) {
-        const p = parseProfilePage(html)
+      const p = html ? parseProfilePage(html) : null
+      if (p && p.canon) {
         cache[a.mnid] = { fetchedAt: Date.now(), ok: true }
         ok++
 
@@ -337,8 +342,8 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
       }
       done++
       if (done % 200 === 0) {
-        saveCache()
         saveRoster()
+        saveCache()
       }
       if (done % 100 === 0) {
         const el = Math.round((Date.now() - t0) / 1000)
@@ -352,8 +357,12 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
   }
   // 阶段 4：等待全部 worker 完成，再保存剩余不足 200 条的进度。
   await Promise.all(Array.from({ length: CONC }, worker))
-  saveCache()
+  if (!ok) {
+    saveCache()
+    throw new Error('资料页全部失败或未识别到人物标题，保留原名册')
+  }
   saveRoster()
+  saveCache()
   console.log(`完成：成功 ${ok} · 失败 ${fail} · 耗时 ${Math.round((Date.now() - t0) / 1000)}s`)
   console.log(
     `回填后：有 愛称 ${roster.filter(a => a && a.nick).length} · 有 公式サイト ${roster.filter(a => a && a.official).length} · 有 mcanon ${roster.filter(a => a && a.mcanon).length}`

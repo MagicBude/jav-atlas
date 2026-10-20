@@ -17,14 +17,15 @@
  */
 const fs = require('fs')
 const path = require('path')
+const { relayDir, writeJson, envInt } = require('./lib/runtime')
 
 const MN_BASE = 'https://www.minnano-av.com/'
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
-const RELAY_DIR = path.join(__dirname, '..', 'relay')
+const RELAY_DIR = relayDir()
 const AVA_DIR = path.join(RELAY_DIR, 'avatars')
-const AVA_LIMIT = 160 // 榜上去重后最多抓多少个头像
-const TIMEOUT = 20000
+const AVA_LIMIT = envInt('AVA_LIMIT', 160, 0, 10000) // 榜上去重后最多抓多少个头像
+const TIMEOUT = envInt('HTTP_TIMEOUT_MS', 20000, 1, 120000)
 
 /**
  * 去除标签并解码当前支持的少量 HTML 实体，不是通用 HTML 解析器。
@@ -176,10 +177,7 @@ const pool = async (items, n, fn) => {
       html.match(/<img[^>]+class="[^"]*actress[^"]*"[^>]+src="([^"]+)"/) ||
       [])[1]
     if (!img) return
-    const b = await get(
-      img.startsWith('http') ? img : MN_BASE.replace(/\/$/, '') + img,
-      true
-    ).catch(() => null)
+    const b = await get(new URL(img, MN_BASE).href, true).catch(() => null)
     if (isImg(b)) {
       fs.writeFileSync(f, b)
       ok++
@@ -187,9 +185,7 @@ const pool = async (items, n, fn) => {
   })
   console.log('头像：新抓 ' + ok + '，已存在 ' + skip + '，共 ' + list.length + ' 个')
   // 阶段 3：头像允许部分失败；所有榜单至少非空后才用临时文件替换 JSON。
-  const tmp = path.join(RELAY_DIR, 'rankings.json.tmp')
-  fs.writeFileSync(tmp, JSON.stringify(out))
-  fs.renameSync(tmp, path.join(RELAY_DIR, 'rankings.json'))
+  writeJson(path.join(RELAY_DIR, 'rankings.json'), out)
   console.log('relay/rankings.json 已生成')
 })().catch(e => {
   console.error('FAIL:', e.message)

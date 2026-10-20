@@ -6,11 +6,11 @@
  * 输入：API、可选 female_names.json / actors_full.json / 上一版无码名单。
  * 输出：RELAY_DIR/uncensored_actresses.json，包含本轮采到的人物及影片编号样本。
  * 配置：UC_PAGES 默认 120，每页请求 30 部影片；连续三页无新增人物即提前结束。
- * 默认目录：脚本位于 tools 时使用仓库根 relay/；RELAY_DIR 可覆盖。
- * 性别优先级：已有全量演员记录 → 女性名册命中 → 网页 → 旧名单 → 未验证的男性默认值。
+ * 默认目录：统一仓库根 relay/；RELAY_DIR 可覆盖。
+ * 性别优先级：已有全量演员记录 → 女性名册命中 → 网页 → 旧名单 → 未知状态。
  * WEB_GENDER=0 时跳过最后复核阶段，尚未判定的人物会保留问号。
  * 指标：uc_count 为本轮不同影片编号数量，uc_codes 最多保存 5 个；videos_count 为详情中的总作品数。
- * 失败边界：分页失败只结束翻页；安全阀有条件保留旧文件，不能保证所有空结果均受保护。
+ * 失败边界：分页请求异常、空发现或无有效详情均非零退出；已有文件保留，成功结果用临时文件替换。
  * 运行：node tools/uncensored-actresses-crawl.js。不是全库出演经历查询。
  *
  * 发现策略：翻 type=1 的影片而非逐个查询约 2.5 万名人物；12 页、360 部影片曾发现 203 位女性人物。
@@ -18,8 +18,8 @@
  * 演员没有独立的“无码”布尔字段，分类来自出演影片；影片记录可能带 n 前缀编号，本代码以 type=1 查询结果为准。
  * 名单保留 id、name、videos_count、uc_codes 等字段，不表示人物只出演这类影片。
  */
-const fs = require('fs')
 const path = require('path')
+const { relayDir, readJson, writeJson, envInt } = require('./lib/runtime')
 const crypto = require('crypto')
 const { execSync } = require('child_process')
 
@@ -55,14 +55,10 @@ function jdbSign() {
 }
 
 // ⚠️ Actions 里脚本在 tools/ 下跑，仓库根的 relay/ 在上一层；本地自测时脚本和 relay/ 同级。
-const RELAY_DIR =
-  process.env.RELAY_DIR ||
-  (path.basename(__dirname) === 'tools'
-    ? path.join(__dirname, '..', 'relay')
-    : path.join(__dirname, 'relay'))
+const RELAY_DIR = relayDir()
 const OUT_JSON = path.join(RELAY_DIR, 'uncensored_actresses.json')
-const TIMEOUT = 20000
-const PAGES = +(process.env.UC_PAGES || 120) // 翻多少页无码影片（每页 30 部）
+const TIMEOUT = envInt('HTTP_TIMEOUT_MS', 20000, 1, 120000)
+const PAGES = envInt('UC_PAGES', 120, 1, 2000) // 翻多少页无码影片（每页 30 部）
 let LINE_OK = ''
 
 /**
@@ -163,37 +159,28 @@ let FEM_NAMES = null
 
 /**
  * 首次使用时建立归一化女性姓名 Set，后续调用复用同一进程内缓存。
- * 优先读 female_names.json；没有条目时回退外部 actresses.json。读取失败被忽略。
+ * 优先读 female_names.json；没有条目时回退当前 roster.json。文件缺失允许冷启动，损坏数据则中止。
+ * 名字精简集合体积样本约 0.75 MB、完整名册约 16 MB；精简输入减少采集环境的名册依赖。
+ * 2026-10-07 的运行记录曾因姓名输入缺失新增 21 条误标男性数据，因此不能将缺失输入解释为男性。
  *
  * @returns {Set<string>} 可能为空；空集合不能证明候选人物都是男性。
  */
 function loadFemaleNames() {
   if (FEM_NAMES) return FEM_NAMES
+  const precise = readJson(path.join(RELAY_DIR, 'female_names.json'), { names: [] })
+  if (!Array.isArray(precise.names)) throw new Error('female_names.json 缺少 names 数组')
+  const roster = precise.names.length
+    ? precise.names.map(name => ({ name }))
+    : readJson(path.join(RELAY_DIR, 'roster.json'), [])
+  if (!Array.isArray(roster)) throw new Error('roster.json 必须为数组')
   FEM_NAMES = new Set()
-
-  /*
-   * 优先加载精简 female_names.json（体积样本约 0.75 MB），没有有效条目再尝试 actresses.json（约 16 MB）。
-   * 两份文件均未随初始化预置；均缺失时不能依赖名册反查，需保留复核与旧结果兜底。
-   */
-  let roster = []
-  try {
-    const fn = JSON.parse(fs.readFileSync(path.join(RELAY_DIR, 'female_names.json'), 'utf8')) || {}
-    roster = (fn.names || []).map(n => ({ name: n }))
-  } catch (_) {}
-  if (!roster.length) {
-    const ROSTER = path.join(RELAY_DIR, '..', 'actresses.json')
-    try {
-      roster = JSON.parse(fs.readFileSync(ROSTER, 'utf8')) || []
-    } catch (_) {}
-  }
-  const push = n => {
-    const k = onNorm(n)
-    if (k) FEM_NAMES.add(k)
+  const push = name => {
+    const key = onNorm(name)
+    if (key) FEM_NAMES.add(key)
   }
   for (const a of roster) {
     if (!a || !a.name) continue
-    push(a.name)
-    ;[a.name_ja, a.name_zh, a.name_en].forEach(n => n && push(n))
+    ;[a.name, a.name_ja, a.name_zh, a.name_en].forEach(push)
     if (Array.isArray(a.alias)) a.alias.forEach(push)
   }
   return FEM_NAMES
@@ -254,39 +241,39 @@ function webGenderOf(id) {
  *
  * 旧名单按人物 ID 与归一化姓名建立复用键；新一轮无法判断时保留此前已有性别，减少判定漂移。
  *
- * @returns {{map: Map<string, string>, female: number}} 读取/解析失败时为空映射和 0。
+ * @returns {{map: Map<string, string>, female: number}} 文件不存在时为空映射和 0；损坏或 list 类型错误则中止。
  */
 function loadPrevGender() {
-  const m = new Map()
+  const map = new Map()
   let female = 0
-  try {
-    const p = JSON.parse(fs.readFileSync(OUT_JSON, 'utf8')) || {}
-    for (const a of p.list || []) {
-      if (!a) continue
-      if (a.gender === 'f') female++ // 按「名单条数」统计，用于安全阀比对
-      if (a.id && a.gender) m.set('id:' + a.id, a.gender)
-      const n = onNorm(a.name)
-      if (n && a.gender) m.set('n:' + n, a.gender)
-    }
-  } catch (_) {}
-  return { map: m, female }
+  const previous = readJson(OUT_JSON, { list: [] })
+  if (!Array.isArray(previous.list)) throw new Error('uncensored_actresses.json 缺少 list 数组')
+  for (const a of previous.list) {
+    if (!a) continue
+    if (a.gender === 'f') female++
+    if (!['f', 'm'].includes(a.gender)) continue
+    if (a.id) map.set('id:' + a.id, a.gender)
+    const name = onNorm(a.name)
+    if (name) map.set('n:' + name, a.gender)
+  }
+  return { map, female }
 }
 
 /**
  * 读取全量演员产物，供相同 JavDB ID 的记录直接复用性别。
- * 不检查 genderSource 是否可靠；读取失败返回空 Map。
+ * 不检查 genderSource 是否可靠；文件不存在返回空 Map，损坏或结构错误则中止。
  *
  * actors_full.json 中相同 JavDB ID 的非空 gender 直接复用，减少请求，但不再检查其来源可靠性。
  *
  * @returns {Map<string, string>} 人物 ID 到非空 gender 的映射。
  */
 function loadActorsFullGender() {
-  const m = new Map()
-  try {
-    const p = JSON.parse(fs.readFileSync(path.join(RELAY_DIR, 'actors_full.json'), 'utf8')) || {}
-    for (const a of p.list || []) if (a && a.id && a.gender) m.set(a.id, a.gender)
-  } catch (_) {}
-  return m
+  const map = new Map()
+  const previous = readJson(path.join(RELAY_DIR, 'actors_full.json'), { list: [] })
+  if (!Array.isArray(previous.list)) throw new Error('actors_full.json 缺少 list 数组')
+  for (const a of previous.list)
+    if (a && a.id && ['f', 'm'].includes(a.gender)) map.set(a.id, a.gender)
+  return map
 }
 
 ;(async () => {
@@ -300,10 +287,11 @@ function loadActorsFullGender() {
       const j = await jdbGet(
         'v1/movies/latest?filter_by=magnets&limit=30&page=' + page + '&sort_by=update&type=1'
       )
-      list = ((j || {}).data || {}).movies || []
+      list = j?.data?.movies
+      if (!Array.isArray(list)) throw new Error('影片列表响应缺少 movies 数组')
     } catch (e) {
       console.log('   第' + page + '页失败：' + e.message)
-      break
+      throw e
     }
     if (!list.length) break
     const det = await pool(list.map(m => m.id).filter(Boolean), 8, async id => {
@@ -314,6 +302,9 @@ function loadActorsFullGender() {
         return null
       }
     })
+    if (det.length && det.every(movie => !movie || !Array.isArray(movie.actors))) {
+      throw new Error('本页影片详情全部失败或结构无效，保留旧名单')
+    }
     let added = 0
     for (const mv of det) {
       if (!mv) continue
@@ -341,6 +332,7 @@ function loadActorsFullGender() {
       break
     }
   }
+  if (!found.size) throw new Error('未发现无码出演演员，保留已有名单；请检查 API 与分页响应')
   console.log('   无码影片反推共 ' + found.size + ' 位演员')
 
   console.log('② 拉详情 + 性别判定…')
@@ -350,6 +342,7 @@ function loadActorsFullGender() {
   const PREV = loadPrevGender()
   const out = { fetchedAt: Date.now(), source: 'javdb-uncensored', count: 0, list: [] }
   const ids = [...found.keys()]
+  let detailOk = 0
   let isFem = 0,
     isMale = 0
   await pool(ids, 4, async id => {
@@ -360,6 +353,7 @@ function loadActorsFullGender() {
       const d = await jdbGet('v1/actors/' + encodeURIComponent(id))
       const ac = ((d || {}).data || {}).actor || {}
       if (!ac.name) return
+      detailOk++
       base.name = ac.name
       alias = ac.other_name || ''
       if (ac.videos_count != null) vc = Number(ac.videos_count) || 0
@@ -376,7 +370,8 @@ function loadActorsFullGender() {
     /*
      * 性别顺序：相同 ID 的 actors_full 结果 → 女性名册命中 → 问号待网页复核；记录 genderSource 便于区分依据。
      */
-    let g = AF.get(id) || null,
+    const previousGender = AF.get(id)
+    let g = ['f', 'm'].includes(previousGender) ? previousGender : null,
       gs = g ? 'actors_full' : ''
     if (!g && isFemale) {
       g = 'f'
@@ -401,7 +396,9 @@ function loadActorsFullGender() {
     })
   })
 
-  // 阶段 3：网页复核失败先尝试旧名单，仍无法确定时沿用默认 m。
+  if (!detailOk) throw new Error('演员详情全部失败，保留旧名单')
+
+  // 阶段 3：网页复核失败先尝试旧名单，仍无法确定时保留 ?。
   /*
    * 只有名单与姓名集合都不能判断的记录才请求网页，避免每次重复复核全部人物。
    */
@@ -414,18 +411,29 @@ function loadActorsFullGender() {
         r.gender = w
         r.genderSource = 'javdb-web-section-meta'
       } else {
-        // 拿不到页面 → 用上一版名单兜底（按 id / 名字），再不行才归男优
+        // 拿不到页面 → 用上一版名单兜底（按 id / 名字），再不行保留未知
         const p = PREV.map.get('id:' + r.id) || PREV.map.get('n:' + onNorm(r.name))
-        r.gender = p || 'm'
+        r.gender = p || '?'
         r.genderSource = p ? 'prev-list' : 'unverified'
       }
     })
   }
+  // 禁用网页或复核失败时，仍优先复用已确认旧结果，其他保留未知。
+  for (const r of pending) {
+    if (r.gender !== '?') continue
+    const previous = PREV.map.get('id:' + r.id) || PREV.map.get('n:' + onNorm(r.name))
+    if (['f', 'm'].includes(previous)) {
+      r.gender = previous
+      r.genderSource = 'prev-list'
+    } else r.genderSource = 'unverified'
+  }
   isFem = out.list.filter(r => r.gender === 'f').length
-  // 已知限制：此处 out.count 尚为初始 0，因此日志计数可能为负；实际 list 不受影响。
-  isMale = out.count - isFem
+  // 男女和未知分别按记录统计，不能把“总人数减女性人数”直接当成男性人数。
+  isMale = out.list.filter(r => r.gender === 'm').length
 
+  if (!out.list.length) throw new Error('未取得有效演员详情，保留旧名单')
   out.count = out.list.length
+  out.unknown = out.list.filter(r => r.gender === '?').length
   out.list.sort(
     (a, b) => (b.uc_count || 0) - (a.uc_count || 0) || (b.videos_count || 0) - (a.videos_count || 0)
   )
@@ -441,22 +449,24 @@ function loadActorsFullGender() {
     console.log(
       `⚠ 判定异常（女优 ${isFem} << 上一版 ${prevFemale}）且网页版不可用 → 保留旧名单，不覆盖`
     )
-    return
+    throw new Error('性别复核异常，保留旧名单，请检查日志')
   }
 
-  // 直接覆盖目标，未采用临时文件替换；不对所有平台的 rename 行为作推断。
+  // 通过同目录临时文件替换目标，避免直接写中断破坏已有名单。
   /*
-   * 写文件使用直接覆盖以兼容曾限制覆盖式 rename 的环境；并非所有平台都会拒绝 rename。
-   * 直接写中断可能损坏目标，与临时文件替换具有不同失败边界。
+   * 文件系统曾限制覆盖式 rename；当前运行环境使用标准同目录替换，异常向上抛出，不降级为直接覆盖。
+   * JSON 写入完成后才替换目标；该保护不等同于整个目录的事务。
    */
-  fs.writeFileSync(OUT_JSON, JSON.stringify(out))
+  writeJson(OUT_JSON, out)
   console.log(
     '③ relay/uncensored_actresses.json：无码演员 ' +
       out.count +
       ' 位（判为女优 ' +
       isFem +
-      ' · 男优/未知名 ' +
+      ' · 男优 ' +
       isMale +
+      ' · 未知 ' +
+      out.unknown +
       '）'
   )
   console.log(

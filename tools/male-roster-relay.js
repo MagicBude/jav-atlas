@@ -4,8 +4,8 @@
  * @file 根据固定姓名种子采集 JavDB 男演员资料，不是全站男演员目录。
  * 流程：逐个搜索种子 → 归一化后精确匹配姓名/别名 → 请求人物详情 → 写 JSON → 并行补图。
  * 输入：代码内 SEED；环境变量 RELAY_DIR 可以覆盖产物目录。
- * 默认输出：脚本同级 relay/roster_male.json 与 avatars_male/，在当前目录结构下即 tools/relay/。
- * 注意：默认路径不同于仓库根 relay/；本次仅记录差异，不修复路径或工作流。
+ * 默认输出：仓库根 relay/roster_male.json 与 avatars_male/；RELAY_DIR 可覆盖。
+ * 所有采集器通过共享目录配置写入同一个 relay/，避免工作流提交目录与实际输出错位。
  * 请求：候选 API 线路逐个尝试；签名采用秒级时间戳和应用固定常量，不执行用户登录。
  * 限制：单个种子失败记入 missed；全体为空才抛错，部分缺失仍会覆盖上一版 JSON。
  * 运行：node tools/male-roster-relay.js。头像失败不回滚已写出的名单。
@@ -16,6 +16,7 @@
  */
 const fs = require('fs')
 const path = require('path')
+const { relayDir, writeJson, envInt } = require('./lib/runtime')
 const crypto = require('crypto')
 
 /*
@@ -50,12 +51,12 @@ function jdbSign() {
 }
 
 /*
- * 路径：RELAY_DIR 覆盖优先；默认是脚本同级 relay/，在当前结构下为 tools/relay/。
- * 工作流提交的是仓库根 relay/，因此需要后续适配两者的一致性，不能把默认值当作根目录。
+ * 路径：RELAY_DIR 覆盖优先，默认仓库根 relay/。
+ * 工作流与脚本使用相同目录配置，避免写入脚本同级目录导致产物缺失。
  */
-const RELAY_DIR = process.env.RELAY_DIR || path.join(__dirname, 'relay')
+const RELAY_DIR = relayDir()
 const AVA_DIR = path.join(RELAY_DIR, 'avatars_male')
-const TIMEOUT = 20000
+const TIMEOUT = envInt('HTTP_TIMEOUT_MS', 20000, 1, 120000)
 let LINE_OK = ''
 
 /**
@@ -240,7 +241,7 @@ function pickActor(actors, name) {
   let ok = 0
 
   // 阶段 1：固定种子串行搜索；精确匹配不到直接跳过，不选择搜索结果第一项冒充命中。
-  for (const seed of SEED) {
+  for (const seed of SEED.slice(0, envInt('SEED_LIMIT', SEED.length, 1, SEED.length))) {
     if (!seed || /[!]/.test(seed)) continue // 防御：占位坏种子跳过
     let actor = null
     try {
@@ -301,9 +302,7 @@ function pickActor(actors, name) {
   out.missed = missed
   if (!out.list.length) throw new Error('男优解析为空（签名/线路/端点可能失效）')
 
-  const tmp = path.join(RELAY_DIR, 'roster_male.json.tmp')
-  fs.writeFileSync(tmp, JSON.stringify(out))
-  fs.renameSync(tmp, path.join(RELAY_DIR, 'roster_male.json'))
+  writeJson(path.join(RELAY_DIR, 'roster_male.json'), out)
   console.log(
     'relay/roster_male.json 已生成：' +
       ok +
@@ -333,7 +332,7 @@ function pickActor(actors, name) {
   let avOk = 0,
     avSkip = 0
   await Promise.all(
-    out.list.map(async r => {
+    (process.env.SKIP_IMAGES === '1' ? [] : out.list).map(async r => {
       if (!r.avatar_url) return
       try {
         const u = new URL(r.avatar_url)

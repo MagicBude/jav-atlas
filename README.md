@@ -1,30 +1,64 @@
 # JAV Atlas
 
-基于 minnano 与 JavDB 的演员资料采集与浏览项目，通过 GitHub Actions 采集和发布 JSON、头像等静态数据，浏览界面计划提供资料检索、多条件筛选和榜单浏览。
+基于 minnano 与 JavDB 的演员资料采集与浏览项目。GitHub Actions 定时抓取 JSON 与头像，浏览界面后续提供检索、筛选和榜单浏览。保留来源站点 ID，不引入数据库或额外人物编号。
 
-## 项目结构
+## 快速开始
 
-- tools/：10 个采集、资料回填及人工复核工具，使用中文 JSDoc 说明职责、参数与失败边界。
-- .github/workflows/：4 个定时与手动采集工作流。
-- relay/：采集产物目录，目前只有 .gitkeep，没有预置 JSON 或头像。
-- docs/：架构、代码格式与注释约定。
-- tests/：离线验证预留目录。
-- web/：浏览界面预留目录。
+需要 Node.js 22+。采集和测试均无第三方依赖，无需 npm install。
 
-人物保留来源站点 ID：minnano 使用 mnid，JavDB 使用 id。不同来源不因名字相同就自动合并；当前不引入数据库或内部人物编号。
+~~~sh
+npm run check
+npm test
+npm run collect -- smoke all
+~~~
 
-阅读入口：[工具索引](tools/README.md)、[采集架构](docs/architecture.md)、[格式与注释约定](docs/code-style.md)。
+smoke 会抓真实数据：每个影片维度 1 页、资料页最多 3 人、榜单头像最多 3 人，禁用 JavDB 图片和网页性别复核。不是 dry-run。榜单仍最多抓日/周/月各 2 页。缺少性别依据的记录保留 ?。
 
-## 运行状态
+可单独选择来源排查网络：
 
-脚本语法、代码格式及工作流配置检查已通过，当前尚未完成端到端采集验证。本地访问 minnano 曾失败，需要在实际运行环境继续验证。当前 pending user acceptance。
+~~~sh
+npm run collect -- smoke minnano
+npm run collect -- smoke javdb
+npm run collect -- smoke male
+npm run collect -- daily all
+~~~
 
-部分工具依赖已有名册，路径、缓存结构和性别兜底也存在待处理问题，空数据目录尚不能完成全部流程。工作流包含定时触发，首次推送前请在 Settings → Actions → General 暂时禁用 Actions，完成冷启动适配后再启用并手动验证。
+daily 使用正常任务量；male 是固定种子工具，all 的演员集合采集已覆盖影片中发现的男女演员，不再重复运行种子搜索。
 
-## 开发顺序
+## 空数据冷启动
 
-先处理无数据冷启动和已确认问题，再手动运行小规模采集；确认数据及运行日志后启用定时任务，最后实现浏览界面。格式与文档整理保持运行行为不变，功能调整使用独立提交。
+minnano 顺序：榜单 → bootstrap-roster 建立初始名册 → 资料回填 → 女性名字集合 → daily 时补名册头像。
+
+名册只包含榜单发现并逐次累积的人物，不代表全站约两万多人的完整目录；不下载其他仓库的数据快照。已有名册条目和人工资料不会被冷启动覆盖。
+
+JavDB 可独立从影片发现演员 → 拉资料 → 采无码出演名单 → 更新女性姓名集合。缺少名册时仍能抓人物，性别无法确认便保留未知，不默认男性。
+
+## GitHub Actions
+
+推送代码后打开 Actions → Collect atlas data → Run workflow，先选 smoke 和 all；也可分别选择 minnano/javdb/male 排查。失败时下载 collected-data 查看已完成步骤的产物；只有整次所选流程成功才自动提交 relay/。
+
+定时计划为北京时间每天 05:30。**默认只开放手动执行**；确认 smoke 与 daily 符合预期后，在 Settings → Secrets and variables → Actions → Variables 添加 ENABLE_SCHEDULE，值为 true。不要为此禁用整个 Actions，否则也无法手动验证。
+
+workflow 需要 contents: write；仓库或分支规则仍可能限制自动提交。GitHub 托管 runner 提供独立网络出口，不保证源站始终可访问。
+
+## 目录与配置
+
+- tools/：采集器、统一入口、名册启动及公共 JSON/路径工具。
+- tests/：隔离临时目录中的合成网络测试，不访问源站或写项目数据。
+- relay/：真实采集 JSON / 头像。
+- .cache/：可忽略的本地测试数据或资料缓存。
+- web/：浏览端预留目录，尚无网站实现。
+
+RELAY_DIR 可覆盖产物目录，CACHE_DIR 可覆盖资料缓存目录；相对路径以工作目录为准。MOVIE_PAGES、UC_PAGES、PROFILE_LIMIT、AVA_LIMIT、FIX_LIMIT、AVA_CONC 等控制任务量，整数配置会校验范围。HTTP_TIMEOUT_MS 控制主要请求超时。WEB_GENDER=0 禁用网页复核，SKIP_IMAGES=1 禁用 JavDB 头像任务；榜单头像需用 AVA_LIMIT=0 单独关闭。
+
+阅读：[工具索引](tools/README.md)、[架构](docs/architecture.md)、[代码规范](docs/code-style.md)、[验证记录](docs/validation.md)。
+
+## 当前边界
+
+旧 JavDB 人物详情仍直接复用，没有定期刷新。网页性别复核仍使用同步 curl，三个人工修复工具仍有各自失败规则。照片允许部分失败；多个脚本的文件写入不是整体事务。本地流程中已完成步骤的产物不会因后续失败回滚。
+
+当前 pending user acceptance；离线测试成功不代表源站完整性或人物身份已人工验收。
 
 ## 授权状态
 
-本仓库尚未声明开源许可证；公开代码不等于授予任意再许可权，依赖代码的授权范围仍需确认。
+尚未声明开源许可证，代码授权范围仍待确认。

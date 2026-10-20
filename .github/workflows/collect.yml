@@ -1,0 +1,68 @@
+# 所有采集在一个串行入口完成，避免不同定时任务同时提交同一数据目录。
+# GitHub 托管 runner 提供独立网络出口，但不能保证源站不会限流或拦截。
+name: Collect atlas data
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'smoke 小规模验证；daily 正常采集'
+        type: choice
+        options: [smoke, daily]
+        default: smoke
+      source:
+        description: 'all 全流程；minnano / javdb 独立排查；male 固定种子男演员'
+        type: choice
+        options: [all, minnano, javdb, male]
+        default: all
+  schedule:
+    - cron: '30 21 * * *' # UTC 21:30 = 北京 05:30，实际运行可能延迟。
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atlas-data
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    # 首次部署只开放手动执行；确认后设置仓库变量 ENABLE_SCHEDULE=true 开启每日采集。
+    if: github.event_name == 'workflow_dispatch' || vars.ENABLE_SCHEDULE == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # 无第三方采集依赖，不需要 npm install；测试仅使用合成响应，不访问源站。
+      - run: npm run check
+      - run: npm test
+      - name: 抓取与整理资料
+        env:
+          MODE: ${{ inputs.mode || 'daily' }}
+          SOURCE: ${{ inputs.source || 'all' }}
+          # 显式写入根 relay，不能写 tools/relay；曾因目录错误触发 ENOENT。
+          RELAY_DIR: relay
+          # 无码样本约 203 页后不再新增，300 留余量；不代表全站覆盖。
+          UC_PAGES: '300'
+          MOVIE_PAGES: '40'
+        run: npm run collect -- "$MODE" "$SOURCE"
+      # 成功和失败都上传现场；失败产物只供排查，不会提交为有效更新。
+      - name: 保存本轮产物
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: collected-data
+          path: relay/
+          retention-days: 7
+      - name: 提交成功结果
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add relay/
+          if ! git diff --cached --quiet; then
+            git commit -m "数据：更新演员资料与榜单" -m "变更：保存本次采集的 JSON 与头像。" -m "原因：同步来源网站资料。" -m "验证：离线检查及选定采集步骤成功，数据质量待人工验收。" -m "限制：人物发现范围有限，无法确认的性别保留未知。"
+            git push
+          fi

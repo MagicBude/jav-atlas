@@ -16,13 +16,14 @@
  */
 const fs = require('fs')
 const path = require('path')
+const { relayDir, readJson, envInt } = require('./lib/runtime')
 
 const MN_BASE = 'https://www.minnano-av.com/'
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
-const RELAY_DIR = path.join(__dirname, '..', 'relay')
+const RELAY_DIR = relayDir()
 const AVA_DIR = path.join(RELAY_DIR, 'avatars')
-const TIMEOUT = 20000
+const TIMEOUT = envInt('HTTP_TIMEOUT_MS', 20000, 1, 120000)
 
 const limit = (() => {
   const a = process.argv[2]
@@ -87,9 +88,8 @@ const pool = async (items, n, fn) => {
 
 ;(async () => {
   fs.mkdirSync(AVA_DIR, { recursive: true })
-  const roster = JSON.parse(
-    fs.readFileSync(path.join(__dirname, '..', 'relay', 'roster.json'), 'utf8')
-  )
+  const roster = readJson(path.join(RELAY_DIR, 'roster.json'), null)
+  if (!Array.isArray(roster)) throw new Error('缺少名册：请先运行 bootstrap-roster.js')
   // 阶段 1：名册是必需输入；榜单是可选补充，不会回写名册。
   const ids = []
   for (const r of roster) if (r && r.mnid) ids.push(String(r.mnid))
@@ -127,10 +127,7 @@ const pool = async (items, n, fn) => {
         fail++
         return
       }
-      const b = await get(
-        img.startsWith('http') ? img : MN_BASE.replace(/\/$/, '') + img,
-        true
-      ).catch(() => null)
+      const b = await get(new URL(img, MN_BASE).href, true).catch(() => null)
       if (isImg(b)) {
         fs.writeFileSync(path.join(AVA_DIR, id + '.jpg'), b)
         ok++

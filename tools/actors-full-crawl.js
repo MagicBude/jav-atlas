@@ -5,12 +5,12 @@
  * 发现范围：“全部/有码/无码”三个影片维度，默认各最多 20 页；连续两页无新增便提前结束。
  * 这里的 full 表示累积集合，不保证全站完整；已有 ID 直接复用，不刷新旧人物详情。
  * 输出：RELAY_DIR 下 actors_full.json、actress_fix.json、female_names.json、avatars_jdb/。
- * 默认目录：脚本位于 tools 时使用仓库根 relay/；否则使用脚本同级 relay/。
+ * 默认目录：所有采集器统一使用仓库根 relay/，RELAY_DIR 可覆盖。
  * 配置：MOVIE_PAGES=20，AVA_CONC=6，FIX_LIMIT=400；RELAY_DIR 可覆盖目录。
- * 性别：命中女性姓名集合即 f；未命中先为 m，再尝试网页复核。没有命中不能证明是男性。
+ * 性别：命中女性姓名集合即 f；未命中先为 ?，再尝试网页复核。没有命中不能证明是男性。
  * 网页配置：WEB_GENDER=0 关闭复核；WEB_PROXY 指定代理；WEB_GENDER_LOCAL 非空时提供默认代理。
  * 网络/读取/图片错误有多种吞错与兜底策略，细节见各函数；顶层未处理错误才令进程非零退出。
- * 当前保留的限制：旧 Map 引用不是快照、补图缓存形状不一致、空发现仍可能写出结果。
+ * 保护：已有确认记录复用、未知记录重试、按 map 读取补图缓存，空发现或全部新增详情失败时不覆盖产物。
  * 运行：node tools/actors-full-crawl.js。直接写文件，不保证所有产物一起成功。
  *
  * 设计依据：人物发现依赖影片详情中的 actors，因为 v1/actors 曾返回空集合，无法用作演员目录。
@@ -20,6 +20,7 @@
  */
 const fs = require('fs')
 const path = require('path')
+const { relayDir, readJson, writeJson, envInt } = require('./lib/runtime')
 const crypto = require('crypto')
 const { execSync } = require('child_process')
 
@@ -55,20 +56,16 @@ function jdbSign() {
 }
 
 /*
- * 路径约定：脚本位于 tools/ 时，仓库根 relay/ 在上一层；其他位置使用脚本同级 relay/。
+ * 路径约定：统一以工具库位置确定仓库根 relay/，RELAY_DIR 可提供绝对路径或相对工作目录的覆盖值。
  * 曾因无条件采用 path.join(__dirname, 'relay')，在 Actions 中写入 tools/relay 而触发 ENOENT。
- * 当前通过目录判断回退，工作流仍显式设置 RELAY_DIR 固定产物位置。
+ * 当前共享目录函数固定默认位置，工作流仍显式设置 RELAY_DIR，使运行入口与输出一致。
  */
-const RELAY_DIR =
-  process.env.RELAY_DIR ||
-  (path.basename(__dirname) === 'tools'
-    ? path.join(__dirname, '..', 'relay')
-    : path.join(__dirname, 'relay'))
+const RELAY_DIR = relayDir()
 const AVA_DIR = path.join(RELAY_DIR, 'avatars_jdb')
 const OUT_JSON = path.join(RELAY_DIR, 'actors_full.json')
-const TIMEOUT = 20000
-const MOVIE_PAGES = +(process.env.MOVIE_PAGES || 20) // 翻多少页影片列表（每页 30 部）
-const AVA_CONC = +(process.env.AVA_CONC || 6) // 头像并发
+const TIMEOUT = envInt('HTTP_TIMEOUT_MS', 20000, 1, 120000)
+const MOVIE_PAGES = envInt('MOVIE_PAGES', 20, 1, 1000) // 翻多少页影片列表（每页 30 部）
+const AVA_CONC = envInt('AVA_CONC', 6, 1, 32) // 头像并发
 const LINE_OK_K = 'actors_full_line_ok'
 let LINE_OK = ''
 
@@ -235,14 +232,12 @@ const pool = async (items, n, fn) => {
  *
  * 增量策略：读取既有人物并仅补新增 ID。这里复用最终 JSON，不代表每一步都具备中断恢复能力。
  *
- * @returns {{list: Array<object>}} 读取/解析失败时返回空 list，不区分缺文件与损坏。
+ * @returns {{list: Array<object>}} 文件不存在时返回空 list；JSON 损坏或 list 类型错误时中止，防止覆盖。
  */
 function loadPrev() {
-  try {
-    return JSON.parse(fs.readFileSync(OUT_JSON, 'utf8')) || { list: [] }
-  } catch (_) {
-    return { list: [] }
-  }
+  const previous = readJson(OUT_JSON, { list: [] })
+  if (!Array.isArray(previous.list)) throw new Error('actors_full.json 缺少 list 数组')
+  return previous
 }
 
 /**
@@ -317,8 +312,8 @@ async function plainImgGet(url) {
 }
 
 /**
- * 为外部 actresses.json 中缺 icon 的人物搜索补充资料，并写出补图映射。
- * 按作品数排序后最多选 FIX_LIMIT 条；不直接修改外部名册。
+ * 为当前 roster.json 中缺 icon 的人物搜索补充资料，并写出补图映射。
+ * 按作品数排序后最多选 FIX_LIMIT 条；不直接修改当前名册。
  *
  * 补图动机：缺人物头像时，消费端可能用影片封面代替，导致人物列表难以辨认。
  * 名册采样记录：24,959 人中 1,141 人（约 4.6%）缺少 icon。
@@ -331,27 +326,24 @@ async function plainImgGet(url) {
  */
 async function fixActressesWithoutIcon(byId) {
   const FIX_OUT = path.join(RELAY_DIR, 'actress_fix.json')
-  const ROSTER = path.join(RELAY_DIR, '..', 'actresses.json')
-  let roster = []
-  try {
-    roster = JSON.parse(fs.readFileSync(ROSTER, 'utf8')) || []
-  } catch (_) {}
+  const ROSTER = path.join(RELAY_DIR, 'roster.json')
+  const roster = readJson(ROSTER, [])
+  if (!Array.isArray(roster)) throw new Error('roster.json 必须为数组')
   const byName = new Map(roster.map(a => [a && a.name, a]))
   const need = roster
     .filter(a => a && a.name && !a.icon)
     .sort((x, y) => (y.videoCount || 0) - (x.videoCount || 0))
-    .slice(0, +(process.env.FIX_LIMIT || 400)) // 高作品数优先
+    .slice(0, envInt('FIX_LIMIT', 400, 0, 100000)) // 高作品数优先
   if (!need.length) {
     console.log('⑤ 无名册数据，跳过女优补图')
     return
   }
 
   // 续跑：已有记录直接复用
-  let fix = {}
-  try {
-    fix = JSON.parse(fs.readFileSync(FIX_OUT, 'utf8')) || {}
-  } catch (_) {}
-  // 已知限制：这里直接读取整个包装对象，后面却按名字访问；与输出的 map 包装结构不一致。
+  const fix = readJson(FIX_OUT, { map: {} }).map
+  if (!fix || typeof fix !== 'object' || Array.isArray(fix))
+    throw new Error('补图缓存缺少 map 对象')
+  // 缓存约定：补图记录位于包装对象的 map 属性，按名字复用以避免重复查询和嵌套包装。
   const todo = need.filter(a => !fix[a.name])
   console.log(
     '⑤ 名册无头像女优 ' +
@@ -400,15 +392,12 @@ async function fixActressesWithoutIcon(byId) {
     } catch (_) {}
     fix[a.name] = rec
   })
-  // 直接覆盖目标，不使用临时文件；这是既有写入策略，不能保证中途异常时保留旧文件。
+  // 补图 JSON 完成临时写入后再替换目标，读取与写入统一使用 map 包装结构。
   /*
-   * 采用直接覆盖写入以兼容曾限制覆盖式 rename 的执行环境；该限制不是所有文件系统的通用行为。
-   * 直接写不具备临时文件替换的保护，异常时可能留下不完整目标文件。
+   * 覆盖式 rename 曾受部分执行环境限制；当前使用标准临时文件替换，如不支持则显式失败。
+   * 不退回直接覆盖旧文件，避免把文件系统错误隐蔽为成功。
    */
-  fs.writeFileSync(
-    FIX_OUT,
-    JSON.stringify({ fetchedAt: Date.now(), count: Object.keys(fix).length, map: fix })
-  )
+  writeJson(FIX_OUT, { fetchedAt: Date.now(), count: Object.keys(fix).length, map: fix })
   const withJdb = Object.values(fix).filter(x => x.avatar_url).length
   const withMn = Object.values(fix).filter(x => !x.avatar_url && x.mimg).length
   console.log(
@@ -427,44 +416,34 @@ async function fixActressesWithoutIcon(byId) {
  * 性别策略：不能用三围是否存在判断男女。116 位女性的样本中仅 7 位有三围；
  * 另有 880 条按缺少三围判为男性的记录，其中 623 条（约 71%）实际为女性，如安倍亜沙美、AIKA、松本一香。
  * 因此优先反查女性姓名集合（名册规模样本约 2.5 万人），未命中时再尝试网页。
- * 现有代码未命中仍先返回 m；这是覆盖不足时的默认值，不能视为性别事实。
+ * 未命中时返回 ?，等待网页或已有依据确认，不默认分配男性/女性。
  */
 let FEM_NAMES = null
 
 /**
  * 首次使用时建立归一化女性姓名 Set，后续调用复用同一进程内缓存。
- * 优先读 female_names.json；没有条目时回退外部 actresses.json。读取失败被忽略。
+ * 优先读 female_names.json；没有条目时回退当前 roster.json。文件缺失允许冷启动，损坏数据则中止。
+ * 名字精简集合体积样本约 0.75 MB、完整名册约 16 MB；精简输入减少采集环境的名册依赖。
+ * 2026-10-07 的运行记录曾因姓名输入缺失新增 21 条误标男性数据，因此不能将缺失输入解释为男性。
  *
  * @returns {Set<string>} 可能为空；空集合不能证明候选人物都是男性。
  */
 function loadFemaleNames() {
   if (FEM_NAMES) return FEM_NAMES
+  const precise = readJson(path.join(RELAY_DIR, 'female_names.json'), { names: [] })
+  if (!Array.isArray(precise.names)) throw new Error('female_names.json 缺少 names 数组')
+  const roster = precise.names.length
+    ? precise.names.map(name => ({ name }))
+    : readJson(path.join(RELAY_DIR, 'roster.json'), [])
+  if (!Array.isArray(roster)) throw new Error('roster.json 必须为数组')
   FEM_NAMES = new Set()
-
-  /*
-   * 优先使用 female_names.json 的精简名字集合，避免每次携带完整 actresses.json。
-   * 体积样本约 0.75 MB 对 16 MB；文件是否存在取决于本次部署，当前仓库没有预置这些数据。
-   * 2026-10-07 的一次运行曾因姓名输入缺失而新增 21 条误标男性记录，因此两种输入都缺失时尤其要核查。
-   */
-  let roster = []
-  try {
-    const fn = JSON.parse(fs.readFileSync(path.join(RELAY_DIR, 'female_names.json'), 'utf8')) || {}
-    roster = (fn.names || []).map(n => ({ name: n }))
-  } catch (_) {}
-  if (!roster.length) {
-    const ROSTER = path.join(RELAY_DIR, '..', 'actresses.json')
-    try {
-      roster = JSON.parse(fs.readFileSync(ROSTER, 'utf8')) || []
-    } catch (_) {}
-  }
-  const push = n => {
-    const k = onNorm(n)
-    if (k) FEM_NAMES.add(k)
+  const push = name => {
+    const key = onNorm(name)
+    if (key) FEM_NAMES.add(key)
   }
   for (const a of roster) {
     if (!a || !a.name) continue
-    push(a.name)
-    ;[a.name_ja, a.name_zh, a.name_en].forEach(n => n && push(n))
+    ;[a.name, a.name_ja, a.name_zh, a.name_en].forEach(push)
     if (Array.isArray(a.alias)) a.alias.forEach(push)
   }
   return FEM_NAMES
@@ -472,7 +451,7 @@ function loadFemaleNames() {
 
 /**
  * 将 gender=f 的人物姓名及别名合并进已有名字集合，仅数量增加时落盘。
- * 集合使用原始字符串；写入失败被忽略。调用方还需确保工作流提交该产物。
+ * 集合使用原始字符串；损坏输入或写入失败向上抛出，调用方需确保工作流提交该产物。
  *
  * 女性姓名集合需要随新人物与新别名增长；将本次 gender=f 的姓名合并回文件，避免反查覆盖逐渐落后。
  * 此步骤只扩充已判结果，不会重新验证性别，也不负责将文件提交到 Git。
@@ -481,37 +460,31 @@ function loadFemaleNames() {
  * @returns {void} 不重新验证已有性别，不删除旧名字。
  */
 function updateFemaleNames(list) {
-  try {
-    const p = path.join(RELAY_DIR, 'female_names.json')
-    const names = new Set()
-    try {
-      ;((JSON.parse(fs.readFileSync(p, 'utf8')) || {}).names || []).forEach(n => names.add(n))
-    } catch (_) {}
-    const before = names.size
-    for (const a of list) {
-      if (!a || a.gender !== 'f') continue
-      ;[a.name, a.name_zht].concat(String(a.other_name || '').split(/[,，、]/)).forEach(n => {
-        n = String(n || '').trim()
-        if (n && n.length < 60) names.add(n)
-      })
-    }
-    if (names.size !== before) {
-      fs.writeFileSync(
-        p,
-        JSON.stringify({
-          fetchedAt: Date.now(),
-          source: 'minnano-roster+javdb-verified',
-          count: names.size,
-          names: [...names]
-        })
-      )
-      console.log('   relay/female_names.json：' + before + ' → ' + names.size + ' 个女优名字')
-    }
-  } catch (_) {}
+  const file = path.join(RELAY_DIR, 'female_names.json')
+  const previous = readJson(file, { names: [] })
+  if (!Array.isArray(previous.names)) throw new Error('female_names.json 缺少 names 数组')
+  const names = new Set(previous.names)
+  const before = names.size
+  for (const a of list) {
+    if (!a || a.gender !== 'f' || String(a.genderSource || '').startsWith('unverified')) continue
+    ;[a.name, a.name_zht, ...String(a.other_name || '').split(/[,，、]/)].forEach(value => {
+      const name = String(value || '').trim()
+      if (name && name.length < 60) names.add(name)
+    })
+  }
+  if (names.size !== before) {
+    writeJson(file, {
+      fetchedAt: Date.now(),
+      source: 'minnano-roster+javdb-verified',
+      count: names.size,
+      names: [...names]
+    })
+    console.log('   female_names.json：' + before + ' → ' + names.size)
+  }
 }
 
 /**
- * 通过姓名集合做第一阶段性别推断。命中为 f，未命中仍返回默认 m。
+ * 通过姓名集合做第一阶段性别推断。命中为 f，未命中返回 ?。
  * 未命中只是名单没有覆盖，不能当作事实确认；调用方用 rosterHit 决定是否网页复核。
  *
  * @param {object} a 含 name、name_zht、other_name 的人物记录。
@@ -529,9 +502,9 @@ function genderOf(a) {
    *
    * 姓名集合对欧美人物和部分无码厂商人物覆盖有限，未命中比例高。
    *
-   * 名册未命中时保留待复核标记，后续使用网页判断；现有默认 m 不是已确认结果。
+   * 名册未命中时保留待复核标记，后续使用网页判断；现有问号表示没有确认依据。
    */
-  return { gender: 'm', rosterHit: false }
+  return { gender: '?', rosterHit: false }
 }
 
 /*
@@ -611,10 +584,11 @@ function webGenderOf(id) {
         const j = await jdbGet(
           'v1/movies/latest?filter_by=magnets&limit=30&page=' + page + '&' + src.q
         )
-        list = ((j || {}).data || {}).movies || []
+        list = j?.data?.movies
+        if (!Array.isArray(list)) throw new Error('影片列表响应缺少 movies 数组')
       } catch (e) {
         console.log('   ' + src.label + ' 第' + page + '页失败：' + e.message)
-        break
+        throw e
       }
       if (!list.length) break
       const ids = list.map(m => m.id).filter(Boolean)
@@ -626,6 +600,9 @@ function webGenderOf(id) {
           return null
         }
       })
+      if (ids.length && detail.every(movie => !movie || !Array.isArray(movie.actors))) {
+        throw new Error('本页影片详情全部失败或结构无效，停止发布部分结果')
+      }
       let added = 0
       for (const mv of detail) {
         for (const a of (mv && mv.actors) || []) {
@@ -655,6 +632,7 @@ function webGenderOf(id) {
       if (stall >= 2) break
     }
   }
+  if (!found.size) throw new Error('未发现演员，保留已有文件；请检查 API 与分页响应')
   console.log('   影片反推共 ' + found.size + ' 个演员')
 
   // 阶段 2：旧记录优先，只有尚未出现的 ID 才请求人物详情；历史资料不会刷新。
@@ -663,12 +641,6 @@ function webGenderOf(id) {
    */
   const prev = loadPrev()
   const byId = new Map((prev.list || []).map(a => [a.id, a]))
-  // 注意：Map 别名共享新增记录及对象修改，不能用于恢复独立的历史状态。
-  const PREV_BY_ID = byId // 与 byId 指向同一个 Map，并非旧版快照；安全阀的这一限制保持原样。
-  /*
-   * 安全阀需要历史性别供恢复，但 PREV_BY_ID 与 byId 当前为共享引用，不是真正快照。
-   */
-  const MALE_BEFORE = (prev.list || []).filter(a => a.gender === 'm').length
   const todo = [...found.keys()].filter(id => !byId.get(id))
   console.log('② 已有 ' + byId.size + ' 个，需新抓 ' + todo.length + ' 个')
 
@@ -682,9 +654,9 @@ function webGenderOf(id) {
     }
     const ac = a.actor || {}
     if (!ac.id || !ac.name) return
-    // 命中名册使用 f；未命中先使用默认 m，并以 pending-web 标记等待复核。
+    // 命中名册使用 f；未命中先保留 ?，并以 pending-web 标记等待复核。
     /*
-     * 命中名册写入 f；未命中先使用默认 m，genderSource 标记 pending-web，随后尝试网页复核。
+     * 命中名册写入 f；未命中先保留 ?，genderSource 标记 pending-web，随后尝试网页复核。
      */
     const g = genderOf(ac)
     byId.set(id, {
@@ -714,11 +686,24 @@ function webGenderOf(id) {
     if (done % 20 === 0) console.log('   新抓 ' + done + '/' + todo.length)
   })
 
-  // 阶段 3：仅复核本次新增且名册未命中的人物，关闭复核会保留 pending-web。
+  // 阶段 3：复核新旧集合中尚无可信依据的人物，禁用网页时未命中者保留 unverified。
   /*
-   * 网页复核只处理本次新增且未命中姓名集合的记录，不重复检查旧人物；避免每天产生约千次重复请求。
+   * 网页复核只处理没有可靠来源的记录；已确认旧人物直接复用，避免每天产生约千次重复请求。
    */
-  const pending = todo.map(id => byId.get(id)).filter(r => r && r.genderSource === 'pending-web')
+  if (todo.length && !done) throw new Error('新增演员详情全部失败，保留已有文件')
+  // smoke 留下的未知记录必须能在后续 daily 获得姓名/网页依据后被确认，不能永久跳过。
+  const pending = []
+  for (const r of byId.values()) {
+    if (
+      ['f', 'm'].includes(r.gender) &&
+      !['pending-web', 'unverified', 'roster-heuristic'].includes(r.genderSource)
+    )
+      continue
+    const inferred = genderOf(r)
+    r.gender = inferred.gender
+    r.genderSource = inferred.rosterHit ? 'roster' : 'unverified'
+    if (!inferred.rosterHit) pending.push(r)
+  }
   if (WEB_ON && pending.length) {
     console.log('②b 性别复核（网页版 section-meta）：' + pending.length + ' 位…')
     await pool(pending, 8, async r => {
@@ -726,7 +711,7 @@ function webGenderOf(id) {
       if (g) {
         r.gender = g
         r.genderSource = 'javdb-web-section-meta'
-      } else r.genderSource = r.genderSource === 'pending-web' ? 'roster-heuristic' : r.genderSource
+      } else r.genderSource = 'unverified'
     })
     const fixF = pending.filter(r => r.gender === 'f').length
     console.log(
@@ -752,32 +737,11 @@ function webGenderOf(id) {
     list
   }
 
-  // 阶段 5：有条件触发安全阀；PREV_BY_ID 为共享引用，不能视为可靠历史快照。
-  /*
-   * 保护意图：姓名输入为空且网页熔断时，避免新增人物被默认 m 批量写入男性列表。
-   * 条件为男性人数增量超过 5；尝试恢复旧记录性别，无旧记录则采用 unverified-default-f。
-   * 共享 Map 引用会影响恢复效果，不能认为此分支已经可靠保留了独立的旧版本。
-   */
-  const FEM_COUNT = loadFemaleNames().size
-  if (WEB_DEAD && !FEM_COUNT && out.male - MALE_BEFORE > 5) {
-    console.log(
-      `⚠ 名册缺失且网页版不可用 → 本次新增的 ${out.male - MALE_BEFORE} 位性别不可信，按上一版还原，不写入新性别`
-    )
-    for (const r of pending) {
-      const o = PREV_BY_ID.get(r.id)
-      if (o) {
-        r.gender = o.gender
-        r.genderSource = o.genderSource || 'prev'
-      } else {
-        r.gender = 'f'
-        r.genderSource = 'unverified-default-f'
-      }
-    }
-    out.female = list.filter(a => a.gender === 'f').length
-    out.male = list.filter(a => a.gender === 'm').length
-  }
-  // 直接覆盖目标；发现集合为空也没有统一的失败拦截，保持当前实现。
-  fs.writeFileSync(OUT_JSON, JSON.stringify(out))
+  // 阶段 5：已有确认记录保持不动；缺少新依据的记录保留问号，不做数量推测或默认分配。
+  out.female = list.filter(a => a.gender === 'f').length
+  out.male = list.filter(a => a.gender === 'm').length
+  out.unknown = list.filter(a => a.gender === '?').length
+  writeJson(OUT_JSON, out)
   updateFemaleNames(list)
   console.log(
     '③ relay/actors_full.json 已生成：共 ' +
@@ -786,10 +750,12 @@ function webGenderOf(id) {
       out.female +
       ' · 男优 ' +
       out.male +
+      ' · 未知 ' +
+      out.unknown +
       '）'
   )
 
-  // 阶段 6：读取外部名册做补图；名册缺失时跳过，JSON 主产物此前已经写出。
+  // 阶段 6：读取当前名册做补图；名册缺失时跳过，JSON 主产物此前已经写出。
   /*
    * 补图限定为名册中缺 icon 的人物，不替换已有头像；缺图率样本为 4.6%。
    * actress_fix.json 实际结构为 { fetchedAt, count, map: { 名字: { id, avatar_url, videos_count, ... } } }。
@@ -810,18 +776,21 @@ function webGenderOf(id) {
       {}
   } catch (_) {}
   // 阶段 7：合并演员头像与补图映射，允许图片失败，不回滚此前写出的 JSON。
-  const avaList = [
-    ...list.map(r => ({ id: r.id, avatar_url: r.avatar_url })),
-    // 女优补图：JavDB 有图走 JavDB；没有则用名册存的 minnano 原图
-    ...Object.values(fixMap)
-      .filter(x => x && (x.avatar_url || x.mimg))
-      .map(x => ({
-        id: x.id || 'mn_' + (x.mnid || x.name),
-        avatar_url: x.avatar_url,
-        mimg: x.mimg,
-        isMn: !x.avatar_url
-      }))
-  ]
+  const avaList =
+    process.env.SKIP_IMAGES === '1'
+      ? []
+      : [
+          ...list.map(r => ({ id: r.id, avatar_url: r.avatar_url })),
+          // 女优补图：JavDB 有图走 JavDB；没有则用名册存的 minnano 原图
+          ...Object.values(fixMap)
+            .filter(x => x && (x.avatar_url || x.mimg))
+            .map(x => ({
+              id: x.id || 'mn_' + (x.mnid || x.name),
+              avatar_url: x.avatar_url,
+              mimg: x.mimg,
+              isMn: !x.avatar_url
+            }))
+        ]
   await pool(avaList, AVA_CONC, async r => {
     if (!r.avatar_url && !r.mimg) {
       avMiss++
