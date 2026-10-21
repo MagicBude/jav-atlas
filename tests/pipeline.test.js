@@ -44,6 +44,16 @@ function run(dir, file, args = [], extra = {}) {
 }
 const json = (dir, f) => readJson(path.join(dir, f))
 
+test('同批头像筛选在路径分配前完成，不给无关人物写索引', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'minnano/actresses.json'), [
+      { mnid: '123', name: 'Test Actor' },
+      { mnid: '456', name: 'Unselected' }
+    ])
+    success(run(dir, 'roster-avatars.js', ['1'], { ONLY: '123' }))
+    assert.deepEqual(Object.keys(json(dir, 'minnano/avatars/index.json').files), ['123'])
+  }))
+
 test('限量详情入口跨缓存继续下一批，保留已有字段，失败不记完成', () =>
   sandbox(dir => {
     writeJson(path.join(dir, 'minnano/actresses.json'), [

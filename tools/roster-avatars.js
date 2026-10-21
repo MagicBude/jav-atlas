@@ -105,16 +105,17 @@ const pool = async (items, n, fn) => {
       }
   } catch (_) {}
   // 阶段 2：仅按文件存在及体积决定是否重抓，不检查已有文件是否完整可解码。
-  const miss = ids.filter(id => {
-    const f = avatarPath(AVA_DIR, id, names.get(String(id)), 'f')
-    return !(fs.existsSync(f) && fs.statSync(f).size > 2048)
-  })
-  // 批量详情入口只补同一批人物的图片，避免头像队列与详情队列错位。
+  // 先限制候选，再分配头像路径。路径分配会维护磁盘索引，不能为未参与的两万多人物逐个执行。
   const only = (process.env.ONLY || '')
     .split(',')
     .map(id => id.trim())
     .filter(Boolean)
-  const todo = miss.filter(id => !only.length || only.includes(id)).slice(0, limit)
+  const candidates = ids.filter(id => !only.length || only.includes(id))
+  const miss = candidates.filter(id => {
+    const f = avatarPath(AVA_DIR, id, names.get(String(id)), 'f')
+    return !(fs.existsSync(f) && fs.statSync(f).size > 2048)
+  })
+  const todo = miss.slice(0, limit)
   console.log(
     '名册 ' +
       ids.length +
