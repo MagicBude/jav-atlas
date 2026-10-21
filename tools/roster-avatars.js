@@ -109,7 +109,12 @@ const pool = async (items, n, fn) => {
     const f = avatarPath(AVA_DIR, id, names.get(String(id)), 'f')
     return !(fs.existsSync(f) && fs.statSync(f).size > 2048)
   })
-  const todo = miss.slice(0, limit)
+  // 批量详情入口只补同一批人物的图片，避免头像队列与详情队列错位。
+  const only = (process.env.ONLY || '')
+    .split(',')
+    .map(id => id.trim())
+    .filter(Boolean)
+  const todo = miss.filter(id => !only.length || only.includes(id)).slice(0, limit)
   console.log(
     '名册 ' +
       ids.length +

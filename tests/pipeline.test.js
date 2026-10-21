@@ -43,6 +43,33 @@ function run(dir, file, args = [], extra = {}) {
   )
 }
 const json = (dir, f) => readJson(path.join(dir, f))
+
+test('限量详情入口跨缓存继续下一批，保留已有字段，失败不记完成', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'minnano/actresses.json'), [
+      { mnid: '123', name: 'Manual Name', height: '180' },
+      { mnid: '456', name: 'Not Declared' }
+    ])
+    success(run(dir, 'backfill-minnano.js', [], { BACKFILL_LIMIT: '1' }))
+    const rows = json(dir, 'minnano/actresses.json')
+    assert(rows[0].profileFetchedAt)
+    assert.equal(rows[0].height, '180')
+    assert.equal(rows[1].profileFetchedAt, undefined)
+    fs.rmSync(path.join(dir, 'cache'), { recursive: true, force: true })
+    const failed = run(dir, 'backfill-minnano.js', [], { BACKFILL_LIMIT: '1' })
+    assert.notEqual(failed.status, 0)
+    assert(failed.stdout.includes('ONLY 指定'))
+    assert.deepEqual(json(dir, 'minnano/actresses.json'), rows)
+  }))
+
+test('限量详情入口拒绝非法数量且无候选时不请求网络', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'minnano/actresses.json'), [
+      { mnid: '123', name: 'Done', profileFetchedAt: 1 }
+    ])
+    assert.notEqual(run(dir, 'backfill-minnano.js', [], { BACKFILL_LIMIT: '0' }).status, 0)
+    success(run(dir, 'backfill-minnano.js', [], { FIXTURE_FAIL: 'all' }))
+  }))
 function success(result) {
   assert.equal(result.status, 0, result.stdout + result.stderr + (result.error || ''))
 }

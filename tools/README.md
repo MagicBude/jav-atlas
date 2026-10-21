@@ -52,3 +52,9 @@ node tools/verify-uc-gender.js input.json output.json 4
 Actions 选择 mode=daily、source=directory，每次最多发现20页；smoke+directory只读1页。该入口不下载详细资料或头像，后续按需要另行回填。遍历期间源站新增和排序变化可能造成跨页重叠或遗漏，一轮扫描完成仍需定期重扫，不能把源站显示人数当成本地完整人数。定时任务仍保持关闭。
 
 目录深页补充：普通无筛选目录实测第168页会返回第167页，因此当前 Actions 的 directory 使用 discover-minnano-groups.js 按公开五十音分组扫描。directory_pages 是所有分组共享的本轮总页数预算（默认20），检查点保存 partitionPlan 与 groups 中各组进度；partitionCompleted=true 只表示计划中的分组已遍历，不表示未分类人物也全部覆盖。原始普通目录进度保留用于诊断。单组诊断可运行 discover-minnano.js --gojuon a --pages 3。
+
+## 限量补齐人物详情和头像
+
+Actions 选择 daily + profiles，profile_limit 默认20，允许1至1000；smoke 固定最多3人并跳过图片。该入口不更新榜单或发现目录，只选择名册中没有 profileFetchedAt 的人物，成功解析后记录时间，跨 runner 跳过已成功人物。仍按只填空原则保留已有资料。头像仅处理同批 ID，姓名和性别目录沿用现有规则。
+
+本地可设置 BACKFILL_LIMIT 后运行 node tools/collect.js daily profiles。失败人物保留待重试状态；头像失败不会撤销已成功的详情，缺图可单独运行 node tools/roster-avatars.js 400 继续补齐。profileFetchedAt 表示详情解析成功时间，不代表源站提供了全部字段，也不表示图片成功。既有 daily + minnano / all 行为保持原范围。

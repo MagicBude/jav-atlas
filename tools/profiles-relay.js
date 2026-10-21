@@ -324,6 +324,8 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
       if (p && p.canon) {
         cache[a.mnid] = { fetchedAt: Date.now(), ok: true }
         ok++
+        // 持久化成功时间，让不同 Actions runner 也能继续补齐；失败不写成功标记。
+        a.profileFetchedAt = Date.now()
 
         /*
          * 只填空避免覆盖人工修正及已有较完整资料；名册作为消费端兜底数据，因此不以本次空解析结果清空已有字段。

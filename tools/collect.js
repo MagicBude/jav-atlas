@@ -8,9 +8,11 @@ const { relayDir, envInt } = require('./lib/runtime')
 const [mode = 'smoke', source = 'all'] = process.argv.slice(2)
 if (
   !['smoke', 'daily'].includes(mode) ||
-  !['all', 'minnano', 'javdb', 'male', 'directory'].includes(source)
+  !['all', 'minnano', 'javdb', 'male', 'directory', 'profiles'].includes(source)
 ) {
-  throw new Error('用法：node tools/collect.js smoke|daily all|minnano|javdb|male|directory')
+  throw new Error(
+    '用法：node tools/collect.js smoke|daily all|minnano|javdb|male|directory|profiles'
+  )
 }
 const env = { ...process.env, RELAY_DIR: relayDir() }
 if (mode === 'smoke')
@@ -19,6 +21,7 @@ if (mode === 'smoke')
     MOVIE_PAGES: '1',
     UC_PAGES: '1',
     PROFILE_LIMIT: '3',
+    BACKFILL_LIMIT: '3',
     AVA_LIMIT: '3',
     FIX_LIMIT: '0',
     SKIP_IMAGES: '1',
@@ -26,6 +29,7 @@ if (mode === 'smoke')
     HTTP_TIMEOUT_MS: '8000'
   })
 const jobs = []
+if (source === 'profiles') jobs.push(['backfill-minnano.js'])
 if (source === 'all' || source === 'minnano') {
   jobs.push(
     ['rank-relay.js'],
