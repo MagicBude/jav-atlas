@@ -63,3 +63,8 @@ global.fetch = async (url, options) => {
   }
   throw new Error('测试禁止访问未声明网络地址：' + url)
 }
+
+// 网页复核调用系统 curl；测试只替换此进程边界，不访问实际网站。
+if (process.env.FIXTURE_GENDER_HTML) {
+  require('child_process').execSync = () => process.env.FIXTURE_GENDER_HTML
+}

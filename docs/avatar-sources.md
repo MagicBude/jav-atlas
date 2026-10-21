@@ -2,13 +2,15 @@
 
 当前方案：继续从 minnano/JavDB 自行抓取，不接入 Gfriends。下方外部来源研究作为备选记录，不代表已经实施。
 
-## 本地缓存使用来源 ID
+## 头像文件名：来源 ID + 姓名
 
-minnano 头像使用 minnano/avatars/<mnid>.jpg，JavDB 使用 javdb/avatars/<id>.jpg，固定种子男演员工具也复用 javdb/avatars/<id>.jpg。这些 ID 只在对应站点内唯一，目录区分来源，不新增项目内部人物编号。
+minnano 使用 `minnano/avatars/14008_大槻ひびき.jpg`。JavDB 与派生补图使用 `ID_姓名--ID编码.jpg`；例如 `0R5Na_ウルフ田中--3052354e61.jpg`。
 
-按姓名命名技术上可行，但改名、别名、同名人物和文件名特殊字符会让同一资料产生多份文件或覆盖其他人。浏览器显示姓名不依赖图片文件名；网页应读取人物姓名、来源 ID 和头像路径。即使接入按姓名索引的图片库，最终缓存仍可按来源 ID 保存。
+ID 编码是原始 ID 的 UTF-8 十六进制表示，不是新增人物编号。JavDB ID 区分大小写，Windows 文件名通常不区分；末尾编码保证即使两人同名，`0R5Na` 与 `0R5na` 仍不会互相覆盖。minnano 的纯数字 ID 不需要编码。JSON 中原始 ID 保持不变，姓名方便直接浏览文件。
 
-如果以后需要将图片导出给人手工整理，可提供“姓名 + 来源 ID”的导出名，例如“姓名--minnano-123.jpg”；导出名不必成为主缓存身份键。
+文件名由 `tools/lib/avatars.js` 统一生成。Windows 禁用字符替换为下划线，姓名最多保留 64 个 UTF-16 单元。姓名变更时按 ID 编码寻找并重命名已有缓存，不重复下载。同来源男演员与普通演员共用缓存；不同来源仍按目录区分。
+
+已有旧头像可运行 `node tools/migrate-avatar-names.js --from-git`。脚本从 HEAD 分别恢复每张图，完整预检后迁移；本地存在未保存改图、未知 ID 或目标冲突时停止。已迁移的数据再次运行不会改动图片。旧 Raw 图片地址需要随新提交更新，JSON 数据路径不变；拼接 URL 时对文件名使用 `encodeURIComponent`。
 
 ## Gfriends 的实际能力
 

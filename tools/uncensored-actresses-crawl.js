@@ -210,7 +210,7 @@ let WEB_DEAD = false,
  */
 function webGenderOf(id) {
   if (WEB_DEAD) return null
-  const cmd = `curl -s --max-time 25 ${WEB_PROXY ? '-x ' + WEB_PROXY + ' ' : ''}-A "${WEB_UA}" "https://javdb.com/actors/${id}"`
+  const cmd = `curl -fsSL -w "\\nHTTP_STATUS:%{http_code}" --max-time 25 ${WEB_PROXY ? '-x ' + WEB_PROXY + ' ' : ''}-A "${WEB_UA}" "https://javdb.com/actors/${id}"`
   let h = ''
   try {
     const env = { ...process.env }
@@ -223,7 +223,13 @@ function webGenderOf(id) {
       env,
       stdio: ['ignore', 'pipe', 'ignore']
     })
-  } catch (_) {
+  } catch (error) {
+    if (webFailStreak === 0) {
+      const status = String(error.stdout || '').match(/HTTP_STATUS:(\d+)/)?.[1]
+      console.log(
+        '   网页复核请求失败：' + (status ? 'HTTP ' + status : 'curl 退出码 ' + error.status)
+      )
+    }
     h = ''
   }
   const metas = [...String(h).matchAll(/section-meta">([^<]+)</g)].map(x => x[1])

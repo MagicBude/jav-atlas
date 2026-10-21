@@ -6,22 +6,22 @@
 
 需要 Node.js 22+。采集和测试均无第三方依赖，无需 npm install。
 
-~~~sh
+```sh
 npm run check
 npm test
 npm run collect -- smoke all
-~~~
+```
 
 smoke 会抓真实数据：每个影片维度 1 页、资料页最多 3 人、榜单头像最多 3 人，禁用 JavDB 图片和网页性别复核。不是 dry-run。榜单仍最多抓日/周/月各 2 页。缺少性别依据的记录保留 ?。
 
 可单独选择来源排查网络：
 
-~~~sh
+```sh
 npm run collect -- smoke minnano
 npm run collect -- smoke javdb
 npm run collect -- smoke male
 npm run collect -- daily all
-~~~
+```
 
 daily 使用正常任务量；male 是固定种子工具，all 的演员集合采集已覆盖影片中发现的男女演员，不再重复运行种子搜索。
 
@@ -53,7 +53,7 @@ workflow 需要 contents: write；仓库或分支规则仍可能限制自动提�
 
 目录路径统一由 tools/lib/data-paths.js 管理，RELAY_DIR 只覆盖数据总根，不改变内部来源分类。RELAY_DIR 可覆盖产物目录，CACHE_DIR 可覆盖资料缓存目录；相对路径以工作目录为准。MOVIE_PAGES、UC_PAGES、PROFILE_LIMIT、AVA_LIMIT、FIX_LIMIT、AVA_CONC 等控制任务量，整数配置会校验范围。HTTP_TIMEOUT_MS 控制主要请求超时。WEB_GENDER=0 禁用网页复核，SKIP_IMAGES=1 禁用 JavDB 头像任务；榜单头像需用 AVA_LIMIT=0 单独关闭。
 
-数据文件均按来源命名并多行保存，详见 [数据目录说明](relay/README.md)。头像按来源 ID 命名并继续自行抓取，不接入外部头像库；[头像缓存说明](docs/avatar-sources.md) 记录了命名依据与备选方案调研。
+数据文件均按来源命名并多行保存，详见 [数据目录说明](relay/README.md)。头像按来源 ID 与姓名命名并继续自行抓取，不接入外部头像库；[头像缓存说明](docs/avatar-sources.md) 记录了命名依据与备选方案调研。
 
 阅读：[工具索引](tools/README.md)、[架构](docs/architecture.md)、[代码规范](docs/code-style.md)、[验证记录](docs/validation.md)。
 

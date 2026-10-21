@@ -9,16 +9,16 @@ relay/
 ├─ minnano/
 │  ├─ rankings.json              日、周、月榜
 │  ├─ actresses.json             榜单发现并逐次积累的人物名册
-│  └─ avatars/<mnid>.jpg         minnano 原生 ID 对应的头像
+│  └─ avatars/<mnid>_<姓名>.jpg         minnano 原生 ID 对应的头像
 ├─ javdb/
 │  ├─ actors.json                影片发现的演员集合，含男女及未知
 │  ├─ uncensored-actors.json     无码影片样本中出现的人物
 │  ├─ male-seed-actors.json      固定姓名种子查询结果，male 模式生成
-│  └─ avatars/<id>.jpg           普通与男演员种子工具共享的 JavDB 头像
+│  └─ avatars/<id>_<姓名>--<ID编码>.jpg           普通与男演员种子工具共享的 JavDB 头像
 └─ derived/
    ├─ female-name-index.json     跨来源女性姓名及别名反查索引
    ├─ avatar-supplements.json    为缺头像名册建立的补充资料映射
-   └─ avatars/<id>.jpg           跨来源补图缓存，缺 JavDB ID 时使用 mn_<mnid>
+   └─ avatars/<id>_<姓名>--<ID编码>.jpg           跨来源补图缓存，缺 JavDB ID 时使用 mn_<mnid>
 ~~~
 
 文件和图片目录按需生成。当前小规模抓取没有生成 male 种子名单及补图文件，不能将它们未出现理解为采集丢失。

@@ -5,6 +5,7 @@ const os = require('os')
 const path = require('path')
 const { spawnSync } = require('child_process')
 const { readJson, writeJson, envInt } = require('../tools/lib/runtime')
+const { avatarFilename } = require('../tools/lib/avatars')
 const root = path.join(__dirname, '..')
 
 /** 每例都使用系统临时目录，合成资料不会写入项目 relay 或混入真实采集。 */
@@ -51,7 +52,7 @@ test('空目录以合成响应跑通完整 smoke，保持来源 ID 与未知性�
     const result = run(dir, 'collect.js', ['smoke', 'all'])
     success(result)
     assert(
-      fs.existsSync(path.join(dir, 'minnano', 'avatars', '123.jpg')),
+      fs.existsSync(path.join(dir, 'minnano', 'avatars', avatarFilename('123', 'Test Actor'))),
       '相对图片 URL 应正确下载'
     )
     assert.equal(json(dir, 'minnano/actresses.json')[0].mnid, '123')
@@ -211,7 +212,7 @@ test('名册头像采集同样遵守 RELAY_DIR，而非硬编码项目目录', (
     success(run(dir, 'rank-relay.js'))
     success(run(dir, 'bootstrap-roster.js'))
     success(run(dir, 'roster-avatars.js', ['1']))
-    assert(fs.existsSync(path.join(dir, 'minnano', 'avatars', '123.jpg')))
+    assert(fs.existsSync(path.join(dir, 'minnano', 'avatars', avatarFilename('123', 'Test Actor'))))
   }))
 
 test('已有未知人物可在后续获得名册依据后被确认，而不是永久跳过', () =>
@@ -278,9 +279,13 @@ test('男演员种子和普通 JavDB 采集共用同一来源头像缓存', () =
     const options = { FIXTURE_MALE: '1', FIXTURE_AVATAR: '1', SEED_LIMIT: '1', SKIP_IMAGES: '0' }
     success(run(dir, 'male-roster-relay.js', [], options))
     assert.equal(json(dir, 'javdb/male-seed-actors.json').count, 1)
-    assert(fs.existsSync(path.join(dir, 'javdb', 'avatars', 'actor1.jpg')))
+    assert(
+      fs.existsSync(path.join(dir, 'javdb', 'avatars', avatarFilename('actor1', 'Test Actor')))
+    )
     success(run(dir, 'actors-full-crawl.js', [], options))
-    assert.deepEqual(fs.readdirSync(path.join(dir, 'javdb', 'avatars')), ['actor1.jpg'])
+    assert.deepEqual(fs.readdirSync(path.join(dir, 'javdb', 'avatars')), [
+      avatarFilename('actor1', 'Test Actor')
+    ])
     assert(!fs.existsSync(path.join(dir, 'avatars_male')))
   }))
 
@@ -298,6 +303,72 @@ test('跨来源补图写入 derived，不混入 JavDB 源站头像目录', () =>
       }
     })
     success(run(dir, 'actors-full-crawl.js', [], { SKIP_IMAGES: '0' }))
-    assert(fs.existsSync(path.join(dir, 'derived', 'avatars', 'mn_123.jpg')))
-    assert(!fs.existsSync(path.join(dir, 'javdb', 'avatars', 'mn_123.jpg')))
+    assert(
+      fs.existsSync(path.join(dir, 'derived', 'avatars', avatarFilename('mn_123', 'Test Actor')))
+    )
+    assert(
+      !fs.existsSync(path.join(dir, 'javdb', 'avatars', avatarFilename('mn_123', 'Test Actor')))
+    )
+  }))
+
+test('大小写不同的源站 ID 即使同名也不会在 Windows 覆盖', () => {
+  const a = avatarFilename('0R5Na', '同名演员')
+  const b = avatarFilename('0R5na', '同名演员')
+  assert.notEqual(a.toLowerCase(), b.toLowerCase())
+  assert(a.startsWith('0R5Na_同名演员'))
+  assert(!/[<>:"/\\|?*]/.test(avatarFilename('123', '姓名:/?*')))
+})
+
+test('姓名变化复用头像，同一 ID 不留下重复缓存', () =>
+  sandbox(dir => {
+    const { avatarPath } = require('../tools/lib/avatars')
+    const old = avatarPath(dir, 'actor1', '旧名')
+    fs.writeFileSync(old, 'same image')
+    const current = avatarPath(dir, 'actor1', '新名')
+    assert.equal(fs.readFileSync(current, 'utf8'), 'same image')
+    assert.equal(fs.readdirSync(dir).length, 1)
+  }))
+
+test('网页复核失败保留未知，日志不把未知计成男性', () =>
+  sandbox(dir => {
+    const result = run(dir, 'actors-full-crawl.js', [], {
+      WEB_GENDER: '1',
+      FIXTURE_GENDER_HTML: '<html>blocked</html>'
+    })
+    success(result)
+    assert.match(result.stdout, /男优 0 · 未知 2/)
+    const data = json(dir, 'javdb/actors.json')
+    assert.equal(data.male, 0)
+    assert.equal(data.unknown, 2)
+  }))
+
+test('人工性别修复遇到非空拦截页也不误判为女性', () =>
+  sandbox(dir => {
+    const input = path.join(dir, 'input.json')
+    const output = path.join(dir, 'output.json')
+    writeJson(input, {
+      list: [{ id: 'actor1', name: 'Test Actor', gender: 'm', genderSource: 'old' }]
+    })
+    success(
+      run(dir, 'fix-gender-by-web.js', [input, output], {
+        FIXTURE_GENDER_HTML: '<html>Access denied</html>'
+      })
+    )
+    assert.equal(readJson(output).list[0].gender, 'm')
+    assert.equal(readJson(output).list[0].genderSource, 'old')
+    assert.notEqual(readJson(output).genderSource, 'javdb-web-section-meta')
+  }))
+
+test('旧头像迁移保留内容且可重复执行，不误认 ASCII 姓名为旧 ID', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'minnano', 'actresses.json'), [{ mnid: '123', name: 'Alice' }])
+    const folder = path.join(dir, 'minnano', 'avatars')
+    fs.mkdirSync(folder, { recursive: true })
+    const image = Buffer.from('original image bytes')
+    fs.writeFileSync(path.join(folder, '123.jpg'), image)
+    success(run(dir, 'migrate-avatar-names.js'))
+    assert.deepEqual(fs.readFileSync(path.join(folder, avatarFilename('123', 'Alice'))), image)
+    assert(!fs.existsSync(path.join(folder, '123.jpg')))
+    success(run(dir, 'migrate-avatar-names.js'))
+    assert.equal(fs.readdirSync(folder).length, 1)
   }))

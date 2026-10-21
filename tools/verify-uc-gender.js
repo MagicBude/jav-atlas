@@ -25,7 +25,7 @@ const PROXY = process.env.WEB_PROXY || ''
  * @returns {string|null} m、f 或 null。
  */
 function webGender(id) {
-  const cmd = `curl -s --max-time 25 ${PROXY ? '-x ' + PROXY + ' ' : ''}-A "${UA}" "https://javdb.com/actors/${id}"`
+  const cmd = `curl -fsSL --max-time 25 ${PROXY ? '-x ' + PROXY + ' ' : ''}-A "${UA}" "https://javdb.com/actors/${id}"`
   let h = ''
   try {
     const env = { ...process.env }

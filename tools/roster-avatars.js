@@ -3,7 +3,7 @@
 /**
  * @file 为已有 minnano 名册补齐缺失头像，不创建或扩充人物名册。
  * 输入：仓库根 relay/minnano/actresses.json；可选读取 minnano/rankings.json 并加入新上榜 ID。
- * 输出：relay/minnano/avatars/<minnano ID>.jpg。超过 2048 字节的现有文件直接复用。
+ * 输出：relay/minnano/avatars/<minnano ID>_<姓名>.jpg。超过 2048 字节的现有文件直接复用。
  * 参数：[limit] 默认 400；full 或 0 表示不限量，其他值通过 parseInt 解释。
  * 流程：合并候选 ID → 筛出缺图记录 → 截取本轮数量 → 4 个 worker 抓资料页及图片。
  * 限制：失败记录不会持久化，后续运行仍可能从同一批缺图人物开始；不保证每日推进到所有人物。
@@ -15,7 +15,7 @@
  * 使用 Node 18+ 内置 fetch，不增加第三方依赖。
  */
 const fs = require('fs')
-const path = require('path')
+const { avatarPath } = require('./lib/avatars')
 const { readJson, envInt } = require('./lib/runtime')
 const { dataPaths } = require('./lib/data-paths')
 const paths = dataPaths()
@@ -92,17 +92,21 @@ const pool = async (items, n, fn) => {
   const roster = readJson(paths.minnanoActresses, null)
   if (!Array.isArray(roster)) throw new Error('缺少名册：请先运行 bootstrap-roster.js')
   // 阶段 1：名册是必需输入；榜单是可选补充，不会回写名册。
+  const names = new Map(roster.map(r => [String(r.mnid), r.name]))
   const ids = []
   for (const r of roster) if (r && r.mnid) ids.push(String(r.mnid))
   try {
     // 榜上 id 并入：新上榜的女优 roster 快照可能还没收录
     const rk = JSON.parse(fs.readFileSync(paths.minnanoRankings, 'utf8'))
     for (const k of ['day', 'week', 'month'])
-      for (const r of rk[k] || []) if (r.id && !ids.includes(String(r.id))) ids.push(String(r.id))
+      for (const r of rk[k] || []) {
+        if (!names.has(String(r.id))) names.set(String(r.id), r.name)
+        if (r.id && !ids.includes(String(r.id))) ids.push(String(r.id))
+      }
   } catch (_) {}
   // 阶段 2：仅按文件存在及体积决定是否重抓，不检查已有文件是否完整可解码。
   const miss = ids.filter(id => {
-    const f = path.join(AVA_DIR, id + '.jpg')
+    const f = avatarPath(AVA_DIR, id, names.get(String(id)))
     return !(fs.existsSync(f) && fs.statSync(f).size > 2048)
   })
   const todo = miss.slice(0, limit)
@@ -130,7 +134,7 @@ const pool = async (items, n, fn) => {
       }
       const b = await get(new URL(img, MN_BASE).href, true).catch(() => null)
       if (isImg(b)) {
-        fs.writeFileSync(path.join(AVA_DIR, id + '.jpg'), b)
+        fs.writeFileSync(avatarPath(AVA_DIR, id, names.get(String(id))), b)
         ok++
       } else {
         fail++

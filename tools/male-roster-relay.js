@@ -15,7 +15,7 @@
  * 网络请求使用 Node 18+ 内置 fetch，无第三方依赖；网页和移动 API 的可达性可能不同。
  */
 const fs = require('fs')
-const path = require('path')
+const { avatarPath } = require('./lib/avatars')
 const { writeJson, envInt } = require('./lib/runtime')
 const { dataPaths } = require('./lib/data-paths')
 const paths = dataPaths()
@@ -338,7 +338,7 @@ function pickActor(actors, name) {
       try {
         const u = new URL(r.avatar_url)
         if (!IMG_HOST_OK.test(u.hostname)) return
-        const f = path.join(AVA_DIR, r.id + '.jpg')
+        const f = avatarPath(AVA_DIR, r.id, r.name)
         if (fs.existsSync(f) && fs.statSync(f).size > 2048) {
           avSkip++
           return

@@ -4,19 +4,19 @@
  * @file 从 minnano 页面采集日、周、月榜，并为部分上榜人物补充头像。
  * 流程：依次读取三个榜单，每榜最多两页 → 按站内 ID 去重 → 处理最多 160 位人物的头像 → 写出榜单。
  * 输入：无需本地名册；依赖源站 HTML 的固定标签与类名。
- * 输出：仓库根 relay/minnano/rankings.json，以及 relay/minnano/avatars/<minnano ID>.jpg。
+ * 输出：仓库根 relay/minnano/rankings.json，以及 relay/minnano/avatars/<minnano ID>_<姓名>.jpg。
  * 约束：榜单为空抛错；头像任务失败由并发池转为 null，不阻止榜单写入。
  * 榜单先写同目录 .tmp 再 rename；这不构成 JSON 与所有头像之间的整体事务。
  * 运行：node tools/rank-relay.js。直接执行即产生网络请求和文件写入。
  *
- * 数据分发：榜单保留 rank/id/name/works 原始字段，头像按 minnano ID 命名。
+ * 数据分发：榜单保留 rank/id/name/works 原始字段，头像按 minnano ID 与姓名命名。
  * 当使用端无法直连 minnano 时，可通过公开仓库的 raw.githubusercontent.com 或 CDN 读取 JSON 与头像。
  * 抓取与消费解耦，不要求客户端持有 token；当前仓库未实现浏览端。
  * 执行环境可使用 GitHub 托管 runner；家庭网络 SNI 阻断与机房可访问只是网络记录，需实际验证。
  * 运行依赖：Node 18+ 内置 fetch，无第三方依赖。
  */
 const fs = require('fs')
-const path = require('path')
+const { avatarPath } = require('./lib/avatars')
 const { writeJson, envInt } = require('./lib/runtime')
 const { dataPaths } = require('./lib/data-paths')
 const paths = dataPaths()
@@ -168,7 +168,13 @@ const pool = async (items, n, fn) => {
   let ok = 0,
     skip = 0
   await pool(list, 4, async id => {
-    const f = path.join(AVA_DIR, id + '.jpg')
+    const f = avatarPath(
+      AVA_DIR,
+      id,
+      Object.values(out)
+        .flat()
+        .find(r => String(r.id) === String(id))?.name
+    )
     if (fs.existsSync(f) && fs.statSync(f).size > 2048) {
       skip++
       return

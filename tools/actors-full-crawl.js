@@ -19,7 +19,7 @@
  * 运行依赖：Node 18+ 内置 fetch，无第三方采集依赖；API 与网页可能受不同网络限制。
  */
 const fs = require('fs')
-const path = require('path')
+const { avatarPath } = require('./lib/avatars')
 const { readJson, writeJson, envInt, compareIds } = require('./lib/runtime')
 const { dataPaths } = require('./lib/data-paths')
 const paths = dataPaths()
@@ -534,7 +534,7 @@ let webFailStreak = 0
  */
 function webGenderOf(id) {
   if (WEB_DEAD) return null
-  const cmd = `curl -s --max-time 25 ${WEB_PROXY ? '-x ' + WEB_PROXY + ' ' : ''}-A "${WEB_UA}" "https://javdb.com/actors/${id}"`
+  const cmd = `curl -fsSL -w "\\nHTTP_STATUS:%{http_code}" --max-time 25 ${WEB_PROXY ? '-x ' + WEB_PROXY + ' ' : ''}-A "${WEB_UA}" "https://javdb.com/actors/${id}"`
   let h = ''
   try {
     const env = { ...process.env }
@@ -547,7 +547,13 @@ function webGenderOf(id) {
       env,
       stdio: ['ignore', 'pipe', 'ignore']
     })
-  } catch (_) {
+  } catch (error) {
+    if (webFailStreak === 0) {
+      const status = String(error.stdout || '').match(/HTTP_STATUS:(\d+)/)?.[1]
+      console.log(
+        '   网页复核请求失败：' + (status ? 'HTTP ' + status : 'curl 退出码 ' + error.status)
+      )
+    }
     h = ''
   }
   const metas = [...String(h).matchAll(/section-meta">([^<]+)</g)].map(x => x[1])
@@ -720,7 +726,9 @@ function webGenderOf(id) {
       '   复核结果：女优 ' +
         fixF +
         ' · 男优 ' +
-        (pending.length - fixF) +
+        pending.filter(r => r.gender === 'm').length +
+        ' · 未知 ' +
+        pending.filter(r => r.gender !== 'm' && r.gender !== 'f').length +
         (WEB_DEAD ? '（网页版不可用，部分保留名册反查）' : '')
     )
   }
@@ -780,12 +788,13 @@ function webGenderOf(id) {
     process.env.SKIP_IMAGES === '1'
       ? []
       : [
-          ...list.map(r => ({ id: r.id, avatar_url: r.avatar_url })),
+          ...list.map(r => ({ id: r.id, name: r.name, avatar_url: r.avatar_url })),
           // 女优补图：JavDB 有图走 JavDB；没有则用名册存的 minnano 原图
           ...Object.values(fixMap)
             .filter(x => x && (x.avatar_url || x.mimg))
             .map(x => ({
               id: x.id || 'mn_' + (x.mnid || x.name),
+              name: x.name,
               avatar_url: x.avatar_url,
               mimg: x.mimg,
               isMn: !x.avatar_url,
@@ -800,7 +809,7 @@ function webGenderOf(id) {
     try {
       const dir = r.supplement ? paths.supplementAvatars : AVA_DIR
       fs.mkdirSync(dir, { recursive: true })
-      const f = path.join(dir, r.id + '.jpg')
+      const f = avatarPath(dir, r.id, r.name)
       if (fs.existsSync(f) && fs.statSync(f).size > 2048) {
         avSkip++
         return
