@@ -150,10 +150,21 @@ async function get(url) {
 function parseProfilePage(html) {
   const kv = {}
   const alias = []
+  // 原始字段独立保留：不因当前没有对应规范字段而丢弃，也保留重复标签和链接地址。
+  const profileFields = []
   for (const m of html.matchAll(/<td[^>]*>\s*<span>([^<]+)<\/span>([\s\S]*?)<\/td>/g)) {
     const k = strip(m[1]),
       v = strip(m[2])
     if (!k || !v) continue
+    const links = []
+    for (const link of m[2].matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)) {
+      try {
+        const url = new URL(dec(link[1]), MN_BASE)
+        if (['http:', 'https:'].includes(url.protocol))
+          links.push({ text: strip(link[2]), url: url.href })
+      } catch (_) {}
+    }
+    profileFields.push({ label: k, text: v, ...(links.length ? { links } : {}) })
     if (k === '別名') {
       alias.push(v.split('（')[0].split('(')[0].trim())
       continue
@@ -191,6 +202,7 @@ function parseProfilePage(html) {
   }
   const img = (html.match(/src="(?:\/)?(p_actress[^"]+?\.jpg)/) || [])[1] || ''
   return {
+    profileFields,
     canon,
     birthday,
     height: (size.match(/T(\d+)/) || [])[1] || '',
@@ -267,7 +279,7 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
   const targets = stale
     .filter(a => {
       const c = cache[a.mnid]
-      return !c || !c.ok || Date.now() - c.fetchedAt > PROF_TTL
+      return a.profileSchemaVersion !== 2 || !c || !c.ok || Date.now() - c.fetchedAt > PROF_TTL
     })
     .slice(0, envInt('PROFILE_LIMIT', 100000))
   console.log(
@@ -326,6 +338,10 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
         ok++
         // 持久化成功时间，让不同 Actions runner 也能继续补齐；失败不写成功标记。
         a.profileFetchedAt = Date.now()
+        a.profileSchemaVersion = 2
+        // 规范字段用于筛选；原字段和相关人物姓名用于查阅。既有值不被新一轮空解析覆盖。
+        if (isEmpty(a.profileFields) && p.profileFields.length) a.profileFields = p.profileFields
+        if (isEmpty(a.relatedProfiles) && p.rel.length) a.relatedProfiles = p.rel
 
         /*
          * 只填空避免覆盖人工修正及已有较完整资料；名册作为消费端兜底数据，因此不以本次空解析结果清空已有字段。

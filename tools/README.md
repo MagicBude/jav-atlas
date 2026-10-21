@@ -60,3 +60,5 @@ Actions 选择 daily + profiles，profile_limit 默认20，允许1至1000；smok
 本地可设置 BACKFILL_LIMIT 后运行 node tools/collect.js daily profiles。失败人物保留待重试状态；头像失败不会撤销已成功的详情，缺图可单独运行 node tools/roster-avatars.js 400 继续补齐。profileFetchedAt 表示详情解析成功时间，不代表源站提供了全部字段，也不表示图片成功。既有 daily + minnano / all 行为保持原范围。
 
 每轮 profiles 生成 minnano/backfill-report.json：本批详情成功、失败、未尝试、缺头像计数，以及每个人物ID和结果。total为全名册成功详情与缺头像统计；缺少成功时间不等于失败，只有本轮失败缓存才计为失败。报告失败ID可用ONLY指定重试 profiles-relay.js；缺图可独立运行roster-avatars.js。该报告保留最新一批，历史批次可通过Git提交或Actions产物查看。
+
+人物资料保留规范字段之外，profileFields保存资料表原始标签、文本和链接，relatedProfiles保存相关人物ID及姓名，既有rel继续保存ID列表。profileSchemaVersion=2表示该人物已执行原字段采集；旧版本即使有profileFetchedAt，也会重新进入限量补齐队列。源站没有提供的字段不补造，当前不包含全部作品列表或整页HTML，不能称为完整网页备份。

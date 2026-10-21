@@ -11,7 +11,10 @@ const { dataPaths } = require('./lib/data-paths')
 const limit = envInt('BACKFILL_LIMIT', 20, 1, 1000)
 const roster = readJson(dataPaths().minnanoActresses, null)
 if (!Array.isArray(roster) || !roster.length) throw new Error('缺少人物名册，请先发现目录')
-const targets = roster.filter(row => row.mnid && !row.profileFetchedAt).slice(0, limit)
+// 旧批次只有规范字段，需重新补充原字段；版本标记避免源站无字段人物无限重抓。
+const targets = roster
+  .filter(row => row.mnid && (!row.profileFetchedAt || row.profileSchemaVersion !== 2))
+  .slice(0, limit)
 const startedAt = Date.now()
 /** 即使子步骤失败，也保存本批ID与实际落盘状态；不把尚未尝试的人物算成访问失败。 */
 function report(exitCode) {
@@ -35,11 +38,12 @@ function report(exitCode) {
   const results = targets.map(row => {
     const id = String(row.mnid)
     const attempt = cache[id]
-    const status = byId.get(id)?.profileFetchedAt
-      ? 'success'
-      : attempt && attempt.fetchedAt >= startedAt && !attempt.ok
-        ? 'failed'
-        : 'not-attempted'
+    const status =
+      byId.get(id)?.profileSchemaVersion === 2
+        ? 'success'
+        : attempt && attempt.fetchedAt >= startedAt && !attempt.ok
+          ? 'failed'
+          : 'not-attempted'
     return {
       mnid: id,
       name: row.name,
@@ -60,6 +64,7 @@ function report(exitCode) {
     total: {
       people: current.length,
       profileSuccess: current.filter(row => row.profileFetchedAt).length,
+      profileFieldsSaved: current.filter(row => row.profileSchemaVersion === 2).length,
       missingAvatars: current.filter(row => !imageExists(row.mnid)).length
     },
     results

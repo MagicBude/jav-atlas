@@ -64,6 +64,14 @@ test('限量详情入口跨缓存继续下一批，保留已有字段，失败�
     const rows = json(dir, 'minnano/actresses.json')
     assert(rows[0].profileFetchedAt)
     assert.equal(rows[0].height, '180')
+    assert.deepEqual(
+      rows[0].profileFields.find(field => field.label === '独自項目'),
+      {
+        label: '独自項目',
+        text: '原始値',
+        links: [{ text: '原始値', url: 'https://www.minnano-av.com/custom.html?a=1&b=2' }]
+      }
+    )
     assert.equal(rows[1].profileFetchedAt, undefined)
     assert.equal(json(dir, 'minnano/backfill-report.json').batch.profileSuccess, 1)
     assert.equal(json(dir, 'minnano/backfill-report.json').total.people, 2)
@@ -79,7 +87,7 @@ test('限量详情入口跨缓存继续下一批，保留已有字段，失败�
 test('限量详情入口拒绝非法数量且无候选时不请求网络', () =>
   sandbox(dir => {
     writeJson(path.join(dir, 'minnano/actresses.json'), [
-      { mnid: '123', name: 'Done', profileFetchedAt: 1 }
+      { mnid: '123', name: 'Done', profileFetchedAt: 1, profileSchemaVersion: 2 }
     ])
     assert.notEqual(run(dir, 'backfill-minnano.js', [], { BACKFILL_LIMIT: '0' }).status, 0)
     success(run(dir, 'backfill-minnano.js', [], { FIXTURE_FAIL: 'all' }))
