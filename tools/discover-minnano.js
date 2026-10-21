@@ -67,7 +67,7 @@ async function getPage(page) {
   let added = 0,
     scanned = 0
   for (let page = start; page < start + budget; page++) {
-    const result = parseDirectory(await getPage(page), page)
+    const result = parseDirectory(await getPage(page), page, group)
     for (const row of result.rows) {
       const old = known.get(row.mnid)
       if (!old) {

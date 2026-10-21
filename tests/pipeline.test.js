@@ -727,3 +727,14 @@ test('五十音分组共享页数预算、保留旧进度且支持跨次续跑',
     success(run(dir, 'discover-minnano-groups.js', [], { DIRECTORY_PAGES: '1' }))
     assert.equal(json(dir, 'minnano/actresses.json').length, 2)
   }))
+
+test('单页小分组没有分页栏时，以规范URL和有效人物行确认，拦截页仍拒绝', () => {
+  const { parseDirectory } = require('../tools/lib/minnano-directory')
+  const html =
+    '<link rel="canonical" href="https://www.minnano-av.com/actress_list.php?gojuon=nu&amp;sort=date"><table><tr><td><h2 class="ttl"><a href="actress123.html">人物</a></h2></td></tr></table>'
+  assert.equal(parseDirectory(html, 1, 'nu').totalPages, 1)
+  assert.equal(parseDirectory(html, 1, 'nu').rows.length, 1)
+  assert.throws(() => parseDirectory(html, 1, 'ne'), /单页/)
+  assert.throws(() => parseDirectory(html, 2, 'nu'), /页码/)
+  assert.throws(() => parseDirectory('<html>blocked</html>', 1, 'nu'), /单页/)
+})

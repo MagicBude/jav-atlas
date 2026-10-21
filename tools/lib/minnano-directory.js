@@ -16,12 +16,14 @@ const text = value =>
  * @param {number} expectedPage 请求页码。
  * @returns {{page:number,totalPages:number,totalPeople:number,rows:object[]}} 当前页面快照。
  */
-function parseDirectory(html, expectedPage) {
+function parseDirectory(html, expectedPage, expectedGroup) {
   const info = html.match(
     /class=["']page_info["'][^>]*>\s*(\d+)\s*\/\s*(\d+)\s*ページ\s*\(([\d,]+)件\)/
   )
-  if (!info || Number(info[1]) !== expectedPage)
-    throw new Error('目录页码标记缺失或与请求不一致：' + expectedPage)
+  if (info && Number(info[1]) !== expectedPage)
+    throw new Error('目录页码与请求不一致：' + expectedPage)
+  if (!info && (expectedPage !== 1 || !expectedGroup))
+    throw new Error('目录页码标记缺失：' + expectedPage)
   const rows = new Map()
   for (const match of html.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)) {
     const block = match[1]
@@ -41,6 +43,23 @@ function parseDirectory(html, expectedPage) {
     const works = block.match(/<\/td>\s*<td[^>]*>\s*([\d,]+)\s*<\/td>/i)?.[1]
     if (works) row.videoCount = Number(works.replaceAll(',', ''))
     rows.set(row.mnid, row)
+  }
+  if (!info) {
+    // 只有当前分组的规范URL与有效人物行都匹配、且不足一页时，才允许无分页栏。
+    const canonical = html.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["']/i)?.[1]
+    const url = canonical ? new URL(text(canonical), BASE) : null
+    if (
+      !url ||
+      url.origin !== new URL(BASE).origin ||
+      url.pathname !== '/actress_list.php' ||
+      url.searchParams.get('gojuon') !== expectedGroup ||
+      (url.searchParams.get('page') && url.searchParams.get('page') !== '1') ||
+      !rows.size ||
+      rows.size >= 30
+    ) {
+      throw new Error('单页目录缺少足够依据，保留检查点')
+    }
+    return { page: 1, totalPages: 1, totalPeople: rows.size, rows: [...rows.values()] }
   }
   const totalPages = Number(info[2]),
     totalPeople = Number(info[3].replaceAll(',', ''))
