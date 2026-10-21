@@ -58,3 +58,5 @@ Actions 选择 mode=daily、source=directory，每次最多发现20页；smoke+d
 Actions 选择 daily + profiles，profile_limit 默认20，允许1至1000；smoke 固定最多3人并跳过图片。该入口不更新榜单或发现目录，只选择名册中没有 profileFetchedAt 的人物，成功解析后记录时间，跨 runner 跳过已成功人物。仍按只填空原则保留已有资料。头像仅处理同批 ID，姓名和性别目录沿用现有规则。
 
 本地可设置 BACKFILL_LIMIT 后运行 node tools/collect.js daily profiles。失败人物保留待重试状态；头像失败不会撤销已成功的详情，缺图可单独运行 node tools/roster-avatars.js 400 继续补齐。profileFetchedAt 表示详情解析成功时间，不代表源站提供了全部字段，也不表示图片成功。既有 daily + minnano / all 行为保持原范围。
+
+每轮 profiles 生成 minnano/backfill-report.json：本批详情成功、失败、未尝试、缺头像计数，以及每个人物ID和结果。total为全名册成功详情与缺头像统计；缺少成功时间不等于失败，只有本轮失败缓存才计为失败。报告失败ID可用ONLY指定重试 profiles-relay.js；缺图可独立运行roster-avatars.js。该报告保留最新一批，历史批次可通过Git提交或Actions产物查看。

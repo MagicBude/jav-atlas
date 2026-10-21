@@ -5,12 +5,70 @@
  */
 const { spawnSync } = require('child_process')
 const path = require('path')
-const { readJson, envInt } = require('./lib/runtime')
+const { readJson, writeJson, envInt } = require('./lib/runtime')
+const fs = require('fs')
 const { dataPaths } = require('./lib/data-paths')
 const limit = envInt('BACKFILL_LIMIT', 20, 1, 1000)
 const roster = readJson(dataPaths().minnanoActresses, null)
 if (!Array.isArray(roster) || !roster.length) throw new Error('缺少人物名册，请先发现目录')
 const targets = roster.filter(row => row.mnid && !row.profileFetchedAt).slice(0, limit)
+const startedAt = Date.now()
+/** 即使子步骤失败，也保存本批ID与实际落盘状态；不把尚未尝试的人物算成访问失败。 */
+function report(exitCode) {
+  const paths = dataPaths()
+  const current = readJson(paths.minnanoActresses)
+  const byId = new Map(current.map(row => [String(row.mnid), row]))
+  const cache = readJson(
+    path.join(
+      process.env.CACHE_DIR || path.join(__dirname, '..', '.cache', 'profiles'),
+      'profiles-relay.json'
+    ),
+    {}
+  )
+  const index = readJson(path.join(paths.minnanoAvatars, 'index.json'), { files: {} })
+  const imageExists = id => {
+    const file = index.files[String(id)]?.file
+    if (!file || !/^(female|male|unknown)\/[^/\\]+\.jpg$/.test(file)) return false
+    const target = path.join(paths.minnanoAvatars, file)
+    return fs.existsSync(target) && fs.statSync(target).size > 2048
+  }
+  const results = targets.map(row => {
+    const id = String(row.mnid)
+    const attempt = cache[id]
+    const status = byId.get(id)?.profileFetchedAt
+      ? 'success'
+      : attempt && attempt.fetchedAt >= startedAt && !attempt.ok
+        ? 'failed'
+        : 'not-attempted'
+    return {
+      mnid: id,
+      name: row.name,
+      profile: status,
+      avatar: imageExists(id) ? 'available' : 'missing'
+    }
+  })
+  const summary = {
+    generatedAt: Date.now(),
+    exitCode,
+    selected: targets.length,
+    batch: {
+      profileSuccess: results.filter(row => row.profile === 'success').length,
+      profileFailed: results.filter(row => row.profile === 'failed').length,
+      profileNotAttempted: results.filter(row => row.profile === 'not-attempted').length,
+      missingAvatars: results.filter(row => row.avatar === 'missing').length
+    },
+    total: {
+      people: current.length,
+      profileSuccess: current.filter(row => row.profileFetchedAt).length,
+      missingAvatars: current.filter(row => !imageExists(row.mnid)).length
+    },
+    results
+  }
+  writeJson(path.join(path.dirname(paths.minnanoActresses), 'backfill-report.json'), summary)
+  console.log(
+    '本批统计：' + JSON.stringify(summary.batch) + '；全册：' + JSON.stringify(summary.total)
+  )
+}
 if (!targets.length) {
   console.log('人物详情已全部尝试成功；缺图可独立运行 roster-avatars.js 补齐')
 } else {
@@ -29,6 +87,10 @@ if (!targets.length) {
       stdio: 'inherit'
     })
     if (result.error) throw result.error
-    if (result.status !== 0) process.exit(result.status || 1)
+    if (result.status !== 0) {
+      report(result.status || 1)
+      process.exit(result.status || 1)
+    }
   }
 }
+report(0)

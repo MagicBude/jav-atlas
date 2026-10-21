@@ -65,11 +65,15 @@ test('限量详情入口跨缓存继续下一批，保留已有字段，失败�
     assert(rows[0].profileFetchedAt)
     assert.equal(rows[0].height, '180')
     assert.equal(rows[1].profileFetchedAt, undefined)
+    assert.equal(json(dir, 'minnano/backfill-report.json').batch.profileSuccess, 1)
+    assert.equal(json(dir, 'minnano/backfill-report.json').total.people, 2)
     fs.rmSync(path.join(dir, 'cache'), { recursive: true, force: true })
     const failed = run(dir, 'backfill-minnano.js', [], { BACKFILL_LIMIT: '1' })
     assert.notEqual(failed.status, 0)
     assert(failed.stdout.includes('ONLY 指定'))
     assert.deepEqual(json(dir, 'minnano/actresses.json'), rows)
+    assert.equal(json(dir, 'minnano/backfill-report.json').batch.profileFailed, 1)
+    assert.equal(json(dir, 'minnano/backfill-report.json').results[0].mnid, '456')
   }))
 
 test('限量详情入口拒绝非法数量且无候选时不请求网络', () =>
