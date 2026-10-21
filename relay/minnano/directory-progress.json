@@ -229,7 +229,7 @@
       "reportedPeople": 206
     }
   ],
-  "partitionCompleted": false,
+  "partitionCompleted": true,
   "groups": {
     "a": {
       "source": "minnano-actress-directory",
@@ -450,6 +450,226 @@
       "reportedPeople": 420,
       "completed": true,
       "updatedAt": "2026-10-21T05:18:22.129Z"
+    },
+    "nu": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 1,
+      "nextPage": 2,
+      "totalPages": 1,
+      "reportedPeople": 6,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:25:33.378Z"
+    },
+    "ne": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 1,
+      "nextPage": 2,
+      "totalPages": 1,
+      "reportedPeople": 26,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:25:35.281Z"
+    },
+    "no": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 6,
+      "nextPage": 7,
+      "totalPages": 6,
+      "reportedPeople": 153,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:25:44.667Z"
+    },
+    "ha": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 38,
+      "nextPage": 39,
+      "totalPages": 38,
+      "reportedPeople": 1140,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:26:38.690Z"
+    },
+    "hi": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 22,
+      "nextPage": 23,
+      "totalPages": 22,
+      "reportedPeople": 660,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:27:09.497Z"
+    },
+    "hu": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 23,
+      "nextPage": 24,
+      "totalPages": 23,
+      "reportedPeople": 690,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:27:40.369Z"
+    },
+    "he": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 2,
+      "nextPage": 3,
+      "totalPages": 2,
+      "reportedPeople": 60,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:27:43.259Z"
+    },
+    "ho": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 17,
+      "nextPage": 18,
+      "totalPages": 17,
+      "reportedPeople": 510,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:28:07.273Z"
+    },
+    "ma": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 32,
+      "nextPage": 33,
+      "totalPages": 32,
+      "reportedPeople": 960,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:28:50.406Z"
+    },
+    "mi": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 55,
+      "nextPage": 56,
+      "totalPages": 55,
+      "reportedPeople": 1650,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:30:02.239Z"
+    },
+    "mu": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 5,
+      "nextPage": 6,
+      "totalPages": 5,
+      "reportedPeople": 124,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:30:12.151Z"
+    },
+    "me": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 3,
+      "nextPage": 4,
+      "totalPages": 3,
+      "reportedPeople": 64,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:30:16.798Z"
+    },
+    "mo": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 20,
+      "nextPage": 21,
+      "totalPages": 20,
+      "reportedPeople": 600,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:30:45.030Z"
+    },
+    "ya": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 19,
+      "nextPage": 20,
+      "totalPages": 19,
+      "reportedPeople": 570,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:31:11.197Z"
+    },
+    "yu": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 19,
+      "nextPage": 20,
+      "totalPages": 19,
+      "reportedPeople": 570,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:31:39.167Z"
+    },
+    "yo": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 13,
+      "nextPage": 14,
+      "totalPages": 13,
+      "reportedPeople": 390,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:31:56.999Z"
+    },
+    "ra": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 2,
+      "nextPage": 3,
+      "totalPages": 2,
+      "reportedPeople": 39,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:32:00.266Z"
+    },
+    "ri": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 6,
+      "nextPage": 7,
+      "totalPages": 6,
+      "reportedPeople": 180,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:32:09.665Z"
+    },
+    "ru": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 3,
+      "nextPage": 4,
+      "totalPages": 3,
+      "reportedPeople": 64,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:32:14.249Z"
+    },
+    "re": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 3,
+      "nextPage": 4,
+      "totalPages": 3,
+      "reportedPeople": 74,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:32:18.633Z"
+    },
+    "ro": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 1,
+      "nextPage": 2,
+      "totalPages": 1,
+      "reportedPeople": 23,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:32:20.463Z"
+    },
+    "wa": {
+      "source": "minnano-actress-directory",
+      "sort": "date",
+      "lastPage": 8,
+      "nextPage": 9,
+      "totalPages": 8,
+      "reportedPeople": 215,
+      "completed": true,
+      "updatedAt": "2026-10-21T05:32:34.434Z"
     }
   }
 }
