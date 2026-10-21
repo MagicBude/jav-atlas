@@ -437,3 +437,192 @@ test('历史下载失败的索引预留不制造实际文件名冲突', () =>
     const target = avatarPath(dir, 'ABC', '同名', '?')
     assert.equal(path.basename(target), 'ABC_同名.jpg')
   }))
+
+test('性别解析需要有效标签，别名或拦截正文不能被当成女性', () => {
+  const { parseGenderEvidence } = require('../tools/lib/gender-evidence')
+  assert.equal(parseGenderEvidence('<html>Just a moment...</html>'), null)
+  assert.equal(parseGenderEvidence('<span class="section-meta">別名</span>'), null)
+  assert.deepEqual(
+    parseGenderEvidence('<span class="extra section-meta"><b>1,234</b> 部影片</span>'),
+    {
+      gender: 'f',
+      sectionMeta: ['1,234 部影片']
+    }
+  )
+  assert.equal(
+    parseGenderEvidence(
+      '<span class="section-meta">別名</span><span class="section-meta">男優, 42 部影片</span>'
+    ).gender,
+    'm'
+  )
+})
+
+test('批量网页复核跨集合按 ID 复用依据，更新三类汇总并可断点重跑', () =>
+  sandbox(dir => {
+    const actors = {
+      list: [
+        { id: 'actor1', name: 'A', gender: '?' },
+        { id: 'actor2', name: 'B', gender: '?' }
+      ]
+    }
+    writeJson(path.join(dir, 'javdb', 'actors.json'), actors)
+    writeJson(path.join(dir, 'javdb', 'uncensored-actors.json'), {
+      list: [{ id: 'actor2', name: 'B', gender: '?' }]
+    })
+    const result = run(dir, 'verify-genders.js', [], { FIXTURE_WEB_PROBE: 'normal' })
+    success(result)
+    assert.match(result.stdout, /按 ID 去重待复核：2/)
+    const data = json(dir, 'javdb/actors.json')
+    assert.equal(data.female, 1)
+    assert.equal(data.male, 1)
+    assert.equal(data.unknown, 0)
+    const proof = json(dir, 'javdb/web-genders.json').records
+    assert.equal(Object.keys(proof).length, 2)
+    assert.deepEqual(proof.actor2.sectionMeta, ['男優, 42 部影片'])
+    assert.equal(proof.actor2.sourceUrl, 'https://javdb.com/actors/actor2')
+    assert(!Number.isNaN(Date.parse(proof.actor2.checkedAt)))
+    const repeat = run(dir, 'verify-genders.js', [], { FIXTURE_WEB_PROBE: 'blocked' })
+    success(repeat)
+    assert.match(repeat.stdout, /按 ID 去重待复核：0/)
+    assert.deepEqual(json(dir, 'javdb/web-genders.json').records, proof)
+  }))
+
+test('批量复核失败保留人物原值，不写虚假网页证据', () =>
+  sandbox(dir => {
+    const original = {
+      list: [{ id: 'actor1', name: 'A', gender: '?', genderSource: 'unverified' }]
+    }
+    writeJson(path.join(dir, 'javdb', 'actors.json'), original)
+    const report = path.join(dir, 'failure-report.json')
+    success(run(dir, 'verify-genders.js', ['--report', report], { FIXTURE_WEB_PROBE: 'blocked' }))
+    assert.equal(readJson(report).failures.actor1.reason, 'page-unavailable')
+    assert.deepEqual(json(dir, 'javdb/actors.json'), original)
+    assert(!fs.existsSync(path.join(dir, 'javdb', 'web-genders.json')))
+  }))
+
+test('云端禁用网页时仍复用已保存依据，不覆盖人工确认', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'javdb', 'web-genders.json'), {
+      records: {
+        actor1: { gender: 'm', sectionMeta: ['男優, 42 部影片'] },
+        actor2: { gender: 'f', sectionMeta: ['42 部影片'] }
+      }
+    })
+    writeJson(path.join(dir, 'javdb', 'actors.json'), {
+      list: [{ id: 'actor2', name: 'Unknown Actor', gender: 'm', genderSource: 'manual' }]
+    })
+    success(run(dir, 'actors-full-crawl.js'))
+    const list = json(dir, 'javdb/actors.json').list
+    assert.equal(list.find(row => row.id === 'actor1').gender, 'm')
+    assert.equal(list.find(row => row.id === 'actor1').genderSource, 'javdb-web-section-meta')
+    assert.equal(list.find(row => row.id === 'actor2').gender, 'm')
+    assert.equal(list.find(row => row.id === 'actor2').genderSource, 'manual')
+  }))
+
+test('普通采集成功解析网页后保存标签原文，无码采集复用相同依据', () =>
+  sandbox(dir => {
+    success(
+      run(dir, 'actors-full-crawl.js', [], {
+        WEB_GENDER: '1',
+        FIXTURE_GENDER_HTML:
+          '<span class="section-meta">別名</span><span class="section-meta">男優, 42 部影片</span>'
+      })
+    )
+    const proof = json(dir, 'javdb/web-genders.json').records
+    assert.deepEqual(proof.actor1.sectionMeta, ['別名', '男優, 42 部影片'])
+    assert.equal(proof.actor1.gender, 'm')
+    success(run(dir, 'uncensored-actresses-crawl.js'))
+    const list = json(dir, 'javdb/uncensored-actors.json').list
+    assert(list.every(row => row.gender === 'm' && row.genderSource === 'javdb-web-section-meta'))
+  }))
+
+test('偶发 TLS 握手失败仅重试一次并正常保存性别依据', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'javdb', 'actors.json'), {
+      list: [{ id: 'actor1', name: 'A', gender: '?' }]
+    })
+    const result = run(dir, 'verify-genders.js', [], {
+      FIXTURE_WEB_PROBE: 'normal',
+      FIXTURE_WEB_TLS_RETRY: '1'
+    })
+    success(result)
+    assert.match(result.stdout, /成功 1 · 失败 0/)
+    assert.equal(json(dir, 'javdb/actors.json').list[0].gender, 'f')
+  }))
+
+test('批量复核拒绝缺失参数值，避免误启动全部人物的网络任务', () =>
+  sandbox(dir => {
+    for (const args of [['--ids'], ['--limit'], ['--ids', '../bad']]) {
+      const result = run(dir, 'verify-genders.js', args)
+      assert.notEqual(result.status, 0)
+    }
+    assert(!fs.existsSync(path.join(dir, 'javdb')))
+  }))
+
+test('单文件复核同样保存网页依据并同步未知统计', () =>
+  sandbox(dir => {
+    for (const tool of ['verify-gender-local.js', 'verify-uc-gender.js']) {
+      const input = path.join(dir, 'input.json'),
+        output = path.join(dir, 'output.json')
+      writeJson(input, {
+        unknown: 1,
+        list: [{ id: 'actor1', name: 'A', gender: '?', genderSource: 'unverified' }]
+      })
+      success(
+        run(dir, tool, [input, output], {
+          FIXTURE_GENDER_HTML: '<span class="section-meta">男優, 42 部影片</span>'
+        })
+      )
+      assert.equal(readJson(output).unknown, 0)
+      assert.equal(readJson(output).male, 1)
+      assert.deepEqual(json(dir, 'javdb/web-genders.json').records.actor1.sectionMeta, [
+        '男優, 42 部影片'
+      ])
+    }
+  }))
+
+test('JSON 原子写入遇到 Windows 短暂文件锁会有限重试', () =>
+  sandbox(dir => {
+    const file = path.join(dir, 'data.json')
+    writeJson(file, { version: 1 })
+    const rename = fs.renameSync
+    let attempts = 0
+    try {
+      fs.renameSync = (from, to) => {
+        if (to === file && attempts++ < 2)
+          throw Object.assign(new Error('locked'), { code: 'EPERM' })
+        return rename(from, to)
+      }
+      writeJson(file, { version: 2 })
+    } finally {
+      fs.renameSync = rename
+    }
+    assert.equal(attempts, 3)
+    assert.deepEqual(readJson(file), { version: 2 })
+  }))
+
+test('头像索引持续写入失败时回滚图片位置，解除锁后可继续迁移', () =>
+  sandbox(dir => {
+    const { avatarPath } = require('../tools/lib/avatars')
+    const previous = avatarPath(dir, 'actor1', '演员', '?')
+    fs.writeFileSync(previous, 'original image')
+    const indexFile = path.join(dir, 'index.json')
+    const original = readJson(indexFile)
+    const rename = fs.renameSync
+    try {
+      fs.renameSync = (from, to) => {
+        if (to === indexFile) throw Object.assign(new Error('locked'), { code: 'EPERM' })
+        return rename(from, to)
+      }
+      assert.throws(() => avatarPath(dir, 'actor1', '演员', 'f'), /locked/)
+    } finally {
+      fs.renameSync = rename
+    }
+    assert(fs.existsSync(previous))
+    assert.equal(fs.readFileSync(previous, 'utf8'), 'original image')
+    assert.deepEqual(readJson(indexFile), original)
+    const current = avatarPath(dir, 'actor1', '演员', 'f')
+    assert(!fs.existsSync(previous))
+    assert.equal(fs.readFileSync(current, 'utf8'), 'original image')
+    assert.equal(readJson(indexFile).files.actor1.file, 'female/actor1_演员.jpg')
+  }))

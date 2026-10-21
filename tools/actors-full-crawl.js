@@ -14,7 +14,7 @@
  * 运行：node tools/actors-full-crawl.js。直接写文件，不保证所有产物一起成功。
  *
  * 设计依据：人物发现依赖影片详情中的 actors，因为 v1/actors 曾返回空集合，无法用作演员目录。
- * 人物详情取自 v1/actors/{id}；资料含 gender，头像使用 JavDB ID 命名。
+ * 人物详情取自 v1/actors/{id}；产物的 gender 来自名册或网页推断，不是该 API 直接返回的字段。
  * 资料与头像作为浏览端本地资源缺失时的兜底，不要求浏览端直接请求源站。当前仓库未实现该消费端。
  * 运行依赖：Node 18+ 内置 fetch，无第三方采集依赖；API 与网页可能受不同网络限制。
  */
@@ -22,7 +22,9 @@ const fs = require('fs')
 const { avatarPath } = require('./lib/avatars')
 const { readJson, writeJson, envInt, compareIds } = require('./lib/runtime')
 const { dataPaths } = require('./lib/data-paths')
+const { parseGenderEvidence, saveGenderEvidence } = require('./lib/gender-evidence')
 const paths = dataPaths()
+const savedWebGenders = readJson(paths.javdbWebGenders, { records: {} }).records
 const crypto = require('crypto')
 const { execSync } = require('child_process')
 
@@ -498,7 +500,7 @@ function genderOf(a) {
   for (const k of keys) {
     if (k && fem.has(onNorm(k))) return { gender: 'f', rosterHit: true }
   }
-  // 未命中仅说明名单覆盖不足；现有代码仍返回 m，调用方可继续网页复核。
+  // 未命中仅说明名单覆盖不足，返回未知并继续网页复核。
   /*
    * 样本中 256 条默认男性记录有 152 条（约 59%）实际为女性，说明默认值需要网页复核。
    *
@@ -556,8 +558,8 @@ function webGenderOf(id) {
     }
     h = ''
   }
-  const metas = [...String(h).matchAll(/section-meta">([^<]+)</g)].map(x => x[1])
-  if (!metas.length) {
+  const evidence = parseGenderEvidence(h)
+  if (!evidence) {
     if (++webFailStreak >= 15) {
       WEB_DEAD = true
       console.log('   ⚠ 网页版连续 15 次取不到（被墙/风控），本轮放弃复核，保留名册反查结果')
@@ -565,7 +567,8 @@ function webGenderOf(id) {
     return null
   }
   webFailStreak = 0
-  return metas.some(t => /男優/.test(t)) ? 'm' : 'f'
+  saveGenderEvidence(paths.javdbWebGenders, id, evidence)
+  return evidence.gender
 }
 
 ;(async () => {
@@ -702,6 +705,11 @@ function webGenderOf(id) {
   // smoke 留下的未知记录必须能在后续 daily 获得姓名/网页依据后被确认，不能永久跳过。
   const pending = []
   for (const r of byId.values()) {
+    const saved = savedWebGenders[r.id]
+    if (saved && !/manual|人工/i.test(r.genderSource || '')) {
+      r.gender = saved.gender
+      r.genderSource = 'javdb-web-section-meta'
+    }
     if (
       ['f', 'm'].includes(r.gender) &&
       !['pending-web', 'unverified', 'roster-heuristic'].includes(r.genderSource)

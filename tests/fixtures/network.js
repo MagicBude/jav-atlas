@@ -68,3 +68,25 @@ global.fetch = async (url, options) => {
 if (process.env.FIXTURE_GENDER_HTML) {
   require('child_process').execSync = () => process.env.FIXTURE_GENDER_HTML
 }
+// 批量复核工具的 curl 边界：按人物 ID 返回固定网页，不接触代理或外网。
+if (process.env.FIXTURE_WEB_PROBE) {
+  const attempted = new Set()
+  const mock = () => {
+    throw new Error('请通过 promisify 调用测试 curl')
+  }
+  mock[require('util').promisify.custom] = async (_file, args) => {
+    const url = args[args.length - 1]
+    const id = new URL(url).pathname.split('/').pop()
+    if (process.env.FIXTURE_WEB_TLS_RETRY && !attempted.has(id)) {
+      attempted.add(id)
+      throw Object.assign(new Error('TLS handshake failed'), { code: 35 })
+    }
+    await new Promise(resolve => setTimeout(resolve, 5))
+    const html =
+      process.env.FIXTURE_WEB_PROBE === 'blocked'
+        ? '<html>Access denied</html>'
+        : `<title>Test | JavDB</title><span class="section-meta">${id === 'actor2' ? '男優, ' : ''}42 部影片</span>`
+    return { stdout: html + '\nEFFECTIVE_URL:' + url, stderr: '' }
+  }
+  require('child_process').execFile = mock
+}

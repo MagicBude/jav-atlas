@@ -24,6 +24,12 @@ tools/lib/runtime.js 统一 relayDir、只忽略缺文件的 readJson、临时�
 
 ## 性别与质量保护
 
+JavDB 人物资料主要来自移动 API，按代码定义选取字段；minnano 从 HTML 解析生日、尺寸、别名、简介等字段。两者均不保存完整响应或网页，不代表源站所有资料都已收录。本轮抽查 JavDB 演员详情的 actor 对象未返回 gender/sex 字段；已知男演员与女演员的 type 都可能是 0，因此不能把 type 当作性别。
+
+网页性别证据独立保存在 javdb/web-genders.json，按原始 ID 记录 gender、sectionMeta 原文数组、sourceUrl 和 checkedAt。只有男性标记或明确作品数标签才能用于确认，别名标签本身不足以判为女性；请求失败或无有效标签时不写假证据。公共解析与保存代码位于 tools/lib/gender-evidence.js。
+
+本地 verify-genders.js 使用可选代理真正并发读取网页，跨集合去重、即时保存依据、定期应用检查点；新采集读取同一份证据，即使 Actions 网页被拦也能保留本地确认结果。单文件复核与采集器成功读取网页时同样保存依据。没有将本机代理地址配置到 Actions；它无法访问用户电脑的 127.0.0.1。
+
 女性姓名集合命中为 f；已确认人物 gender 可复用；其他待网页复核。无法确认时为 ?、genderSource 为 unverified，不用男性或女性默认值填补。统计分别计算女性、男性、未知。
 
 演员详情复用只针对已有 ID，不刷新旧条目。已确认记录直接复用，未知记录会在后续运行重新尝试姓名反查和网页确认；补图映射读写统一采用 { fetchedAt, count, map }。
@@ -36,4 +42,4 @@ tools/lib/runtime.js 统一 relayDir、只忽略缺文件的 readJson、临时�
 
 默认禁用定时任务的实际执行，手动验证后用仓库变量 ENABLE_SCHEDULE=true 开启。未配置跨 runner 缓存，不保证 Actions 下次复用本地资料缓存。
 
-浏览网站尚未实现。网页 curl 的异步化、旧资料刷新和完整目录发现留作后续独立改动。
+浏览网站尚未实现。批量网页复核已有异步 curl 入口；普通采集器内部网页请求仍同步。旧资料刷新和完整目录发现留作后续独立改动。

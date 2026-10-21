@@ -88,7 +88,24 @@ function avatarPath(dir, id, name, gender = '?') {
   index.files = Object.fromEntries(
     Object.entries(index.files).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
   )
-  if (JSON.stringify(previous) !== JSON.stringify(index.files[id])) writeJson(indexFile, index)
+  try {
+    if (JSON.stringify(previous) !== JSON.stringify(index.files[id])) writeJson(indexFile, index)
+  } catch (error) {
+    // 索引写入失败时把原图退回，保证已有索引仍能定位；不删除唯一图片副本。
+    if (
+      previousPath &&
+      previousPath !== target &&
+      fs.existsSync(target) &&
+      !fs.existsSync(previousPath)
+    ) {
+      try {
+        fs.renameSync(target, previousPath)
+      } catch (rollbackError) {
+        throw new Error('索引与回滚均失败，原图仍在：' + target, { cause: rollbackError })
+      }
+    }
+    throw error
+  }
   reservations.add(target)
   return target
 }

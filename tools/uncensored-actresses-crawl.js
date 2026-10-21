@@ -21,7 +21,9 @@
 const path = require('path')
 const { readJson, writeJson, envInt, compareIds } = require('./lib/runtime')
 const { dataPaths } = require('./lib/data-paths')
+const { parseGenderEvidence, saveGenderEvidence } = require('./lib/gender-evidence')
 const paths = dataPaths()
+const savedWebGenders = readJson(paths.javdbWebGenders, { records: {} }).records
 const crypto = require('crypto')
 const { execSync } = require('child_process')
 
@@ -232,8 +234,8 @@ function webGenderOf(id) {
     }
     h = ''
   }
-  const metas = [...String(h).matchAll(/section-meta">([^<]+)</g)].map(x => x[1])
-  if (!metas.length) {
+  const evidence = parseGenderEvidence(h)
+  if (!evidence) {
     if (++webFailStreak >= 15) {
       WEB_DEAD = true
       console.log('   ⚠ 网页版连续 15 次取不到（被墙/风控），本轮放弃复核')
@@ -241,7 +243,8 @@ function webGenderOf(id) {
     return null
   }
   webFailStreak = 0
-  return metas.some(t => /男優/.test(t)) ? 'm' : 'f'
+  saveGenderEvidence(paths.javdbWebGenders, id, evidence)
+  return evidence.gender
 }
 
 /**
@@ -410,6 +413,14 @@ function loadActorsFullGender() {
   /*
    * 只有名单与姓名集合都不能判断的记录才请求网页，避免每次重复复核全部人物。
    */
+  // 本地网页依据优先于姓名反查，Actions 无法访问人物页时也能复用。
+  for (const r of out.list) {
+    const saved = savedWebGenders[r.id]
+    if (saved) {
+      r.gender = saved.gender
+      r.genderSource = 'javdb-web-section-meta'
+    }
+  }
   const pending = out.list.filter(r => r.gender === '?')
   if (WEB_ON && pending.length) {
     console.log('②b 性别复核（网页版 section-meta）：' + pending.length + ' 位…')

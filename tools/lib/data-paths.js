@@ -17,6 +17,7 @@ function dataPaths(root = relayDir()) {
     minnanoActresses: path.join(base, 'minnano', 'actresses.json'),
     minnanoAvatars: path.join(base, 'minnano', 'avatars'),
     javdbActors: path.join(base, 'javdb', 'actors.json'),
+    javdbWebGenders: path.join(base, 'javdb', 'web-genders.json'),
     javdbUncensoredActors: path.join(base, 'javdb', 'uncensored-actors.json'),
     javdbMaleSeeds: path.join(base, 'javdb', 'male-seed-actors.json'),
     javdbAvatars: path.join(base, 'javdb', 'avatars'),

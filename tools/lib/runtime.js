@@ -39,7 +39,16 @@ function writeJson(file, value, replacer) {
   fs.mkdirSync(path.dirname(file), { recursive: true })
   const temp = file + '.tmp'
   fs.writeFileSync(temp, serializeJson(value, replacer))
-  fs.renameSync(temp, file)
+  // Windows 的索引器或杀毒软件可能短暂占用目标文件；只重试临时锁，不删除旧文件。
+  for (let attempt = 0; ; attempt++) {
+    try {
+      fs.renameSync(temp, file)
+      return
+    } catch (error) {
+      if (attempt >= 4 || !['EPERM', 'EACCES', 'EBUSY'].includes(error.code)) throw error
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 25 * (attempt + 1))
+    }
+  }
 }
 
 /**

@@ -14,6 +14,8 @@
  */
 const fs = require('fs')
 const { writeJson } = require('./lib/runtime')
+const { dataPaths } = require('./lib/data-paths')
+const { parseGenderEvidence, saveGenderEvidence } = require('./lib/gender-evidence')
 const { execSync } = require('child_process')
 
 const UA =
@@ -79,12 +81,13 @@ function fetchHtml(id) {
         }
         // ⚠️ 必须 matchAll：section-meta 有多个（别名标签 + 「男優, N 部影片」），
         // 只取第一个会拿到别名（不含「男優」）→ 把鮫島/黒田悠斗这类真男优误判成女优。
-        const metas = [...h.matchAll(/section-meta">([^<]+)</g)].map(x => x[1])
-        if (!metas.length) {
+        const evidence = parseGenderEvidence(h)
+        if (!evidence) {
           slots[i] = { a, bad: true }
           continue
         }
-        slots[i] = { a, male: metas.some(t => /男優/.test(t)) }
+        saveGenderEvidence(dataPaths().javdbWebGenders, a.id, evidence)
+        slots[i] = { a, male: evidence.gender === 'm' }
         if (i % 40 === 0) console.log('  ' + i + '/' + suspects.length)
       }
     })
@@ -126,6 +129,7 @@ function fetchHtml(id) {
   }
   d.female = d.list.filter(a => a.gender === 'f').length
   d.male = d.list.filter(a => a.gender === 'm').length
+  d.unknown = d.list.filter(a => !['f', 'm'].includes(a.gender)).length
   // 整体来源不冒充全部已复核；逐条来源才是可靠依据。
   if (realFemale.length) d.genderSource = 'javdb-web-section-meta+previous'
   writeJson(process.argv[3], d)

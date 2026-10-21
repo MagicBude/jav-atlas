@@ -14,6 +14,8 @@
  */
 const fs = require('fs')
 const { writeJson } = require('./lib/runtime')
+const { dataPaths } = require('./lib/data-paths')
+const { parseGenderEvidence, saveGenderEvidence } = require('./lib/gender-evidence')
 const { execSync } = require('child_process')
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
@@ -21,7 +23,7 @@ const PROXY = process.env.WEB_PROXY || '' // 可按当前网络环境设置 WEB_
 
 /**
  * 同步调用 curl 复核人物页；无标签/请求失败返回 null，供调用方保留旧值。
- * 有标签时，任一包含“男優”返回 m，否则返回 f；不做页面身份的额外校验。
+ * 有标签时，任一包含“男優”返回 m，否则返回 f；仅别名等标签不足以确认女性，必须有作品数量标签。
  *
  * WEB_PROXY 留空不显式传 -x；需要代理时可配置 http://127.0.0.1:1082，具体取决于实际网络。
  *
@@ -45,9 +47,10 @@ function webGender(id) {
   } catch (_) {
     return null
   }
-  const metas = [...String(h).matchAll(/section-meta">([^<]+)</g)].map(x => x[1])
-  if (!metas.length) return null
-  return metas.some(t => /男優/.test(t)) ? 'm' : 'f'
+  const evidence = parseGenderEvidence(h)
+  if (!evidence) return null
+  saveGenderEvidence(dataPaths().javdbWebGenders, id, evidence)
+  return evidence.gender
 }
 ;(async () => {
   // 阶段 1：从指定输入选择未获网页来源标记的人物；不会扫描名册中的其他人物。
@@ -91,6 +94,7 @@ function webGender(id) {
   })
   d.female = list.filter(a => a.gender === 'f').length
   d.male = list.filter(a => a.gender === 'm').length
+  d.unknown = list.filter(a => !['f', 'm'].includes(a.gender)).length
   writeJson(process.argv[3], d)
   console.log(
     '复核成功 ' +

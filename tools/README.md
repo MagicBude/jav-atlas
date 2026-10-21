@@ -4,12 +4,12 @@
 
 ## 常用入口
 
-~~~sh
+```sh
 npm run check
 npm test
 npm run collect -- smoke all
 npm run collect -- smoke javdb
-~~~
+```
 
 collect.js 顺序执行并在失败时停止。bootstrap-roster.js 仅从新榜单建立初始名册，不代表完整目录。公共 JSON 工具见 lib/runtime.js；数据文件与图片目录的唯一约定见 lib/data-paths.js。
 
@@ -21,14 +21,26 @@ actors-full-crawl.js 从三个影片维度发现人物，仅补新 ID，并按 m
 
 gen-female-names.js 将当前名册和已标为女性的人物姓名合并进已有集合，没有女性输入时不写空文件。所有采集器写入 RELAY_DIR 下的 minnano、javdb、derived 分类；默认总根是仓库 relay/。male 模式明确输出 javdb/male-seed-actors.json，并与普通 JavDB 采集共用 javdb/avatars。
 
-## 人工复核
+## 本地批量网页复核
 
-~~~sh
+```powershell
+$env:WEB_PROXY = "http://你的本地代理地址:端口"
+npm run verify:genders -- --ids ZX,K4m3Q,9gAX
+npm run verify:genders
+node tools/migrate-avatar-names.js
+node tools/gen-female-names.js
+```
+
+verify-genders.js 按 ID 合并普通与无码名单中的未知人物，两个集合共用一次网页请求。默认真实并发为 2，GENDER_CONCURRENCY 可设为 1–4；--limit 限制本次任务量，--ids 显式选择抽样人物。成功依据逐条保存到 javdb/web-genders.json，定期写回人物性别和三类统计，失败保留原值；连续 15 次网络失败或收到 429 则暂停，可重新运行续抓；人物页跳转登录或已移除时保留未知。--report 可指定诊断 JSON 输出路径，区分登录限制、页面不可用和网络错误；本地诊断建议写入已忽略的 .cache/。已有依据会复用，人工来源不覆盖。代理地址只通过环境传入，不将个人代理配置写入公开仓库。
+
+## 单文件人工复核
+
+```sh
 node tools/fix-gender-by-web.js input.json output.json
 node tools/verify-gender-local.js input.json output.json
 node tools/verify-uc-gender.js input.json output.json 4
-~~~
+```
 
-这些工具依赖系统 curl，不在日常入口中自动执行。输入输出是示例路径；部分工具允许输出覆盖输入，没有自动备份。fix-gender-by-web 把非空无标签页面视为女性，另两个返回 null，不能视作等价工具。同步 curl 的异步化及判据统一留待后续处理。
+这些工具依赖系统 curl，不在日常入口中自动执行。输入输出是示例路径；部分工具允许输出覆盖输入，没有自动备份。无人物标签的拦截正文均不能确认性别。三个单文件工具均使用公共判据并保存网页依据；这些旧单文件工具的同步 curl 仍是串行，批量任务优先使用上面的新入口。
 
 格式与注释规则见 [代码规范](../docs/code-style.md)，采集验证范围见 [验证记录](../docs/validation.md)。
