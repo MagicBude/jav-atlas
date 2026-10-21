@@ -695,3 +695,13 @@ test('源站深页总页数退化时不把当前页误判为全目录结束', ()
     assert.equal(progress.nextPage, 3)
     assert.equal(progress.completed, false)
   }))
+
+test('目录批次页数拒绝非法值和超大批次，不开始采集', () =>
+  sandbox(dir => {
+    const badEnv = run(dir, 'collect.js', ['daily', 'directory'], { DIRECTORY_PAGES: 'bad' })
+    assert.notEqual(badEnv.status, 0)
+    assert(!badEnv.stdout.includes('>>>'))
+    const tooLarge = run(dir, 'discover-minnano.js', ['--pages', '2001'])
+    assert.notEqual(tooLarge.status, 0)
+    assert(!fs.existsSync(path.join(dir, 'minnano')))
+  }))

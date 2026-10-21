@@ -4,7 +4,7 @@
  */
 const { spawnSync } = require('child_process')
 const path = require('path')
-const { relayDir } = require('./lib/runtime')
+const { relayDir, envInt } = require('./lib/runtime')
 const [mode = 'smoke', source = 'all'] = process.argv.slice(2)
 if (
   !['smoke', 'daily'].includes(mode) ||
@@ -44,7 +44,7 @@ if (source === 'directory') {
   jobs.push([
     'discover-minnano.js',
     '--pages',
-    mode === 'smoke' ? '1' : process.env.DIRECTORY_PAGES || '20'
+    mode === 'smoke' ? '1' : String(envInt('DIRECTORY_PAGES', 20, 1, 2000))
   ])
   jobs.push(['gen-female-names.js'])
 }

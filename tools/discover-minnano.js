@@ -20,6 +20,12 @@ for (let i = 0; i < args.length; i += 2) {
 }
 const option = name => (args.includes(name) ? Number(args[args.indexOf(name) + 1]) : null)
 const budget = option('--pages') || envInt('DIRECTORY_PAGES', 20, 1, 2000)
+if (
+  !Number.isSafeInteger(budget) ||
+  budget > 2000 ||
+  (option('--start-page') && !Number.isSafeInteger(option('--start-page')))
+)
+  throw new Error('目录页数必须为有效整数，本轮最多2000页')
 const state = readJson(paths.minnanoDirectoryState, { nextPage: 1, completed: false })
 if (!Number.isSafeInteger(state.nextPage) || state.nextPage < 1) throw new Error('目录进度无效')
 const explicitStart = option('--start-page')

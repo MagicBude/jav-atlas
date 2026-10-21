@@ -15,6 +15,10 @@ on:
         type: choice
         options: [all, minnano, javdb, male, directory]
         default: all
+      directory_pages:
+        description: 'directory 每轮最多页数（1–2000）；其他来源忽略'
+        type: string
+        default: '20'
   schedule:
     - cron: '30 21 * * *' # UTC 21:30 = 北京 05:30，实际运行可能延迟。
 
@@ -45,6 +49,7 @@ jobs:
           SOURCE: ${{ inputs.source || 'all' }}
           # relay 是总根；脚本按 minnano/javdb/derived 分类，不能写 tools/relay。
           RELAY_DIR: relay
+          DIRECTORY_PAGES: ${{ inputs.directory_pages || '20' }}
           # 无码样本约 203 页后不再新增，300 留余量；不代表全站覆盖。
           UC_PAGES: '300'
           MOVIE_PAGES: '40'
