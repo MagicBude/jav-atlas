@@ -11,6 +11,10 @@ global.fetch = async (url, options) => {
   if (process.env.FIXTURE_FAIL === 'all') throw new Error('offline: total failure')
   if (u.hostname === 'www.minnano-av.com') {
     if (process.env.FIXTURE_FAIL === 'minnano') throw new Error('offline: minnano failure')
+    if (u.pathname === '/actress_list.html')
+      return new Response(
+        '<a href="actress_list.php?gojuon=a">あ</a> (2)<a href="actress_list.php?gojuon=n">ん</a> (0)'
+      )
     if (u.pathname === '/actress_list.php') {
       const page = Number(u.searchParams.get('page') || 1)
       if (process.env.FIXTURE_DIRECTORY_FAIL === String(page))
@@ -107,7 +111,8 @@ if (!process.env.FIXTURE_WEB_PROBE) {
   }
   mock[require('util').promisify.custom] = async (_file, args) => {
     const url = args[args.length - 1]
-    if (new URL(url).pathname !== '/actress_list.php') throw new Error('测试未声明 curl URL')
+    if (!['/actress_list.php', '/actress_list.html'].includes(new URL(url).pathname))
+      throw new Error('测试未声明 curl URL')
     return { stdout: await (await global.fetch(url)).text(), stderr: '' }
   }
   require('child_process').execFile = mock

@@ -41,11 +41,8 @@ if (source === 'all' || source === 'javdb') {
 if (source === 'male') jobs.push(['male-roster-relay.js'])
 // 目录发现独立执行，不把新发现的两万多人物立即变成详细资料和头像任务。
 if (source === 'directory') {
-  jobs.push([
-    'discover-minnano.js',
-    '--pages',
-    mode === 'smoke' ? '1' : String(envInt('DIRECTORY_PAGES', 20, 1, 2000))
-  ])
+  env.DIRECTORY_PAGES = mode === 'smoke' ? '1' : String(envInt('DIRECTORY_PAGES', 20, 1, 2000))
+  jobs.push(['discover-minnano-groups.js'])
   jobs.push(['gen-female-names.js'])
 }
 jobs.push(['migrate-avatar-names.js'])

@@ -705,3 +705,25 @@ test('目录批次页数拒绝非法值和超大批次，不开始采集', () =>
     assert.notEqual(tooLarge.status, 0)
     assert(!fs.existsSync(path.join(dir, 'minnano')))
   }))
+
+test('五十音分组共享页数预算、保留旧进度且支持跨次续跑', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'minnano', 'directory-progress.json'), {
+      nextPage: 32,
+      lastPage: 31,
+      totalPages: 831,
+      completed: false
+    })
+    success(run(dir, 'discover-minnano-groups.js', [], { DIRECTORY_PAGES: '1' }))
+    let state = json(dir, 'minnano/directory-progress.json')
+    assert.equal(state.nextPage, 32)
+    assert.equal(state.partitionPlan.length, 1)
+    assert.equal(state.groups.a.nextPage, 2)
+    assert.equal(state.partitionCompleted, false)
+    success(run(dir, 'discover-minnano-groups.js', [], { DIRECTORY_PAGES: '1' }))
+    state = json(dir, 'minnano/directory-progress.json')
+    assert.equal(state.partitionCompleted, true)
+    assert.equal(json(dir, 'minnano/actresses.json').length, 2)
+    success(run(dir, 'discover-minnano-groups.js', [], { DIRECTORY_PAGES: '1' }))
+    assert.equal(json(dir, 'minnano/actresses.json').length, 2)
+  }))

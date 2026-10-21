@@ -15,7 +15,10 @@ const execute = promisify(execFile)
 const paths = dataPaths()
 const args = process.argv.slice(2)
 for (let i = 0; i < args.length; i += 2) {
-  if (!['--pages', '--start-page'].includes(args[i]) || !/^[1-9]\d*$/.test(args[i + 1] || ''))
+  if (
+    !['--pages', '--start-page', '--gojuon'].includes(args[i]) ||
+    !(args[i] === '--gojuon' ? /^[a-z]+$/ : /^[1-9]\d*$/).test(args[i + 1] || '')
+  )
     throw new Error('用法：discover-minnano.js [--pages 正整数] [--start-page 正整数]')
 }
 const option = name => (args.includes(name) ? Number(args[args.indexOf(name) + 1]) : null)
@@ -26,7 +29,9 @@ if (
   (option('--start-page') && !Number.isSafeInteger(option('--start-page')))
 )
   throw new Error('目录页数必须为有效整数，本轮最多2000页')
-const state = readJson(paths.minnanoDirectoryState, { nextPage: 1, completed: false })
+const group = args.includes('--gojuon') ? args[args.indexOf('--gojuon') + 1] : null
+const rootState = readJson(paths.minnanoDirectoryState, { nextPage: 1, completed: false })
+const state = group ? rootState.groups?.[group] || { nextPage: 1, completed: false } : rootState
 if (!Number.isSafeInteger(state.nextPage) || state.nextPage < 1) throw new Error('目录进度无效')
 const explicitStart = option('--start-page')
 const roster = readJson(paths.minnanoActresses, [])
@@ -40,7 +45,7 @@ if (known.size !== roster.length) throw new Error('已有名册含重复 ID，�
 
 /** 本地代理可选；使用系统 curl 保持本地与 Actions 的请求行为一致。 */
 async function getPage(page) {
-  const url = `https://www.minnano-av.com/actress_list.php?sort=date&page=${page}`
+  const url = `https://www.minnano-av.com/actress_list.php?sort=date&page=${page}${group ? '&gojuon=' + group : ''}`
   const options = ['-fsSL', '--connect-timeout', '8', '--max-time', '25']
   if (process.env.WEB_PROXY) options.push('--proxy', process.env.WEB_PROXY)
   options.push(url)
@@ -92,10 +97,13 @@ async function getPage(page) {
     }
     // 显式从头刷新少量页时，不倒退原有全量扫描进度。
     if (!explicitStart || page >= (state.lastPage || 0))
-      writeJson(paths.minnanoDirectoryState, progress)
+      writeJson(
+        paths.minnanoDirectoryState,
+        group ? { ...rootState, groups: { ...rootState.groups, [group]: progress } } : progress
+      )
     scanned++
     console.log(
-      `目录 ${page}/${totalPages} · 当前页 ${result.rows.length} 人 · 累计名册 ${known.size} 人`
+      `目录 ${group || 'all'} ${page}/${totalPages} · 当前页 ${result.rows.length} 人 · 累计名册 ${known.size} 人`
     )
     if (completed) break
     await new Promise(resolve => setTimeout(resolve, 250))
