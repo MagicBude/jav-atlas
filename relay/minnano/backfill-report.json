@@ -1,19 +1,260 @@
 {
-  "generatedAt": 1792568198998,
+  "generatedAt": 1792572999811,
   "exitCode": 0,
   "selected": 500,
   "batch": {
     "profileSuccess": 500,
     "profileFailed": 0,
     "profileNotAttempted": 0,
-    "missingAvatars": 21
+    "missingAvatars": 17
   },
   "total": {
     "people": 24920,
     "profileSuccess": 540,
+    "profileFieldsSaved": 500,
     "missingAvatars": 24252
   },
   "results": [
+    {
+      "mnid": "1",
+      "name": "森末くるみ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100025",
+      "name": "橘めぐみ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100043",
+      "name": "柏浦千晶",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100053",
+      "name": "平原千紗",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100069",
+      "name": "永瀬しおり",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100074",
+      "name": "胡桃まこ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100086",
+      "name": "黒田ユリ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100142",
+      "name": "水島栄子",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100166",
+      "name": "船井友美",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100231",
+      "name": "新田ひかる",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100291",
+      "name": "山本ユリカ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100313",
+      "name": "ノラ・ノヴァ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100395",
+      "name": "早見麗子",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100443",
+      "name": "黄秀芳",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100444",
+      "name": "あおいれな",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100461",
+      "name": "吉井悠里",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100525",
+      "name": "松井はるか",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100535",
+      "name": "庄司みゆき",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100634",
+      "name": "小田桐胡桃",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100660",
+      "name": "清下あかり",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100662",
+      "name": "幸村泉希",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100667",
+      "name": "井森董子",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "10074",
+      "name": "佐々木涼",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100740",
+      "name": "豊沢鈴",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100754",
+      "name": "美笹のどか",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100829",
+      "name": "田中菜々",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100871",
+      "name": "ハラン",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "1009",
+      "name": "せりかちゃん。(同人モデル)",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "100927",
+      "name": "綾野ゆう",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "101012",
+      "name": "和泉美奈代",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "101023",
+      "name": "森下樹里",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "101104",
+      "name": "根本桃子",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "101147",
+      "name": "白鳥百梨奈",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "101194",
+      "name": "藤倉玲子",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "101214",
+      "name": "本条なつみ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "101225",
+      "name": "衣川音寧",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "101275",
+      "name": "羽田美和",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "101356",
+      "name": "松原久美子",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "101402",
+      "name": "沙耶（ガチん娘）",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "101410",
+      "name": "イェリン",
+      "profile": "success",
+      "avatar": "available"
+    },
     {
       "mnid": "101434",
       "name": "清水こなつ",
@@ -2771,246 +3012,6 @@
     {
       "mnid": "118287",
       "name": "佐伯由美香",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118306",
-      "name": "村田来夢",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118484",
-      "name": "なつめ愛莉",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "11849",
-      "name": "合沢萌",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118515",
-      "name": "園見しずか",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118541",
-      "name": "咲波そら",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118569",
-      "name": "綾乃",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118609",
-      "name": "水樹まや",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118660",
-      "name": "藤井なな",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118662",
-      "name": "成田咲歩",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118669",
-      "name": "田辺順子",
-      "profile": "success",
-      "avatar": "missing"
-    },
-    {
-      "mnid": "118702",
-      "name": "伊集院茜",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118763",
-      "name": "小林ゆき",
-      "profile": "success",
-      "avatar": "missing"
-    },
-    {
-      "mnid": "118807",
-      "name": "千葉歩海",
-      "profile": "success",
-      "avatar": "missing"
-    },
-    {
-      "mnid": "118836",
-      "name": "大沼博子",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118877",
-      "name": "福山ゆな",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118961",
-      "name": "エイブリー・ブラック",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "118981",
-      "name": "ララ・ウェスト",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "11902",
-      "name": "深川美奈",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119030",
-      "name": "栄川乃亜",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119031",
-      "name": "三島そら",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119033",
-      "name": "一条リオン",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119040",
-      "name": "ユ・プルイプ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119061",
-      "name": "坂下麻衣",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "11916",
-      "name": "奥原莉乃",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119171",
-      "name": "今杉香帆子",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119176",
-      "name": "竹川綾",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119187",
-      "name": "美月ひなこ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "11923",
-      "name": "南莉奈",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "11924",
-      "name": "三城ゆき子",
-      "profile": "success",
-      "avatar": "missing"
-    },
-    {
-      "mnid": "119244",
-      "name": "一宮みほの",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119256",
-      "name": "若月もあ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119309",
-      "name": "夏目さゆり",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119325",
-      "name": "美幸あかり",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119430",
-      "name": "大川成美",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119447",
-      "name": "川嶋菜緒",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119502",
-      "name": "MIHARU",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119528",
-      "name": "日高ゆり",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119595",
-      "name": "牧野くるみ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "11963",
-      "name": "クセニア・ブロンド",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "119660",
-      "name": "Ciao",
       "profile": "success",
       "avatar": "available"
     }
