@@ -64,6 +64,9 @@ test('限量详情入口跨缓存继续下一批，保留已有字段，失败�
     const rows = json(dir, 'minnano/actresses.json')
     assert(rows[0].profileFetchedAt)
     assert.equal(rows[0].height, '180')
+    assert.deepEqual(rows[0].relatedProfiles, [
+      { id: '456', name: 'Related Actor', title: 'Related Actor,tag' }
+    ])
     assert.deepEqual(
       rows[0].profileFields.find(field => field.label === '独自項目'),
       {

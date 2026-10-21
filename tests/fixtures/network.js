@@ -5,7 +5,7 @@ jpeg[1] = 0xd8
 const row =
   '<tr><td class="rnkno"><span class="rnkcnt">1</span></td><h3 class="ttl"><a href="actress123.html">Test Actor</a></h3><td>42</td></tr>'
 const profile =
-  '<meta property="og:title" content="Test Actor AV女優"><meta property="og:image" content="images/test.jpg"><td><span>生年月日</span>2000年1月2日</td><td><span>愛称</span>Test</td><td><span>独自項目</span><a href="/custom.html?a=1&amp;b=2">原始値</a></td>'
+  '<meta property="og:title" content="Test Actor AV女優"><meta property="og:image" content="images/test.jpg"><td><span>生年月日</span>2000年1月2日</td><td><span>愛称</span>Test</td><td><span>独自項目</span><a href="/custom.html?a=1&amp;b=2">原始値</a></td>をチェックした人が見ている女優<a href="actress456.html"><img title="Related Actor,tag">'
 global.fetch = async (url, options) => {
   const u = new URL(url)
   if (process.env.FIXTURE_FAIL === 'all') throw new Error('offline: total failure')

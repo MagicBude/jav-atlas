@@ -196,7 +196,8 @@ function parseProfilePage(html) {
     const seg = html.slice(ri, ri + 6000)
     for (const m of seg.matchAll(/href="(?:\/)?actress(\d+)\.html">\s*<img[^>]*title="([^"]*)"/g)) {
       const n = dec(m[2])
-      if (n && !rel.some(x => x.id === m[1])) rel.push({ id: m[1], name: n })
+      if (n && !rel.some(x => x.id === m[1]))
+        rel.push({ id: m[1], name: n.split(',')[0].trim(), title: n })
       if (rel.length >= 10) break
     }
   }
