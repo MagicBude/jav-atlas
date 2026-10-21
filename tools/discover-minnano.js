@@ -32,32 +32,17 @@ if (
 const known = new Map(roster.map(row => [String(row.mnid), row]))
 if (known.size !== roster.length) throw new Error('已有名册含重复 ID，拒绝覆盖')
 
-/** 本地代理可选；Actions 默认使用 fetch 直连。代理不写入公开配置。 */
+/** 本地代理可选；使用系统 curl 保持本地与 Actions 的请求行为一致。 */
 async function getPage(page) {
   const url = `https://www.minnano-av.com/actress_list.php?sort=date&page=${page}`
-  if (process.env.WEB_PROXY) {
-    const { stdout } = await execute(
-      process.platform === 'win32' ? 'curl.exe' : 'curl',
-      [
-        '-fsSL',
-        '--proxy',
-        process.env.WEB_PROXY,
-        '--connect-timeout',
-        '8',
-        '--max-time',
-        '25',
-        url
-      ],
-      { timeout: 30000, maxBuffer: 4 * 1024 * 1024 }
-    )
-    return stdout
-  }
-  const response = await fetch(url, {
-    signal: AbortSignal.timeout(25000),
-    headers: { 'user-agent': 'Mozilla/5.0' }
+  const options = ['-fsSL', '--connect-timeout', '8', '--max-time', '25']
+  if (process.env.WEB_PROXY) options.push('--proxy', process.env.WEB_PROXY)
+  options.push(url)
+  const { stdout } = await execute(process.platform === 'win32' ? 'curl.exe' : 'curl', options, {
+    timeout: 30000,
+    maxBuffer: 4 * 1024 * 1024
   })
-  if (!response.ok) throw new Error('目录 HTTP ' + response.status)
-  return response.text()
+  return stdout
 }
 
 ;(async () => {

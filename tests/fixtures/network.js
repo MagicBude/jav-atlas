@@ -99,3 +99,16 @@ if (process.env.FIXTURE_WEB_PROBE) {
   }
   require('child_process').execFile = mock
 }
+
+// 目录 curl 通过同一合成 fetch 数据源验证，禁止测试触网。
+if (!process.env.FIXTURE_WEB_PROBE) {
+  const mock = () => {
+    throw new Error('测试仅支持异步 curl')
+  }
+  mock[require('util').promisify.custom] = async (_file, args) => {
+    const url = args[args.length - 1]
+    if (new URL(url).pathname !== '/actress_list.php') throw new Error('测试未声明 curl URL')
+    return { stdout: await (await global.fetch(url)).text(), stderr: '' }
+  }
+  require('child_process').execFile = mock
+}
