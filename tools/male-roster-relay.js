@@ -338,7 +338,7 @@ function pickActor(actors, name) {
       try {
         const u = new URL(r.avatar_url)
         if (!IMG_HOST_OK.test(u.hostname)) return
-        const f = avatarPath(AVA_DIR, r.id, r.name)
+        const f = avatarPath(AVA_DIR, r.id, r.name, 'm')
         if (fs.existsSync(f) && fs.statSync(f).size > 2048) {
           avSkip++
           return

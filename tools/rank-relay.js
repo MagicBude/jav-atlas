@@ -4,7 +4,7 @@
  * @file 从 minnano 页面采集日、周、月榜，并为部分上榜人物补充头像。
  * 流程：依次读取三个榜单，每榜最多两页 → 按站内 ID 去重 → 处理最多 160 位人物的头像 → 写出榜单。
  * 输入：无需本地名册；依赖源站 HTML 的固定标签与类名。
- * 输出：仓库根 relay/minnano/rankings.json，以及 relay/minnano/avatars/<minnano ID>_<姓名>.jpg。
+ * 输出：仓库根 relay/minnano/rankings.json，以及 relay/minnano/avatars/female/<minnano ID>_<姓名>.jpg。
  * 约束：榜单为空抛错；头像任务失败由并发池转为 null，不阻止榜单写入。
  * 榜单先写同目录 .tmp 再 rename；这不构成 JSON 与所有头像之间的整体事务。
  * 运行：node tools/rank-relay.js。直接执行即产生网络请求和文件写入。
@@ -173,7 +173,8 @@ const pool = async (items, n, fn) => {
       id,
       Object.values(out)
         .flat()
-        .find(r => String(r.id) === String(id))?.name
+        .find(r => String(r.id) === String(id))?.name,
+      'f'
     )
     if (fs.existsSync(f) && fs.statSync(f).size > 2048) {
       skip++

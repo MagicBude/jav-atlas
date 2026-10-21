@@ -3,7 +3,7 @@
 /**
  * @file 为已有 minnano 名册补齐缺失头像，不创建或扩充人物名册。
  * 输入：仓库根 relay/minnano/actresses.json；可选读取 minnano/rankings.json 并加入新上榜 ID。
- * 输出：relay/minnano/avatars/<minnano ID>_<姓名>.jpg。超过 2048 字节的现有文件直接复用。
+ * 输出：relay/minnano/avatars/female/<minnano ID>_<姓名>.jpg。超过 2048 字节的现有文件直接复用。
  * 参数：[limit] 默认 400；full 或 0 表示不限量，其他值通过 parseInt 解释。
  * 流程：合并候选 ID → 筛出缺图记录 → 截取本轮数量 → 4 个 worker 抓资料页及图片。
  * 限制：失败记录不会持久化，后续运行仍可能从同一批缺图人物开始；不保证每日推进到所有人物。
@@ -106,7 +106,7 @@ const pool = async (items, n, fn) => {
   } catch (_) {}
   // 阶段 2：仅按文件存在及体积决定是否重抓，不检查已有文件是否完整可解码。
   const miss = ids.filter(id => {
-    const f = avatarPath(AVA_DIR, id, names.get(String(id)))
+    const f = avatarPath(AVA_DIR, id, names.get(String(id)), 'f')
     return !(fs.existsSync(f) && fs.statSync(f).size > 2048)
   })
   const todo = miss.slice(0, limit)
@@ -134,7 +134,7 @@ const pool = async (items, n, fn) => {
       }
       const b = await get(new URL(img, MN_BASE).href, true).catch(() => null)
       if (isImg(b)) {
-        fs.writeFileSync(avatarPath(AVA_DIR, id, names.get(String(id))), b)
+        fs.writeFileSync(avatarPath(AVA_DIR, id, names.get(String(id)), 'f'), b)
         ok++
       } else {
         fail++

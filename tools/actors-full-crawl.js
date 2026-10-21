@@ -788,13 +788,19 @@ function webGenderOf(id) {
     process.env.SKIP_IMAGES === '1'
       ? []
       : [
-          ...list.map(r => ({ id: r.id, name: r.name, avatar_url: r.avatar_url })),
+          ...list.map(r => ({
+            id: r.id,
+            name: r.name,
+            gender: r.gender,
+            avatar_url: r.avatar_url
+          })),
           // 女优补图：JavDB 有图走 JavDB；没有则用名册存的 minnano 原图
           ...Object.values(fixMap)
             .filter(x => x && (x.avatar_url || x.mimg))
             .map(x => ({
               id: x.id || 'mn_' + (x.mnid || x.name),
               name: x.name,
+              gender: 'f',
               avatar_url: x.avatar_url,
               mimg: x.mimg,
               isMn: !x.avatar_url,
@@ -809,7 +815,7 @@ function webGenderOf(id) {
     try {
       const dir = r.supplement ? paths.supplementAvatars : AVA_DIR
       fs.mkdirSync(dir, { recursive: true })
-      const f = avatarPath(dir, r.id, r.name)
+      const f = avatarPath(dir, r.id, r.name, r.gender)
       if (fs.existsSync(f) && fs.statSync(f).size > 2048) {
         avSkip++
         return

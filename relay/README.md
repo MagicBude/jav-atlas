@@ -9,19 +9,19 @@ relay/
 ├─ minnano/
 │  ├─ rankings.json              日、周、月榜
 │  ├─ actresses.json             榜单发现并逐次积累的人物名册
-│  └─ avatars/<mnid>_<姓名>.jpg         minnano 原生 ID 对应的头像
+│  └─ avatars/                    minnano 女性头像，位于 female/，另有 index.json
 ├─ javdb/
 │  ├─ actors.json                影片发现的演员集合，含男女及未知
 │  ├─ uncensored-actors.json     无码影片样本中出现的人物
 │  ├─ male-seed-actors.json      固定姓名种子查询结果，male 模式生成
-│  └─ avatars/<id>_<姓名>--<ID编码>.jpg           普通与男演员种子工具共享的 JavDB 头像
+│  └─ avatars/{female,male,unknown}/ID_姓名.jpg           普通与男演员种子工具共享的 JavDB 头像
 └─ derived/
    ├─ female-name-index.json     跨来源女性姓名及别名反查索引
    ├─ avatar-supplements.json    为缺头像名册建立的补充资料映射
-   └─ avatars/<id>_<姓名>--<ID编码>.jpg           跨来源补图缓存，缺 JavDB ID 时使用 mn_<mnid>
+   └─ avatars/{female,male,unknown}/ID_姓名.jpg           跨来源补图缓存，缺 JavDB ID 时使用 mn_<mnid>
 ~~~
 
-文件和图片目录按需生成。当前小规模抓取没有生成 male 种子名单及补图文件，不能将它们未出现理解为采集丢失。
+文件和图片目录按需生成；没有确认男性头像时，male/ 可以暂不存在。每个头像根目录的 index.json 记录实际路径，仅文件名发生大小写冲突时才追加区分后缀。具体规则见 ../docs/avatar-sources.md。
 
 ## 来源资料
 
@@ -29,7 +29,7 @@ minnano/rankings.json 保存 day、week、month 三种榜单；记录中的顺�
 
 javdb/actors.json 保存来源 ID、姓名、别名、作品数、性别与判定依据等，来自有限影片样本的逐次累积，不代表全库。javdb/uncensored-actors.json 额外保存本轮发现的 uc_count 和最多五个影片编号样本，男女均保留，不表示人物只出演这类影片。
 
-javdb/male-seed-actors.json 特意包含 seed，明确它只是固定姓名种子搜索结果，不是完整男性目录。它与普通演员集合可能重叠，但共用图片缓存，不重复建立按性别分开的头像目录。
+javdb/male-seed-actors.json 特意包含 seed，明确它只是固定姓名种子搜索结果，不是完整男性目录。它与普通演员集合可能重叠，同一 ID 共享图片缓存，按已确认的性别归入 male/female/unknown。
 
 ## 派生结果
 

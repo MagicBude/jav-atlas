@@ -36,6 +36,7 @@ if (source === 'all' || source === 'javdb') {
   jobs.push(['actors-full-crawl.js'], ['uncensored-actresses-crawl.js'], ['gen-female-names.js'])
 }
 if (source === 'male') jobs.push(['male-roster-relay.js'])
+jobs.push(['migrate-avatar-names.js'])
 for (const [file, ...args] of jobs) {
   console.log('\n>>> ' + file)
   const result = spawnSync(process.execPath, [path.join(__dirname, file), ...args], {
