@@ -46,11 +46,13 @@ async function getPage(page) {
 }
 
 ;(async () => {
-  if (state.completed && !explicitStart) {
+  if (state.completed && state.lastPage >= state.totalPages && !explicitStart) {
     console.log('目录上一轮已遍历完成；重新扫描请指定 --start-page 1')
     return
   }
   const start = explicitStart || state.nextPage
+  let totalPages = state.totalPages || 0
+  let reportedPeople = state.reportedPeople || 0
   let added = 0,
     scanned = 0
   for (let page = start; page < start + budget; page++) {
@@ -68,14 +70,17 @@ async function getPage(page) {
       paths.minnanoActresses,
       [...known.values()].sort((a, b) => compareIds({ id: a.mnid }, { id: b.mnid }))
     )
-    const completed = page === result.totalPages
+    // 深页的 page_info 可能错误地退化为当前页/当前页；保留遍历中已见的最大范围。
+    totalPages = Math.max(totalPages, result.totalPages)
+    reportedPeople = Math.max(reportedPeople, result.totalPeople)
+    const completed = page >= totalPages
     const progress = {
       source: 'minnano-actress-directory',
       sort: 'date',
       lastPage: page,
       nextPage: page + 1,
-      totalPages: result.totalPages,
-      reportedPeople: result.totalPeople,
+      totalPages,
+      reportedPeople,
       completed,
       updatedAt: new Date().toISOString()
     }
@@ -84,7 +89,7 @@ async function getPage(page) {
       writeJson(paths.minnanoDirectoryState, progress)
     scanned++
     console.log(
-      `目录 ${page}/${result.totalPages} · 当前页 ${result.rows.length} 人 · 累计名册 ${known.size} 人`
+      `目录 ${page}/${totalPages} · 当前页 ${result.rows.length} 人 · 累计名册 ${known.size} 人`
     )
     if (completed) break
     await new Promise(resolve => setTimeout(resolve, 250))

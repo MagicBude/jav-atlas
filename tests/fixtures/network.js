@@ -17,7 +17,7 @@ global.fetch = async (url, options) => {
         return new Response('<html>blocked</html>')
       const id = page === 1 ? '123' : '456'
       return new Response(
-        `<span class='page_info'>${page} / 2 ページ (2件)</span><table><tr><td><a href="actress${id}.html"><img src="p_actress_125_125/123/${id}.jpg"></a></td><td class="details"><h2 class="ttl"><a href="actress${id}.html">${page === 1 ? 'Test Actor' : 'Second Actor'}</a></h2></td><td>42</td></tr></table>`
+        `<span class='page_info'>${page} / ${process.env.FIXTURE_DIRECTORY_SHRINK ? (page === 1 ? 3 : page) : 2} ページ (2件)</span><table><tr><td><a href="actress${id}.html"><img src="p_actress_125_125/123/${id}.jpg"></a></td><td class="details"><h2 class="ttl"><a href="actress${id}.html">${page === 1 ? 'Test Actor' : 'Second Actor'}</a></h2></td><td>42</td></tr></table>`
       )
     }
     if (u.pathname.includes('ranking_actress'))

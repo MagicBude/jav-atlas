@@ -686,3 +686,12 @@ test('目录发现独立入口不会启动详细资料和头像下载', () =>
     assert(!result.stdout.includes('>>> profiles-relay.js'))
     assert(!fs.existsSync(path.join(dir, 'minnano', 'avatars')))
   }))
+
+test('源站深页总页数退化时不把当前页误判为全目录结束', () =>
+  sandbox(dir => {
+    success(run(dir, 'discover-minnano.js', ['--pages', '2'], { FIXTURE_DIRECTORY_SHRINK: '1' }))
+    const progress = json(dir, 'minnano/directory-progress.json')
+    assert.equal(progress.totalPages, 3)
+    assert.equal(progress.nextPage, 3)
+    assert.equal(progress.completed, false)
+  }))
