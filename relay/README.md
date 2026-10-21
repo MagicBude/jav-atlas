@@ -11,6 +11,7 @@ relay/
 │  ├─ actresses.json             榜单发现并逐次积累的人物名册
 │  └─ avatars/                    minnano 女性头像，位于 female/，另有 index.json
 ├─ javdb/
+│  ├─ web-genders.json           网页性别依据：原始标签、来源 URL、确认时间
 │  ├─ actors.json                影片发现的演员集合，含男女及未知
 │  ├─ uncensored-actors.json     无码影片样本中出现的人物
 │  ├─ male-seed-actors.json      固定姓名种子查询结果，male 模式生成
@@ -46,3 +47,5 @@ derived/avatar-supplements.json 保存缺图名册与补充来源的关联，结
 JSON 展开方便 Git 对比；相同业务排序值按 ID 破平，姓名集合稳定排序，榜单保留排名顺序。抓取时间变化仍会真实记录。
 
 javdb/.line-ok 是运行时线路偏好缓存，已被 Git 忽略，不属于对外数据。资料页的请求缓存另放在项目 .cache/profiles 或 CACHE_DIR 下。
+
+网页证据 javdb/web-genders.json 按 ID 保存，性别依据和人物资料分开；它保存 section-meta 原文，不是整页 HTML。来源数据文件仍只保存当前采集器选定的字段。

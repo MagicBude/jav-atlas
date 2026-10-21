@@ -993,8 +993,8 @@
       "id": "0R4y7",
       "name": "和楽優花",
       "other_name": "和楽ゆうか",
-      "gender": "?",
-      "genderSource": "unverified",
+      "gender": "f",
+      "genderSource": "javdb-web-section-meta",
       "videos_count": 47,
       "uc_codes": [
         "041123_001",
@@ -16512,8 +16512,8 @@
       "id": "PeBE",
       "name": "中田一平",
       "other_name": "",
-      "gender": "?",
-      "genderSource": "unverified",
+      "gender": "m",
+      "genderSource": "javdb-web-section-meta",
       "videos_count": 1398,
       "uc_codes": [
         "HEYZO-2733"
@@ -16525,8 +16525,8 @@
       "id": "NPvb",
       "name": "吉澤留美",
       "other_name": "",
-      "gender": "?",
-      "genderSource": "unverified",
+      "gender": "f",
+      "genderSource": "javdb-web-section-meta",
       "videos_count": 205,
       "uc_codes": [
         "HEYZO-3877"
@@ -16655,8 +16655,8 @@
       "id": "MvbJ",
       "name": "白咲花",
       "other_name": "白咲楓さん, 蒼井ひなの, 小林杏, 橋本茉奈",
-      "gender": "?",
-      "genderSource": "unverified",
+      "gender": "f",
+      "genderSource": "javdb-web-section-meta",
       "videos_count": 96,
       "uc_codes": [
         "91CM-248"
@@ -16980,8 +16980,8 @@
       "id": "1VEn",
       "name": "Gabbie Carter",
       "other_name": "",
-      "gender": "?",
-      "genderSource": "unverified",
+      "gender": "f",
+      "genderSource": "javdb-web-section-meta",
       "videos_count": 55,
       "uc_codes": [
         "HEYZO-3697"
@@ -17773,8 +17773,8 @@
       "id": "3rO9",
       "name": "ナンシー",
       "other_name": "",
-      "gender": "?",
-      "genderSource": "unverified",
+      "gender": "f",
+      "genderSource": "javdb-web-section-meta",
       "videos_count": 30,
       "uc_codes": [
         "HEYZO-3664"
@@ -19710,8 +19710,8 @@
       "id": "k47YJ",
       "name": "Lia Lin",
       "other_name": "",
-      "gender": "?",
-      "genderSource": "unverified",
+      "gender": "f",
+      "genderSource": "javdb-web-section-meta",
       "videos_count": 12,
       "uc_codes": [
         "HEYZO-3640"
@@ -29782,5 +29782,7 @@
       "avatar_url": ""
     }
   ],
-  "unknown": 2043
+  "unknown": 2036,
+  "female": 53,
+  "male": 1
 }
