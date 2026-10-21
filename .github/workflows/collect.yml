@@ -11,9 +11,9 @@ on:
         options: [smoke, daily]
         default: smoke
       source:
-        description: 'all 全流程；minnano / javdb 独立排查；male 固定种子男演员'
+        description: 'all 全流程；minnano / javdb 独立排查；male 男演员种子；directory 目录发现'
         type: choice
-        options: [all, minnano, javdb, male]
+        options: [all, minnano, javdb, male, directory]
         default: all
   schedule:
     - cron: '30 21 * * *' # UTC 21:30 = 北京 05:30，实际运行可能延迟。

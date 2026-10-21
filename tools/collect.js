@@ -6,8 +6,11 @@ const { spawnSync } = require('child_process')
 const path = require('path')
 const { relayDir } = require('./lib/runtime')
 const [mode = 'smoke', source = 'all'] = process.argv.slice(2)
-if (!['smoke', 'daily'].includes(mode) || !['all', 'minnano', 'javdb', 'male'].includes(source)) {
-  throw new Error('用法：node tools/collect.js smoke|daily all|minnano|javdb|male')
+if (
+  !['smoke', 'daily'].includes(mode) ||
+  !['all', 'minnano', 'javdb', 'male', 'directory'].includes(source)
+) {
+  throw new Error('用法：node tools/collect.js smoke|daily all|minnano|javdb|male|directory')
 }
 const env = { ...process.env, RELAY_DIR: relayDir() }
 if (mode === 'smoke')
@@ -36,6 +39,15 @@ if (source === 'all' || source === 'javdb') {
   jobs.push(['actors-full-crawl.js'], ['uncensored-actresses-crawl.js'], ['gen-female-names.js'])
 }
 if (source === 'male') jobs.push(['male-roster-relay.js'])
+// 目录发现独立执行，不把新发现的两万多人物立即变成详细资料和头像任务。
+if (source === 'directory') {
+  jobs.push([
+    'discover-minnano.js',
+    '--pages',
+    mode === 'smoke' ? '1' : process.env.DIRECTORY_PAGES || '20'
+  ])
+  jobs.push(['gen-female-names.js'])
+}
 jobs.push(['migrate-avatar-names.js'])
 for (const [file, ...args] of jobs) {
   console.log('\n>>> ' + file)

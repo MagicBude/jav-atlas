@@ -11,6 +11,15 @@ global.fetch = async (url, options) => {
   if (process.env.FIXTURE_FAIL === 'all') throw new Error('offline: total failure')
   if (u.hostname === 'www.minnano-av.com') {
     if (process.env.FIXTURE_FAIL === 'minnano') throw new Error('offline: minnano failure')
+    if (u.pathname === '/actress_list.php') {
+      const page = Number(u.searchParams.get('page') || 1)
+      if (process.env.FIXTURE_DIRECTORY_FAIL === String(page))
+        return new Response('<html>blocked</html>')
+      const id = page === 1 ? '123' : '456'
+      return new Response(
+        `<span class='page_info'>${page} / 2 ページ (2件)</span><table><tr><td><a href="actress${id}.html"><img src="p_actress_125_125/123/${id}.jpg"></a></td><td class="details"><h2 class="ttl"><a href="actress${id}.html">${page === 1 ? 'Test Actor' : 'Second Actor'}</a></h2></td><td>42</td></tr></table>`
+      )
+    }
     if (u.pathname.includes('ranking_actress'))
       return new Response(
         process.env.FIXTURE_FAIL === 'rank-empty'

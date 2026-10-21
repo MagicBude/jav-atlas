@@ -15,6 +15,7 @@ function dataPaths(root = relayDir()) {
   return {
     minnanoRankings: path.join(base, 'minnano', 'rankings.json'),
     minnanoActresses: path.join(base, 'minnano', 'actresses.json'),
+    minnanoDirectoryState: path.join(base, 'minnano', 'directory-progress.json'),
     minnanoAvatars: path.join(base, 'minnano', 'avatars'),
     javdbActors: path.join(base, 'javdb', 'actors.json'),
     javdbWebGenders: path.join(base, 'javdb', 'web-genders.json'),

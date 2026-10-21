@@ -7,8 +7,9 @@ relay/ 只保存可供浏览端使用的资料及头像。来源资料与跨来�
 ~~~text
 relay/
 ├─ minnano/
+│  ├─ directory-progress.json    人物目录分批发现的翻页进度与源站报告人数
 │  ├─ rankings.json              日、周、月榜
-│  ├─ actresses.json             榜单发现并逐次积累的人物名册
+│  ├─ actresses.json             榜单及目录发现并逐次积累的人物名册
 │  └─ avatars/                    minnano 女性头像，位于 female/，另有 index.json
 ├─ javdb/
 │  ├─ web-genders.json           网页性别依据：原始标签、来源 URL、确认时间
@@ -26,7 +27,7 @@ relay/
 
 ## 来源资料
 
-minnano/rankings.json 保存 day、week、month 三种榜单；记录中的顺序有排名意义。minnano/actresses.json 保存姓名、minnano ID、别名、资料页和已回填的生日、尺寸等字段，当前覆盖榜单发现者，不代表全站名册。
+minnano/rankings.json 保存 day、week、month 三种榜单；记录中的顺序有排名意义。minnano/actresses.json 保存姓名、minnano ID、别名、资料页和已回填的生日、尺寸等字段，包含榜单和目录发现者，尚未扫描的目录页不在其中；基础名册存在不代表详细资料已回填。
 
 javdb/actors.json 保存来源 ID、姓名、别名、作品数、性别与判定依据等，来自有限影片样本的逐次累积，不代表全库。javdb/uncensored-actors.json 额外保存本轮发现的 uc_count 和最多五个影片编号样本，男女均保留，不表示人物只出演这类影片。
 

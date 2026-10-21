@@ -6,7 +6,7 @@
 
 collect.js 提供 smoke/daily 两种规模及 all/minnano/javdb/male 四种来源选择。默认 smoke all，任一步非零退出立即停止后续任务。
 
-minnano 先采 minnano/rankings.json，bootstrap-roster 读取三种榜单新增 mnid，再由 profiles 回填、生成名字集合，daily 最后执行每日 400 人的头像补齐。名册仅覆盖榜单发现者；全站目录发现尚未实现。
+minnano 先采 minnano/rankings.json，bootstrap-roster 读取三种榜单新增 mnid，再由 profiles 回填、生成名字集合，daily 最后执行每日 400 人的头像补齐。名册仅覆盖榜单发现者；完整目录发现使用独立 directory 入口分批执行，当前名册覆盖范围以 directory-progress.json 的实际进度为准。
 
 JavDB 的 actors-full-crawl 从三个影片维度发现人物，合并旧资料；uncensored-actresses-crawl 从 type=1 影片建立出演样本；最后累计女性名字。male 模式为固定种子搜索，不作为全库目录。
 
@@ -42,4 +42,10 @@ JavDB 人物资料主要来自移动 API，按代码定义选取字段；minnano
 
 默认禁用定时任务的实际执行，手动验证后用仓库变量 ENABLE_SCHEDULE=true 开启。未配置跨 runner 缓存，不保证 Actions 下次复用本地资料缓存。
 
-浏览网站尚未实现。批量网页复核已有异步 curl 入口；普通采集器内部网页请求仍同步。旧资料刷新和完整目录发现留作后续独立改动。
+浏览网站尚未实现。批量网页复核已有异步 curl 入口；普通采集器内部网页请求仍同步。旧资料刷新仍待后续改动；目录发现已经提供独立分批入口。
+
+## minnano 目录发现
+
+`npm run discover:minnano -- --pages 20` 从上次检查点继续读取源站按追加日期排序的人物目录；`--start-page 1 --pages 3` 可刷新前几页，不倒退已有全量进度。基础名册以 mnid 去重，仅补缺失字段，不覆盖已有姓名、详细资料和人工字段。每页先保存名册再保存 directory-progress.json，失败不会推进到未成功的页面。
+
+Actions 选择 mode=daily、source=directory，每次最多发现20页；smoke+directory只读1页。该入口不下载详细资料或头像，后续按需要另行回填。遍历期间源站新增和排序变化可能造成跨页重叠或遗漏，一轮扫描完成仍需定期重扫，不能把源站显示人数当成本地完整人数。定时任务仍保持关闭。

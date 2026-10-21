@@ -626,3 +626,63 @@ test('头像索引持续写入失败时回滚图片位置，解除锁后可继�
     assert.equal(fs.readFileSync(current, 'utf8'), 'original image')
     assert.equal(readJson(indexFile).files.actor1.file, 'female/actor1_演员.jpg')
   }))
+
+test('目录按页发现、去重续跑且不覆盖已有详细或人工字段', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'minnano', 'actresses.json'), [
+      { mnid: '123', name: '人工姓名', birthday: '2000-01-01', custom: true }
+    ])
+    success(run(dir, 'discover-minnano.js', ['--pages', '1']))
+    assert.equal(json(dir, 'minnano/directory-progress.json').nextPage, 2)
+    success(run(dir, 'discover-minnano.js', ['--pages', '1']))
+    const rows = json(dir, 'minnano/actresses.json')
+    assert.equal(rows.length, 2)
+    assert.equal(rows[0].name, '人工姓名')
+    assert.equal(rows[0].birthday, '2000-01-01')
+    assert.equal(rows[0].custom, true)
+    assert.equal(rows[1].mimg, 'https://www.minnano-av.com/p_actress_125_125/123/456.jpg')
+    assert.equal(rows[1].videoCount, 42)
+    assert.equal(json(dir, 'minnano/directory-progress.json').completed, true)
+    success(run(dir, 'discover-minnano.js'))
+    success(run(dir, 'discover-minnano.js', ['--start-page', '1', '--pages', '1']))
+    assert.equal(json(dir, 'minnano/directory-progress.json').nextPage, 3)
+    assert.equal(json(dir, 'minnano/actresses.json').length, 2)
+  }))
+
+test('目录中途失败只保留成功页面，重跑从失败页面开始', () =>
+  sandbox(dir => {
+    const failed = run(dir, 'discover-minnano.js', ['--pages', '2'], {
+      FIXTURE_DIRECTORY_FAIL: '2'
+    })
+    assert.notEqual(failed.status, 0)
+    assert.equal(json(dir, 'minnano/actresses.json').length, 1)
+    assert.equal(json(dir, 'minnano/directory-progress.json').nextPage, 2)
+    success(run(dir, 'discover-minnano.js', ['--pages', '1']))
+    assert.equal(json(dir, 'minnano/actresses.json').length, 2)
+  }))
+
+test('目录解析拒绝空拦截页、错误页码，不采集推荐栏链接', () => {
+  const { parseDirectory } = require('../tools/lib/minnano-directory')
+  assert.throws(() => parseDirectory('<html>blocked</html>', 1), /页码/)
+  assert.throws(
+    () => parseDirectory("<span class='page_info'>2 / 2 ページ (30件)</span>", 1),
+    /页码/
+  )
+  assert.throws(
+    () =>
+      parseDirectory(
+        "<span class='page_info'>1 / 2 ページ (30件)</span><a href='actress123.html'>推荐</a>",
+        1
+      ),
+    /解析为空/
+  )
+})
+
+test('目录发现独立入口不会启动详细资料和头像下载', () =>
+  sandbox(dir => {
+    const result = run(dir, 'collect.js', ['smoke', 'directory'])
+    success(result)
+    assert.equal(json(dir, 'minnano/actresses.json').length, 1)
+    assert(!result.stdout.includes('>>> profiles-relay.js'))
+    assert(!fs.existsSync(path.join(dir, 'minnano', 'avatars')))
+  }))

@@ -44,3 +44,9 @@ node tools/verify-uc-gender.js input.json output.json 4
 这些工具依赖系统 curl，不在日常入口中自动执行。输入输出是示例路径；部分工具允许输出覆盖输入，没有自动备份。无人物标签的拦截正文均不能确认性别。三个单文件工具均使用公共判据并保存网页依据；这些旧单文件工具的同步 curl 仍是串行，批量任务优先使用上面的新入口。
 
 格式与注释规则见 [代码规范](../docs/code-style.md)，采集验证范围见 [验证记录](../docs/validation.md)。
+
+## minnano 目录发现
+
+`npm run discover:minnano -- --pages 20` 从上次检查点继续读取源站按追加日期排序的人物目录；`--start-page 1 --pages 3` 可刷新前几页，不倒退已有全量进度。基础名册以 mnid 去重，仅补缺失字段，不覆盖已有姓名、详细资料和人工字段。每页先保存名册再保存 directory-progress.json，失败不会推进到未成功的页面。
+
+Actions 选择 mode=daily、source=directory，每次最多发现20页；smoke+directory只读1页。该入口不下载详细资料或头像，后续按需要另行回填。遍历期间源站新增和排序变化可能造成跨页重叠或遗漏，一轮扫描完成仍需定期重扫，不能把源站显示人数当成本地完整人数。定时任务仍保持关闭。
