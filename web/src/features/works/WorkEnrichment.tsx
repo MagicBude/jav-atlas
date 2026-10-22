@@ -1,145 +1,59 @@
-/** @file JavDB只读补充区。与minnano分开展示，评分人数与保存评论数不混用。 */
-import { useApp } from '../../app/context'
-import { resource } from '../../data/repository'
-import { useResource } from '../../shared/useResource'
-import { RawTree } from '../../shared/RawTree'
-interface Enrichment {
-  id: string
-  sourceUrl: string
-  fetchedAt: string
-  metadata: {
-    number: string
-    score?: string
-    reviews_count?: number
-    comments_count?: number
-    duration?: number
-    release_date?: string
-    maker_name?: string
-    publisher_name?: string
-    director_name?: string
-    series_name?: string
-    tags?: { id: string; name: string }[]
-    actors?: { id: string; name: string }[]
-  }
-  reviews: {
-    id: string
-    author: string
-    score: number | null
-    content: string
-    likes: number
-    createdAt: string
-  }[]
-  mapping: { dateDifference: boolean; minnanoDate: string | null; javdbDate: string | null }
+/** 评论默认三条、长文本默认折叠；只改变展示，不截断存储或把样本当全量。 */
+import { useState } from 'react'
+import type { Enrichment } from '../../entities/enrichment'
+function Review({ review }: { review: Enrichment['reviews'][number] }) {
+  const [expanded, setExpanded] = useState(false)
+  const long = review.content.length > 240
+  return (
+    <article>
+      <header>
+        <strong>{review.author || '匿名用户'}</strong>
+        <span>{review.score == null ? '未评分' : `${review.score} 分`}</span>
+        <time>
+          {review.createdAt && Number.isFinite(Date.parse(review.createdAt))
+            ? new Date(review.createdAt).toLocaleDateString('zh-CN')
+            : '日期未知'}
+        </time>
+      </header>
+      <p className={long && !expanded ? 'review-collapsed' : ''}>{review.content}</p>
+      {long && (
+        <button
+          className="text-button"
+          aria-expanded={expanded}
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? '收起正文' : '展开全文'}
+        </button>
+      )}
+      <small className="muted">赞同 {review.likes}</small>
+    </article>
+  )
 }
-export function WorkEnrichment({ id }: { id: string }) {
-  const { manifest } = useApp()
-  const file = manifest?.works?.enrichments?.[id]
-  const request = useResource(file || '', () => resource<Enrichment>(file!))
-  if (!file) return null
-  if (request.error)
-    return (
-      <section>
-        <h3>JavDB 资料</h3>
-        <p role="alert">{request.error}</p>
-        <button onClick={request.retry}>重试</button>
-      </section>
-    )
-  if (!request.value) return <p>正在读取 JavDB 资料…</p>
-  const data = request.value,
-    m = data.metadata
-  const facts = [
-    ['番号', m.number],
-    ['发行日期', m.release_date],
-    ['时长', m.duration ? `${m.duration} 分钟` : '未知'],
-    ['制作商', m.maker_name],
-    ['发行商 / 厂牌', m.publisher_name],
-    ['导演', m.director_name],
-    ['系列', m.series_name]
-  ]
+export function WorkEnrichment({ data }: { data: Enrichment }) {
+  const [expanded, setExpanded] = useState(false)
   return (
     <section className="work-enrichment">
       <div className="enrichment-heading">
-        <h3>JavDB 资料</h3>
-        <a
-          href={`https://javdb.com/v/${encodeURIComponent(data.id)}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          查看来源 ↗
-        </a>
+        <h3>
+          短评 <span className="muted small">{data.reviews.length}</span>
+        </h3>
+        <span className="small muted">来自 JavDB</span>
       </div>
-      <div className="work-score">
-        <strong>{m.score || '暂无评分'}</strong>
-        <span>
-          JavDB 评分
-          <small>
-            来源评价数 {m.reviews_count ?? '未知'} · 已保存短评 {data.reviews.length} 条
-          </small>
-        </span>
-      </div>
-      {data.mapping.dateDifference && (
-        <p className="notice">
-          两站发行日期不同：minnano {data.mapping.minnanoDate}；JavDB {data.mapping.javdbDate}
-          。分别保留来源值。
-        </p>
-      )}
-      <dl className="facts">
-        {facts.map(([label, value]) => (
-          <div key={label}>
-            <dt>{label}</dt>
-            <dd>{value || '未知'}</dd>
-          </div>
-        ))}
-      </dl>
-      <h4>JavDB 出演者</h4>
-      <p className="muted small">来源署名可能与 minnano 不同，未自动合并人物身份。</p>
-      <div className="work-cast">
-        {m.actors?.map(a => (
-          <a
-            key={a.id}
-            href={`https://javdb.com/actors/${encodeURIComponent(a.id)}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {a.name} ↗
-          </a>
-        ))}
-      </div>
-      <div className="work-tags">
-        {m.tags?.map(t => (
-          <span className="badge" key={t.id}>
-            {t.name}
-          </span>
-        ))}
-      </div>
-      <h3>
-        短评 <span className="muted small">{data.reviews.length} 条</span>
-      </h3>
-      <p className="muted small">仅保存本次取得的前两页；排序未确认，不代表全部评论。</p>
       <div className="work-reviews">
-        {data.reviews.map(r => (
-          <article key={r.id}>
-            <header>
-              <strong>{r.author || '匿名用户'}</strong>
-              <span>{r.score == null ? '未评分' : `${r.score} 分`}</span>
-              <time>
-                {r.createdAt && Number.isFinite(Date.parse(r.createdAt))
-                  ? new Date(r.createdAt).toLocaleDateString('zh-CN')
-                  : '日期未知'}
-              </time>
-            </header>
-            <p>{r.content}</p>
-            <small className="muted">赞同 {r.likes}</small>
-          </article>
+        {(expanded ? data.reviews : data.reviews.slice(0, 3)).map(r => (
+          <Review key={r.id} review={r} />
         ))}
       </div>
-      <p className="muted small">
-        资料取得时间：{new Date(data.fetchedAt).toLocaleString('zh-CN')}
-      </p>
-      <details>
-        <summary>JavDB 来源字段与匹配依据</summary>
-        <RawTree value={data} />
-      </details>
+      {data.reviews.length > 3 && (
+        <button
+          className="reviews-toggle"
+          aria-expanded={expanded}
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? '收起评论' : `展开其余 ${data.reviews.length - 3} 条评论`}
+        </button>
+      )}
+      <p className="small muted">已保存 {data.reviews.length} 条，不代表全部评论。</p>
     </section>
   )
 }
