@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1370" viewBox="0 0 1600 1370">
+  <title>JAV Atlas 浅色资料库布局线框</title>
+  <desc>人物列表、完整详情与手机筛选布局。仅为设计示意，不是已实现网页，人物及数量不是实时数据。</desc>
+  <defs>
+    <style>
+      text {font-family:'Microsoft YaHei','Noto Sans CJK SC',sans-serif;fill:#17212e;font-size:15px}
+      .muted {fill:#596675;font-size:13px}.small{font-size:12px;fill:#596675}
+      .heading{font-size:24px;font-weight:600}.section{font-size:18px;font-weight:600}
+      .brand{font-size:18px;font-weight:600}.blue{fill:#245fc5}.white{fill:white}
+      .panel{fill:white;stroke:#dde3ea}.control{fill:white;stroke:#b8c4d2}.line{stroke:#dde3ea}
+      .tag{fill:#edf3fc}.portrait{fill:#edf0f4}
+    </style>
+    <g id="avatar"><rect width="56" height="72" rx="4" class="portrait"/><circle cx="28" cy="24" r="10" fill="#c4cdd8"/><path d="M11 58q0-19 17-19t17 19" fill="#c4cdd8"/></g>
+    <g id="person-card"><rect width="262" height="132" rx="6" class="panel"/><use href="#avatar" x="14" y="18"/><text x="83" y="37">人物姓名</text><text x="83" y="59" class="small">minnano · 698899</text><text x="83" y="82" class="muted">身高 160 cm · F 罩杯</text><text x="14" y="113" class="small">原字段已采集</text><text x="207" y="113" class="blue">详情 ›</text></g>
+  </defs>
+  <rect width="1600" height="1370" fill="#f6f7f9"/>
+  <text x="40" y="42" class="heading">JAV Atlas / 浅色资料库</text><text x="40" y="69" class="muted">布局设计 v1 · 2026-10-22 · 静态线框，非功能页面；人物与数值均为示意</text>
+  <text x="40" y="111" class="section">01 人物浏览 · 桌面</text>
+  <rect x="40" y="130" width="1120" height="550" rx="8" class="panel"/>
+  <rect x="41" y="131" width="1118" height="54" fill="#fff" rx="8"/><line x1="40" y1="185" x2="1160" y2="185" class="line"/>
+  <text x="60" y="165" class="brand">JAV Atlas</text><text x="235" y="165" class="blue">人物</text><text x="304" y="165">榜单</text><text x="373" y="165">数据说明</text><text x="1030" y="165" class="small">数据版本 ↗</text>
+  <rect x="56" y="203" width="220" height="455" fill="#fafbfd"/>
+  <text x="72" y="229" class="section">筛选条件</text><text x="72" y="260" class="muted">性别</text>
+  <text x="72" y="287">□ 女　□ 男　□ 未知</text><line x1="72" y1="306" x2="258" y2="306" class="line"/>
+  <text x="72" y="332" class="muted">身高 / cm</text><rect x="72" y="345" width="82" height="33" rx="4" class="control"/><text x="82" y="367" class="muted">最低</text><text x="159" y="367">–</text><rect x="177" y="345" width="82" height="33" rx="4" class="control"/><text x="187" y="367" class="muted">最高</text>
+  <text x="72" y="411" class="muted">罩杯</text><rect x="72" y="424" width="187" height="33" rx="4" class="control"/><text x="83" y="446">选择罩杯　　　　　　 ⌄</text>
+  <text x="72" y="489" class="muted">资料与头像</text><text x="72" y="516">□ 原字段已采集</text><text x="72" y="545">□ 有本地头像</text><text x="72" y="581" class="blue">展开高级条件 ⌄</text><text x="72" y="633" class="muted">清空全部条件</text>
+  <text x="300" y="232" class="section">人物资料</text><rect x="777" y="209" width="360" height="34" rx="5" class="control"/><rect x="779" y="211" width="118" height="30" rx="4" class="tag"/><text x="808" y="232" class="blue">minnano</text><text x="938" y="232">JavDB</text><text x="1043" y="232">全部来源</text>
+  <rect x="300" y="259" width="837" height="39" rx="5" class="control"/><text x="315" y="285" class="muted">搜索姓名、别名或原始 ID</text>
+  <rect x="300" y="310" width="131" height="27" rx="4" class="tag"/><text x="311" y="329" class="blue">原字段已采集 ×</text><text x="445" y="329" class="small">筛选改变后回到第一页</text>
+  <text x="300" y="367" class="muted">找到 500 条来源记录（示意）</text><text x="807" y="367" class="muted">姓名排序 ⌄</text><text x="949" y="367" class="blue">卡片</text><text x="1005" y="367" class="muted">紧凑列表</text>
+  <use href="#person-card" x="300" y="384"/><use href="#person-card" x="583" y="384"/><use href="#person-card" x="866" y="384"/>
+  <text x="300" y="546" class="muted">更多人物按当前页排列；不一次渲染全部名册。</text>
+  <line x1="300" y1="576" x2="1137" y2="576" class="line"/>
+  <text x="300" y="612" class="small">每页 48 条 ⌄</text><text x="772" y="612" class="muted">上一页　</text><rect x="855" y="591" width="31" height="31" rx="4" fill="#245fc5"/><text x="866" y="613" class="white">1</text><text x="902" y="613">2　3　…　下一页</text>
+  <text x="300" y="645" class="small">条件保存在网址中，打开详情后返回仍恢复页码与位置。</text>
+  <text x="1190" y="151" class="section">03 手机布局</text>
+  <rect x="1190" y="172" width="370" height="508" rx="14" class="panel"/>
+  <text x="1209" y="208" class="brand">JAV Atlas</text><text x="1453" y="208" class="blue">人物　☰</text><line x1="1190" y1="225" x2="1560" y2="225" class="line"/>
+  <text x="1210" y="258" class="section">人物资料</text><rect x="1210" y="276" width="330" height="39" rx="5" class="control"/><text x="1224" y="301" class="muted">搜索姓名、别名、ID</text>
+  <rect x="1210" y="328" width="155" height="36" rx="4" class="control"/><text x="1224" y="352">筛选条件 (2)</text><rect x="1380" y="328" width="160" height="36" rx="4" class="control"/><text x="1395" y="352">姓名排序 ⌄</text>
+  <text x="1210" y="393" class="small">minnano · 500 条（示意）</text>
+  <use href="#avatar" x="1210" y="411"/><text x="1282" y="433">人物姓名</text><text x="1282" y="457" class="muted">698899 · 原字段已采集</text><text x="1282" y="480" class="muted">160 cm · F 罩杯</text><line x1="1210" y1="499" x2="1540" y2="499" class="line"/>
+  <use href="#avatar" x="1210" y="514"/><text x="1282" y="539">另一个人物</text><text x="1282" y="563" class="muted">10753 · 目录记录</text><text x="1282" y="586" class="muted">资料尚未采集</text><text x="1297" y="647" class="blue">上一页　 1 / 11　 下一页</text>
+  <text x="40" y="728" class="section">02 人物详情 · 桌面</text>
+  <rect x="40" y="748" width="1120" height="560" rx="8" class="panel"/>
+  <text x="60" y="782" class="blue">‹ 返回人物列表</text><text x="838" y="782" class="small">返回后保留搜索条件与滚动位置</text>
+  <use href="#avatar" transform="translate(64 803) scale(1.4)"/>
+  <text x="168" y="831" class="heading">人物姓名</text><text x="168" y="857" class="muted">别名 / 现用名完整展示，可换行</text><text x="168" y="884" class="muted">minnano · ID 698899　｜　原字段已采集</text>
+  <rect x="966" y="812" width="164" height="38" rx="5" fill="#245fc5"/><text x="1000" y="837" class="white">查看来源 ↗</text><text x="966" y="881" class="small">采集时间：明确到批次</text>
+  <line x1="64" y1="926" x2="1135" y2="926" class="line"/><text x="64" y="952" class="blue">基本资料</text><text x="179" y="952">原始资料</text><text x="294" y="952">相关人物</text><text x="409" y="952">来源与采集</text>
+  <text x="64" y="996" class="section">基本资料</text><text x="64" y="1027" class="muted">生日</text><text x="150" y="1027">1998-05-12（示意）</text><text x="425" y="1027" class="muted">身高</text><text x="508" y="1027">160 cm</text><text x="64" y="1058" class="muted">事务所</text><text x="150" y="1058">来源已采集值</text><text x="425" y="1058" class="muted">血型</text><text x="508" y="1058">来源未提供或尚未采集</text>
+  <line x1="64" y1="1084" x2="708" y2="1084" class="line"/><text x="64" y="1116" class="section">原始资料</text><text x="64" y="1145" class="small">标签、完整原文和链接保留；不因已有规范字段而删减。</text>
+  <rect x="64" y="1162" width="644" height="99" fill="#fafbfd"/><text x="80" y="1187" class="muted">所属事務所</text><text x="237" y="1187" class="blue">来源原始文本与链接 ↗</text><line x1="80" y1="1204" x2="692" y2="1204" class="line"/><text x="80" y="1231" class="muted">其他未映射标签</text><text x="237" y="1231">长字段可换行并完整展开</text>
+  <rect x="752" y="980" width="381" height="281" fill="#fafbfd"/>
+  <text x="773" y="1010" class="section">相关人物与来源</text><text x="773" y="1044" class="blue">相关人物姓名　›</text><text x="773" y="1069" class="small">ID 与原始图片标题另行保留</text><line x1="773" y1="1091" x2="1111" y2="1091" class="line"/>
+  <text x="773" y="1124">资料覆盖说明</text><text x="773" y="1153" class="muted">成功采集不代表所有字段都有值</text><text x="773" y="1182" class="muted">跨来源同名不自动合并</text><text x="773" y="1212" class="muted">原始 ID、来源 URL、采集依据可查</text>
+  <text x="1190" y="728" class="section">04 手机筛选抽屉</text><rect x="1190" y="748" width="370" height="560" rx="14" class="panel"/>
+  <text x="1210" y="786" class="section">筛选条件</text><text x="1519" y="786" class="muted">×</text><line x1="1190" y1="805" x2="1560" y2="805" class="line"/>
+  <text x="1210" y="840" class="muted">来源</text><rect x="1210" y="855" width="330" height="39" rx="4" class="control"/><text x="1223" y="880">minnano　　　　　　　　　　 ⌄</text>
+  <text x="1210" y="929" class="muted">资料与头像</text><text x="1210" y="960">☑ 原字段已采集</text><text x="1210" y="993">☑ 有本地头像</text><text x="1210" y="1041" class="muted">身高范围</text><rect x="1210" y="1055" width="153" height="38" rx="4" class="control"/><rect x="1387" y="1055" width="153" height="38" rx="4" class="control"/><text x="1225" y="1081" class="muted">最低 / cm</text><text x="1399" y="1081" class="muted">最高 / cm</text>
+  <text x="1210" y="1137" class="small">在此调整草稿；取消不改变当前查询。</text><text x="1210" y="1163" class="small">查看结果后统一应用，焦点返回触发按钮。</text>
+  <line x1="1190" y1="1221" x2="1560" y2="1221" class="line"/><text x="1210" y="1267" class="muted">重置</text><rect x="1330" y="1239" width="210" height="44" rx="5" fill="#245fc5"/><text x="1405" y="1267" class="white">查看结果</text>
+  <text x="40" y="1345" class="muted">评审重点：信息层级、筛选效率、完整资料展示、移动端操作。配色与字号为初稿，实施时检验可访问性。</text>
+</svg>
