@@ -1,0 +1,41 @@
+# 浏览端检查与采集分离：这里只读构建快照，不执行 collect、不写 relay、不发布网站。
+name: Check atlas web
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['web/**', '.github/workflows/web-check.yml']
+  pull_request:
+    paths: ['web/**', '.github/workflows/web-check.yml']
+permissions:
+  contents: read
+concurrency:
+  group: web-check-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: 安装前端锁定依赖
+        working-directory: web
+        run: npm ci
+      - name: 数据保留、个人存储与筛选测试
+        working-directory: web
+        run: npm test
+      - name: 类型检查与生产构建
+        working-directory: web
+        env:
+          BASE_PATH: /jav-atlas/
+        run: npm run build
+      - name: 保留可预览构建
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-web-preview
+          path: web/dist/
+          retention-days: 7

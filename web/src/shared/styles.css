@@ -1,0 +1,6 @@
+/* 样式入口只组织依赖：变量、公共控件、页面布局各有职责，避免一个文件塞进全部视觉规则。 */
+@import './tokens.css';
+@import './base.css';
+@import '../app/layout.css';
+@import '../features/people/people.css';
+@import '../features/personal-data/editor.css';

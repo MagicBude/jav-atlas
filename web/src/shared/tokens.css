@@ -1,0 +1,21 @@
+/** 全站设计变量。改配色/密度先改这里；避免每个页面各自硬编码一套相似值。 */
+:root {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
+  color: #17212e;
+  background: #f6f7f9;
+  font-size: 14px;
+  line-height: 1.6;
+  --surface: #fff;
+  --canvas: #f6f7f9;
+  --ink: #17212e;
+  --muted: #596675;
+  --line: #dde3ea;
+  --primary: #245fc5;
+  --tint: #edf3fc;
+  --danger: #a52b33;
+  --radius: 7px;
+  --space: 8px;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}

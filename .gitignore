@@ -5,3 +5,6 @@ node_modules/
 .env.*
 !.env.example
 relay/javdb/.line-ok
+web/public/generated/
+web/dist/
+web/.vite/

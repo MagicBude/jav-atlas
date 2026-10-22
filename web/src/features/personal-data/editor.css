@@ -1,0 +1,46 @@
+/* 编辑器只描述本地草稿界面；保存失败、冲突等语义由 TypeScript 状态控制。 */
+.person-editor {
+  margin-top: 30px;
+}
+.editor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 24px;
+}
+.editor-field {
+  padding: 14px 0;
+  border-bottom: 1px solid #edf0f4;
+  min-width: 0;
+}
+.editor-field .field {
+  margin-bottom: 7px;
+}
+.field-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.field-actions button {
+  font-size: 11px;
+  min-height: 25px;
+  padding-block: 2px;
+}
+.person-editor > h3 {
+  margin-top: 26px;
+}
+.person-editor .sticky-actions {
+  bottom: -20px;
+}
+@media (max-width: 767px) {
+  .editor-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .editor-field .field-actions button {
+    min-height: 36px;
+  }
+  .person-editor .sticky-actions {
+    bottom: 0;
+  }
+}

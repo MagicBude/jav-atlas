@@ -1,3 +1,5 @@
 relay/
 node_modules/
 .cache/
+web/public/generated/
+web/dist/

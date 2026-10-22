@@ -1,0 +1,105 @@
+/* CSS Modules 将这些名字限制在人物卡片内，其他页面也叫 name/card 时不会互相覆盖。 */
+.card {
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 17px 14px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+  min-width: 0;
+  transition: border-color 0.12s;
+}
+.card:hover {
+  border-color: #9cb5d6;
+}
+.summary {
+  min-width: 0;
+  flex: 1;
+  padding-right: 15px;
+}
+.summary > :global(.small) {
+  margin-top: 3px;
+}
+.summary :global(.badge) {
+  margin-top: 8px;
+  font-size: 10px;
+}
+.name {
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  display: block;
+  margin-bottom: 4px;
+}
+.portrait {
+  flex: 0 0 auto;
+}
+.star {
+  position: absolute;
+  top: 8px;
+  right: 6px;
+  width: 31px;
+  min-height: 31px;
+  border: 0;
+  padding: 0;
+  color: #78879c;
+  font-size: 22px;
+  background: transparent;
+}
+.star.selected {
+  color: var(--primary);
+  background: transparent;
+}
+.compact {
+  align-items: center;
+  padding: 12px 16px;
+}
+.compact :global(.avatar) {
+  width: 48px;
+  height: 60px;
+}
+.compact .summary {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) 150px 140px;
+  align-items: center;
+  gap: 4px 20px;
+}
+.compact .name {
+  grid-row: span 2;
+}
+.compact :global(.badge) {
+  justify-self: start;
+  margin: 0;
+}
+.compact .star {
+  top: 17px;
+  right: 12px;
+}
+@media (max-width: 1199px) {
+  .compact .summary {
+    grid-template-columns: minmax(130px, 1fr) 120px;
+  }
+}
+@media (max-width: 1023px) {
+  .compact .summary {
+    grid-template-columns: minmax(140px, 1fr) 150px 130px;
+  }
+}
+@media (max-width: 767px) {
+  .card {
+    padding: 14px 12px;
+  }
+  .compact .summary {
+    display: block;
+  }
+  .compact :global(.badge) {
+    margin-top: 4px;
+  }
+  .compact :global(.avatar) {
+    width: 56px;
+    height: 70px;
+  }
+}
