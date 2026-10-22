@@ -146,7 +146,9 @@
 .avatar img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  /* 等比铺满头像框，避免不同宽高比产生上下留白；只裁切显示，不修改原图。 */
+  object-fit: cover;
+  object-position: center;
 }
 .avatar.large {
   width: 112px;
@@ -333,6 +335,24 @@
   display: block;
   color: var(--muted);
   font-size: 11px;
+}
+.related-person {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+}
+.related-person > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.related-person small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-weight: normal;
 }
 .personal-note {
   white-space: pre-wrap;

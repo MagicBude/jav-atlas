@@ -385,34 +385,55 @@ export default function PersonPage({
             <h2>相关人物</h2>
             <div className="related-list">
               {detail.value?.related.length ? (
-                detail.value.related.map((other, i) => (
-                  <div key={`${other.id}-${i}`}>
-                    <button
-                      className="text-button"
-                      onClick={() => {
-                        if (index.value!.some(row => row.id === String(other.id)))
-                          switchPerson(String(other.id))
-                        else
-                          window.open(
-                            source === 'minnano'
-                              ? `https://www.minnano-av.com/actress${encodeURIComponent(other.id)}.html`
-                              : `https://javdb.com/actors/${encodeURIComponent(other.id)}`,
-                            '_blank',
-                            'noopener,noreferrer'
-                          )
-                      }}
-                    >
-                      {other.name || other.id}　›
-                    </button>
-                    <code>{other.id}</code>
-                    {other.title && (
-                      <details>
-                        <summary>原始标题</summary>
-                        <p>{other.title}</p>
-                      </details>
-                    )}
-                  </div>
-                ))
+                detail.value.related.map((other, i) => {
+                  // 旧资料的 rel 只保存原生 ID。以同一来源的名册补全展示信息，
+                  // 不通过姓名跨站猜测身份，也不改写原始关联记录。
+                  const known = index.value!.find(row => row.id === String(other.id))
+                  const relatedName = known
+                    ? resolvePerson(known, data.records[identity(known)]).name
+                    : other.name && other.name !== String(other.id)
+                      ? other.name
+                      : '姓名未采集'
+                  return (
+                    <div key={`${other.id}-${i}`}>
+                      <button
+                        className="text-button related-person"
+                        onClick={() => {
+                          if (known) switchPerson(String(other.id))
+                          else
+                            window.open(
+                              source === 'minnano'
+                                ? `https://www.minnano-av.com/actress${encodeURIComponent(other.id)}.html`
+                                : `https://javdb.com/actors/${encodeURIComponent(other.id)}`,
+                              '_blank',
+                              'noopener,noreferrer'
+                            )
+                        }}
+                      >
+                        <PersonAvatar
+                          key={known?.avatar || other.id}
+                          file={known?.avatar || null}
+                          name={relatedName}
+                        />
+                        <span>
+                          {relatedName}　›
+                          <small>
+                            {known
+                              ? `${known.avatar ? '' : '暂无头像 · '}查看人物资料`
+                              : '本地未收录 · 前往来源'}
+                          </small>
+                        </span>
+                      </button>
+                      <code>{other.id}</code>
+                      {other.title && (
+                        <details>
+                          <summary>原始标题</summary>
+                          <p>{other.title}</p>
+                        </details>
+                      )}
+                    </div>
+                  )
+                })
               ) : (
                 <p className="muted">当前记录没有已采集的相关人物。</p>
               )}

@@ -10,17 +10,18 @@ export function PersonAvatar({
   name: string
   large?: boolean
 }) {
-  const [failed, setFailed] = useState(false)
+  // 只记住失败的文件，而非永久失败状态。切换人物或更新图片后，新文件仍应尝试加载。
+  const [failedFile, setFailedFile] = useState<string | null>(null)
   return (
     <div className={`avatar ${large ? 'large' : ''}`}>
-      {file && !failed ? (
+      {file && file !== failedFile ? (
         <img
           src={asset(file)}
           loading="lazy"
           width={large ? 112 : 64}
           height={large ? 140 : 80}
           alt={`${name}的头像`}
-          onError={() => setFailed(true)}
+          onError={() => setFailedFile(file)}
         />
       ) : (
         <span aria-label="暂无可用头像">{name?.slice(0, 1) || '人'}</span>
