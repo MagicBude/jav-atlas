@@ -12,12 +12,12 @@ import {
   identity,
   personUrl,
   safeUrl,
-  statusLabels,
   type Person,
   type Source
 } from '../entities/person'
 import { useResource } from '../shared/useResource'
 import { PersonAvatar } from '../shared/PersonAvatar'
+import { HeartIcon } from '../shared/HeartIcon'
 import { RawTree } from '../shared/RawTree'
 import PersonEditor, { createDraft } from '../features/personal-data/PersonEditor'
 import { getReturn } from '../features/people/returnPosition'
@@ -142,7 +142,6 @@ export default function PersonPage({
           {person.aliases?.length > 0 && (
             <p className="muted aliases">{person.aliases.join(' / ')}</p>
           )}
-          <span className="badge">{statusLabels[person.status]}</span>
           {!sourcePerson && <span className="badge">当前数据未收录 · 保留个人快照</span>}
           <p className="small muted">
             采集时间：
@@ -153,10 +152,11 @@ export default function PersonPage({
       <div className="detail-actions">
         <button
           aria-pressed={saved}
-          className={saved ? 'selected' : ''}
+          className={`favorite-action ${saved ? 'is-favorite' : ''}`}
           onClick={() => favorite(sourceValue)}
         >
-          {saved ? '★ 已收藏' : '☆ 收藏人物'}
+          <HeartIcon active={saved} />
+          {saved ? '已收藏' : '收藏人物'}
         </button>
         <button onClick={() => setDraft(key, drafts[key] || createDraft(sourceValue, record))}>
           修改本地资料

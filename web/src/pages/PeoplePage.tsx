@@ -82,7 +82,7 @@ export default function PeoplePage({ favoritesOnly = false }: { favoritesOnly?: 
     return () => window.clearTimeout(timer)
   }, [search, params.toString(), personal, location.pathname])
   const original = useMemo(() => {
-    const list = request.value || []
+    const list = (request.value || []).filter(person => person.gender !== 'm')
     if (!favoritesOnly || !request.value) return list
     // 已从来源消失的人物仍保留收藏快照，不能因名册更新而顺带删除个人记录。
     const known = new Set(list.map(identity))
@@ -352,7 +352,6 @@ export default function PeoplePage({ favoritesOnly = false }: { favoritesOnly?: 
                 <option value="height">身高 ↑</option>
                 <option value="height-desc">身高 ↓</option>
                 <option value="birthday">出生日期</option>
-                <option value="fetchedAt">详情采集时间</option>
                 {favoritesOnly && <option value="added">最近收藏</option>}
               </select>
               <ViewSwitcher

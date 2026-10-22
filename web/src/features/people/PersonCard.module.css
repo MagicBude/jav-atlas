@@ -69,7 +69,7 @@
 .status {
   color: #457b6d;
 }
-.star {
+.favorite {
   position: absolute;
   top: 7px;
   right: 7px;
@@ -82,9 +82,9 @@
   background: transparent;
   border-radius: 50%;
 }
-.star.selected {
-  color: #b67b20;
-  background: #fff5de;
+.favorite.selected {
+  color: #e34864;
+  background: #fff0f3;
 }
 .rank {
   flex: 0 0 28px;
@@ -131,7 +131,7 @@
 .compact .meta {
   margin: 0;
 }
-.compact .star {
+.compact .favorite {
   top: 50%;
   transform: translateY(-50%);
 }
@@ -174,7 +174,7 @@
   background: #fff0cf;
   color: #98601b;
 }
-.vertical .star {
+.vertical .favorite {
   background: #ffffffed;
   z-index: 1;
   top: 10px;
@@ -216,4 +216,13 @@
   .vertical .name {
     font-size: 14px;
   }
+}
+
+.favorite {
+  display: grid;
+  place-items: center;
+}
+.favorite:hover {
+  color: #e34864;
+  background: #fff0f3;
 }

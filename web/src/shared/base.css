@@ -371,3 +371,18 @@ dialog::backdrop {
     content: ' (' attr(href) ')';
   }
 }
+/* 收藏在卡片与详情中共用红心语义，收藏数据结构保持不变。 */
+.favorite-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.favorite-action.is-favorite {
+  color: #dc3f5c;
+  border-color: #f0b8c3;
+  background: #fff1f4;
+}
+.heart-icon {
+  flex-shrink: 0;
+  vertical-align: middle;
+}

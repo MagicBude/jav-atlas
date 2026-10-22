@@ -1,7 +1,8 @@
 /** @file 卡片与紧凑行共用：人物链接和收藏按钮并列，避免点击收藏意外打开详情。 */
 import { Link, useLocation } from 'react-router-dom'
 import { useApp } from '../../app/context'
-import { identity, personUrl, statusLabels, type Person } from '../../entities/person'
+import { identity, personUrl, type Person } from '../../entities/person'
+import { HeartIcon } from '../../shared/HeartIcon'
 import { PersonAvatar } from '../../shared/PersonAvatar'
 import { rememberList } from './returnPosition'
 import styles from './PersonCard.module.css'
@@ -61,21 +62,18 @@ export function PersonCard({
         <div className={styles.meta}>
           <span>{person.source}</span>
           <code>#{person.id}</code>
-          <span title="资料采集阶段" className={styles.status}>
-            {statusLabels[person.status]}
-          </span>
         </div>
         {Object.values(data.records[identity(person)]?.fields || {}).some(
           op => op.kind === 'set'
         ) && <span className="local-mark">本地修改</span>}
       </div>
       <button
-        className={`${styles.star} ${selected ? styles.selected : ''}`}
+        className={`${styles.favorite} ${selected ? styles.selected : ''}`}
         aria-label={selected ? `取消收藏${person.name}` : `收藏${person.name}`}
         aria-pressed={selected}
         onClick={() => favorite(person)}
       >
-        {selected ? '★' : '☆'}
+        <HeartIcon active={selected} />
       </button>
     </article>
   )

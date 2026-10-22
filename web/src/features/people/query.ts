@@ -47,17 +47,15 @@ export function sanitizeQuery(search: string): URLSearchParams {
     'size',
     'view',
     'values',
-    'gender',
     'cup',
     'blood',
     'place',
     'agency',
-    'status',
-    'avatar',
     'tag',
     'tagMode',
     ...ranges.flatMap(range => [`${range.key}Min`, `${range.key}Max`, `${range.key}Unknown`])
   ])
+  // 已下线的性别/采集阶段/头像条件同时从旧URL移除，避免隐藏条件继续过滤。
   for (const key of [...params.keys()]) if (!allowed.has(key)) params.delete(key)
   for (const range of ranges) {
     const minKey = `${range.key}Min`,

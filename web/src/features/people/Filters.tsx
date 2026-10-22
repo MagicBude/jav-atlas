@@ -43,7 +43,7 @@ export function Filters({
   }
   const counts = useMemo(() => {
     const result: Record<string, Map<string, number>> = {}
-    for (const field of ['gender', 'cup', 'blood', 'place', 'agency', 'status'] as const) {
+    for (const field of ['cup', 'blood', 'place', 'agency'] as const) {
       const other = new URLSearchParams(params)
       other.delete(field)
       const map = new Map<string, number>()
@@ -169,21 +169,8 @@ export function Filters({
           </select>
         </label>
       )}
-      {choices('gender', '性别', true)}
       <RangeFilter field="height" title="身高 / cm" params={params} change={change} />
       {choices('cup', '罩杯')}
-      <label className="field">
-        头像
-        <select
-          value={params.get('avatar') || ''}
-          onChange={event => update('avatar', event.target.value)}
-        >
-          <option value="">不限</option>
-          <option value="yes">有本地头像</option>
-          <option value="no">缺头像</option>
-        </select>
-      </label>
-      {choices('status', '资料阶段', true)}
       <button
         className="text-button"
         aria-expanded={advanced}
