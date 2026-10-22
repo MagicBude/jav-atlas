@@ -8,20 +8,33 @@ import styles from './PersonCard.module.css'
 export function PersonCard({
   person,
   sequence = [],
-  compact = false
+  compact = false,
+  portrait = false,
+  rank
 }: {
   person: Person
   sequence?: string[]
   compact?: boolean
+  portrait?: boolean
+  rank?: number
 }) {
   const { data, favorite } = useApp(),
     location = useLocation()
   const selected = !!data.records[identity(person)]?.favorite?.active
   return (
     <article
-      className={`${styles.card} ${compact ? styles.compact : ''}`}
+      className={`${styles.card} ${compact ? styles.compact : ''} ${portrait ? styles.vertical : ''}`}
       data-person={identity(person)}
     >
+      {/* 排名属于这张卡片；与内容同排或叠在照片角上，不创建额外的排名行。 */}
+      {rank != null && (
+        <span
+          className={`${styles.rank} ${rank <= 3 ? styles.podium : ''}`}
+          aria-label={`第 ${rank} 名`}
+        >
+          {String(rank).padStart(2, '0')}
+        </span>
+      )}
       <Link
         className={styles.portrait}
         to={personUrl(person)}
@@ -41,13 +54,17 @@ export function PersonCard({
         >
           {person.name || '未命名'}
         </Link>
-        <div className="muted small">
-          {person.source} · <code>{person.id}</code>
+        <div className={styles.facts}>
+          <span>{person.height != null ? `${person.height} cm` : '身高未知'}</span>
+          <span>{person.cup ? `${person.cup} 杯` : '罩杯未知'}</span>
         </div>
-        <div className="small">
-          {person.height != null ? `${person.height} cm` : '身高未知'} · {person.cup || '罩杯未知'}
+        <div className={styles.meta}>
+          <span>{person.source}</span>
+          <code>#{person.id}</code>
+          <span title="资料采集阶段" className={styles.status}>
+            {statusLabels[person.status]}
+          </span>
         </div>
-        <span className="badge">{statusLabels[person.status]}</span>
         {Object.values(data.records[identity(person)]?.fields || {}).some(
           op => op.kind === 'set'
         ) && <span className="local-mark">本地修改</span>}

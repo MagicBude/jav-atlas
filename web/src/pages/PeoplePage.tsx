@@ -16,6 +16,7 @@ import {
   type PrivateFilters
 } from '../features/people/query'
 import { PersonCard } from '../features/people/PersonCard'
+import { personView, ViewSwitcher } from '../features/people/ViewSwitcher'
 import {
   readPrivateFilters,
   restoreList,
@@ -173,13 +174,8 @@ export default function PeoplePage({ favoritesOnly = false }: { favoritesOnly?: 
     update(next, emptyPrivate())
     setPersonal(emptyPrivate())
   }
-  const [small, setSmall] = useState(window.innerWidth < 768)
-  useEffect(() => {
-    const check = () => setSmall(window.innerWidth < 768)
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [])
-  const compact = params.get('view') === 'list' || small
+  const view = personView(params.get('view'))
+  const compact = view === 'list'
   const filterProps = {
     people,
     params,
@@ -359,26 +355,14 @@ export default function PeoplePage({ favoritesOnly = false }: { favoritesOnly?: 
                 <option value="fetchedAt">详情采集时间</option>
                 {favoritesOnly && <option value="added">最近收藏</option>}
               </select>
-              <button
-                aria-pressed={!compact}
-                onClick={() => {
+              <ViewSwitcher
+                value={view}
+                onChange={value => {
                   const next = new URLSearchParams(params)
-                  next.set('view', 'grid')
+                  next.set('view', value)
                   update(next, personal, false, false)
                 }}
-              >
-                卡片
-              </button>
-              <button
-                aria-pressed={compact}
-                onClick={() => {
-                  const next = new URLSearchParams(params)
-                  next.set('view', 'list')
-                  update(next, personal, false, false)
-                }}
-              >
-                列表
-              </button>
+              />
             </div>
           </div>
           <div className="view-options">
@@ -435,12 +419,15 @@ export default function PeoplePage({ favoritesOnly = false }: { favoritesOnly?: 
               <button onClick={clear}>清空筛选</button>
             </div>
           )}
-          <div className={`people-grid ${compact ? 'list-view' : ''}`}>
+          <div
+            className={`people-grid ${compact ? 'list-view' : view === 'portrait' ? 'portrait-view' : ''}`}
+          >
             {current.map(person => (
               <PersonCard
                 key={identity(person)}
                 person={person}
                 compact={compact}
+                portrait={view === 'portrait'}
                 sequence={current.map(identity)}
               />
             ))}

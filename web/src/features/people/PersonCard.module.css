@@ -1,105 +1,219 @@
-/* CSS Modules 将这些名字限制在人物卡片内，其他页面也叫 name/card 时不会互相覆盖。 */
+/* 共用卡片的三种布局只改变视觉，不复制收藏、链接或返回定位逻辑。 */
 .card {
   display: flex;
   position: relative;
-  align-items: flex-start;
-  gap: 13px;
-  padding: 17px 14px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: white;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
   min-width: 0;
-  transition: border-color 0.12s;
+  border: 1px solid #e0e5ed;
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 2px 7px #172c4905;
+  transition:
+    transform 0.16s,
+    box-shadow 0.16s,
+    border-color 0.16s;
 }
 .card:hover {
-  border-color: #9cb5d6;
+  transform: translateY(-2px);
+  border-color: #b5c9e3;
+  box-shadow: 0 8px 24px #263e6510;
+}
+.portrait {
+  flex: 0 0 auto;
+  overflow: hidden;
+  border-radius: 9px;
+}
+.portrait :global(.avatar) {
+  width: 76px;
+  height: 96px;
+  border-radius: 9px;
 }
 .summary {
   min-width: 0;
   flex: 1;
-  padding-right: 15px;
-}
-.summary > :global(.small) {
-  margin-top: 3px;
-}
-.summary :global(.badge) {
-  margin-top: 8px;
-  font-size: 10px;
+  padding-right: 14px;
 }
 .name {
-  font-size: 15px;
-  color: var(--ink);
-  font-weight: 600;
-  overflow-wrap: anywhere;
   display: block;
-  margin-bottom: 4px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  margin-bottom: 8px;
 }
-.portrait {
-  flex: 0 0 auto;
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  color: #485970;
+  font-size: 12px;
+}
+.facts span {
+  background: #f0f4f8;
+  border-radius: 5px;
+  padding: 1px 6px;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 7px;
+  margin-top: 8px;
+  color: #7b8799;
+  font-size: 10px;
+  line-height: 1.7;
+}
+.status {
+  color: #457b6d;
 }
 .star {
   position: absolute;
-  top: 8px;
-  right: 6px;
-  width: 31px;
-  min-height: 31px;
+  top: 7px;
+  right: 7px;
+  width: 29px;
+  min-height: 29px;
   border: 0;
   padding: 0;
-  color: #78879c;
-  font-size: 22px;
+  color: #9aa8bb;
+  font-size: 21px;
   background: transparent;
+  border-radius: 50%;
 }
 .star.selected {
-  color: var(--primary);
-  background: transparent;
+  color: #b67b20;
+  background: #fff5de;
 }
+.rank {
+  flex: 0 0 28px;
+  align-self: center;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-size: 20px;
+  font-weight: 750;
+  color: #8b9ab0;
+  letter-spacing: -1px;
+}
+.podium {
+  color: #a56b17;
+  background: #fff1d4;
+  border: 1px solid #eed6a7;
+  border-radius: 8px;
+  padding: 4px 0;
+}
+/* 紧凑行让姓名、尺寸、身份信息横向展开；窄屏自动折回，避免横向滚动。 */
 .compact {
-  align-items: center;
-  padding: 12px 16px;
+  padding: 9px 14px;
+  border-radius: 9px;
+  gap: 14px;
 }
-.compact :global(.avatar) {
-  width: 48px;
-  height: 60px;
+.compact:hover {
+  transform: none;
+}
+.compact .portrait :global(.avatar) {
+  width: 42px;
+  height: 52px;
+  border-radius: 6px;
 }
 .compact .summary {
   display: grid;
-  grid-template-columns: minmax(160px, 1fr) 150px 140px;
+  grid-template-columns: minmax(130px, 1fr) minmax(110px, 0.55fr) minmax(160px, 0.8fr);
   align-items: center;
-  gap: 4px 20px;
+  gap: 12px;
+  padding-right: 28px;
 }
 .compact .name {
-  grid-row: span 2;
+  margin: 0;
+  font-size: 14px;
 }
-.compact :global(.badge) {
-  justify-self: start;
+.compact .meta {
   margin: 0;
 }
 .compact .star {
-  top: 17px;
-  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
 }
-@media (max-width: 1199px) {
-  .compact .summary {
-    grid-template-columns: minmax(130px, 1fr) 120px;
-  }
+/* 纵向模式以照片为主，头像尺寸跟随列宽；图片依旧只裁切显示，不改动源文件。 */
+.vertical {
+  display: block;
+  padding: 0;
+  overflow: hidden;
 }
-@media (max-width: 1023px) {
-  .compact .summary {
-    grid-template-columns: minmax(140px, 1fr) 150px 130px;
-  }
+.vertical .portrait {
+  display: block;
+  border-radius: 0;
+}
+.vertical .portrait :global(.avatar) {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/5;
+  border-radius: 0;
+}
+.vertical .summary {
+  padding: 12px 13px 14px;
+}
+.vertical .name {
+  margin-bottom: 7px;
+}
+.vertical .rank {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  min-width: 32px;
+  background: #ffffffed;
+  color: #334b70;
+  padding: 2px 6px;
+  border-radius: 7px;
+  font-size: 17px;
+  box-shadow: 0 2px 8px #1529451a;
+}
+.vertical .podium {
+  background: #fff0cf;
+  color: #98601b;
+}
+.vertical .star {
+  background: #ffffffed;
+  z-index: 1;
+  top: 10px;
+  right: 10px;
 }
 @media (max-width: 767px) {
   .card {
-    padding: 14px 12px;
+    gap: 10px;
+    padding: 11px;
+  }
+  .portrait :global(.avatar) {
+    width: 64px;
+    height: 80px;
   }
   .compact .summary {
-    display: block;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
   }
-  .compact :global(.badge) {
-    margin-top: 4px;
+  .compact .meta {
+    font-size: 10px;
   }
-  .compact :global(.avatar) {
-    width: 56px;
-    height: 70px;
+  .compact .facts {
+    font-size: 11px;
+  }
+  .rank {
+    flex-basis: 24px;
+    font-size: 18px;
+  }
+  .vertical {
+    padding: 0;
+  }
+  .vertical .portrait :global(.avatar) {
+    width: 100%;
+    height: auto;
+  }
+  .vertical .summary {
+    padding: 10px;
+  }
+  .vertical .name {
+    font-size: 14px;
   }
 }

@@ -154,12 +154,6 @@
 .ranking-entry {
   min-width: 0;
 }
-.rank-number {
-  font-size: 18px;
-  font-family: monospace;
-  color: #75849a;
-  margin: 0 0 4px 4px;
-}
 @media (max-width: 1023px) {
   .site-header > div {
     gap: 28px;
