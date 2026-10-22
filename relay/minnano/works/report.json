@@ -1,0 +1,24 @@
+{
+  "startedAt": 1792651170209,
+  "pages": 6,
+  "details": 50,
+  "failures": [],
+  "people": [
+    {
+      "actorId": "190754",
+      "formal": 1,
+      "placeholders": 1,
+      "nextPage": null,
+      "stable": true
+    },
+    {
+      "actorId": "125605",
+      "formal": 95,
+      "placeholders": 2,
+      "nextPage": null,
+      "stable": true
+    }
+  ],
+  "finishedAt": 1792651199184,
+  "pendingDetails": 46
+}
