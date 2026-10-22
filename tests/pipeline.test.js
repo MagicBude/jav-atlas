@@ -44,6 +44,19 @@ function run(dir, file, args = [], extra = {}) {
 }
 const json = (dir, f) => readJson(path.join(dir, f))
 
+test('已知头像直链绕过人物页失败，并接受jpg地址返回的WebP', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'minnano/actresses.json'), [
+      { mnid: '123', name: 'Test Actor', mimg: 'https://www.minnano-av.com/images/test.jpg' }
+    ])
+    success(
+      run(dir, 'roster-avatars.js', ['1'], { FIXTURE_FAIL: 'profile-empty', FIXTURE_WEBP: '1' })
+    )
+    const file = json(dir, 'minnano/avatars/index.json').files['123'].file
+    const bytes = fs.readFileSync(path.join(dir, 'minnano/avatars', file))
+    assert.equal(bytes.toString('ascii', 8, 12), 'WEBP')
+  }))
+
 test('榜单池详情已齐也独立重试缺图，并在最终报告更新图片状态', () =>
   sandbox(dir => {
     writeJson(path.join(dir, 'minnano/actresses.json'), [

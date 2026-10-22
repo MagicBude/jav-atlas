@@ -1,18 +1,18 @@
 {
-  "generatedAt": 1792645897660,
+  "generatedAt": 1792648203662,
   "exitCode": 0,
   "selected": 367,
   "batch": {
     "profileSuccess": 366,
     "profileFailed": 1,
     "profileNotAttempted": 0,
-    "missingAvatars": 5
+    "missingAvatars": 3
   },
   "total": {
     "people": 374,
     "profileSuccess": 373,
     "profileFieldsSaved": 373,
-    "missingAvatars": 5
+    "missingAvatars": 3
   },
   "results": [
     {
@@ -37,7 +37,7 @@
       "mnid": "125102",
       "name": "天音るな",
       "profile": "failed",
-      "avatar": "missing"
+      "avatar": "available"
     },
     {
       "mnid": "12539",
@@ -241,7 +241,7 @@
       "mnid": "190754",
       "name": "月城ゆら",
       "profile": "success",
-      "avatar": "missing"
+      "avatar": "available"
     },
     {
       "mnid": "192328",

@@ -51,7 +51,15 @@ global.fetch = async (url, options) => {
       return new Response(
         process.env.FIXTURE_FAIL === 'profile-empty' ? '<html>blocked</html>' : profile
       )
-    if (u.pathname === '/images/test.jpg') return new Response(jpeg)
+    if (u.pathname === '/images/test.jpg') {
+      if (process.env.FIXTURE_WEBP === '1') {
+        const webp = Buffer.alloc(4096)
+        webp.write('RIFF', 0)
+        webp.write('WEBP', 8)
+        return new Response(webp)
+      }
+      return new Response(jpeg)
+    }
     throw new Error('未声明的 minnano fixture：' + url)
   }
   if (u.hostname === 'tp.spfcas.com' && u.pathname === '/actor1.jpg') return new Response(jpeg)

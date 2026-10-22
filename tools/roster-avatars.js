@@ -56,13 +56,20 @@ async function get(url, binary) {
 
 /**
  * 只接受长度大于 2048 且前两个字节匹配 JPEG/PNG 的数据。
- * 这不是完整图片解码校验；即使解码器识别 WebP/GIF，此判据仍会拒绝它们。
+ * 同时接受 RIFF/WEBP 文件头；源站的 .jpg URL 可能返回 WebP，不能只按扩展名判断。
+ * 这不是完整图片解码校验；GIF 等其他格式仍不支持。
  *
  * @param {Buffer|null} b 待校验内容。
  * @returns {boolean} 是否通过当前轻量判据。
  */
 const isImg = b =>
-  !!(b && b.length > 2048 && ((b[0] === 0xff && b[1] === 0xd8) || (b[0] === 0x89 && b[1] === 0x50)))
+  !!(
+    b &&
+    b.length > 2048 &&
+    ((b[0] === 0xff && b[1] === 0xd8) ||
+      (b[0] === 0x89 && b[1] === 0x50) ||
+      (b.toString('ascii', 0, 4) === 'RIFF' && b.toString('ascii', 8, 12) === 'WEBP'))
+  )
 
 /**
  * 通过共享递增索引分配任务，限制同时等待的异步操作数量。
@@ -93,6 +100,7 @@ const pool = async (items, n, fn) => {
   if (!Array.isArray(roster)) throw new Error('缺少名册：请先运行 bootstrap-roster.js')
   // 阶段 1：名册是必需输入；榜单是可选补充，不会回写名册。
   const names = new Map(roster.map(r => [String(r.mnid), r.name]))
+  const imageUrls = new Map(roster.filter(r => r.mimg).map(r => [String(r.mnid), r.mimg]))
   const ids = []
   for (const r of roster) if (r && r.mnid) ids.push(String(r.mnid))
   try {
@@ -130,6 +138,20 @@ const pool = async (items, n, fn) => {
   // 阶段 3：每项失败只累计 fail，整批结束后不因单项失败非零退出。
   await pool(todo, 4, async (id, i) => {
     try {
+      // 名册已有的图片直链不依赖人物页再次访问成功。验证页拦截人物HTML时，图片仍可能可达。
+      // 直链失败才回到原有的页面解析流程，不把一次网络失败当成源站没有头像。
+      const knownImage = imageUrls.get(id)
+      if (knownImage) {
+        const url = new URL(knownImage, MN_BASE)
+        if (url.origin === new URL(MN_BASE).origin) {
+          const bytes = await get(url.href, true).catch(() => null)
+          if (isImg(bytes)) {
+            fs.writeFileSync(avatarPath(AVA_DIR, id, names.get(id), 'f'), bytes)
+            ok++
+            return
+          }
+        }
+      }
       const html = await get(MN_BASE + 'actress' + id + '.html')
       const img = (html.match(/property="og:image" content="([^"]+)"/) ||
         html.match(/<img[^>]+class="[^"]*actress[^"]*"[^>]+src="([^"]+)"/) ||
