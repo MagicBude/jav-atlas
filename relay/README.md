@@ -53,3 +53,7 @@ JSON 展开方便 Git 对比；相同业务排序值按 ID 破平，姓名集合
 javdb/.line-ok 是运行时线路偏好缓存，已被 Git 忽略，不属于对外数据。资料页的请求缓存另放在项目 .cache/profiles 或 CACHE_DIR 下。
 
 网页证据 javdb/web-genders.json 按 ID 保存，性别依据和人物资料分开；它保存 section-meta 原文，不是整页 HTML。来源数据文件仍只保存当前采集器选定的字段。
+
+## 作品试采
+
+works/ 下 records/<作品ID>.json 保存正式作品信息表，people/<人物ID>.json 保存列表关系、原观察和未知占位；progress.json 保存分页扫描及详情待办，report.json 保存最近一次运行结果。目前仅190754与125605两位试采，不表示全人物池作品库。封面只保存来源URL，未下载图片或视频。
