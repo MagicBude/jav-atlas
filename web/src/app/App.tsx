@@ -1,3 +1,4 @@
+import WorkPage from '../pages/WorkPage'
 /**
  * @file 路由与容器的组合层。桌面详情叠在保存的背景列表上，完整页使用同一份内容。
  * 草稿保护统一在此拦截导航；不会在每个链接里各写一套不一致的“是否离开”。
@@ -107,6 +108,7 @@ export default function App() {
           <Route path="/" element={<PeoplePage />} />
           <Route path="/people" element={<PeoplePage />} />
           <Route path="/favorites" element={<PeoplePage favoritesOnly />} />
+          <Route path="/works/minnano/:id" element={<WorkPage />} />
           <Route path="/rankings" element={<RankingsPage />} />
           <Route path="/data" element={<DataPage />} />
           <Route path="/people/:source/:id" element={<PersonPage />} />

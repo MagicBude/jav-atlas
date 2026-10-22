@@ -386,3 +386,104 @@ dialog::backdrop {
   flex-shrink: 0;
   vertical-align: middle;
 }
+/* 作品列表使用文字排版，避免未下载封面时大片占位。与人物头像组件保持独立。 */
+.work-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 10px;
+}
+.work-filters input {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+.work-filters select {
+  flex: 0 1 180px;
+  max-width: 100%;
+}
+.work-list {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.work-row {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 100px minmax(0, 1fr) 90px 12px;
+  gap: 12px;
+  align-items: center;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--line);
+  background: white;
+  text-align: left;
+  padding: 13px 14px;
+  color: var(--ink);
+}
+.work-row:last-child {
+  border-bottom: 0;
+}
+.work-row:hover {
+  background: var(--tint);
+}
+.work-code {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--primary);
+}
+.work-title {
+  overflow-wrap: anywhere;
+  line-height: 1.55;
+  font-size: 13px;
+}
+.work-title small {
+  display: block;
+  color: var(--muted);
+  margin-top: 5px;
+  font-size: 11px;
+}
+.work-row time {
+  font-size: 11px;
+  color: var(--muted);
+}
+.work-dialog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.work-detail h2 {
+  font-size: 20px;
+  line-height: 1.6;
+}
+.work-detail .facts {
+  margin: 20px 0;
+}
+.work-cast {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.work-raw {
+  margin-top: 25px;
+}
+@media (max-width: 767px) {
+  .work-row {
+    grid-template-columns: 75px minmax(0, 1fr) 10px;
+    gap: 8px;
+    padding: 11px 10px;
+  }
+  .work-row time {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .work-row > span:last-child {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .work-detail h2 {
+    font-size: 17px;
+  }
+}

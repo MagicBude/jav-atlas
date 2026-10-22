@@ -35,6 +35,27 @@ beforeAll(() => {
   manifest = JSON.parse(fs.readFileSync(path.join(generated, 'manifest.json'), 'utf8'))
 }, 30000)
 describe('来源与生成资源', () => {
+  it('作品详情完整投影，人物作品的正式引用存在且番号可检索', () => {
+    const sourceFiles = fs
+      .readdirSync(path.join(relay, 'minnano/works/records'))
+      .filter(file => /^\d+\.json$/.test(file))
+    expect(Object.keys(manifest.works?.records || {})).toHaveLength(sourceFiles.length)
+    for (const [id, file] of Object.entries(manifest.works!.records)) {
+      const value = JSON.parse(fs.readFileSync(path.join(generated, file), 'utf8'))
+      expect(value).toEqual(read(`minnano/works/records/${id}.json`))
+    }
+    for (const file of Object.values(manifest.works!.people)) {
+      const value = JSON.parse(fs.readFileSync(path.join(generated, file), 'utf8'))
+      for (const row of value.entries.filter((entry: { kind: string }) => entry.kind === 'work')) {
+        // 后续试采可能先保存关系、再按预算补详情；有详情时番号必须来自原记录。
+        const detailFile = manifest.works!.records[row.id]
+        if (detailFile) {
+          const detail = JSON.parse(fs.readFileSync(path.join(generated, detailFile), 'utf8'))
+          expect(row.code).toEqual(detail.code || null)
+        }
+      }
+    }
+  })
   it('生成前后全部 relay 文件的字节哈希一致', () => expect(hashes(relay)).toEqual(before))
   it('原始下载快照与来源逐字节一致，不丢集合元数据', () => {
     for (const [source, file] of Object.entries(manifest.rawFiles))

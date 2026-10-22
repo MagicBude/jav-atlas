@@ -156,9 +156,37 @@ for (const [source, rows] of Object.entries(sources)) {
     avatars: index.filter(x => x.avatar).length
   }
 }
+// 作品资源独立寻址，只有进入人物作品区才请求；详情保留原记录，列表仅加入检索所需番号。
+const worksRoot = path.join(relay, 'minnano/works')
+manifest.works = { people: {}, records: {} }
+if (fs.existsSync(path.join(worksRoot, 'records'))) {
+  for (const file of fs
+    .readdirSync(path.join(worksRoot, 'records'))
+    .filter(f => /^\d+\.json$/.test(f))) {
+    const id = file.slice(0, -5)
+    manifest.works.records[id] = emit(`work-${id}`, read(`minnano/works/records/${file}`))
+  }
+}
+if (fs.existsSync(path.join(worksRoot, 'people'))) {
+  for (const file of fs
+    .readdirSync(path.join(worksRoot, 'people'))
+    .filter(f => /^\d+\.json$/.test(f))) {
+    const person = read(`minnano/works/people/${file}`)
+    const entries = person.entries.map(entry => ({
+      ...entry,
+      code: read(`minnano/works/records/${entry.id}.json`, {})?.code || null
+    }))
+    manifest.works.people[file.slice(0, -5)] = emit(`works-person-${file.slice(0, -5)}`, {
+      ...person,
+      entries
+    })
+  }
+}
 manifest.version = crypto
   .createHash('sha256')
-  .update(JSON.stringify(manifest.sources) + JSON.stringify(rawFiles))
+  .update(
+    JSON.stringify(manifest.sources) + JSON.stringify(rawFiles) + JSON.stringify(manifest.works)
+  )
   .digest('hex')
   .slice(0, 16)
 fs.writeFileSync(path.join(out, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n')

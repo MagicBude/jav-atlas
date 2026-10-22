@@ -18,6 +18,7 @@ import {
 import { useResource } from '../shared/useResource'
 import { PersonAvatar } from '../shared/PersonAvatar'
 import { HeartIcon } from '../shared/HeartIcon'
+import { PersonWorks } from '../features/works/PersonWorks'
 import { RawTree } from '../shared/RawTree'
 import PersonEditor, { createDraft } from '../features/personal-data/PersonEditor'
 import { getReturn } from '../features/people/returnPosition'
@@ -179,6 +180,7 @@ export default function PersonPage({
           <nav className="section-nav" aria-label="人物资料区块">
             {[
               ['basic', '基本资料'],
+              ...(source === 'minnano' ? [['works', '作品']] : []),
               ['raw', '原始资料'],
               ['related', '相关人物'],
               ['personal', '我的资料']
@@ -381,6 +383,12 @@ export default function PersonPage({
                 </div>
               ))}
           </section>
+          {source === 'minnano' && (
+            <section id={`${key}-works`}>
+              <h2>作品</h2>
+              <PersonWorks key={id} actorId={id} />
+            </section>
+          )}
           <section id={`${key}-related`}>
             <h2>相关人物</h2>
             <div className="related-list">
