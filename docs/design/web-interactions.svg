@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1240" viewBox="0 0 1600 1240">
+  <title>JAV Atlas 交互设计：详情抽屉、个人修改与本地收藏</title>
+  <desc>静态设计示意，所有控件尚未实现。展示桌面路由抽屉、编辑草稿、收藏和返回定位。</desc>
+  <defs><style>
+    text{font-family:'Microsoft YaHei','Noto Sans CJK SC',sans-serif;font-size:15px;fill:#17212e}
+    .h{font-size:23px;font-weight:600}.s{font-size:18px;font-weight:600}.muted{fill:#596675;font-size:13px}
+    .blue{fill:#245fc5}.white{fill:white}.box{fill:white;stroke:#dde3ea}.input{fill:white;stroke:#b8c4d2}
+    .line{stroke:#dde3ea}.small{font-size:12px;fill:#596675}
+  </style>
+  <g id="avatar"><rect width="54" height="70" rx="4" fill="#edf0f4"/><circle cx="27" cy="23" r="10" fill="#c4cdd8"/><path d="M10 59q0-20 17-20t17 20" fill="#c4cdd8"/></g>
+  </defs>
+  <rect width="1600" height="1240" fill="#f6f7f9"/>
+  <text x="40" y="43" class="h">JAV Atlas / 交互设计 v2</text>
+  <text x="40" y="71" class="muted">2026-10-22 · 静态线框，非已实现网页 · 收藏和修改只保存到本浏览器，源资料保留</text>
+  <text x="40" y="114" class="s">01 桌面默认：在原列表上打开详情抽屉</text>
+  <rect x="40" y="133" width="916" height="598" rx="8" class="box"/>
+  <text x="60" y="166" class="s">JAV Atlas</text><text x="238" y="166" class="blue">人物</text><text x="305" y="166">收藏</text><text x="372" y="166">榜单</text><text x="440" y="166">数据说明</text>
+  <line x1="40" y1="186" x2="956" y2="186" class="line"/>
+  <text x="59" y="219" class="muted">原列表 / 第 3 页</text><text x="59" y="246" class="muted">身高 155–170 cm</text><text x="59" y="273" class="muted">罩杯 F · 已收藏</text>
+  <rect x="59" y="297" width="194" height="118" rx="5" class="box"/><use href="#avatar" x="70" y="310"/><text x="135" y="335">当前人物</text><text x="135" y="361" class="small">698899</text><text x="70" y="397" class="blue">打开前记录此处位置</text>
+  <rect x="59" y="431" width="194" height="116" rx="5" class="box"/><use href="#avatar" x="70" y="444"/><text x="135" y="470">下一位人物</text><text x="135" y="496" class="small">未打开的记录</text>
+  <text x="59" y="588" class="small">列表保留、滚动锁定</text><text x="59" y="612" class="small">焦点仅在抽屉内移动</text><text x="59" y="667" class="small">条件 / 页码 / 锚点不丢失</text>
+  <rect x="40" y="187" width="241" height="543" fill="#17212e" opacity="0.08"/>
+  <rect x="281" y="187" width="674" height="543" fill="white"/><line x1="281" y1="187" x2="281" y2="730" class="line"/>
+  <text x="302" y="219" class="s">人物详情</text><text x="698" y="219" class="blue">完整页 ↗</text><text x="837" y="219" class="blue">关闭 ×</text>
+  <line x1="302" y1="237" x2="933" y2="237" class="line"/>
+  <use href="#avatar" x="302" y="253"/><text x="372" y="278" class="s">人物姓名</text><text x="372" y="305" class="muted">minnano · 698899 · 原字段已采集</text>
+  <rect x="302" y="342" width="111" height="35" rx="4" fill="#edf3fc"/><text x="318" y="365" class="blue">★ 已收藏</text>
+  <rect x="425" y="342" width="166" height="35" rx="4" class="input"/><text x="444" y="365">修改本地资料</text>
+  <text x="621" y="365" class="blue">查看来源 ↗</text>
+  <text x="302" y="412" class="blue">基本资料</text><text x="405" y="412">原始资料</text><text x="508" y="412">相关人物</text><text x="612" y="412">我的备注</text>
+  <line x1="302" y1="430" x2="933" y2="430" class="line"/>
+  <text x="302" y="461" class="muted">身高</text><text x="394" y="461">162 cm</text><text x="501" y="461" class="blue">本地修改</text>
+  <text x="302" y="490" class="muted">来源值</text><text x="394" y="490" class="muted">160 cm（仍保留，可恢复）</text>
+  <text x="302" y="530" class="muted">事务所</text><text x="394" y="530">来源原值与链接</text>
+  <text x="302" y="575" class="muted">原始资料与其他已采集字段完整可展开，不被个人值覆盖。</text>
+  <line x1="302" y1="609" x2="933" y2="609" class="line"/>
+  <text x="302" y="642" class="blue">‹ 上一位</text><text x="479" y="642" class="small">当前结果页第 9 / 48 位（示意）</text><text x="826" y="642" class="blue">下一位 ›</text>
+  <text x="302" y="692" class="small">X / Escape / 后退 → 关闭抽屉，恢复原位置与焦点。</text>
+  <text x="1000" y="114" class="s">02 修改：来源值与个人值分开</text>
+  <rect x="1000" y="133" width="560" height="598" rx="8" class="box"/>
+  <text x="1020" y="168" class="s">修改本地资料</text><text x="1020" y="199" class="muted">不会修改源站、公共 JSON 或其他人的数据。</text>
+  <line x1="1020" y1="219" x2="1540" y2="219" class="line"/>
+  <text x="1020" y="253" class="muted">显示名</text><rect x="1020" y="266" width="520" height="38" rx="4" class="input"/><text x="1034" y="291">我的显示名</text><text x="1020" y="329" class="small">源姓名仍可搜索；原始 ID 不允许修改。</text>
+  <text x="1020" y="365" class="muted">身高 / cm</text><rect x="1020" y="379" width="170" height="38" rx="4" class="input"/><text x="1034" y="404">162</text><text x="1220" y="404" class="muted">源值：160</text><text x="1399" y="404" class="blue">恢复来源</text>
+  <text x="1020" y="454" class="muted">个人标签</text><rect x="1020" y="468" width="520" height="38" rx="4" class="input"/><text x="1034" y="493">待看 ×　 喜欢 ×　 + 添加</text>
+  <text x="1020" y="543" class="muted">个人备注</text><rect x="1020" y="556" width="520" height="70" rx="4" class="input"/><text x="1034" y="583" class="muted">纯文本备注，只在此浏览器保存</text>
+  <line x1="1000" y1="653" x2="1560" y2="653" class="line"/><text x="1030" y="695" class="blue">取消</text><rect x="1376" y="669" width="164" height="40" rx="4" fill="#245fc5"/><text x="1439" y="695" class="white">保存</text>
+  <text x="40" y="777" class="s">03 收藏页：复用检索与筛选，不建第二套浏览逻辑</text>
+  <rect x="40" y="797" width="916" height="275" rx="8" class="box"/>
+  <text x="60" y="832" class="s">我的收藏</text><text x="645" y="832" class="muted">最近收藏 ⌄　　个人标签 ⌄</text>
+  <rect x="60" y="849" width="875" height="35" rx="4" class="input"/><text x="74" y="872" class="muted">在收藏中搜索姓名 / 别名 / ID；其他筛选与人物页相同</text>
+  <use href="#avatar" x="60" y="905"/><text x="132" y="928">已收藏人物</text><text x="132" y="954" class="muted">minnano · 698899　　个人标签：待看</text><text x="808" y="933" class="blue">★ 取消收藏</text>
+  <line x1="60" y1="992" x2="935" y2="992" class="line"/><text x="60" y="1026" class="muted">已取消收藏。备注和本地修改仍保留。</text><text x="414" y="1026" class="blue">撤销</text>
+  <text x="1000" y="777" class="s">04 离开保护与本地备份</text>
+  <rect x="1000" y="797" width="560" height="275" rx="8" class="box"/>
+  <text x="1020" y="834" class="s">有未保存的修改</text><text x="1020" y="865" class="muted">关闭、后退、切换人物都先经过同一离开保护。</text>
+  <text x="1020" y="904" class="blue">继续编辑</text><text x="1193" y="904">放弃修改</text><text x="1367" y="904" class="blue">保存后离开</text>
+  <line x1="1020" y1="930" x2="1540" y2="930" class="line"/>
+  <text x="1020" y="964">我的本地数据</text><text x="1020" y="993" class="blue">导出备份　　导入 JSON</text><text x="1020" y="1025" class="small">换浏览器 / 设备 / 域名需手动迁移，未保存不能显示成功。</text>
+  <text x="40" y="1121" class="s">连续浏览的返回路径</text>
+  <text x="40" y="1156">列表第 3 页中间 → 打开抽屉 → 切换几个人物 → 关闭 / 后退 → 原列表同页同位置</text>
+  <text x="40" y="1186" class="muted">手机 / 直接 URL → 完整详情页；返回按会话恢复锚点。记录已被筛掉时定位邻近项，数据更新时尽力恢复而不伪造像素精度。</text>
+  <text x="40" y="1218" class="small">本轮交付为交互规格与线框，所有控件均待实现和验收。</text>
+</svg>

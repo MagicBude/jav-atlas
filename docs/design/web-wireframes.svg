@@ -11,14 +11,14 @@
       .tag{fill:#edf3fc}.portrait{fill:#edf0f4}
     </style>
     <g id="avatar"><rect width="56" height="72" rx="4" class="portrait"/><circle cx="28" cy="24" r="10" fill="#c4cdd8"/><path d="M11 58q0-19 17-19t17 19" fill="#c4cdd8"/></g>
-    <g id="person-card"><rect width="262" height="132" rx="6" class="panel"/><use href="#avatar" x="14" y="18"/><text x="83" y="37">人物姓名</text><text x="83" y="59" class="small">minnano · 698899</text><text x="83" y="82" class="muted">身高 160 cm · F 罩杯</text><text x="14" y="113" class="small">原字段已采集</text><text x="207" y="113" class="blue">详情 ›</text></g>
+    <g id="person-card"><rect width="262" height="132" rx="6" class="panel"/><use href="#avatar" x="14" y="18"/><text x="83" y="37">人物姓名</text><text x="235" y="37" class="blue">☆</text><text x="83" y="59" class="small">minnano · 698899</text><text x="83" y="82" class="muted">身高 160 cm · F 罩杯</text><text x="14" y="113" class="small">原字段已采集</text><text x="207" y="113" class="blue">详情 ›</text></g>
   </defs>
   <rect width="1600" height="1370" fill="#f6f7f9"/>
-  <text x="40" y="42" class="heading">JAV Atlas / 浅色资料库</text><text x="40" y="69" class="muted">布局设计 v1 · 2026-10-22 · 静态线框，非功能页面；人物与数值均为示意</text>
+  <text x="40" y="42" class="heading">JAV Atlas / 浅色资料库</text><text x="40" y="69" class="muted">布局设计 v2 · 2026-10-22 · 静态线框，非功能页面；人物与数值均为示意</text>
   <text x="40" y="111" class="section">01 人物浏览 · 桌面</text>
   <rect x="40" y="130" width="1120" height="550" rx="8" class="panel"/>
   <rect x="41" y="131" width="1118" height="54" fill="#fff" rx="8"/><line x1="40" y1="185" x2="1160" y2="185" class="line"/>
-  <text x="60" y="165" class="brand">JAV Atlas</text><text x="235" y="165" class="blue">人物</text><text x="304" y="165">榜单</text><text x="373" y="165">数据说明</text><text x="1030" y="165" class="small">数据版本 ↗</text>
+  <text x="60" y="165" class="brand">JAV Atlas</text><text x="235" y="165" class="blue">人物</text><text x="304" y="165">收藏</text><text x="373" y="165">榜单</text><text x="442" y="165">数据说明</text><text x="1030" y="165" class="small">数据版本 ↗</text>
   <rect x="56" y="203" width="220" height="455" fill="#fafbfd"/>
   <text x="72" y="229" class="section">筛选条件</text><text x="72" y="260" class="muted">性别</text>
   <text x="72" y="287">□ 女　□ 男　□ 未知</text><line x1="72" y1="306" x2="258" y2="306" class="line"/>
