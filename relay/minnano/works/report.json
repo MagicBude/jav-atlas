@@ -1,7 +1,7 @@
 {
-  "startedAt": 1792651170209,
+  "startedAt": 1792651598022,
   "pages": 6,
-  "details": 50,
+  "details": 46,
   "failures": [],
   "people": [
     {
@@ -19,6 +19,6 @@
       "stable": true
     }
   ],
-  "finishedAt": 1792651199184,
-  "pendingDetails": 46
+  "finishedAt": 1792651627209,
+  "pendingDetails": 0
 }
