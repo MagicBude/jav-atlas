@@ -8,7 +8,7 @@ const { relayDir, envInt } = require('./lib/runtime')
 const [mode = 'smoke', source = 'ranked'] = process.argv.slice(2)
 if (
   !['smoke', 'daily'].includes(mode) ||
-  !['ranked', 'all', 'minnano', 'javdb', 'male', 'directory', 'profiles'].includes(source)
+  !['works', 'ranked', 'all', 'minnano', 'javdb', 'male', 'directory', 'profiles'].includes(source)
 ) {
   throw new Error(
     '用法：node tools/collect.js smoke|daily ranked|all|minnano|javdb|male|directory|profiles'
@@ -29,6 +29,10 @@ if (mode === 'smoke')
     HTTP_TIMEOUT_MS: '8000'
   })
 const jobs = []
+if (source === 'works') {
+  if (mode === 'smoke') Object.assign(env, { WORK_PAGES: '2', WORK_DETAILS: '2' })
+  jobs.push(['works-relay.js'])
+}
 if (source === 'ranked') jobs.push(['ranked-minnano.js'])
 if (source === 'profiles') jobs.push(['backfill-minnano.js'])
 if (source === 'all' || source === 'minnano') {
@@ -50,7 +54,7 @@ if (source === 'directory') {
   jobs.push(['discover-minnano-groups.js'])
   jobs.push(['gen-female-names.js'])
 }
-jobs.push(['migrate-avatar-names.js'])
+if (source !== 'works') jobs.push(['migrate-avatar-names.js'])
 for (const [file, ...args] of jobs) {
   console.log('\n>>> ' + file)
   const result = spawnSync(process.execPath, [path.join(__dirname, file), ...args], {
