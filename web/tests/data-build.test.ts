@@ -35,6 +35,22 @@ beforeAll(() => {
   manifest = JSON.parse(fs.readFileSync(path.join(generated, 'manifest.json'), 'utf8'))
 }, 30000)
 describe('来源与生成资源', () => {
+  it('JavDB补充按minnano映射独立加载，评论数量与去重ID一致', () => {
+    const source = read('javdb/work-enrichment/mappings.json').mappings
+    expect(Object.keys(manifest.works?.enrichments || {})).toEqual(Object.keys(source))
+    for (const [localId, file] of Object.entries(manifest.works!.enrichments!)) {
+      const value = JSON.parse(fs.readFileSync(path.join(generated, file), 'utf8'))
+      expect(value.id).toBe(source[localId].javdbId)
+      expect(value.mapping.minnanoId).toBe(localId)
+      expect(value.metadata).toEqual(
+        read(`javdb/work-enrichment/records/${value.id}.json`).metadata
+      )
+      expect(new Set(value.reviews.map((row: { id: string }) => row.id)).size).toBe(
+        value.reviews.length
+      )
+      expect(value.reviewScope.saved).toBe(value.reviews.length)
+    }
+  })
   it('作品详情完整投影，人物作品的正式引用存在且番号可检索', () => {
     const sourceFiles = fs
       .readdirSync(path.join(relay, 'minnano/works/records'))

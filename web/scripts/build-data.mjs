@@ -158,7 +158,19 @@ for (const [source, rows] of Object.entries(sources)) {
 }
 // 作品资源独立寻址，只有进入人物作品区才请求；详情保留原记录，列表仅加入检索所需番号。
 const worksRoot = path.join(relay, 'minnano/works')
-manifest.works = { people: {}, records: {} }
+manifest.works = { people: {}, records: {}, enrichments: {} }
+const mappings = read('javdb/work-enrichment/mappings.json', { mappings: {} }).mappings
+for (const [localId, mapping] of Object.entries(mappings)) {
+  if (!/^\d+$/.test(localId) || !/^[a-zA-Z0-9_-]+$/.test(mapping.javdbId))
+    throw Error('补充作品身份无效')
+  const record = read(`javdb/work-enrichment/records/${mapping.javdbId}.json`)
+  if (!record || record.id !== mapping.javdbId || mapping.minnanoId !== localId)
+    throw Error('补充作品映射不一致')
+  manifest.works.enrichments[localId] = emit(`work-javdb-${mapping.javdbId}`, {
+    ...record,
+    mapping
+  })
+}
 if (fs.existsSync(path.join(worksRoot, 'records'))) {
   for (const file of fs
     .readdirSync(path.join(worksRoot, 'records'))

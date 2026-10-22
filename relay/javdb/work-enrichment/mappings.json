@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "mappings": {
+    "116175": {
+      "minnanoId": "116175",
+      "javdbId": "e87z2z",
+      "code": "OFJE-625",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": "2026-10-22T07:27:38.327Z",
+      "dateDifference": true,
+      "minnanoDate": "2026-04-09",
+      "javdbDate": "2026-04-14"
+    },
+    "154346": {
+      "minnanoId": "154346",
+      "javdbId": "YwrOPe",
+      "code": "SONE-758",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": "2026-10-22T07:27:38.327Z",
+      "dateDifference": false,
+      "minnanoDate": "2025-07-08",
+      "javdbDate": "2025-07-08"
+    },
+    "554381": {
+      "minnanoId": "554381",
+      "javdbId": "Rk8074",
+      "code": "MFYD-195",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": "2026-10-22T07:27:38.327Z",
+      "dateDifference": false,
+      "minnanoDate": "2026-09-15",
+      "javdbDate": "2026-09-15"
+    }
+  }
+}

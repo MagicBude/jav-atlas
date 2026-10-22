@@ -6,6 +6,7 @@ import { safeUrl } from '../../entities/person'
 import type { WorkDetail as Work } from '../../entities/work'
 import { useResource } from '../../shared/useResource'
 import { RawTree } from '../../shared/RawTree'
+import { WorkEnrichment } from './WorkEnrichment'
 export function WorkDetail({ id }: { id: string }) {
   const { manifest } = useApp()
   const file = manifest?.works?.records[id]
@@ -63,6 +64,7 @@ export function WorkDetail({ id }: { id: string }) {
           查看来源 ↗
         </a>
       )}
+      <WorkEnrichment id={id} />
       <details className="work-raw">
         <summary>原始作品资料</summary>
         <RawTree value={work} />

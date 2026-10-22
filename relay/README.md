@@ -57,3 +57,5 @@ javdb/.line-ok 是运行时线路偏好缓存，已被 Git 忽略，不属于对
 ## 作品试采
 
 works/ 下 records/<作品ID>.json 保存正式作品信息表，people/<人物ID>.json 保存列表关系、原观察和未知占位；progress.json 保存分页扫描及详情待办，report.json 保存最近一次运行结果。目前仅190754与125605两位试采，不表示全人物池作品库。封面只保存来源URL，未下载图片或视频。
+
+JavDB作品补充位于javdb/work-enrichment：mappings.json以minnano作品ID映射JavDB原生作品ID，records/<JavDB ID>.json保存各自评分、元数据和有限短评快照。来源资料分开，不覆盖minnano作品；当前仅3部样本，评论不是全量，无自动刷新。

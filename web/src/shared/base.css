@@ -487,3 +487,66 @@ dialog::backdrop {
     font-size: 17px;
   }
 }
+.work-enrichment {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.enrichment-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.work-score {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  background: #f1f6fa;
+  border: 1px solid #e1e9f1;
+  border-radius: 10px;
+  padding: 16px;
+  margin: 14px 0;
+}
+.work-score > strong {
+  font-size: 32px;
+  color: #277a63;
+  font-variant-numeric: tabular-nums;
+}
+.work-score small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 3px;
+}
+.work-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+.work-reviews article {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+.work-reviews header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+.work-reviews header span {
+  color: #277a63;
+}
+.work-reviews time {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 11px;
+}
+.work-reviews p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+  font-size: 13px;
+}

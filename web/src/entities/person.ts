@@ -43,7 +43,11 @@ export interface Manifest {
   rawFiles: Record<string, string>
   rankings: string
   report: string
-  works?: { people: Record<string, string>; records: Record<string, string> }
+  works?: {
+    people: Record<string, string>
+    records: Record<string, string>
+    enrichments?: Record<string, string>
+  }
 }
 export const identity = (person: Pick<Person, 'source' | 'id'>) => `${person.source}/${person.id}`
 export const personUrl = (person: Pick<Person, 'source' | 'id'>) =>
