@@ -37,7 +37,7 @@ JavDB 可独立从影片发现演员 → 拉资料 → 采无码出演名单 →
 
 推送代码后打开 Actions → Collect atlas data → Run workflow，先选 smoke 和 all；也可分别选择 minnano/javdb/male 排查。失败时下载 collected-data 查看已完成步骤的产物；只有整次所选流程成功才自动提交 relay/。
 
-定时计划为北京时间每天 05:30。**默认只开放手动执行**；确认 smoke 与 daily 符合预期后，在 Settings → Secrets and variables → Actions → Variables 添加 ENABLE_SCHEDULE，值为 true。不要为此禁用整个 Actions，否则也无法手动验证。
+定时计划为北京时间每天 05:30，自动执行 `daily + ranked`，只维护三榜 Top250 的累积人物池。手动选择 `daily + ranked` 可立即运行同一流程。其他来源选项保留为维护工具，日常不执行全站目录和 JavDB 发现。
 
 workflow 需要 contents: write；仓库或分支规则仍可能限制自动提交。GitHub 托管 runner 提供独立网络出口，不保证源站始终可访问。
 
@@ -66,3 +66,13 @@ workflow 需要 contents: write；仓库或分支规则仍可能限制自动提�
 ## 授权状态
 
 尚未声明开源许可证，代码授权范围仍待确认。
+
+## 当前采集策略：三榜 Top250 累积人物池
+
+日常使用 `npm run collect -- daily ranked`。Actions 默认选择 ranked，每天北京时间 05:30 自动执行（GitHub 可能延迟）。流程为日/周/月榜各五页共 Top250 → 按 minnano ID 去重累积 → 补齐池内缺失详情与头像。三榜当天最多750个不同人物，实际通常更少；曾上榜者落榜后仍保留，所以历史总人数会逐渐增长，并非永久上限750。
+
+人物池保存在 relay/minnano/ranked-pool.json，记录首次和最近上榜时间。日常不遍历全站目录，不采 JavDB，不沿相关人物递归扩展。已有名册与图片保留为存档；网页只为池内人物生成 minnano 检索索引和详情。JavDB 旧数据仍可查阅，其采集工具保留为手动维护入口。
+
+每轮最多补750人，可通过 profile_limit 调整至1–1000；详情已按当前结构成功保存的记录跳过，缺图独立重试。资料暂时继续只填空，日榜刷新不等于每个人物所有字段每天重新覆盖。作品列表尚未采集，后续将以人物池为范围设计，先保存源站作品ID、标题、发行日期、封面及链接，并独立分页与增量更新，避免把大型作品列表塞入人物索引。
+
+本节是当前策略；前面的目录全量发现、all等说明保留为维护工具参考，不是每日任务范围。ENABLE_SCHEDULE变量不再控制当前定时计划；如需暂停，可在GitHub Actions禁用该工作流或修改schedule配置。

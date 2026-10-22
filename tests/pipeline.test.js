@@ -44,6 +44,79 @@ function run(dir, file, args = [], extra = {}) {
 }
 const json = (dir, f) => readJson(path.join(dir, f))
 
+test('榜单池详情已齐也独立重试缺图，并在最终报告更新图片状态', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'minnano/actresses.json'), [
+      { mnid: '123', name: 'Test Actor', profileFetchedAt: 1, profileSchemaVersion: 2 }
+    ])
+    success(run(dir, 'collect.js', ['daily', 'ranked'], { SKIP_IMAGES: '0', BACKFILL_LIMIT: '3' }))
+    const report = json(dir, 'minnano/backfill-report.json')
+    assert.equal(report.selected, 0)
+    assert.equal(report.total.missingAvatars, 0)
+    assert.equal(report.scope, 'ranked-pool')
+    assert.equal(json(dir, 'minnano/actresses.json')[0].profileFetchedAt, 1)
+  }))
+
+test('Top250缺页或分页重复都拒绝覆盖已有榜单', () =>
+  sandbox(dir => {
+    const file = path.join(dir, 'minnano/rankings.json')
+    writeJson(file, { sentinel: '旧完整快照' })
+    for (const extra of [{ FIXTURE_RANK_STOP: '3' }, { FIXTURE_RANK_REPEAT: '1' }]) {
+      const result = run(dir, 'rank-relay.js', [], { FIXTURE_TOP250: '1', ...extra })
+      assert.notEqual(result.status, 0)
+      assert.deepEqual(json(dir, 'minnano/rankings.json'), { sentinel: '旧完整快照' })
+    }
+  }))
+
+test('三种榜单完整采集五页各250位，保持源站名次', () =>
+  sandbox(dir => {
+    success(run(dir, 'rank-relay.js', [], { FIXTURE_TOP250: '1' }))
+    for (const mode of ['day', 'week', 'month']) {
+      const rows = json(dir, 'minnano/rankings.json')[mode]
+      assert.equal(rows.length, 250)
+      assert.deepEqual(
+        rows.map(row => row.rank),
+        Array.from({ length: 250 }, (_, i) => i + 1)
+      )
+    }
+  }))
+
+test('榜单池按原生ID累积，落榜不删除，既有名册字段保持', () =>
+  sandbox(dir => {
+    const file = path.join(dir, 'minnano/rankings.json')
+    writeJson(path.join(dir, 'minnano/actresses.json'), [
+      { mnid: '999', name: '存档', agency: '保留' }
+    ])
+    const row = id => ({ id, name: '姓名' + id, rank: 1 })
+    writeJson(file, { fetchedAt: 10, day: [row('123')], week: [row('123')], month: [row('456')] })
+    success(run(dir, 'bootstrap-roster.js'))
+    writeJson(file, { fetchedAt: 20, day: [row('789')], week: [row('123')], month: [row('789')] })
+    success(run(dir, 'bootstrap-roster.js'))
+    const pool = json(dir, 'minnano/ranked-pool.json')
+    assert.deepEqual(Object.keys(pool.members).sort(), ['123', '456', '789'])
+    assert.equal(pool.members['123'].firstSeenAt, 10)
+    assert.equal(pool.members['123'].lastSeenAt, 20)
+    assert.equal(pool.members['456'].lastSeenAt, 10)
+    assert.equal(json(dir, 'minnano/actresses.json')[0].agency, '保留')
+  }))
+
+test('ranked 日常入口不调用目录或JavDB，仅回填榜单池人物', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'minnano/actresses.json'), [
+      { mnid: '999', name: '不应请求的存档人物', unknown: null, aliases: [], note: '' }
+    ])
+    const result = run(dir, 'collect.js', ['daily', 'ranked'], { BACKFILL_LIMIT: '3' })
+    success(result)
+    assert(!result.stdout.includes('actors-full-crawl'))
+    assert(!result.stdout.includes('discover-minnano'))
+    assert.deepEqual(
+      json(dir, 'minnano/actresses.json').find(row => row.mnid === '999'),
+      { mnid: '999', name: '不应请求的存档人物', unknown: null, aliases: [], note: '' }
+    )
+    assert(json(dir, 'minnano/actresses.json').find(row => row.mnid === '123').profileFetchedAt)
+    assert.equal(json(dir, 'minnano/backfill-report.json').total.people, 1)
+  }))
+
 test('同批头像筛选在路径分配前完成，不给无关人物写索引', () =>
   sandbox(dir => {
     writeJson(path.join(dir, 'minnano/actresses.json'), [

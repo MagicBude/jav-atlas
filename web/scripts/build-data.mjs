@@ -65,6 +65,10 @@ const avatarIndexes = Object.fromEntries(
   ])
 )
 const sources = collectSources(read)
+// 关联区可以借旧名册显示姓名，但不会因此把相关人物递归加入采集队列或下载头像。
+const minnanoNames = new Map(
+  read('minnano/actresses.json', []).map(row => [String(row.mnid), row.name])
+)
 const manifest = {
   formatVersion: 1,
   generatedAt: new Date().toISOString(),
@@ -108,7 +112,12 @@ for (const [source, rows] of Object.entries(sources)) {
     details.push({
       id,
       records,
-      related: r.relatedProfiles || (r.rel || []).map(id => ({ id, name: id }))
+      related:
+        r.relatedProfiles ||
+        (r.rel || []).map(id => ({
+          id,
+          name: source === 'minnano' ? minnanoNames.get(String(id)) || String(id) : String(id)
+        }))
     })
   }
   // 小块按数量与字节共同约束；单条再大也不能截断。detailRef 只是存储位置，不是人物新编号。

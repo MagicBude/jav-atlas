@@ -14,6 +14,7 @@ function dataPaths(root = relayDir()) {
   const base = path.resolve(root)
   return {
     minnanoRankings: path.join(base, 'minnano', 'rankings.json'),
+    minnanoRankedPool: path.join(base, 'minnano', 'ranked-pool.json'),
     minnanoActresses: path.join(base, 'minnano', 'actresses.json'),
     minnanoDirectoryState: path.join(base, 'minnano', 'directory-progress.json'),
     minnanoAvatars: path.join(base, 'minnano', 'avatars'),

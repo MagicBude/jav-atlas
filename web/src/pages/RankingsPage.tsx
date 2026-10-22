@@ -39,7 +39,9 @@ export default function RankingsPage() {
         <div>
           <p className="eyebrow">MINNANO / RANKINGS</p>
           <h1>榜单</h1>
-          <p className="muted">来自已采集榜单；名次与作品数口径以来源为准。</p>
+          <p className="muted">
+            日、周、月榜各取来源前 250 位；曾上榜人物持续累积，落榜后仍保留资料。
+          </p>
         </div>
         <div className="segmented">
           {[
@@ -66,7 +68,8 @@ export default function RankingsPage() {
       {!request.value && !request.error && <p>正在加载榜单…</p>}
       {request.value && (
         <p className="small muted">
-          采集时间：{new Date(request.value.rankings.fetchedAt).toLocaleString('zh-CN')}
+          当前榜单 {entries.length} 位 · 采集时间：
+          {new Date(request.value.rankings.fetchedAt).toLocaleString('zh-CN')}
         </p>
       )}
       <div className="ranking-grid">

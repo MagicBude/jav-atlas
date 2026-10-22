@@ -19,6 +19,11 @@ const number = value =>
  * @returns {Record<string, Array<{main:object, records:object}>>} 主视图与完整原记录。
  */
 export function collectSources(read) {
+  // 榜单人物池启用后，网页只为曾上榜者生成 minnano 索引和详情。
+  // 完整旧名册仍留在 relay 与原始下载快照，缩小展示范围不等于删除原资料。
+  const pool = read('minnano/ranked-pool.json', null)
+  if (pool && (pool.schemaVersion !== 1 || !pool.members || typeof pool.members !== 'object'))
+    throw Error('榜单人物池格式无效')
   const evidence = read('javdb/web-genders.json', { records: {} }).records
   const map = new Map()
   for (const [kind, list] of [
@@ -32,10 +37,12 @@ export function collectSources(read) {
     }
   }
   return {
-    minnano: read('minnano/actresses.json', []).map(record => ({
-      main: record,
-      records: { directory: record }
-    })),
+    minnano: read('minnano/actresses.json', [])
+      .filter(record => !pool || Object.hasOwn(pool.members, String(record.mnid)))
+      .map(record => ({
+        main: record,
+        records: { directory: record }
+      })),
     javdb: [...map.entries()].map(([id, records]) => {
       const main = { ...records.uncensored }
       for (const [key, value] of Object.entries(records.actors || {}))

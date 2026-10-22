@@ -2,7 +2,7 @@
 
 /**
  * @file 从 minnano 页面采集日、周、月榜，并为部分上榜人物补充头像。
- * 流程：依次读取三个榜单，每榜最多两页 → 按站内 ID 去重 → 处理最多 160 位人物的头像 → 写出榜单。
+ * 流程：依次读取三个榜单，每榜最多五页 → 按站内 ID 去重保留 Top250 → 按预算补头像 → 写出榜单。
  * 输入：无需本地名册；依赖源站 HTML 的固定标签与类名。
  * 输出：仓库根 relay/minnano/rankings.json，以及 relay/minnano/avatars/female/<minnano ID>_<姓名>.jpg。
  * 约束：榜单为空抛错；头像任务失败由并发池转为 null，不阻止榜单写入。
@@ -11,7 +11,7 @@
  *
  * 数据分发：榜单保留 rank/id/name/works 原始字段，头像按 minnano ID 与姓名命名。
  * 当使用端无法直连 minnano 时，可通过公开仓库的 raw.githubusercontent.com 或 CDN 读取 JSON 与头像。
- * 抓取与消费解耦，不要求客户端持有 token；当前仓库未实现浏览端。
+ * 抓取与消费解耦，不要求客户端持有 token；浏览端读取构建出的只读快照。
  * 执行环境可使用 GitHub 托管 runner；家庭网络 SNI 阻断与机房可访问只是网络记录，需实际验证。
  * 运行依赖：Node 18+ 内置 fetch，无第三方依赖。
  */
@@ -47,7 +47,7 @@ function mnStrip(s) {
 
 /**
  * 按 <tr> 分块，只处理含 rnkno 的片段，兼容 h2/h3 的姓名标题。
- * 排名、ID、姓名缺任一项便丢弃；作品数缺失为 0；去重与 Top100 截断由调用方完成。
+ * 排名、ID、姓名缺任一项便丢弃；作品数缺失为 0；去重与 Top250 截断由调用方完成。
  *
  * @param {string} html 榜单页面 HTML。
  * @returns {Array<{rank: number, id: string, name: string, works: number}>} 保留页面顺序的有效记录。
@@ -139,27 +139,30 @@ const pool = async (items, n, fn) => {
   const out = { fetchedAt: Date.now() }
   const ids = new Set()
   for (const [key, q] of modes) {
-    // 最多读取两页，达到 100 条提前停止；第二页是否足够取决于源站当前分页。
+    // 每页 50 位，共五页。达到 250 条停止，不把源站未提供的名次自行补出来。
     /*
-     * 2026-10 的分页样本为每页 50 条，第二页通过 page=N 请求；最多抓两页并按 ID 去重，目标为 Top100。
+     * 2026-10 已核对日/周/月榜第五页均为 201～250 位；通过 page=N 请求。
      */
     const seen = new Set()
     let rows = []
-    for (let page = 1; page <= 2; page++) {
+    for (let page = 1; page <= 5; page++) {
       const sep = q.includes('?') ? '&' : '?'
       const url = MN_BASE + q + (page === 1 ? '' : sep + 'page=' + page)
       const html = await get(url)
       const r = parseRankRows(html)
       if (!r.length) break
+      if (page > 1 && r.every(x => seen.has(x.id))) throw new Error('榜单分页重复：' + url)
       for (const x of r)
         if (!seen.has(x.id)) {
           seen.add(x.id)
           rows.push(x)
         }
-      if (rows.length >= 100) break
+      if (rows.length >= 250) break
     }
     if (!rows.length) throw new Error('榜单解析为空：' + q)
-    out[key] = rows.slice(0, 100)
+    // 首页面有完整 50 条时，后续缺页应视为失败，不能把半份榜单覆盖已有完整快照。
+    if (rows.length >= 50 && rows.length < 250) throw new Error('榜单不足 Top250：' + q)
+    out[key] = rows.slice(0, 250)
     for (const r of rows) ids.add(r.id)
     console.log(key + ' 榜：' + rows.length + ' 条')
   }

@@ -248,3 +248,7 @@ manifest 保存构建版本、来源快照摘要和文件引用；资源采用�
 - [GitHub Actions 事件](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)：workflow_run 与触发限制；实际实施时核对产物和完成提交。
 
 设计方案 pending user acceptance。布局线框中的示意人物与数值用于表达结构，不是实时查询结果。
+
+## 日常范围收敛（2026-10-22）
+
+当前实施范围改为日/周/月榜各Top250的累计人物池，落榜保留，不再扩大全站目录。旧名册和图片只作存档；浏览端从池内生成minnano检索与详情。相关人物不递归扩展。后续作品采集只针对该池，作品使用来源ID独立存储、分页与增量更新，不混入检索索引。此决策优先于本文此前关于全名册规模的估算。

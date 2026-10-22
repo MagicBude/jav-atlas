@@ -82,8 +82,7 @@ const strip = s =>
  * @param {*} v 属性值。
  * @returns {*} 原值或用于省略属性的 undefined。
  */
-const dropEmpty = (k, v) =>
-  v === '' || v === null || (Array.isArray(v) && v.length === 0) ? undefined : v
+// 保存时保留名册已有的空值与空数组：它们也属于原记录，尤其不能影响本轮范围外的存档人物。
 
 /**
  * 异步等待指定毫秒数；只暂停当前任务，不阻塞 Node 事件循环。
@@ -308,12 +307,12 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
     } catch (_) {}
   }
   /**
-   * 以 replacer 精简空字段后写同目录临时文件，再覆盖名册目标。
+   * 保留全部已有字段，写同目录临时文件后替换名册；只填空发生在字段合并阶段。
    *
    * @returns {void} 写入/重命名失败向外抛出；与缓存保存不是原子组合。
    */
   const saveRoster = () => {
-    writeJson(ROSTER, roster, dropEmpty)
+    writeJson(ROSTER, roster)
   }
   // 阶段 3：共享游标分配资料页任务；计数器在异步请求完成时更新。
   let cursor = 0

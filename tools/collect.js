@@ -5,13 +5,13 @@
 const { spawnSync } = require('child_process')
 const path = require('path')
 const { relayDir, envInt } = require('./lib/runtime')
-const [mode = 'smoke', source = 'all'] = process.argv.slice(2)
+const [mode = 'smoke', source = 'ranked'] = process.argv.slice(2)
 if (
   !['smoke', 'daily'].includes(mode) ||
-  !['all', 'minnano', 'javdb', 'male', 'directory', 'profiles'].includes(source)
+  !['ranked', 'all', 'minnano', 'javdb', 'male', 'directory', 'profiles'].includes(source)
 ) {
   throw new Error(
-    '用法：node tools/collect.js smoke|daily all|minnano|javdb|male|directory|profiles'
+    '用法：node tools/collect.js smoke|daily ranked|all|minnano|javdb|male|directory|profiles'
   )
 }
 const env = { ...process.env, RELAY_DIR: relayDir() }
@@ -29,6 +29,7 @@ if (mode === 'smoke')
     HTTP_TIMEOUT_MS: '8000'
   })
 const jobs = []
+if (source === 'ranked') jobs.push(['ranked-minnano.js'])
 if (source === 'profiles') jobs.push(['backfill-minnano.js'])
 if (source === 'all' || source === 'minnano') {
   jobs.push(

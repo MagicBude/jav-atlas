@@ -221,7 +221,9 @@ export default function PeoplePage({ favoritesOnly = false }: { favoritesOnly?: 
           </p>
           <h1>{favoritesOnly ? '我的收藏' : '人物资料'}</h1>
           <p className="muted">
-            {favoritesOnly ? '此浏览器的收藏、标签与个人资料。' : '从姓名开始，查阅资料与来源。'}
+            {favoritesOnly
+              ? '此浏览器的收藏、标签与个人资料。'
+              : 'minnano 聚焦曾进入日、周、月榜 Top250 的人物；落榜后继续保留。'}
           </p>
         </div>
         <div className="segmented" aria-label="数据来源">

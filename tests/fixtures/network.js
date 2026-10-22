@@ -26,9 +26,26 @@ global.fetch = async (url, options) => {
     }
     if (u.pathname.includes('ranking_actress'))
       return new Response(
-        process.env.FIXTURE_FAIL === 'rank-empty'
+        process.env.FIXTURE_FAIL === 'rank-empty' ||
+        (process.env.FIXTURE_RANK_STOP &&
+          Number(u.searchParams.get('page') || 1) >= Number(process.env.FIXTURE_RANK_STOP))
           ? '<html>blocked</html>'
-          : row.replaceAll('h3', process.env.FIXTURE_RANK_TAG || 'h3')
+          : process.env.FIXTURE_TOP250 === '1'
+            ? Array.from({ length: 50 }, (_, i) => {
+                const rank =
+                  (process.env.FIXTURE_RANK_REPEAT
+                    ? 0
+                    : Number(u.searchParams.get('page') || 1) - 1) *
+                    50 +
+                  i +
+                  1
+                return row
+                  .replace('rnkcnt">1', `rnkcnt">${rank}`)
+                  .replace('actress123.html', `actress${rank}.html`)
+              }).join('')
+            : Number(u.searchParams.get('page') || 1) > 1
+              ? ''
+              : row.replaceAll('h3', process.env.FIXTURE_RANK_TAG || 'h3')
       )
     if (u.pathname === '/actress123.html')
       return new Response(

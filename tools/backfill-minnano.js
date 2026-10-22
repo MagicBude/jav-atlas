@@ -12,7 +12,11 @@ const limit = envInt('BACKFILL_LIMIT', 20, 1, 1000)
 const roster = readJson(dataPaths().minnanoActresses, null)
 if (!Array.isArray(roster) || !roster.length) throw new Error('缺少人物名册，请先发现目录')
 // 旧批次只有规范字段，需重新补充原字段；版本标记避免源站无字段人物无限重抓。
-const targets = roster
+const pool = process.env.RANKED_ONLY === '1' ? readJson(dataPaths().minnanoRankedPool, null) : null
+if (process.env.RANKED_ONLY === '1' && (!pool || !Object.keys(pool.members || {}).length))
+  throw new Error('缺少榜单人物池，拒绝降级为全名册采集')
+const scoped = pool ? roster.filter(row => Object.hasOwn(pool.members, String(row.mnid))) : roster
+const targets = scoped
   .filter(row => row.mnid && (!row.profileFetchedAt || row.profileSchemaVersion !== 2))
   .slice(0, limit)
 const startedAt = Date.now()
@@ -62,10 +66,19 @@ function report(exitCode) {
       missingAvatars: results.filter(row => row.avatar === 'missing').length
     },
     total: {
-      people: current.length,
-      profileSuccess: current.filter(row => row.profileFetchedAt).length,
-      profileFieldsSaved: current.filter(row => row.profileSchemaVersion === 2).length,
-      missingAvatars: current.filter(row => !imageExists(row.mnid)).length
+      people: pool
+        ? current.filter(row => Object.hasOwn(pool.members, String(row.mnid))).length
+        : current.length,
+      profileSuccess: current.filter(
+        row => (!pool || Object.hasOwn(pool.members, String(row.mnid))) && row.profileFetchedAt
+      ).length,
+      profileFieldsSaved: current.filter(
+        row =>
+          (!pool || Object.hasOwn(pool.members, String(row.mnid))) && row.profileSchemaVersion === 2
+      ).length,
+      missingAvatars: current.filter(
+        row => (!pool || Object.hasOwn(pool.members, String(row.mnid))) && !imageExists(row.mnid)
+      ).length
     },
     results
   }
