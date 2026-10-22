@@ -7,6 +7,7 @@ export interface WorkEntry {
   sourceUrl: string
   releaseDate?: string | null
   makerText?: string
+  rating?: { score: number; count: number | null; source: 'javdb' } | null
 }
 export interface WorkDetail extends WorkEntry {
   code?: string | null

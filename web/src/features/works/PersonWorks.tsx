@@ -11,6 +11,7 @@ import { normalize } from '../../entities/person'
 import { useResource } from '../../shared/useResource'
 import { Modal } from '../../shared/Modal'
 import { WorkDetail } from './WorkDetail'
+import { compareWorks } from './query'
 export function PersonWorks({ actorId }: { actorId: string }) {
   const { manifest } = useApp(),
     location = useLocation(),
@@ -18,7 +19,7 @@ export function PersonWorks({ actorId }: { actorId: string }) {
   const params = new URLSearchParams(location.search)
   const file = manifest?.works?.people[actorId]
   const [opened, setOpened] = useState(false)
-  const active = opened || ['work', 'wq', 'wp', 'wy', 'wm'].some(key => params.has(key))
+  const active = opened || ['work', 'wq', 'wp', 'wy', 'wm', 'ws'].some(key => params.has(key))
   const request = useResource(active && file ? file : '', () => resource<Collection>(file!))
   const update = (key: string, value: string) => {
     // 打开作品压入一层历史，让后退先关作品。直达链接没有该历史，只移除参数。
@@ -42,6 +43,7 @@ export function PersonWorks({ actorId }: { actorId: string }) {
   const q = normalize(params.get('wq') || '')
   const year = params.get('wy') || '',
     maker = params.get('wm') || ''
+  const sort = params.get('ws') === 'score' ? 'score' : 'date'
   const result = useMemo(
     () =>
       entries
@@ -52,11 +54,8 @@ export function PersonWorks({ actorId }: { actorId: string }) {
             (!year || row.releaseDate?.startsWith(year)) &&
             (!maker || row.makerText === maker)
         )
-        .sort(
-          (a, b) =>
-            (b.releaseDate || '').localeCompare(a.releaseDate || '') || a.id.localeCompare(b.id)
-        ),
-    [entries, q, year, maker]
+        .sort((a, b) => compareWorks(a, b, sort)),
+    [entries, q, year, maker, sort]
   )
   const pages = Math.max(1, Math.ceil(result.length / 24))
   const requestedPage = Number(params.get('wp'))
@@ -120,8 +119,19 @@ export function PersonWorks({ actorId }: { actorId: string }) {
                       <option key={m}>{m}</option>
                     ))}
                 </select>
+                <select
+                  aria-label="作品排序"
+                  value={sort}
+                  onChange={e => update('ws', e.target.value)}
+                >
+                  <option value="date">发行日期 ↓</option>
+                  <option value="score">JavDB 评分 ↓</option>
+                </select>
               </div>
-              <p className="small muted">{result.length} 部作品 · 按发行日期从新到旧</p>
+              <p className="small muted">
+                {result.length} 部作品 ·{' '}
+                {sort === 'score' ? '评分从高到低，无评分排后' : '发行日期从新到旧'}
+              </p>
               <div className="work-list">
                 {result.slice((page - 1) * 24, page * 24).map((row: WorkEntry) => (
                   <button className="work-row" key={row.id} onClick={() => update('work', row.id)}>
@@ -130,7 +140,17 @@ export function PersonWorks({ actorId }: { actorId: string }) {
                     </span>
                     <span className="work-title">
                       {row.title}
-                      <small>{row.makerText || '厂商未知'}</small>
+                      <small>
+                        {row.makerText || '厂商未知'}
+                        {row.rating && (
+                          <span
+                            className="list-work-rating"
+                            title={`JavDB · ${row.rating.count ?? '未知'} 人评价`}
+                          >
+                            JavDB {row.rating.score.toFixed(2)}
+                          </span>
+                        )}
+                      </small>
                     </span>
                     <time>{row.releaseDate || '日期未知'}</time>
                     <span aria-hidden="true">›</span>

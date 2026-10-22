@@ -184,10 +184,22 @@ if (fs.existsSync(path.join(worksRoot, 'people'))) {
     .readdirSync(path.join(worksRoot, 'people'))
     .filter(f => /^\d+\.json$/.test(f))) {
     const person = read(`minnano/works/people/${file}`)
-    const entries = person.entries.map(entry => ({
-      ...entry,
-      code: read(`minnano/works/records/${entry.id}.json`, {})?.code || null
-    }))
+    const entries = person.entries.map(entry => {
+      // 列表只投影评分摘要，不加载评论全文；未补充评分不冒充0分。
+      const mapping = mappings[entry.id]
+      const metadata = mapping
+        ? read(`javdb/work-enrichment/records/${mapping.javdbId}.json`, {})?.metadata
+        : null
+      const score = metadata?.score == null || metadata.score === '' ? null : Number(metadata.score)
+      return {
+        ...entry,
+        code: read(`minnano/works/records/${entry.id}.json`, {})?.code || null,
+        rating:
+          score != null && Number.isFinite(score)
+            ? { score, count: metadata.reviews_count ?? null, source: 'javdb' }
+            : null
+      }
+    })
     manifest.works.people[file.slice(0, -5)] = emit(`works-person-${file.slice(0, -5)}`, {
       ...person,
       entries
