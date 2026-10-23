@@ -1,22 +1,29 @@
 /**
  * JavDB 的类别 ID 只在内容类型内唯一，不能拿数字 ID 当全站词典键。
- * 来源作品暂未保存类别的内容类型，因此显示名必须同时核对来源 ID 和原名；
- * 找不到唯一显示名时保留原文。这里不推测作品类型，也不改写采集记录。
+ * 已知类型按 type:id 查词与归组，不让简繁名称差异改变身份。
+ * 老资料缺类型时按 ID＋原名保守核对；没有可靠匹配则保留原文。
  */
 import dictionary from '../data/javdb-tag-labels.json'
 import groups from '../data/javdb-tag-groups.json'
+import { javdbContentTypes } from './javdbCatalog'
 const terms: Record<string, { label: string; sourceNames: string[]; status: string }> =
   dictionary.terms
-export function javdbTagLabel(id: string, original: string) {
+export const validJavdbType = (type: unknown): type is number =>
+  Number.isInteger(type) && Number(type) >= 0 && Number(type) <= 4
+export function javdbTagLabel(id: string, original: string, type?: number) {
+  if (validJavdbType(type)) return terms[type + ':' + id]?.label || original
   const candidates = Object.entries(terms).filter(
     ([key, term]) => key.endsWith(':' + id) && term.sourceNames.includes(original)
   )
   const labels = [...new Set(candidates.map(([, term]) => term.label))]
   return labels.length === 1 ? labels[0] : original
 }
-/** 查询键包含原名，防止同一数字 ID 的不同类别互相选中。编码避免名称里的逗号破坏多选。 */
-export const tagSelectionKey = (id: string, name: string) => id + '~' + encodeURIComponent(name)
+/** 优先使用 type:id；缺类型时兼容 ID＋编码原名，避免同号串选及名称逗号破坏多选。 */
+export const tagSelectionKey = (id: string, name: string, type?: number) =>
+  validJavdbType(type) ? type + ':' + id : id + '~' + encodeURIComponent(name)
 export function parseTagSelection(key: string) {
+  const scoped = key.match(/^([0-4]):([^:~]+)$/)
+  if (scoped) return { id: scoped[2], name: undefined, type: Number(scoped[1]) }
   const split = key.indexOf('~')
   if (split < 0) return { id: key, name: undefined }
   try {
@@ -25,14 +32,18 @@ export function parseTagSelection(key: string) {
     return { id: key, name: undefined }
   }
 }
-/** 仅当 ID、原名均匹配且各类型一致指向同一分组时确认归属，否则留待核实。 */
-export function javdbTagGroup(id: string, original: string) {
+/** 有类型就按来源类型与 ID 找分组；无类型时要求原名匹配且候选归属一致。 */
+export function javdbTagGroup(id: string, original: string, type?: number) {
   const matches = groups.filter(
     group =>
       group.tags.includes(id) &&
-      (group.sourceNames as Record<string, string | undefined>)[id] === original
+      (validJavdbType(type)
+        ? group.type === type
+        : (group.sourceNames as Record<string, string | undefined>)[id] === original)
   )
   const categories = new Set(matches.map(group => group.id.split(':')[1]))
   if (categories.size !== 1) return undefined
-  return { id: matches[0].id.split(':')[1], name: matches[0].name }
+  return validJavdbType(type)
+    ? { id: matches[0].id, name: javdbContentTypes[type].name + ' · ' + matches[0].name }
+    : { id: matches[0].id.split(':')[1], name: matches[0].name }
 }

@@ -214,6 +214,9 @@ if (fs.existsSync(path.join(worksRoot, 'people'))) {
       const score = metadata?.score == null || metadata.score === '' ? null : Number(metadata.score)
       return {
         ...entry,
+        ...(Number.isInteger(metadata?.type) && metadata.type >= 0 && metadata.type <= 4
+          ? { javdbType: metadata.type }
+          : {}),
         facets: {
           ...Object.fromEntries(
             ['director', 'maker', 'series'].flatMap(kind =>
@@ -261,6 +264,8 @@ for (const entry of workIndex.values()) {
   const metadata = mapping
     ? read(`javdb/work-enrichment/records/${mapping.javdbId}.json`, {})?.metadata
     : null
+  if (Number.isInteger(metadata?.type) && metadata.type >= 0 && metadata.type <= 4)
+    entry.javdbType = metadata.type
   entry.facets = {}
   for (const kind of ['director', 'maker', 'series'])
     if (metadata?.[kind + '_id'] && metadata?.[kind + '_name'])

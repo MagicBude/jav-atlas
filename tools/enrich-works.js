@@ -102,7 +102,14 @@ async function run() {
         mapping && /^[a-zA-Z0-9]+$/.test(mapping.javdbId)
           ? readJson(path.join(root, 'records', mapping.javdbId + '.json'), null)
           : null
-      return !(mapping?.code === local.code && old?.fetchedAt && Date.now() - old.fetchedAt < ttl)
+      return !(
+        mapping?.code === local.code &&
+        Number.isInteger(old?.metadata?.type) &&
+        old.metadata.type >= 0 &&
+        old.metadata.type <= 4 &&
+        old?.fetchedAt &&
+        Date.now() - old.fetchedAt < ttl
+      )
     })
     .sort(
       (a, b) =>

@@ -53,7 +53,8 @@
     ],
     "thumb_url": "https://tp.spfcas.com/rhe951l4q/small_covers/ww/Wwzveg.jpg",
     "cover_url": "https://tp.spfcas.com/rhe951l4q/covers/ww/Wwzveg.jpg",
-    "release_date": "2026-09-08"
+    "release_date": "2026-09-08",
+    "type": 0
   },
   "reviews": [],
   "reviewScope": {
@@ -61,5 +62,6 @@
     "saved": 0,
     "complete": false,
     "ordering": "unverified"
-  }
+  },
+  "typeFetchedAt": 1792739166900
 }

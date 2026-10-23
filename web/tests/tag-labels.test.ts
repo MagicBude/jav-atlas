@@ -44,6 +44,7 @@ it('筛选面板不会把截图中的三个类别放进地点，且同号名称�
   const { createElement } = await import('react')
   const { renderToStaticMarkup } = await import('react-dom/server')
   const { TagFilters } = await import('../src/features/works/TagFilters')
+  const { MemoryRouter } = await import('react-router-dom')
   const entries = [
     row('戀乳癖'),
     row('戀乳癖'),
@@ -52,7 +53,11 @@ it('筛选面板不会把截图中的三个类别放进地点，且同号名称�
     { ...row('流汗'), facets: { tag: [{ id: '160', name: '流汗' }] } }
   ]
   const html = renderToStaticMarkup(
-    createElement(TagFilters, { entries, params: new URLSearchParams(), update: () => {} })
+    createElement(
+      MemoryRouter,
+      null,
+      createElement(TagFilters, { entries, params: new URLSearchParams(), update: () => {} })
+    )
   )
   const place = html.split('<details').find(section => section.includes('<summary>地點'))!
   expect(place).toContain('泳池')
@@ -61,4 +66,18 @@ it('筛选面板不会把截图中的三个类别放进地点，且同号名称�
   expect(place).not.toContain('流汗')
   expect(html).toContain('戀乳癖</span><small>2</small>')
   expect(html).toContain('泳池</span><small>1</small>')
+})
+
+it('有类型后简繁差异不影响归组，同号其他类型不会被选中', () => {
+  const censored = { ...row('恋乳癖'), javdbType: 0 }
+  const western = { ...row('泳池'), javdbType: 2 }
+  const key = tagSelectionKey('109', '恋乳癖', 0)
+  expect(key).toBe('0:109')
+  expect(parseTagSelection(key)).toEqual({ id: '109', name: undefined, type: 0 })
+  expect(javdbTagGroup('109', '恋乳癖', 0)?.id).toBe('0:subject')
+  expect(javdbTagGroup('109', '泳池', 2)?.id).toBe('2:place')
+  expect(javdbTagLabel('109', '恋乳癖', 0)).toBe('戀乳癖')
+  expect(matchesWorkFacets(censored, new URLSearchParams({ wf_tag: key }))).toBe(true)
+  expect(matchesWorkFacets(western, new URLSearchParams({ wf_tag: key }))).toBe(false)
+  expect(javdbTagGroup('40', '颜射', 0)).toBeUndefined()
 })

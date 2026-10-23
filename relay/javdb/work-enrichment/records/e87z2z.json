@@ -107,7 +107,8 @@
     ],
     "thumb_url": "https://tp.spfcas.com/rhe951l4q/small_covers/e8/e87z2z.jpg",
     "cover_url": "https://tp.spfcas.com/rhe951l4q/covers/e8/e87z2z.jpg",
-    "release_date": "2026-04-14"
+    "release_date": "2026-04-14",
+    "type": 0
   },
   "reviews": [
     {
@@ -134,5 +135,6 @@
     "saved": 2,
     "complete": false,
     "ordering": "unverified"
-  }
+  },
+  "typeFetchedAt": 1792739138553
 }

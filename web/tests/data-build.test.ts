@@ -160,3 +160,19 @@ describe('来源与生成资源', () => {
     )
   })
 })
+
+it('内容类型从来源投影到全库与人物作品索引，保留有码零值', () => {
+  const index = JSON.parse(fs.readFileSync(path.join(generated, manifest.works!.index!), 'utf8'))
+  const mappings = read('javdb/work-enrichment/mappings.json').mappings
+  const assertType = (row: { id: string; javdbType?: number }) => {
+    const mapping = mappings[row.id]
+    if (!mapping) return
+    const type = read(`javdb/work-enrichment/records/${mapping.javdbId}.json`).metadata.type
+    if (Number.isInteger(type) && type >= 0 && type <= 4) expect(row.javdbType).toBe(type)
+  }
+  index.entries.forEach(assertType)
+  for (const file of Object.values(manifest.works!.people)) {
+    const person = JSON.parse(fs.readFileSync(path.join(generated, file), 'utf8'))
+    person.entries.forEach(assertType)
+  }
+})

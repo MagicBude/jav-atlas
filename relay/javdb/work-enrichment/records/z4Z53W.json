@@ -103,7 +103,8 @@
     ],
     "thumb_url": "https://tp.spfcas.com/rhe951l4q/small_covers/z4/z4Z53W.jpg",
     "cover_url": "https://tp.spfcas.com/rhe951l4q/covers/z4/z4Z53W.jpg",
-    "release_date": "2026-08-11"
+    "release_date": "2026-08-11",
+    "type": 0
   },
   "reviews": [],
   "reviewScope": {
@@ -111,5 +112,6 @@
     "saved": 0,
     "complete": false,
     "ordering": "unverified"
-  }
+  },
+  "typeFetchedAt": 1792739173086
 }

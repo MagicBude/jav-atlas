@@ -82,3 +82,35 @@ test('多候选不写映射，保留待确认与退避；文件错误退出1', (
     fs.mkdirSync(path.join(dir, 'javdb/work-enrichment/report.json'))
     assert.equal(run({}).status, 1)
   }))
+
+test('独立类型回填仅补字段并复用已核实记录，不刷新旧元数据时间或评论', () =>
+  sandbox(({ dir, write, read }) => {
+    write('javdb/work-enrichment/records/A.json', {
+      id: 'A',
+      fetchedAt: 123,
+      metadata: { number: 'TEST-001', director_name: '保留导演' },
+      reviews: [{ id: 'r', content: '保留评论' }]
+    })
+    const run = () =>
+      spawnSync(
+        process.execPath,
+        [
+          '--require',
+          path.join(__dirname, 'fixtures/enrichment-network.js'),
+          path.join(__dirname, '../tools/backfill-work-types.js')
+        ],
+        { env: { ...process.env, RELAY_DIR: dir }, encoding: 'utf8', timeout: 10000 }
+      )
+    const first = run()
+    assert.equal(first.status, 0, first.stderr)
+    const saved = read('records/A.json')
+    assert.equal(saved.metadata.type, 0)
+    assert.equal(saved.fetchedAt, 123)
+    assert.equal(saved.metadata.director_name, '保留导演')
+    assert.equal(saved.reviews[0].content, '保留评论')
+    assert(saved.typeFetchedAt > 123)
+    const second = run()
+    assert.equal(second.status, 0, second.stderr)
+    assert(second.stdout.includes('"requests":0'))
+    assert.deepEqual(read('records/A.json'), saved)
+  }))

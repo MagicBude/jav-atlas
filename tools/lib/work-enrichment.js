@@ -31,6 +31,7 @@ function project(local, search, detail, pages, fetchedAt) {
     throw Error('作品详情身份不一致')
   const fields = [
     'id',
+    'type',
     'number',
     'title',
     'duration',
@@ -109,4 +110,17 @@ function project(local, search, detail, pages, fetchedAt) {
     }
   }
 }
-module.exports = { project, matchCandidate }
+/** 回填只相信详情的明确类型，0 是有效的有码类型，不能用 truthy 判断。 */
+function checkedMovieType(record, movie) {
+  if (
+    !movie ||
+    movie.id !== record.id ||
+    !normalize(record.metadata?.number) ||
+    normalize(movie.number || movie.code) !== normalize(record.metadata.number)
+  )
+    throw Error('回填详情身份不一致')
+  if (!Number.isInteger(movie.type) || movie.type < 0 || movie.type > 4)
+    throw Error('详情缺少已知的内容类型')
+  return movie.type
+}
+module.exports = { project, matchCandidate, checkedMovieType }

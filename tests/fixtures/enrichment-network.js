@@ -16,6 +16,7 @@ global.fetch = async value => {
       data: {
         movie: {
           id,
+          type: 0,
           number: id === 'A' ? 'TEST-001' : 'TEST-002',
           score: '4.2',
           duration: 120,

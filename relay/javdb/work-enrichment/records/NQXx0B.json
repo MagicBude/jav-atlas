@@ -60,7 +60,8 @@
     ],
     "thumb_url": "https://tp.spfcas.com/rhe951l4q/small_covers/nq/NQXx0B.jpg",
     "cover_url": "https://tp.spfcas.com/rhe951l4q/covers/nq/NQXx0B.jpg",
-    "release_date": "2026-11-11"
+    "release_date": "2026-11-11",
+    "type": 0
   },
   "reviews": [],
   "reviewScope": {
@@ -68,5 +69,6 @@
     "saved": 0,
     "complete": false,
     "ordering": "unverified"
-  }
+  },
+  "typeFetchedAt": 1792739152474
 }

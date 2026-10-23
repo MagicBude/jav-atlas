@@ -5,6 +5,7 @@ export interface Enrichment {
   fetchedAt: string | number
   reviewsFetchedAt?: string | number
   metadata: {
+    type?: number
     number: string
     score?: string
     reviews_count?: number

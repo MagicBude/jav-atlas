@@ -139,11 +139,13 @@ export function WorkDetail({ id }: { id: string }) {
               <div className="work-tags">
                 {m.tags.map(t => (
                   <Link
-                    to={browse('tag', tagSelectionKey(t.id, t.name))}
+                    to={browse('tag', tagSelectionKey(t.id, t.name, m.type))}
                     className="badge"
                     key={t.id}
                   >
-                    <span title={`JavDB原名称：${t.name}`}>{javdbTagLabel(t.id, t.name)}</span>
+                    <span title={`JavDB原名称：${t.name}`}>
+                      {javdbTagLabel(t.id, t.name, m.type)}
+                    </span>
                   </Link>
                 ))}
               </div>

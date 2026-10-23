@@ -50,3 +50,15 @@ test('模糊单结果、多精确结果或详情身份不一致均拒绝', () =>
     project(local, search, { data: { movie: { ...detail.data.movie, id: 'B' } } }, [], 0)
   )
 })
+
+const { checkedMovieType } = require('../tools/lib/work-enrichment')
+test('内容类型保存零值，回填拒绝错误身份和缺失类型', () => {
+  const value = { ...detail, data: { movie: { ...detail.data.movie, type: 0 } } }
+  const { record } = project(local, search, value, [], 1)
+  assert.equal(record.metadata.type, 0)
+  assert.equal(checkedMovieType(record, value.data.movie), 0)
+  assert.throws(() => checkedMovieType(record, { ...value.data.movie, id: 'B' }))
+  assert.throws(() => checkedMovieType(record, { ...value.data.movie, number: 'OTHER-001' }))
+  for (const type of [undefined, null, '0', -1, 5])
+    assert.throws(() => checkedMovieType(record, { ...value.data.movie, type }))
+})

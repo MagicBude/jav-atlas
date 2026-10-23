@@ -59,7 +59,8 @@
     ],
     "thumb_url": "https://tp.spfcas.com/rhe951l4q/small_covers/zn/ZNzk9q.jpg",
     "cover_url": "https://tp.spfcas.com/rhe951l4q/covers/zn/ZNzk9q.jpg",
-    "release_date": "2026-09-09"
+    "release_date": "2026-09-09",
+    "type": 0
   },
   "reviews": [],
   "reviewScope": {
@@ -67,5 +68,6 @@
     "saved": 0,
     "complete": false,
     "ordering": "unverified"
-  }
+  },
+  "typeFetchedAt": 1792739176095
 }

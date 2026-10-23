@@ -16,8 +16,8 @@ export function workFacetOptions(entries: WorkEntry[], kind: string) {
     } else
       for (const value of row.facets?.[kind] || [])
         values.set(
-          kind === 'tag' ? tagSelectionKey(value.id, value.name) : value.id,
-          kind === 'tag' ? javdbTagLabel(value.id, value.name) : value.name
+          kind === 'tag' ? tagSelectionKey(value.id, value.name, row.javdbType) : value.id,
+          kind === 'tag' ? javdbTagLabel(value.id, value.name, row.javdbType) : value.name
         )
   }
   return [...values]
@@ -37,6 +37,7 @@ export function matchesWorkFacets(row: WorkEntry, params: URLSearchParams) {
           row.facets?.tag?.some(
             value =>
               value.id === selected.id &&
+              (selected.type === undefined || row.javdbType === selected.type) &&
               (selected.name === undefined || value.name === selected.name)
           ) || false
         )

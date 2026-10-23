@@ -1,10 +1,12 @@
-/** 类别计数按来源 ID＋原名隔离；目录证据不足的条目不强行归组。 */
+import { Link } from 'react-router-dom'
+/** 类别按类型＋ID隔离；旧资料缺类型时使用原名保守回退。 */
 import { useState } from 'react'
 import {
   javdbTagLabel,
   javdbTagGroup,
   tagSelectionKey,
-  parseTagSelection
+  parseTagSelection,
+  validJavdbType
 } from '../../entities/tagLabels'
 import { normalize } from '../../entities/person'
 import type { WorkEntry } from '../../entities/work'
@@ -20,15 +22,15 @@ export function TagFilters({
 }) {
   const [search, setSearch] = useState('')
   const selected = selectedTags(params)
-  const options = new Map<string, { id: string; name: string; count: number }>()
+  const options = new Map<string, { id: string; name: string; count: number; type?: number }>()
   for (const entry of entries.filter(row => row.kind === 'work')) {
     const seen = new Set<string>()
     for (const tag of entry.facets?.tag || []) {
-      const key = tagSelectionKey(tag.id, tag.name)
+      const key = tagSelectionKey(tag.id, tag.name, entry.javdbType)
       if (seen.has(key)) continue
       seen.add(key)
       const old = options.get(key)
-      options.set(key, { ...tag, count: (old?.count || 0) + 1 })
+      options.set(key, { ...tag, type: entry.javdbType, count: (old?.count || 0) + 1 })
     }
   }
   // 保留旧数字 URL，并明确显示它不区分同号名称；切换为新选项后即使用精确查询键。
@@ -37,17 +39,33 @@ export function TagFilters({
       const value = parseTagSelection(key)
       options.set(key, {
         id: value.id,
-        name: value.name || `ID ${value.id}（旧链接，未区分原名）`,
-        count: value.name
-          ? 0
-          : entries.filter(
-              row => row.kind === 'work' && row.facets?.tag?.some(tag => tag.id === value.id)
-            ).length
+        type: value.type,
+        name:
+          value.name ||
+          javdbTagLabel(
+            value.id,
+            value.type === undefined ? `ID ${value.id}（旧链接，未区分原名）` : `ID ${value.id}`,
+            value.type
+          ),
+        count: entries.filter(
+          row =>
+            row.kind === 'work' &&
+            row.facets?.tag?.some(
+              tag =>
+                tag.id === value.id &&
+                (value.name === undefined || tag.name === value.name) &&
+                (value.type === undefined || row.javdbType === value.type)
+            )
+        ).length
       })
     }
   const grouped = new Map<string, { name: string; keys: string[] }>()
   for (const [key, option] of options) {
-    const group = javdbTagGroup(option.id, option.name) || { id: 'unconfirmed', name: '未确认分组' }
+    const group =
+      javdbTagGroup(option.id, option.name, option.type) ||
+      (validJavdbType(option.type)
+        ? { id: 'unlisted', name: '来源目录未收录' }
+        : { id: 'unconfirmed', name: '未确认分组' })
     const bucket = grouped.get(group.id) || { name: group.name, keys: [] }
     bucket.keys.push(key)
     grouped.set(group.id, bucket)
@@ -56,7 +74,7 @@ export function TagFilters({
     const tag = options.get(key)!
     return (
       !search ||
-      normalize(`${javdbTagLabel(tag.id, tag.name)} ${tag.name} ${tag.id}`).includes(
+      normalize(`${javdbTagLabel(tag.id, tag.name, tag.type)} ${tag.name} ${tag.id}`).includes(
         normalize(search)
       )
     )
@@ -71,6 +89,9 @@ export function TagFilters({
   return (
     <section className="tag-filter-browser" aria-label="分组类别筛选">
       <div className="tag-filter-toolbar">
+        <Link to="/tags" className="button">
+          查看完整类别目录
+        </Link>
         <input
           aria-label="查找类别"
           placeholder="搜索中文名或来源原名"
@@ -87,7 +108,7 @@ export function TagFilters({
         </select>
       </div>
       <p className="small muted">
-        类别后为当前浏览范围内的作品数；目录归属不明确的类别列入“未确认分组”。
+        类别后为当前浏览范围内的作品数；未提供类型的旧资料仍需核对归属；目录未返回的类别保留原名。
       </p>
       {[...grouped].map(([id, group]) => {
         const keys = group.keys.filter(matchesSearch)

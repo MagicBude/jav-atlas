@@ -84,10 +84,12 @@ export function WorkBrowser({
             const value = parseTagSelection(id)
             const original =
               value.name ||
-              entries.flatMap(row => row.facets?.tag || []).find(tag => tag.id === value.id)
-                ?.name ||
+              entries
+                .filter(row => value.type === undefined || row.javdbType === value.type)
+                .flatMap(row => row.facets?.tag || [])
+                .find(tag => tag.id === value.id)?.name ||
               value.id
-            return '类别：' + javdbTagLabel(value.id, original)
+            return '类别：' + javdbTagLabel(value.id, original, value.type)
           })()
         }))
       const id = params.get(`wf_${kind}`)

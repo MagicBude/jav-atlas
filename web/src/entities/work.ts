@@ -8,6 +8,8 @@ export interface WorkEntry {
   releaseDate?: string | null
   makerText?: string
   actorIds?: string[]
+  /** JavDB 目录作用域，0 同样有效；没有来源证据时不填写。 */
+  javdbType?: number
   facets?: Record<string, { id: string; name: string }[]>
   rating?: { score: number; count: number | null; source: 'javdb' } | null
 }

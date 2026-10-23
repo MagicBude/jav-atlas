@@ -72,7 +72,8 @@
     ],
     "thumb_url": "https://tp.spfcas.com/rhe951l4q/small_covers/rk/Rk8074.jpg",
     "cover_url": "https://tp.spfcas.com/rhe951l4q/covers/rk/Rk8074.jpg",
-    "release_date": "2026-09-15"
+    "release_date": "2026-09-15",
+    "type": 0
   },
   "reviews": [
     {
@@ -117,5 +118,6 @@
     "saved": 4,
     "complete": false,
     "ordering": "unverified"
-  }
+  },
+  "typeFetchedAt": 1792739157167
 }

@@ -73,7 +73,8 @@
     ],
     "thumb_url": "https://tp.spfcas.com/rhe951l4q/small_covers/kk/kKrV5z.jpg",
     "cover_url": "https://tp.spfcas.com/rhe951l4q/covers/kk/kKrV5z.jpg",
-    "release_date": "2026-09-02"
+    "release_date": "2026-09-02",
+    "type": 0
   },
   "reviews": [],
   "reviewScope": {
@@ -81,5 +82,6 @@
     "saved": 0,
     "complete": false,
     "ordering": "unverified"
-  }
+  },
+  "typeFetchedAt": 1792739150789
 }
