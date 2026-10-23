@@ -29,7 +29,7 @@ on:
         options: [trial, ranked]
         default: trial
       include_works:
-        description: 'daily + ranked后顺带补作品（与每天定时相同）'
+        description: 'daily + ranked后补作品及元数据（与每天定时相同）'
         type: boolean
         default: false
   schedule:
@@ -107,7 +107,25 @@ jobs:
             fi
             exit "$code"
           fi
-      # 所有现场均上传；只有正常结束或作品明确返回的可恢复来源失败才允许提交。
+      - name: 分批补齐作品评分与元数据
+        if: github.event_name == 'schedule' || (inputs.include_works && inputs.mode == 'daily' && inputs.source == 'ranked')
+        env:
+          RELAY_DIR: relay
+          ENRICH_LIMIT: '10'
+          ENRICH_REQUESTS: '30'
+          ENRICH_DELAY_MS: '1000'
+        run: |
+          if npm run collect -- daily enrichment; then
+            exit 0
+          else
+            code=$?
+            if [ "$code" = "2" ]; then
+              echo "::warning::部分作品元数据未补齐，保留匹配记录及重试状态"
+              exit 0
+            fi
+            exit "$code"
+          fi
+      # 所有现场均上传；只有正常结束或工具明确返回的可恢复来源失败才允许提交。
       - name: 保存本轮产物
         if: always()
         uses: actions/upload-artifact@v4
