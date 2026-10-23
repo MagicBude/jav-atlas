@@ -64,7 +64,7 @@ export function PersonWorks({ actorId }: { actorId: string }) {
     Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1
   )
   const work = params.get('work')
-  if (!file) return <p className="muted">这位人物的作品列表尚未接入；当前先展示两位试采人物。</p>
+  if (!file) return <p className="muted">这位人物的作品列表暂未提供。</p>
   return (
     <>
       <p className="muted small">来源收录作品，不代表全部出演记录。封面暂未接入。</p>

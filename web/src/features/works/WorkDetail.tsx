@@ -18,7 +18,18 @@ export function WorkDetail({ id }: { id: string }) {
   const request = useResource(file || '', () => resource<Work>(file!))
   const extra = useResource(extraFile || '', () => resource<Enrichment>(extraFile!))
   if (!manifest) return <p>正在读取资料…</p>
-  if (!file) return <p>当前资料未收录这部作品的详情。</p>
+  // 分批任务可能已发现列表、尚未补齐详情；提供源站入口，不能把缺详情说成作品不存在。
+  if (!file)
+    return (
+      <p>
+        当前资料暂未提供这部作品的详情。{' '}
+        {/^\d+$/.test(id) && (
+          <a href={`https://www.minnano-av.com/av${id}.html`} target="_blank" rel="noreferrer">
+            查看 minnano 来源页 ↗
+          </a>
+        )}
+      </p>
+    )
   if (request.error)
     return (
       <p role="alert">
