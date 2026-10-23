@@ -43,7 +43,7 @@ const fs = require('node:fs')
 const os = require('node:os')
 const path = require('node:path')
 const { spawnSync } = require('node:child_process')
-const { planActors, RequestBudget } = require('../tools/lib/works-policy')
+const { planActors, RequestBudget, shouldRestartScan } = require('../tools/lib/works-policy')
 
 test('人物队列优先当前榜单，已服务者让位，完成冷却与失败退避独立生效', () => {
   const now = 2000000000
@@ -51,7 +51,7 @@ test('人物队列优先当前榜单，已服务者让位，完成冷却与失�
     ids: ['1', '2', '3', '4', '5'],
     rankings: { day: [{ id: '2', rank: 1 }] },
     people: {
-      3: { lastScheduledAt: 100 },
+      3: { lastScheduledAt: 100, finished: true },
       4: { finished: true, stable: true, completedAt: now - 1 },
       5: { nextRetryAt: now + 1 }
     },
@@ -59,11 +59,36 @@ test('人物队列优先当前榜单，已服务者让位，完成冷却与失�
     limit: 5
   }
   assert.deepEqual(planActors(args), ['2', '1', '3'])
-  args.people['2'] = { lastScheduledAt: now }
+  args.people['2'] = { lastScheduledAt: now, finished: true }
   assert.deepEqual(planActors(args), ['1', '3', '2'])
   args.now += 8 * 86400000
   assert(planActors(args).includes('4'))
   assert(planActors(args).includes('5'))
+})
+
+test('5人预算保留2个续跑和3个新人物名额，两队内部轮转且空位可互补', () => {
+  const args = {
+    ids: ['1', '2', '3', '4', '5', '6', '7', '8'],
+    rankings: {},
+    now: 1000,
+    limit: 5,
+    people: { 6: { lastScheduledAt: 10 }, 7: { lastScheduledAt: 20 }, 8: { lastScheduledAt: 30 } }
+  }
+  assert.deepEqual(planActors(args), ['6', '7', '1', '2', '3'])
+  args.people['6'].lastScheduledAt = 1000
+  args.people['7'].lastScheduledAt = 1000
+  assert.deepEqual(planActors(args).slice(0, 2), ['8', '6'])
+  assert.equal(planActors({ ...args, ids: ['6', '7', '8'] }).length, 3)
+  assert.deepEqual(planActors({ ...args, ids: ['1', '2', '3'] }), ['1', '2', '3'])
+})
+
+test('跨天持续推进保留扫描，连续七天无进展才重启，旧断点兼容', () => {
+  const day = 86400000,
+    now = 20 * day
+  assert.equal(shouldRestartScan({ startedAt: day, lastProgressAt: now - 2 * day }, now), false)
+  assert.equal(shouldRestartScan({ startedAt: day, lastProgressAt: now - 8 * day }, now), true)
+  assert.equal(shouldRestartScan({ startedAt: now - 2 * day }, now), false)
+  assert.equal(shouldRestartScan({ startedAt: now, finished: true }, now), true)
 })
 
 test('总请求预算涵盖全部尝试，耗尽信号与来源失败区分', () => {
@@ -119,8 +144,8 @@ test('每人分页暂停后跨轮续跑，首页复核也受总请求上限约�
       WORK_REQUESTS: '1',
       WORK_FIXTURE_LOG: log
     }
-    // 前三轮每个人各访问一页；后续轮转回第一位，沿同一scan接第二页。
-    for (let i = 0; i < 3; i++) assert.equal(run(env).status, 0)
+    // 单人预算优先完成已有扫描，第二轮即沿同一scan接第二页。
+    assert.equal(run(env).status, 0)
     const first = read('progress.json').people['125605']
     assert.equal(first.nextPage, 2)
     assert.equal(run(env).status, 0)
@@ -129,7 +154,9 @@ test('每人分页暂停后跨轮续跑，首页复核也受总请求上限约�
     assert.equal(resumed.nextPage, null)
     assert.equal(resumed.finished, undefined) // 首页复核尚无请求预算，不能标完成。
     assert.equal(read('report.json').requests, 1)
-    assert.equal(fs.readFileSync(log, 'utf8').trim().split('\n').length, 4)
+    assert.equal(run(env).status, 0)
+    assert.equal(read('progress.json').people['125605'].finished, true)
+    assert.equal(fs.readFileSync(log, 'utf8').trim().split('\n').length, 3)
   }))
 
 test('来源失败保留其他人物进度及退避，磁盘错误不能伪装成可恢复失败', () =>

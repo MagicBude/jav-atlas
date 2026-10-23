@@ -7,7 +7,7 @@ const path = require('path')
 const { readJson, writeJson, envInt } = require('./lib/runtime')
 const { dataPaths } = require('./lib/data-paths')
 const { parseList, parseDetail } = require('./lib/minnano-works')
-const { planActors, RequestBudget } = require('./lib/works-policy')
+const { planActors, RequestBudget, shouldRestartScan } = require('./lib/works-policy')
 const base = 'https://www.minnano-av.com/'
 const root = path.join(path.dirname(dataPaths().minnanoActresses), 'works')
 const pool = readJson(dataPaths().minnanoRankedPool, null)
@@ -130,7 +130,7 @@ async function collectLists() {
     const file = path.join(root, 'people', actorId + '.json')
     const person = readJson(file, { actorId, entries: [], completedAt: null })
     let scan = state.people[actorId]
-    if (!scan || scan.finished || Date.now() - scan.startedAt > 86400000)
+    if (shouldRestartScan(scan, Date.now()))
       scan = state.people[actorId] = {
         lastScheduledAt: scan?.lastScheduledAt || 0,
         scanId: `${actorId}-${Date.now()}`,
@@ -186,6 +186,7 @@ async function collectLists() {
           enqueue(row)
         }
         scan.nextPage = parsed.nextPage
+        scan.lastProgressAt = Date.now()
         person.entries = [...entries.values()].sort((a, b) => a.id.localeCompare(b.id))
         person.updatedAt = Date.now()
         writeJson(file, person)

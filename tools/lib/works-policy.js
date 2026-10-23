@@ -9,7 +9,7 @@ function planActors({ ids, rankings, people, now, limit }) {
       const id = String(row.id)
       rank.set(id, Math.min(rank.get(id) ?? Infinity, row.rank))
     }
-  return ids
+  const eligible = ids
     .filter(id => {
       const scan = people[id]
       // 列表和详情有独立队列；列表七天内稳定完成时，不妨碍消费已有详情待办。
@@ -29,7 +29,19 @@ function planActors({ ids, rankings, people, now, limit }) {
         a.localeCompare(b)
       )
     })
-    .slice(0, limit)
+  // 给未完成扫描预留一半名额（5人时为2人），其余名额继续发现/复核人物。
+  // 两组内部仍按服务时间轮转；某组不足时另一组补位，不浪费名额。
+  const pending = eligible.filter(id => people[id] && !people[id].finished)
+  const fresh = eligible.filter(id => !people[id] || people[id].finished)
+  const reserved = Math.max(1, Math.floor(limit / 2))
+  const resumed = pending.slice(0, reserved)
+  const discovered = fresh.slice(0, limit - resumed.length)
+  return [...resumed, ...discovered, ...pending.slice(resumed.length)].slice(0, limit)
+}
+
+/** 每天续跑不能因为扫描总时长超过24小时而反复回到首页；仅连续7天无进展才重启。 */
+function shouldRestartScan(scan, now) {
+  return !scan || scan.finished || now - (scan.lastProgressAt || scan.startedAt) > 7 * 86400000
 }
 
 /** 每次真实网络尝试（包括重试和首页复核）都占一个名额。 */
@@ -48,4 +60,4 @@ class RequestBudget {
   }
 }
 
-module.exports = { planActors, RequestBudget }
+module.exports = { planActors, RequestBudget, shouldRestartScan }

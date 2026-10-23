@@ -28,6 +28,10 @@ on:
         type: choice
         options: [trial, ranked]
         default: trial
+      include_works:
+        description: 'daily + ranked后顺带补作品（与每天定时相同）'
+        type: boolean
+        default: false
   schedule:
     - cron: '30 21 * * *' # UTC 21:30 = 北京 05:30，实际运行可能延迟。
 
@@ -40,7 +44,7 @@ concurrency:
 
 jobs:
   collect:
-    # 每天北京时间05:30执行 ranked；手动仍可选择维护工具，日常任务不再遍历全站。
+    # 每天北京时间05:30先更新榜单池，再按预算补作品；手动维护仍可单独运行。
     runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:
@@ -59,7 +63,7 @@ jobs:
           RELAY_DIR: relay
           DIRECTORY_PAGES: ${{ inputs.directory_pages || '20' }}
           BACKFILL_LIMIT: ${{ inputs.profile_limit || '750' }}
-          # 作品仅手动source=works时执行。ranked每日定时不会触发作品采集。
+          # 本步骤只有source=works时使用这些预算；定时作品在后续独立步骤执行。
           WORK_SCOPE: ${{ inputs.work_scope || 'trial' }}
           WORK_PEOPLE: '5'
           WORK_PERSON_PAGES: '5'
@@ -78,6 +82,27 @@ jobs:
             # 允许提交该断点，下一台runner才能续跑；其他来源/程序错误仍阻断提交。
             if [ "$SOURCE" = "works" ] && [ "$code" = "2" ]; then
               echo "::warning::部分作品来源不可用，保存有效进度与失败待办；不代表完整采集"
+              exit 0
+            fi
+            exit "$code"
+          fi
+      - name: 分批补齐榜单人物作品
+        if: github.event_name == 'schedule' || (inputs.include_works && inputs.mode == 'daily' && inputs.source == 'ranked')
+        env:
+          RELAY_DIR: relay
+          WORK_SCOPE: ranked
+          WORK_PEOPLE: '5'
+          WORK_PERSON_PAGES: '5'
+          WORK_PAGES: '20'
+          WORK_DETAILS: '50'
+          WORK_REQUESTS: '100'
+        run: |
+          if npm run collect -- daily works; then
+            exit 0
+          else
+            code=$?
+            if [ "$code" = "2" ]; then
+              echo "::warning::部分作品来源不可用，保存有效断点与失败待办"
               exit 0
             fi
             exit "$code"
