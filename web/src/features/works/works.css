@@ -1,0 +1,51 @@
+/* 密度仅影响作品行的留白与标题折行；完整标题保留在详情及悬停提示中。 */
+.work-results-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+.work-results-toolbar p {
+  margin: 0;
+}
+.work-density {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 8px;
+  background: var(--tint);
+  gap: 3px;
+}
+.work-density button {
+  padding: 5px 10px;
+  min-height: 32px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+}
+.work-density button[aria-pressed='true'] {
+  background: white;
+  color: var(--primary);
+  box-shadow: 0 1px 4px #1f315018;
+}
+.work-list[data-density='compact'] .work-row {
+  padding-block: 8px;
+}
+.work-list[data-density='compact'] .work-title-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+.work-list[data-density='compact'] .work-title small {
+  margin-top: 2px;
+}
+@media (max-width: 600px) {
+  .work-list[data-density='compact'] .work-title-text {
+    -webkit-line-clamp: 2;
+  }
+  .work-density button {
+    min-height: 40px;
+  }
+}

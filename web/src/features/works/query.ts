@@ -1,5 +1,14 @@
 /** 列表排序独立成纯函数：未知评分排最后，同分按日期及原生ID稳定排序。 */
 import type { WorkEntry } from '../../entities/work'
+/** 密度只改变排版，不改变结果集合；保留页码，避免切换外观时跳回第一页。 */
+export function workQuery(search: string, key: string, value: string) {
+  const next = new URLSearchParams(search)
+  if (value) next.set(key, value)
+  else next.delete(key)
+  if (['wq', 'wy', 'wm', 'ws'].includes(key)) next.delete('wp')
+  return next.toString()
+}
+
 export function compareWorks(a: WorkEntry, b: WorkEntry, sort: string) {
   if (sort === 'score') {
     const left = a.rating?.score,

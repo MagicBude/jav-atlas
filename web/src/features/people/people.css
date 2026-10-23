@@ -594,3 +594,66 @@ dialog.drawer {
   color: white;
   text-decoration: none;
 }
+/* 人物摘要单独布局，作品密度在作品模块维护；不改变资料及收藏的数据模型。 */
+.person-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.person-summary .identity-block {
+  flex: 1 1 280px;
+  min-width: 0;
+  margin: 0;
+  gap: 16px;
+}
+.person-summary .avatar.large {
+  width: 72px;
+  height: 90px;
+  flex: 0 0 72px;
+}
+.person-summary .identity-block h1 {
+  font-size: 25px;
+  overflow-wrap: anywhere;
+}
+.person-summary .detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+}
+.person-summary .aliases {
+  font-size: 12px;
+  margin-block: 4px;
+}
+.person-quick-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.person-quick-facts span {
+  color: var(--muted);
+  background: var(--tint);
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 11px;
+}
+.person-detail .section-nav {
+  margin: 18px 0 0;
+}
+.person-detail > section {
+  margin-top: 20px;
+}
+@media (max-width: 600px) {
+  .person-summary .identity-block {
+    flex-basis: 100%;
+  }
+  .person-summary .detail-actions {
+    width: 100%;
+  }
+  .person-summary .identity-block h1 {
+    font-size: 22px;
+  }
+}

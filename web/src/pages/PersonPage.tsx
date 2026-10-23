@@ -47,7 +47,8 @@ export default function PersonPage({
   ]
   const requestedSection =
     params.get('section') ||
-    (['work', 'wq', 'wp', 'wy', 'wm', 'ws'].some(key => params.has(key)) && source === 'minnano'
+    (['work', 'wq', 'wp', 'wy', 'wm', 'ws', 'wd'].some(key => params.has(key)) &&
+    source === 'minnano'
       ? 'works'
       : 'basic')
   const activeSection = sections.includes(requestedSection) ? requestedSection : 'basic'
@@ -157,41 +158,53 @@ export default function PersonPage({
           </button>
         )}
       </header>
-      <div className="identity-block">
-        <PersonAvatar key={sourceValue.avatar} file={sourceValue.avatar} name={person.name} large />
-        <div>
-          <p className="eyebrow">
-            {source} / <code>{id}</code>
-          </p>
-          <h1>{person.name || '未命名'}</h1>
-          {person.aliases?.length > 0 && (
-            <p className="muted aliases">{person.aliases.join(' / ')}</p>
-          )}
-          {!sourcePerson && <span className="badge">当前数据未收录 · 保留个人快照</span>}
+      <div className="person-summary">
+        <div className="identity-block">
+          <PersonAvatar
+            key={sourceValue.avatar}
+            file={sourceValue.avatar}
+            name={person.name}
+            large
+          />
+          <div>
+            <p className="eyebrow">
+              {source} / <code>{id}</code>
+            </p>
+            <h1>{person.name || '未命名'}</h1>
+            {person.aliases?.length > 0 && (
+              <p className="muted aliases">{person.aliases.join(' / ')}</p>
+            )}
+            {!sourcePerson && <span className="badge">当前数据未收录 · 保留个人快照</span>}
+            <div className="person-quick-facts">
+              {person.height != null && <span>{person.height} cm</span>}
+              {person.cup && <span>{person.cup} 杯</span>}
+              {person.birthday && <span>{person.birthday.slice(0, 4)} 年生</span>}
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="detail-actions">
-        <button
-          aria-pressed={saved}
-          className={`favorite-action ${saved ? 'is-favorite' : ''}`}
-          onClick={() => favorite(sourceValue)}
-        >
-          <HeartIcon active={saved} />
-          {saved ? '已收藏' : '收藏人物'}
-        </button>
-        <button onClick={() => setDraft(key, drafts[key] || createDraft(sourceValue, record))}>
-          修改本地资料
-        </button>
-        {safeUrl(sourceValue.sourceUrl) && (
-          <a
-            className="button primary"
-            href={safeUrl(sourceValue.sourceUrl)}
-            target="_blank"
-            rel="noreferrer"
+        <div className="detail-actions">
+          <button
+            aria-pressed={saved}
+            className={`favorite-action ${saved ? 'is-favorite' : ''}`}
+            onClick={() => favorite(sourceValue)}
           >
-            查看来源 ↗
-          </a>
-        )}
+            <HeartIcon active={saved} />
+            {saved ? '已收藏' : '收藏人物'}
+          </button>
+          <button onClick={() => setDraft(key, drafts[key] || createDraft(sourceValue, record))}>
+            修改本地资料
+          </button>
+          {safeUrl(sourceValue.sourceUrl) && (
+            <a
+              className="button primary"
+              href={safeUrl(sourceValue.sourceUrl)}
+              target="_blank"
+              rel="noreferrer"
+            >
+              查看来源 ↗
+            </a>
+          )}
+        </div>
       </div>
       {drafts[key] ? (
         <PersonEditor person={sourceValue} />

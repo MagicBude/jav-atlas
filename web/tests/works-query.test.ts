@@ -1,6 +1,17 @@
 import { expect, it } from 'vitest'
-import { compareWorks } from '../src/features/works/query'
+import { compareWorks, workQuery } from '../src/features/works/query'
 import type { WorkEntry } from '../src/entities/work'
+it('列表密度保留页码和人物分区，筛选改变才重置页码', () => {
+  const search = '?section=works&wp=3&wq=TEST&ws=score'
+  const dense = new URLSearchParams(workQuery(search, 'wd', 'compact'))
+  expect(dense.get('wp')).toBe('3')
+  expect(dense.get('section')).toBe('works')
+  expect(dense.get('wq')).toBe('TEST')
+  expect(dense.get('ws')).toBe('score')
+  const filtered = new URLSearchParams(workQuery(dense.toString(), 'wq', 'NEW'))
+  expect(filtered.has('wp')).toBe(false)
+  expect(filtered.get('wd')).toBe('compact')
+})
 it('作品评分排序把未知放后，保留0分，同分按日期与原生ID稳定排列', () => {
   const row = (id: string, date: string, score?: number): WorkEntry => ({
     id,

@@ -11,7 +11,7 @@ import { normalize } from '../../entities/person'
 import { useResource } from '../../shared/useResource'
 import { Modal } from '../../shared/Modal'
 import { WorkDetail } from './WorkDetail'
-import { compareWorks } from './query'
+import { compareWorks, workQuery } from './query'
 export function PersonWorks({
   actorId,
   expanded = false
@@ -26,7 +26,7 @@ export function PersonWorks({
   const file = manifest?.works?.people[actorId]
   const [opened, setOpened] = useState(false)
   const active =
-    expanded || opened || ['work', 'wq', 'wp', 'wy', 'wm', 'ws'].some(key => params.has(key))
+    expanded || opened || ['work', 'wq', 'wp', 'wy', 'wm', 'ws', 'wd'].some(key => params.has(key))
   const request = useResource(active && file ? file : '', () => resource<Collection>(file!))
   const update = (key: string, value: string) => {
     // 打开作品压入一层历史，让后退先关作品。直达链接没有该历史，只移除参数。
@@ -34,12 +34,8 @@ export function PersonWorks({
       navigate(-1)
       return
     }
-    const next = new URLSearchParams(location.search)
-    if (value) next.set(key, value)
-    else next.delete(key)
-    if (key !== 'wp' && key !== 'work') next.delete('wp')
     navigate(
-      { pathname: location.pathname, search: next.toString() },
+      { pathname: location.pathname, search: workQuery(location.search, key, value) },
       {
         replace: key !== 'work' || !value,
         state: key === 'work' && value ? { ...location.state, workModal: true } : location.state
@@ -51,6 +47,7 @@ export function PersonWorks({
   const year = params.get('wy') || '',
     maker = params.get('wm') || ''
   const sort = params.get('ws') === 'score' ? 'score' : 'date'
+  const density = params.get('wd') === 'compact' ? 'compact' : 'standard'
   const result = useMemo(
     () =>
       entries
@@ -135,18 +132,41 @@ export function PersonWorks({
                   <option value="score">JavDB 评分 ↓</option>
                 </select>
               </div>
-              <p className="small muted">
-                {result.length} 部作品 ·{' '}
-                {sort === 'score' ? '评分从高到低，无评分排后' : '发行日期从新到旧'}
-              </p>
-              <div className="work-list">
+              <div className="work-results-toolbar">
+                <p className="small muted">
+                  {result.length} 部作品 ·{' '}
+                  {sort === 'score' ? '评分从高到低，无评分排后' : '发行日期从新到旧'}
+                </p>
+                <div className="work-density" role="group" aria-label="作品列表密度">
+                  {(
+                    [
+                      ['standard', '标准'],
+                      ['compact', '紧凑']
+                    ] as const
+                  ).map(([value, label]) => (
+                    <button
+                      key={value}
+                      aria-pressed={density === value}
+                      onClick={() => update('wd', value)}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="work-list" data-density={density}>
                 {result.slice((page - 1) * 24, page * 24).map((row: WorkEntry) => (
-                  <button className="work-row" key={row.id} onClick={() => update('work', row.id)}>
+                  <button
+                    className="work-row"
+                    title={row.title}
+                    key={row.id}
+                    onClick={() => update('work', row.id)}
+                  >
                     <span className="work-code">
                       {'code' in row && row.code ? String(row.code) : `#${row.id}`}
                     </span>
                     <span className="work-title">
-                      {row.title}
+                      <span className="work-title-text">{row.title}</span>
                       <small>
                         {row.makerText || '厂商未知'}
                         {row.rating && (
