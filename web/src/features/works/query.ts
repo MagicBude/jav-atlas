@@ -1,5 +1,11 @@
 /** 列表排序独立成纯函数：未知评分排最后，同分按日期及原生ID稳定排序。 */
 import type { WorkEntry } from '../../entities/work'
+/** 只清除影响结果集合的条件，保留排序、密度、人物分区及其他页面上下文。 */
+export function clearWorkFilters(search: string, queryKey = 'wq', keepQuery = false) {
+  const next = new URLSearchParams(search)
+  for (const key of ['wa', 'wy', 'wm', 'wp', ...(keepQuery ? [] : [queryKey])]) next.delete(key)
+  return next.toString()
+}
 /** 密度只改变排版，不改变结果集合；保留页码，避免切换外观时跳回第一页。 */
 export function workQuery(search: string, key: string, value: string) {
   const next = new URLSearchParams(search)

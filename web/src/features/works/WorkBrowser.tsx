@@ -8,7 +8,7 @@ import type { WorkEntry } from '../../entities/work'
 import { normalize } from '../../entities/person'
 import { Modal } from '../../shared/Modal'
 import { WorkDetail } from './WorkDetail'
-import { compareWorks, workQuery } from './query'
+import { clearWorkFilters, compareWorks, workQuery } from './query'
 export function WorkBrowser({
   entries,
   actors = [],
@@ -64,9 +64,27 @@ export function WorkBrowser({
     Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1
   )
   const work = params.get('work')
+  const conditions = [
+    ...(!hideSearch && params.get(queryKey)
+      ? [{ key: queryKey, label: `搜索：${params.get(queryKey)}` }]
+      : []),
+    ...(actor
+      ? [{ key: 'wa', label: `人物：${actors.find(person => person.id === actor)?.name || actor}` }]
+      : []),
+    ...(year ? [{ key: 'wy', label: `年份：${year}` }] : []),
+    ...(maker ? [{ key: 'wm', label: `厂商：${maker}` }] : [])
+  ]
+  const reset = () =>
+    navigate(
+      {
+        pathname: location.pathname,
+        search: clearWorkFilters(location.search, queryKey, hideSearch)
+      },
+      { replace: true, state: location.state }
+    )
   return (
     <>
-      <div className="work-filters">
+      <div className="work-query-panel">
         {!hideSearch && (
           <input
             aria-label="搜索作品标题或番号"
@@ -75,61 +93,92 @@ export function WorkBrowser({
             onChange={e => update(queryKey, e.target.value)}
           />
         )}
-        {actors.length > 0 && (
-          <select aria-label="作品人物" value={actor} onChange={e => update('wa', e.target.value)}>
-            <option value="">全部人物</option>
-            {actor && !actors.some(person => person.id === actor) && (
-              <option value={actor}>人物 ID {actor}</option>
-            )}
-            {[...actors]
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map(person => (
-                <option key={person.id} value={person.id}>
-                  {person.name}
-                </option>
+        <div className="work-filters">
+          {actors.length > 0 && (
+            <select
+              aria-label="作品人物"
+              value={actor}
+              onChange={e => update('wa', e.target.value)}
+            >
+              <option value="">全部人物</option>
+              {actor && !actors.some(person => person.id === actor) && (
+                <option value={actor}>人物 ID {actor}</option>
+              )}
+              {[...actors]
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map(person => (
+                  <option key={person.id} value={person.id}>
+                    {person.name}
+                  </option>
+                ))}
+            </select>
+          )}
+          <select
+            aria-label="作品发行年份"
+            value={year}
+            onChange={e => update('wy', e.target.value)}
+          >
+            <option value="">全部年份</option>
+            {[...new Set(entries.flatMap(e => (e.releaseDate ? [e.releaseDate.slice(0, 4)] : [])))]
+              .sort()
+              .reverse()
+              .map(y => (
+                <option key={y}>{y}</option>
               ))}
           </select>
-        )}
-        <select aria-label="作品发行年份" value={year} onChange={e => update('wy', e.target.value)}>
-          <option value="">全部年份</option>
-          {[...new Set(entries.flatMap(e => (e.releaseDate ? [e.releaseDate.slice(0, 4)] : [])))]
-            .sort()
-            .reverse()
-            .map(y => (
-              <option key={y}>{y}</option>
+          <select aria-label="作品厂商" value={maker} onChange={e => update('wm', e.target.value)}>
+            <option value="">全部厂商</option>
+            {[...new Set(entries.flatMap(e => (e.makerText ? [e.makerText] : [])))]
+              .sort()
+              .map(m => (
+                <option key={m}>{m}</option>
+              ))}
+          </select>
+        </div>
+        {conditions.length > 0 && (
+          <div className="work-conditions" aria-label="已选作品条件">
+            {conditions.map(condition => (
+              <button
+                key={condition.key}
+                onClick={() => update(condition.key, '')}
+                title={`清除${condition.label}`}
+              >
+                <span>{condition.label}</span>
+                <span aria-hidden="true">×</span>
+              </button>
             ))}
-        </select>
-        <select aria-label="作品厂商" value={maker} onChange={e => update('wm', e.target.value)}>
-          <option value="">全部厂商</option>
-          {[...new Set(entries.flatMap(e => (e.makerText ? [e.makerText] : [])))].sort().map(m => (
-            <option key={m}>{m}</option>
-          ))}
-        </select>
-        <select aria-label="作品排序" value={sort} onChange={e => update('ws', e.target.value)}>
-          <option value="date">发行日期 ↓</option>
-          <option value="score">JavDB 评分 ↓</option>
-        </select>
+            <button className="text-button" onClick={reset}>
+              清除筛选
+            </button>
+          </div>
+        )}
       </div>
       <div className="work-results-toolbar">
         <p className="small muted">
           {result.length} 部作品 ·{' '}
           {sort === 'score' ? '评分从高到低，无评分排后' : '发行日期从新到旧'}
         </p>
-        <div className="work-density" role="group" aria-label="作品列表密度">
-          {(
-            [
-              ['standard', '标准'],
-              ['compact', '紧凑']
-            ] as const
-          ).map(([value, label]) => (
-            <button
-              key={value}
-              aria-pressed={density === value}
-              onClick={() => update('wd', value)}
-            >
-              {label}
-            </button>
-          ))}
+        <div className="work-display-controls">
+          <select aria-label="作品排序" value={sort} onChange={e => update('ws', e.target.value)}>
+            <option value="date">发行日期 ↓</option>
+            <option value="score">JavDB 评分 ↓</option>
+          </select>
+          <div className="work-density" role="group" aria-label="作品列表密度">
+            {(
+              [
+                ['standard', '标准'],
+                ['compact', '紧凑']
+              ] as const
+            ).map(([value, label]) => (
+              <button
+                key={value}
+                aria-pressed={density === value}
+                onClick={() => update('wd', value)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
       <div className="work-list" data-density={density}>
@@ -162,7 +211,12 @@ export function WorkBrowser({
           </button>
         ))}
       </div>
-      {!result.length && <p>没有符合条件的作品。</p>}
+      {!result.length && (
+        <div className="work-empty">
+          <p>没有符合条件的作品。</p>
+          {conditions.length > 0 && <button onClick={reset}>清除筛选后再看</button>}
+        </div>
+      )}
       <div className="pagination">
         <span>
           第 {page} / {pages} 页

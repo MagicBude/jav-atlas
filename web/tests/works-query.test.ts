@@ -1,6 +1,14 @@
 import { expect, it } from 'vitest'
-import { compareWorks, workQuery } from '../src/features/works/query'
+import { clearWorkFilters, compareWorks, workQuery } from '../src/features/works/query'
 import type { WorkEntry } from '../src/entities/work'
+it('清除作品条件保留排序密度分区，全局搜索页保留原搜索词', () => {
+  const search = '?q=TEST&wq=ABC&wa=123&wy=2026&wm=Maker&wp=3&ws=score&wd=compact&section=works'
+  const cleared = new URLSearchParams(clearWorkFilters(search))
+  for (const key of ['wq', 'wa', 'wy', 'wm', 'wp']) expect(cleared.has(key)).toBe(false)
+  for (const key of ['q', 'ws', 'wd', 'section'])
+    expect(cleared.get(key)).toBe(new URLSearchParams(search).get(key))
+  expect(new URLSearchParams(clearWorkFilters(search, 'q', true)).get('q')).toBe('TEST')
+})
 it('列表密度保留页码和人物分区，筛选改变才重置页码', () => {
   const search = '?section=works&wp=3&wq=TEST&ws=score'
   const dense = new URLSearchParams(workQuery(search, 'wd', 'compact'))

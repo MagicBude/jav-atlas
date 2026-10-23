@@ -49,3 +49,72 @@
     min-height: 40px;
   }
 }
+
+/* 查询区决定结果集合，结果工具栏只放排序和密度，避免同一行控件争抢空间。 */
+.work-query-panel {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--tint);
+  margin-bottom: 18px;
+}
+.work-query-panel > input {
+  width: 100%;
+  min-width: 0;
+  background: white;
+}
+.work-query-panel .work-filters {
+  margin: 10px 0 0;
+}
+.work-query-panel .work-filters select {
+  flex: 1 1 160px;
+  min-width: 0;
+  background: white;
+}
+.work-conditions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.work-conditions button:not(.text-button) {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  padding: 5px 9px;
+  font-size: 12px;
+  background: white;
+}
+.work-conditions button span:first-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.work-display-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.work-empty {
+  text-align: center;
+  padding: 32px 16px;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+}
+@media (max-width: 600px) {
+  .work-query-panel {
+    padding: 12px;
+  }
+  .work-query-panel .work-filters select {
+    flex-basis: 100%;
+  }
+  .work-display-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .work-conditions button {
+    min-height: 40px;
+  }
+}
