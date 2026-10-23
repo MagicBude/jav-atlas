@@ -1,7 +1,7 @@
 /**
  * 类别目录是独立的来源参考页，展示全部目录项，不受本地已收录作品范围限制。
  * 查询参数保存类型和搜索词，刷新、复制链接与浏览器后退均可恢复当前查阅状态。
- * 接口原名与已核实的官方简体名称分列展示，显示词典不改写来源快照。
+ * 统一展示类别名称，优先采用已核实的官方简体，来源快照仍独立保留。
  */
 import { useSearchParams } from 'react-router-dom'
 import groups from '../data/javdb-tag-groups.json'
@@ -73,7 +73,7 @@ export default function TagCatalogPage() {
       <p className="notice">
         按 JavDB
         接口原有顺序、分组和名称展示，包含尚未收录作品的类别。快照日期：2026-10-23；仅展示类别分组，不含年份、月份、时长等通用筛选，不保证覆盖历史或隐藏标签。已核实官方简体：有码
-        307 项；其他类型仍沿用接口原名。
+        307 项；其他类型的简体名称待补齐。
       </p>
       <nav className="catalog-types" aria-label="目录内容类型">
         {javdbContentTypes.map(item => (
@@ -118,24 +118,20 @@ export default function TagCatalogPage() {
               <thead>
                 <tr>
                   <th scope="col">ID</th>
-                  {type === 0 && <th scope="col">官方简体</th>}
-                  <th scope="col">接口原名</th>
+                  <th scope="col">类别名称</th>
                 </tr>
               </thead>
               <tbody>
                 {group.tags.map(id => (
                   <tr key={id}>
                     <td>{id}</td>
-                    {type === 0 && (
-                      <td>
-                        {javdbTagLabel(
-                          id,
-                          (group.sourceNames as Record<string, string | undefined>)[id] || id,
-                          type
-                        )}
-                      </td>
-                    )}
-                    <td>{(group.sourceNames as Record<string, string | undefined>)[id]}</td>
+                    <td>
+                      {javdbTagLabel(
+                        id,
+                        (group.sourceNames as Record<string, string | undefined>)[id] || id,
+                        type
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
