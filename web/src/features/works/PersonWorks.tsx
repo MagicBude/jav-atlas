@@ -12,14 +12,21 @@ import { useResource } from '../../shared/useResource'
 import { Modal } from '../../shared/Modal'
 import { WorkDetail } from './WorkDetail'
 import { compareWorks } from './query'
-export function PersonWorks({ actorId }: { actorId: string }) {
+export function PersonWorks({
+  actorId,
+  expanded = false
+}: {
+  actorId: string
+  expanded?: boolean
+}) {
   const { manifest } = useApp(),
     location = useLocation(),
     navigate = useNavigate()
   const params = new URLSearchParams(location.search)
   const file = manifest?.works?.people[actorId]
   const [opened, setOpened] = useState(false)
-  const active = opened || ['work', 'wq', 'wp', 'wy', 'wm', 'ws'].some(key => params.has(key))
+  const active =
+    expanded || opened || ['work', 'wq', 'wp', 'wy', 'wm', 'ws'].some(key => params.has(key))
   const request = useResource(active && file ? file : '', () => resource<Collection>(file!))
   const update = (key: string, value: string) => {
     // 打开作品压入一层历史，让后退先关作品。直达链接没有该历史，只移除参数。

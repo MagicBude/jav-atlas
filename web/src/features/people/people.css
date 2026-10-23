@@ -575,3 +575,22 @@ dialog.drawer {
     flex-wrap: wrap;
   }
 }
+
+/* 人物分区一次只展示一个；保留组件实例不代表把全部资料铺在长页上。 */
+.person-detail > section[hidden] {
+  display: none;
+}
+.section-nav {
+  gap: 4px;
+  overflow-x: auto;
+}
+.section-nav button {
+  white-space: nowrap;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+.section-nav button[aria-pressed='true'] {
+  background: var(--primary, #245bc1);
+  color: white;
+  text-decoration: none;
+}

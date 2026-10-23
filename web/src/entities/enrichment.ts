@@ -2,7 +2,8 @@
 export interface Enrichment {
   id: string
   sourceUrl: string
-  fetchedAt: string
+  fetchedAt: string | number
+  reviewsFetchedAt?: string | number
   metadata: {
     number: string
     score?: string

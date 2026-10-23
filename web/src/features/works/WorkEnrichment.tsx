@@ -31,6 +31,8 @@ function Review({ review }: { review: Enrichment['reviews'][number] }) {
 }
 export function WorkEnrichment({ data }: { data: Enrichment }) {
   const [expanded, setExpanded] = useState(false)
+  // 元数据采集不请求评论；空数组不能解读成“来源没有评论”，因此不展示空评论区。
+  if (!data.reviews.length) return null
   return (
     <section className="work-enrichment">
       <div className="enrichment-heading">

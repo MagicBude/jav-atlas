@@ -36,6 +36,30 @@ export default function PersonPage({
     navigate = useNavigate()
   const { manifest, data, favorite, drafts, setDraft, repository, commit } = useApp()
   const valid = ['minnano', 'javdb'].includes(source) && /^[a-zA-Z0-9_-]+$/.test(id)
+  // 分区属于可分享的URL状态；作品参数的旧链接仍自动打开作品区。
+  const params = new URLSearchParams(location.search)
+  const sections = [
+    'basic',
+    ...(source === 'minnano' ? ['works'] : []),
+    'related',
+    'personal',
+    'raw'
+  ]
+  const requestedSection =
+    params.get('section') ||
+    (['work', 'wq', 'wp', 'wy', 'wm', 'ws'].some(key => params.has(key)) && source === 'minnano'
+      ? 'works'
+      : 'basic')
+  const activeSection = sections.includes(requestedSection) ? requestedSection : 'basic'
+  const switchSection = (section: string) => {
+    const next = new URLSearchParams(location.search)
+    next.set('section', section)
+    // 替换而非堆叠历史：关闭人物仍能返回原列表；各分区保持挂载以保留输入与滚动内容。
+    navigate(
+      { pathname: location.pathname, search: next.toString() },
+      { replace: true, state: location.state }
+    )
+  }
   const index = useResource(manifest && valid ? `${manifest.version}:${source}` : '', () =>
     loadIndex(manifest!, source as Source)
   )
@@ -144,10 +168,6 @@ export default function PersonPage({
             <p className="muted aliases">{person.aliases.join(' / ')}</p>
           )}
           {!sourcePerson && <span className="badge">当前数据未收录 · 保留个人快照</span>}
-          <p className="small muted">
-            采集时间：
-            {person.fetchedAt ? new Date(person.fetchedAt).toLocaleString('zh-CN') : '未知'}
-          </p>
         </div>
       </div>
       <div className="detail-actions">
@@ -181,23 +201,21 @@ export default function PersonPage({
             {[
               ['basic', '基本资料'],
               ...(source === 'minnano' ? [['works', '作品']] : []),
-              ['raw', '原始资料'],
               ['related', '相关人物'],
-              ['personal', '我的资料']
+              ['personal', '我的资料'],
+              ['raw', '原始资料']
             ].map(([target, label]) => (
               <button
                 key={target}
-                onClick={() =>
-                  document
-                    .getElementById(`${key}-${target}`)
-                    ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                }
+                aria-pressed={activeSection === target}
+                aria-controls={`${key}-${target}`}
+                onClick={() => switchSection(target)}
               >
                 {label}
               </button>
             ))}
           </nav>
-          <section id={`${key}-basic`}>
+          <section id={`${key}-basic`} hidden={activeSection !== 'basic'}>
             <h2>基本资料</h2>
             <dl className="facts">
               {fields
@@ -283,7 +301,7 @@ export default function PersonPage({
               ))}
             </div>
           </section>
-          <section id={`${key}-personal`}>
+          <section id={`${key}-personal`} hidden={activeSection !== 'personal'}>
             <h2>我的资料</h2>
             <p className="muted">个人标签：{display(localValue(record, 'personalTags'))}</p>
             <p className="personal-note">{display(localValue(record, 'note'))}</p>
@@ -316,8 +334,12 @@ export default function PersonPage({
               </button>
             )}
           </section>
-          <section id={`${key}-raw`}>
+          <section id={`${key}-raw`} hidden={activeSection !== 'raw'}>
             <h2>原始资料</h2>
+            <p className="small muted">
+              资料取得时间：
+              {person.fetchedAt ? new Date(person.fetchedAt).toLocaleString('zh-CN') : '未知'}
+            </p>
             <p className="muted small">
               以下始终展示来源记录；本地修改不会覆盖这里。重复标签、链接与未映射字段均保留。
             </p>
@@ -384,12 +406,12 @@ export default function PersonPage({
               ))}
           </section>
           {source === 'minnano' && (
-            <section id={`${key}-works`}>
+            <section id={`${key}-works`} hidden={activeSection !== 'works'}>
               <h2>作品</h2>
-              <PersonWorks key={id} actorId={id} />
+              <PersonWorks key={id} actorId={id} expanded={activeSection === 'works'} />
             </section>
           )}
-          <section id={`${key}-related`}>
+          <section id={`${key}-related`} hidden={activeSection !== 'related'}>
             <h2>相关人物</h2>
             <div className="related-list">
               {detail.value?.related.length ? (
