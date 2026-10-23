@@ -112,13 +112,18 @@ export function WorkDetail({ id }: { id: string }) {
         </details>
       )}
       {m?.tags?.length ? (
-        <div className="work-tags">
-          {m.tags.map(t => (
-            <span className="badge" key={t.id}>
-              {t.name}
-            </span>
-          ))}
-        </div>
+        <section className="work-classification">
+          <h3>
+            标签 <small className="muted">JavDB</small>
+          </h3>
+          <div className="work-tags">
+            {m.tags.map(t => (
+              <span className="badge" key={t.id}>
+                {t.name}
+              </span>
+            ))}
+          </div>
+        </section>
       ) : null}
       <section className="work-performers">
         <h3>
@@ -173,6 +178,7 @@ export function WorkDetail({ id }: { id: string }) {
       {extra.error && (
         <p role="alert">
           JavDB补充资料加载失败。<button onClick={extra.retry}>重试</button>
+          <button onClick={() => window.location.reload()}>刷新网页数据</button>
         </p>
       )}
       {extraFile && !data && !extra.error && <p className="muted">正在读取评分和短评…</p>}
