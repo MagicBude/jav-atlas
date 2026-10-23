@@ -1,27 +1,52 @@
 /**
- * @file 两个人物的独立作品试采。每次请求串行且至少间隔500ms，不下载封面或视频。
- * 完整是“作品分页链遍历成功”，与详情补齐分开。预算用完保存断点；失败非零退出。
+ * @file 有预算的作品分批采集。默认保留两人试采，显式选择 ranked 才启用人物池轮转。
+ * 完整是“作品分页链稳定遍历”，与详情补齐分开；不下载封面或视频。
+ * 来源暂时失败以退出码2表达，允许Actions保存有效断点；程序或文件错误仍用1阻断提交。
  */
-const fs = require('fs')
 const path = require('path')
 const { readJson, writeJson, envInt } = require('./lib/runtime')
 const { dataPaths } = require('./lib/data-paths')
 const { parseList, parseDetail } = require('./lib/minnano-works')
+const { planActors, RequestBudget } = require('./lib/works-policy')
 const base = 'https://www.minnano-av.com/'
 const root = path.join(path.dirname(dataPaths().minnanoActresses), 'works')
-const ids = ['190754', '125605'] // 试采白名单，不提供全池自动扩展。
 const pool = readJson(dataPaths().minnanoRankedPool, null)
-if (!ids.every(id => Object.hasOwn(pool?.members || {}, id))) throw Error('试采人物不在榜单池')
+const scope = process.env.WORK_SCOPE || 'trial'
+if (!['trial', 'ranked'].includes(scope)) throw Error('WORK_SCOPE只支持trial或ranked')
+const ids = scope === 'trial' ? ['190754', '125605'] : Object.keys(pool?.members || {})
+if (!ids.length || !ids.every(id => /^\d+$/.test(id) && Object.hasOwn(pool?.members || {}, id)))
+  throw Error('作品采集人物不在有效榜单池')
 const pageBudget = envInt('WORK_PAGES', 20, 1, 100)
 const detailBudget = envInt('WORK_DETAILS', 50, 0, 100)
+const peopleBudget = envInt('WORK_PEOPLE', 5, 1, 20)
+const perPersonPages = envInt('WORK_PERSON_PAGES', 5, 1, 100)
+const requests = new RequestBudget(envInt('WORK_REQUESTS', 100, 1, 300))
 const stateFile = path.join(root, 'progress.json')
 const state = readJson(stateFile, { schemaVersion: 1, people: {}, pendingDetails: {} })
 if (state.schemaVersion !== 1 || !state.people || !state.pendingDetails)
   throw Error('作品断点格式无效')
+if (
+  !Object.keys(state.people).every(id => /^\d+$/.test(id)) ||
+  !Object.keys(state.pendingDetails).every(id => /^\d+$/.test(id))
+)
+  throw Error('作品断点包含非法原生ID，拒绝请求或写入')
+// trial不能消费此前扩池留下的其他人物待办；共享作品仍以作品原生ID去重。
+const allowedDetails =
+  scope === 'trial'
+    ? new Set(
+        ids.flatMap(id =>
+          readJson(path.join(root, 'people', id + '.json'), { entries: [] })
+            .entries.filter(row => row.kind === 'work')
+            .map(row => row.id)
+        )
+      )
+    : null
 let lastRequest = 0
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 async function get(url) {
   for (let attempt = 0; attempt < 3; attempt++) {
+    // 在请求前扣预算，因此重试和完成前的首页复核也不可能突破硬上限。
+    requests.take()
     await sleep(Math.max(0, 500 - (Date.now() - lastRequest)))
     lastRequest = Date.now()
     try {
@@ -47,24 +72,67 @@ async function get(url) {
 }
 const listUrl = (id, page) =>
   page === 1 ? base + `actress${id}.html` : base + `actress.php?actress_id=${id}&page=${page}`
-const report = { startedAt: Date.now(), pages: 0, details: 0, failures: [], people: [] }
+const report = {
+  startedAt: Date.now(),
+  scope,
+  budgets: {
+    people: peopleBudget,
+    pages: pageBudget,
+    perPersonPages,
+    details: detailBudget,
+    requests: requests.limit
+  },
+  pages: 0,
+  details: 0,
+  failures: [],
+  people: [],
+  budgetExhausted: false
+}
 function save() {
   writeJson(stateFile, state)
 }
 function enqueue(entry) {
   if (entry.kind !== 'work') return
+  allowedDetails?.add(entry.id)
   const file = path.join(root, 'records', entry.id + '.json')
   const old = readJson(file, null)
-  if (!old?.fetchedAt || Date.now() - old.fetchedAt > 7 * 86400000)
-    state.pendingDetails[entry.id] ||= { attempts: 0, nextRetryAt: 0 }
+  // 已有完整详情默认长期复用；新发行作品由列表发现，不为扩池每天重刷旧作品。
+  if (!old?.fetchedAt) state.pendingDetails[entry.id] ||= { attempts: 0, nextRetryAt: 0 }
 }
-async function run() {
-  for (const actorId of ids) {
+/** 只把网络/网页解析失败标为来源问题；磁盘写入等程序错误不进入可提交的容错路径。 */
+async function sourceRead(url, parse) {
+  let html
+  try {
+    html = await get(url)
+  } catch (error) {
+    error.sourceUnavailable = !error.budgetExhausted
+    throw error
+  }
+  try {
+    return parse(html)
+  } catch (error) {
+    // 解析器明确抛出的校验Error表示网页不符合预期；TypeError等编程异常必须阻断。
+    if (error.constructor === Error) error.sourceUnavailable = true
+    throw error
+  }
+}
+async function collectLists() {
+  const selected = planActors({
+    ids,
+    rankings: readJson(dataPaths().minnanoRankings, {}),
+    people: state.people,
+    now: Date.now(),
+    limit: peopleBudget
+  })
+  report.eligiblePeople = ids.length
+  for (const actorId of selected) {
+    if (report.pages >= pageBudget || requests.used >= requests.limit) break
     const file = path.join(root, 'people', actorId + '.json')
     const person = readJson(file, { actorId, entries: [], completedAt: null })
     let scan = state.people[actorId]
     if (!scan || scan.finished || Date.now() - scan.startedAt > 86400000)
       scan = state.people[actorId] = {
+        lastScheduledAt: scan?.lastScheduledAt || 0,
         scanId: `${actorId}-${Date.now()}`,
         startedAt: Date.now(),
         nextPage: 1,
@@ -72,15 +140,20 @@ async function run() {
         ids: [],
         firstIds: []
       }
+    scan.lastScheduledAt = Date.now()
+    let actorPages = 0
     const entries = new Map(person.entries.map(e => [e.id, e]))
     try {
-      while (scan.nextPage && report.pages < pageBudget) {
+      while (scan.nextPage && report.pages < pageBudget && actorPages < perPersonPages) {
         const page = scan.nextPage
-        const parsed = parseList(await get(listUrl(actorId, page)), actorId, page)
+        const parsed = await sourceRead(listUrl(actorId, page), html =>
+          parseList(html, actorId, page)
+        )
         report.pages++
+        actorPages++
         const signature = parsed.entries.map(e => e.id).join(',')
         if (Object.values(scan.pages).includes(signature) && signature)
-          throw Error('重复分页，停止而不标完成')
+          throw Object.assign(Error('重复分页，停止而不标完成'), { sourceUnavailable: true })
         scan.pages[page] = signature
         if (page === 1) scan.firstIds = parsed.entries.filter(e => e.kind === 'work').map(e => e.id)
         for (let i = 0; i < parsed.entries.length; i++) {
@@ -120,7 +193,7 @@ async function run() {
       }
       if (!scan.nextPage) {
         // 最后重新核对首页，避免跨页时源站变动却被误标为稳定遍历。
-        const check = parseList(await get(listUrl(actorId, 1)), actorId, 1)
+        const check = await sourceRead(listUrl(actorId, 1), html => parseList(html, actorId, 1))
         const stable =
           JSON.stringify(check.entries.filter(e => e.kind === 'work').map(e => e.id)) ===
           JSON.stringify(scan.firstIds)
@@ -133,11 +206,17 @@ async function run() {
         }
         scan.finished = true
         scan.stable = stable
+        scan.completedAt = stable ? Date.now() : null
         writeJson(file, person)
         save()
       }
     } catch (error) {
-      report.failures.push({ actorId, page: scan.nextPage, error: error.message })
+      if (error.budgetExhausted) report.budgetExhausted = true
+      else if (error.sourceUnavailable) {
+        scan.attempts = (scan.attempts || 0) + 1
+        scan.nextRetryAt = Date.now() + Math.min(86400000, 60000 * 2 ** Math.min(scan.attempts, 10))
+        report.failures.push({ actorId, page: scan.nextPage, error: error.message })
+      } else throw error
       save()
     }
     report.people.push({
@@ -148,12 +227,24 @@ async function run() {
       stable: scan.stable || false
     })
   }
+}
+async function collectDetails() {
   for (const [id, task] of Object.entries(state.pendingDetails)) {
     if (report.details >= detailBudget) break
+    if (allowedDetails && !allowedDetails.has(id)) continue
     if (task.nextRetryAt > Date.now()) continue
+    // 兼容旧断点：旧版本会排入七天前的详情；扩池阶段复用已有成功版本。
+    if (readJson(path.join(root, 'records', id + '.json'), null)?.fetchedAt) {
+      delete state.pendingDetails[id]
+      continue
+    }
+    if (requests.used >= requests.limit) {
+      report.budgetExhausted = true
+      break
+    }
     report.details++
     try {
-      const fresh = parseDetail(await get(base + `av${id}.html`), id)
+      const fresh = await sourceRead(base + `av${id}.html`, html => parseDetail(html, id))
       const file = path.join(root, 'records', id + '.json')
       const old = readJson(file, {})
       const record = {
@@ -168,6 +259,11 @@ async function run() {
       writeJson(file, record)
       delete state.pendingDetails[id]
     } catch (error) {
+      if (error.budgetExhausted) {
+        report.budgetExhausted = true
+        break // 预算暂停不是源站失败，不增加尝试次数或退避时间。
+      }
+      if (!error.sourceUnavailable) throw error
       task.attempts++
       task.lastError = error.message
       task.nextRetryAt =
@@ -179,11 +275,20 @@ async function run() {
     }
     save()
   }
+}
+async function run() {
+  // 先处理旧待办，再发现新作品，最后用剩余详情预算补新待办，避免详情长期饥饿。
+  await collectDetails()
+  await collectLists()
+  await collectDetails()
+  save()
   report.finishedAt = Date.now()
+  report.requests = requests.used
+  report.budgetExhausted ||= requests.used >= requests.limit
   report.pendingDetails = Object.keys(state.pendingDetails).length
   writeJson(path.join(root, 'report.json'), report)
   console.log(JSON.stringify(report, null, 2))
-  if (report.failures.length) process.exitCode = 1
+  if (report.failures.length) process.exitCode = 2
 }
 run().catch(error => {
   console.error(error)

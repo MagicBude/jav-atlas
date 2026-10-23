@@ -23,6 +23,11 @@ on:
         description: 'ranked/profiles 每轮最多补详情和头像数（1–1000），默认750'
         type: string
         default: '750'
+      work_scope:
+        description: 'works专用：trial两人验证；ranked榜单人物池分批轮转'
+        type: choice
+        options: [trial, ranked]
+        default: trial
   schedule:
     - cron: '30 21 * * *' # UTC 21:30 = 北京 05:30，实际运行可能延迟。
 
@@ -54,11 +59,30 @@ jobs:
           RELAY_DIR: relay
           DIRECTORY_PAGES: ${{ inputs.directory_pages || '20' }}
           BACKFILL_LIMIT: ${{ inputs.profile_limit || '750' }}
+          # 作品仅手动source=works时执行。ranked每日定时不会触发作品采集。
+          WORK_SCOPE: ${{ inputs.work_scope || 'trial' }}
+          WORK_PEOPLE: '5'
+          WORK_PERSON_PAGES: '5'
+          WORK_PAGES: '20'
+          WORK_DETAILS: '50'
+          WORK_REQUESTS: '100'
           # 无码样本约 203 页后不再新增，300 留余量；不代表全站覆盖。
           UC_PAGES: '300'
           MOVIE_PAGES: '40'
-        run: npm run collect -- "$MODE" "$SOURCE"
-      # 成功和失败都上传现场；失败产物只供排查，不会提交为有效更新。
+        run: |
+          if npm run collect -- "$MODE" "$SOURCE"; then
+            exit 0
+          else
+            code=$?
+            # 作品退出码2表示来源暂不可用，已有有效数据和失败队列均已安全保存。
+            # 允许提交该断点，下一台runner才能续跑；其他来源/程序错误仍阻断提交。
+            if [ "$SOURCE" = "works" ] && [ "$code" = "2" ]; then
+              echo "::warning::部分作品来源不可用，保存有效进度与失败待办；不代表完整采集"
+              exit 0
+            fi
+            exit "$code"
+          fi
+      # 所有现场均上传；只有正常结束或作品明确返回的可恢复来源失败才允许提交。
       - name: 保存本轮产物
         if: always()
         uses: actions/upload-artifact@v4
@@ -72,6 +96,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add relay/
           if ! git diff --cached --quiet; then
-            git commit -m "数据：更新演员资料与榜单" -m "变更：保存本次采集的 JSON 与头像。" -m "原因：同步来源网站资料。" -m "验证：离线检查及选定采集步骤成功，数据质量待人工验收。" -m "限制：人物发现范围有限，无法确认的性别保留未知。"
+            git commit -m "数据：保存资料更新与采集进度" -m "变更：保存本次采集的 JSON、头像与断点。" -m "原因：同步来源网站资料并支持下轮续跑。" -m "验证：离线检查通过；来源缺失与未完成待办以采集报告为准，数据质量待人工验收。" -m "限制：人物发现范围有限，无法确认的性别保留未知；保存进度不代表全量采集完成。"
             git push
           fi

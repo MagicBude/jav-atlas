@@ -43,6 +43,150 @@ const fs = require('node:fs')
 const os = require('node:os')
 const path = require('node:path')
 const { spawnSync } = require('node:child_process')
+const { planActors, RequestBudget } = require('../tools/lib/works-policy')
+
+test('人物队列优先当前榜单，已服务者让位，完成冷却与失败退避独立生效', () => {
+  const now = 2000000000
+  const args = {
+    ids: ['1', '2', '3', '4', '5'],
+    rankings: { day: [{ id: '2', rank: 1 }] },
+    people: {
+      3: { lastScheduledAt: 100 },
+      4: { finished: true, stable: true, completedAt: now - 1 },
+      5: { nextRetryAt: now + 1 }
+    },
+    now,
+    limit: 5
+  }
+  assert.deepEqual(planActors(args), ['2', '1', '3'])
+  args.people['2'] = { lastScheduledAt: now }
+  assert.deepEqual(planActors(args), ['1', '3', '2'])
+  args.now += 8 * 86400000
+  assert(planActors(args).includes('4'))
+  assert(planActors(args).includes('5'))
+})
+
+test('总请求预算涵盖全部尝试，耗尽信号与来源失败区分', () => {
+  const budget = new RequestBudget(2)
+  budget.take()
+  budget.take()
+  assert.throws(
+    () => budget.take(),
+    error => error.budgetExhausted === true
+  )
+  assert.equal(budget.used, 2)
+})
+
+/** 每个用例在临时数据根模拟多轮runner；全部断点只来自文件，不依赖进程内变量。 */
+function queueSandbox(fn) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'atlas-work-queue-'))
+  const read = file => JSON.parse(fs.readFileSync(path.join(dir, 'minnano/works', file), 'utf8'))
+  const write = (file, value) => {
+    const target = path.join(dir, 'minnano', file)
+    fs.mkdirSync(path.dirname(target), { recursive: true })
+    fs.writeFileSync(target, JSON.stringify(value))
+  }
+  const run = (env = {}) =>
+    spawnSync(
+      process.execPath,
+      [
+        '--require',
+        path.join(__dirname, 'fixtures/works-network.js'),
+        path.join(__dirname, '../tools/works-relay.js')
+      ],
+      {
+        env: { ...process.env, RELAY_DIR: dir, WORK_SCOPE: 'ranked', WORK_DETAILS: '0', ...env },
+        encoding: 'utf8',
+        timeout: 15000
+      }
+    )
+  try {
+    write('ranked-pool.json', { members: { 190754: {}, 125605: {}, 999999: {} } })
+    fn({ dir, read, write, run })
+  } finally {
+    assert(path.resolve(dir).startsWith(path.resolve(os.tmpdir()) + path.sep))
+    fs.rmSync(dir, { recursive: true, force: true })
+  }
+}
+
+test('每人分页暂停后跨轮续跑，首页复核也受总请求上限约束', () =>
+  queueSandbox(({ dir, read, run }) => {
+    const log = path.join(dir, 'requests.log')
+    const env = {
+      WORK_FIXTURE_PAGES: '2',
+      WORK_PEOPLE: '1',
+      WORK_PERSON_PAGES: '1',
+      WORK_REQUESTS: '1',
+      WORK_FIXTURE_LOG: log
+    }
+    // 前三轮每个人各访问一页；后续轮转回第一位，沿同一scan接第二页。
+    for (let i = 0; i < 3; i++) assert.equal(run(env).status, 0)
+    const first = read('progress.json').people['125605']
+    assert.equal(first.nextPage, 2)
+    assert.equal(run(env).status, 0)
+    const resumed = read('progress.json').people['125605']
+    assert.equal(resumed.scanId, first.scanId)
+    assert.equal(resumed.nextPage, null)
+    assert.equal(resumed.finished, undefined) // 首页复核尚无请求预算，不能标完成。
+    assert.equal(read('report.json').requests, 1)
+    assert.equal(fs.readFileSync(log, 'utf8').trim().split('\n').length, 4)
+  }))
+
+test('来源失败保留其他人物进度及退避，磁盘错误不能伪装成可恢复失败', () =>
+  queueSandbox(({ dir, read, run }) => {
+    const partial = run({ WORK_FIXTURE_BAD_ACTOR: '125605' })
+    assert.equal(partial.status, 2, partial.stdout + partial.stderr)
+    assert(read('people/190754.json').completedAt)
+    assert(read('progress.json').people['125605'].nextRetryAt > Date.now())
+    assert.equal(read('report.json').failures.length, 1)
+    const next = run({ WORK_FIXTURE_BAD_ACTOR: '125605' })
+    assert.equal(next.status, 0, next.stdout + next.stderr)
+    assert.equal(read('report.json').requests, 0)
+    // 把报告路径变成目录，触发真实文件写入错误；必须退出1，Actions不允许提交。
+    fs.rmSync(path.join(dir, 'minnano/works/report.json'))
+    fs.mkdirSync(path.join(dir, 'minnano/works/report.json'))
+    assert.equal(run().status, 1)
+  }))
+
+test('已有成功详情跨越七天仍复用，旧待办优先于新列表消耗请求预算', () =>
+  queueSandbox(({ read, write, run }) => {
+    write('works/records/123.json', { id: '123', fetchedAt: 1, custom: '保留' })
+    write('works/progress.json', {
+      schemaVersion: 1,
+      people: {},
+      pendingDetails: {
+        123: { attempts: 0, nextRetryAt: 0 },
+        456: { attempts: 0, nextRetryAt: 0 }
+      }
+    })
+    const result = run({ WORK_DETAILS: '1', WORK_REQUESTS: '1' })
+    assert.equal(result.status, 0, result.stdout + result.stderr)
+    assert.equal(read('records/123.json').custom, '保留')
+    assert.equal(read('records/456.json').id, '456')
+    assert.equal(read('report.json').requests, 1)
+    assert.equal(read('report.json').pages, 0)
+  }))
+test('trial范围不消费其他人物待办，非法断点ID在联网前被拒绝', () =>
+  queueSandbox(({ dir, read, write, run }) => {
+    write('works/progress.json', {
+      schemaVersion: 1,
+      people: {},
+      pendingDetails: { 999123: { attempts: 0, nextRetryAt: 0 } }
+    })
+    const trial = run({ WORK_SCOPE: 'trial', WORK_DETAILS: '2' })
+    assert.equal(trial.status, 0, trial.stdout + trial.stderr)
+    assert(read('progress.json').pendingDetails['999123'])
+    assert.equal(read('report.json').details, 2)
+    const log = path.join(dir, 'invalid-requests.log')
+    write('works/progress.json', {
+      schemaVersion: 1,
+      people: {},
+      pendingDetails: { '../bad': { attempts: 0, nextRetryAt: 0 } }
+    })
+    assert.equal(run({ WORK_FIXTURE_LOG: log }).status, 1)
+    assert.equal(fs.existsSync(log), false)
+  }))
+
 test('两人试采共享作品去重，详情预算待办可跨轮补齐，既有字段保留', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'atlas-works-'))
   try {
@@ -53,7 +197,7 @@ test('两人试采共享作品去重，详情预算待办可跨轮补齐，既�
     )
     const record = path.join(dir, 'minnano/works/records/123.json')
     fs.mkdirSync(path.dirname(record), { recursive: true })
-    fs.writeFileSync(record, JSON.stringify({ id: '123', custom: '保留', fetchedAt: 1 }))
+    fs.writeFileSync(record, JSON.stringify({ id: '123', custom: '保留' }))
     const run = () =>
       spawnSync(
         process.execPath,

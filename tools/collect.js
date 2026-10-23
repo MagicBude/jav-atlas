@@ -11,7 +11,7 @@ if (
   !['works', 'ranked', 'all', 'minnano', 'javdb', 'male', 'directory', 'profiles'].includes(source)
 ) {
   throw new Error(
-    '用法：node tools/collect.js smoke|daily ranked|all|minnano|javdb|male|directory|profiles'
+    '用法：node tools/collect.js smoke|daily ranked|works|all|minnano|javdb|male|directory|profiles'
   )
 }
 const env = { ...process.env, RELAY_DIR: relayDir() }
