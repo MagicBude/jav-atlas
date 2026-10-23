@@ -18,7 +18,7 @@ it('目录保留844个类型内类别，未知名称不被同号其他类别覆�
   expect(Object.keys(dictionary.terms)).toHaveLength(844)
   for (const [key, term] of Object.entries(dictionary.terms)) {
     const id = key.split(':')[1]
-    expect(javdbTagLabel(id, term.sourceNames[0])).toBe(term.label)
+    expect(javdbTagLabel(id, term.sourceNames[0], Number(key.split(':')[0]))).toBe(term.label)
   }
   expect(javdbTagLabel('109', '未知原名')).toBe('未知原名')
   expect(javdbTagLabel('future-tag', '原名称')).toBe('原名称')
@@ -64,7 +64,7 @@ it('筛选面板不会把截图中的三个类别放进地点，且同号名称�
   expect(place).not.toContain('戀乳癖')
   expect(place).not.toContain('濫交')
   expect(place).not.toContain('流汗')
-  expect(html).toContain('戀乳癖</span><small>2</small>')
+  expect(html).toContain('恋乳癖</span><small>2</small>')
   expect(html).toContain('泳池</span><small>1</small>')
 })
 
@@ -76,7 +76,7 @@ it('有类型后简繁差异不影响归组，同号其他类型不会被选中'
   expect(parseTagSelection(key)).toEqual({ id: '109', name: undefined, type: 0 })
   expect(javdbTagGroup('109', '恋乳癖', 0)?.id).toBe('0:subject')
   expect(javdbTagGroup('109', '泳池', 2)?.id).toBe('2:place')
-  expect(javdbTagLabel('109', '恋乳癖', 0)).toBe('戀乳癖')
+  expect(javdbTagLabel('109', '恋乳癖', 0)).toBe('恋乳癖')
   expect(matchesWorkFacets(censored, new URLSearchParams({ wf_tag: key }))).toBe(true)
   expect(matchesWorkFacets(western, new URLSearchParams({ wf_tag: key }))).toBe(false)
   expect(javdbTagGroup('40', '颜射', 0)).toBeUndefined()

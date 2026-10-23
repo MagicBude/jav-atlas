@@ -8,6 +8,10 @@ import groups from '../data/javdb-tag-groups.json'
 import { javdbContentTypes } from './javdbCatalog'
 const terms: Record<string, { label: string; sourceNames: string[]; status: string }> =
   dictionary.terms
+/** 分组显示名只采用已核实的官方简体源码；没有证据的类型保留接口原名。 */
+export function javdbGroupLabel(id: string, original: string) {
+  return (dictionary.groupLabels as Record<string, string>)[id] || original
+}
 export const validJavdbType = (type: unknown): type is number =>
   Number.isInteger(type) && Number(type) >= 0 && Number(type) <= 4
 export function javdbTagLabel(id: string, original: string, type?: number) {
@@ -44,6 +48,9 @@ export function javdbTagGroup(id: string, original: string, type?: number) {
   const categories = new Set(matches.map(group => group.id.split(':')[1]))
   if (categories.size !== 1) return undefined
   return validJavdbType(type)
-    ? { id: matches[0].id, name: javdbContentTypes[type].name + ' · ' + matches[0].name }
-    : { id: matches[0].id.split(':')[1], name: matches[0].name }
+    ? {
+        id: matches[0].id,
+        name: javdbContentTypes[type].name + ' · ' + javdbGroupLabel(matches[0].id, matches[0].name)
+      }
+    : { id: matches[0].id.split(':')[1], name: javdbGroupLabel(matches[0].id, matches[0].name) }
 }

@@ -1,10 +1,12 @@
 /**
  * 类别目录是独立的来源参考页，展示全部目录项，不受本地已收录作品范围限制。
  * 查询参数保存类型和搜索词，刷新、复制链接与浏览器后退均可恢复当前查阅状态。
- * 名称直接取快照的 sourceNames，不用显示词典改写来源总表。
+ * 接口原名与已核实的官方简体名称分列展示，显示词典不改写来源快照。
  */
 import { useSearchParams } from 'react-router-dom'
 import groups from '../data/javdb-tag-groups.json'
+import dictionary from '../data/javdb-tag-labels.json'
+import { javdbGroupLabel, javdbTagLabel } from '../entities/tagLabels'
 import { javdbContentTypes } from '../entities/javdbCatalog'
 import { normalize } from '../entities/person'
 import './tag-catalog.css'
@@ -21,7 +23,7 @@ export default function TagCatalogPage() {
         id =>
           !search ||
           normalize(
-            `${group.name} ${id} ${(group.sourceNames as Record<string, string | undefined>)[id]}`
+            `${javdbGroupLabel(group.id, group.name)} ${javdbTagLabel(id, (group.sourceNames as Record<string, string | undefined>)[id] || id, type)} ${group.name} ${id} ${(group.sourceNames as Record<string, string | undefined>)[id]}`
           ).includes(normalize(search))
       )
     }))
@@ -41,6 +43,9 @@ export default function TagCatalogPage() {
         complete: false,
         scope: 'types-0-4-category-groups',
         types: javdbContentTypes,
+        localizations: dictionary.localizations,
+        displayLabels: dictionary.terms,
+        groupLabels: dictionary.groupLabels,
         groups
       },
       null,
@@ -67,7 +72,8 @@ export default function TagCatalogPage() {
       </header>
       <p className="notice">
         按 JavDB
-        接口原有顺序、分组和名称展示，包含尚未收录作品的类别。快照日期：2026-10-23；仅展示类别分组，不含年份、月份、时长等通用筛选，不保证覆盖历史或隐藏标签。
+        接口原有顺序、分组和名称展示，包含尚未收录作品的类别。快照日期：2026-10-23；仅展示类别分组，不含年份、月份、时长等通用筛选，不保证覆盖历史或隐藏标签。已核实官方简体：有码
+        307 项；其他类型仍沿用接口原名。
       </p>
       <nav className="catalog-types" aria-label="目录内容类型">
         {javdbContentTypes.map(item => (
@@ -102,7 +108,7 @@ export default function TagCatalogPage() {
         {visible.map(group => (
           <section className="catalog-group" key={group.id} aria-labelledby={'catalog-' + group.id}>
             <h2 id={'catalog-' + group.id}>
-              {group.name}
+              {javdbGroupLabel(group.id, group.name)}
               <span>{group.tags.length}</span>
             </h2>
             <table>
@@ -112,13 +118,23 @@ export default function TagCatalogPage() {
               <thead>
                 <tr>
                   <th scope="col">ID</th>
-                  <th scope="col">来源名称</th>
+                  {type === 0 && <th scope="col">官方简体</th>}
+                  <th scope="col">接口原名</th>
                 </tr>
               </thead>
               <tbody>
                 {group.tags.map(id => (
                   <tr key={id}>
                     <td>{id}</td>
+                    {type === 0 && (
+                      <td>
+                        {javdbTagLabel(
+                          id,
+                          (group.sourceNames as Record<string, string | undefined>)[id] || id,
+                          type
+                        )}
+                      </td>
+                    )}
                     <td>{(group.sourceNames as Record<string, string | undefined>)[id]}</td>
                   </tr>
                 ))}
