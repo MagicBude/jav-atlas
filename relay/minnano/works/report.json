@@ -1,24 +1,35 @@
 {
-  "startedAt": 1792651598022,
+  "startedAt": 1792718699996,
+  "scope": "trial",
+  "budgets": {
+    "people": 5,
+    "pages": 20,
+    "perPersonPages": 5,
+    "details": 50,
+    "requests": 100
+  },
   "pages": 6,
-  "details": 46,
+  "details": 1,
   "failures": [],
   "people": [
+    {
+      "actorId": "125605",
+      "formal": 96,
+      "placeholders": 2,
+      "nextPage": null,
+      "stable": true
+    },
     {
       "actorId": "190754",
       "formal": 1,
       "placeholders": 1,
       "nextPage": null,
       "stable": true
-    },
-    {
-      "actorId": "125605",
-      "formal": 95,
-      "placeholders": 2,
-      "nextPage": null,
-      "stable": true
     }
   ],
-  "finishedAt": 1792651627209,
+  "budgetExhausted": false,
+  "eligiblePeople": 2,
+  "finishedAt": 1792718705810,
+  "requests": 9,
   "pendingDetails": 0
 }
