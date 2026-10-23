@@ -6,6 +6,7 @@ import { useMemo } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import type { WorkEntry } from '../../entities/work'
 import { normalize } from '../../entities/person'
+import { javdbTagLabel } from '../../entities/tagLabels'
 import { Modal } from '../../shared/Modal'
 import { WorkDetail } from './WorkDetail'
 import {
@@ -82,9 +83,10 @@ export function WorkBrowser({
         series: '系列',
         tag: '类别'
       }
-      const name =
+      const originalName =
         entries.flatMap(entry => entry.facets?.[kind] || []).find(value => value.id === id)?.name ||
         id
+      const name = kind === 'tag' && id ? javdbTagLabel(id, originalName || id) : originalName
       return id ? [{ key: `wf_${kind}`, label: `${labels[kind]}：${name}` }] : []
     }),
     ...(!hideSearch && params.get(queryKey)

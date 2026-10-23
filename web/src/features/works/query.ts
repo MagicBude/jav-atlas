@@ -1,5 +1,6 @@
 /** 列表排序独立成纯函数：未知评分排最后，同分按日期及原生ID稳定排序。 */
 import type { WorkEntry } from '../../entities/work'
+import { javdbTagLabel } from '../../entities/tagLabels'
 export const facetKeys = ['prefix', 'director', 'maker', 'series', 'tag'] as const
 /** 选项从当前浏览范围生成，以ID去重；同名不同ID仍是独立选项。 */
 export function workFacetOptions(entries: WorkEntry[], kind: string) {
@@ -8,7 +9,9 @@ export function workFacetOptions(entries: WorkEntry[], kind: string) {
     if (kind === 'prefix') {
       const prefix = row.code?.toUpperCase().match(/^([A-Z]+)(?=[-\d])/)?.[1]
       if (prefix) values.set(prefix, prefix)
-    } else for (const value of row.facets?.[kind] || []) values.set(value.id, value.name)
+    } else
+      for (const value of row.facets?.[kind] || [])
+        values.set(value.id, kind === 'tag' ? javdbTagLabel(value.id, value.name) : value.name)
   }
   return [...values]
     .map(([id, name]) => ({ id, name }))

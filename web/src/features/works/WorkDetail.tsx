@@ -12,6 +12,7 @@ import { useResource } from '../../shared/useResource'
 import { RawTree } from '../../shared/RawTree'
 import { WorkEnrichment } from './WorkEnrichment'
 import { facetUrl } from './query'
+import { javdbTagLabel } from '../../entities/tagLabels'
 export function WorkDetail({ id }: { id: string }) {
   const { manifest } = useApp()
   const location = useLocation()
@@ -138,7 +139,7 @@ export function WorkDetail({ id }: { id: string }) {
               <div className="work-tags">
                 {m.tags.map(t => (
                   <Link to={browse('tag', t.id)} className="badge" key={t.id}>
-                    {t.name}
+                    <span title={`JavDB原名称：${t.name}`}>{javdbTagLabel(t.id, t.name)}</span>
                   </Link>
                 ))}
               </div>
