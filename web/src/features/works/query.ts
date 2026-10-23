@@ -2,6 +2,10 @@
 import type { WorkEntry } from '../../entities/work'
 import { javdbTagLabel } from '../../entities/tagLabels'
 export const facetKeys = ['prefix', 'director', 'maker', 'series', 'tag'] as const
+/** 逗号分隔的来源ID兼容旧单选链接，去重防止重复条件。 */
+export const selectedTags = (params: URLSearchParams) => [
+  ...new Set((params.get('wf_tag') || '').split(',').filter(Boolean))
+]
 /** 选项从当前浏览范围生成，以ID去重；同名不同ID仍是独立选项。 */
 export function workFacetOptions(entries: WorkEntry[], kind: string) {
   const values = new Map<string, string>()
@@ -21,6 +25,11 @@ export function matchesWorkFacets(row: WorkEntry, params: URLSearchParams) {
   return facetKeys.every(kind => {
     const selected = params.get(`wf_${kind}`)
     if (!selected) return true
+    if (kind === 'tag') {
+      const ids = selectedTags(params)
+      const matches = (id: string) => row.facets?.tag?.some(value => value.id === id) || false
+      return params.get('wt_mode') === 'any' ? ids.some(matches) : ids.every(matches)
+    }
     if (kind === 'prefix')
       return row.code?.toUpperCase().match(/^([A-Z]+)(?=[-\d])/)?.[1] === selected.toUpperCase()
     return row.facets?.[kind]?.some(value => value.id === selected) || false
@@ -42,6 +51,7 @@ export function clearWorkFilters(search: string, queryKey = 'wq', keepQuery = fa
     'wy',
     'wm',
     'wp',
+    'wt_mode',
     ...facetKeys.map(kind => `wf_${kind}`),
     ...(keepQuery ? [] : [queryKey])
   ])
@@ -53,7 +63,11 @@ export function workQuery(search: string, key: string, value: string) {
   const next = new URLSearchParams(search)
   if (value) next.set(key, value)
   else next.delete(key)
-  if (['q', 'wq', 'wy', 'wm', 'ws', 'wa', ...facetKeys.map(kind => `wf_${kind}`)].includes(key))
+  if (
+    ['q', 'wq', 'wy', 'wm', 'ws', 'wa', 'wt_mode', ...facetKeys.map(kind => `wf_${kind}`)].includes(
+      key
+    )
+  )
     next.delete('wp')
   return next.toString()
 }

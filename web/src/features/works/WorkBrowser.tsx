@@ -7,6 +7,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import type { WorkEntry } from '../../entities/work'
 import { normalize } from '../../entities/person'
 import { javdbTagLabel } from '../../entities/tagLabels'
+import { TagFilters } from './TagFilters'
+import { selectedTags } from './query'
 import { Modal } from '../../shared/Modal'
 import { WorkDetail } from './WorkDetail'
 import {
@@ -75,6 +77,11 @@ export function WorkBrowser({
   const work = params.get('work')
   const conditions = [
     ...facetKeys.flatMap(kind => {
+      if (kind === 'tag')
+        return selectedTags(params).map(id => ({
+          key: `tag:${id}`,
+          label: `类别：${javdbTagLabel(id, id)}`
+        }))
       const id = params.get(`wf_${kind}`)
       const labels = {
         prefix: '番号前缀',
@@ -86,7 +93,7 @@ export function WorkBrowser({
       const originalName =
         entries.flatMap(entry => entry.facets?.[kind] || []).find(value => value.id === id)?.name ||
         id
-      const name = kind === 'tag' && id ? javdbTagLabel(id, originalName || id) : originalName
+      const name = originalName
       return id ? [{ key: `wf_${kind}`, label: `${labels[kind]}：${name}` }] : []
     }),
     ...(!hideSearch && params.get(queryKey)
@@ -165,41 +172,44 @@ export function WorkBrowser({
         >
           <summary>更多条件 · 前缀 / 导演 / 片商 / 系列 / 类别</summary>
           <div className="work-filters">
-            {facetKeys.map(kind => {
-              const labels = {
-                prefix: '番号前缀',
-                director: '导演',
-                maker: '片商',
-                series: '系列',
-                tag: '类别'
-              }
-              const options = workFacetOptions(entries, kind)
-              const selected = params.get(`wf_${kind}`) || ''
-              return (
-                <label className="work-filter-field" key={kind}>
-                  <span>{labels[kind]}</span>
-                  <select
-                    aria-label={`作品${labels[kind]}`}
-                    value={selected}
-                    onChange={event => update(`wf_${kind}`, event.target.value)}
-                  >
-                    <option value="">全部{labels[kind]}</option>
-                    {selected && !options.some(option => option.id === selected) && (
-                      <option value={selected}>{selected}（当前范围无对应资料）</option>
-                    )}
-                    {options.map(option => (
-                      <option key={option.id} value={option.id}>
-                        {option.name}
-                        {options.filter(other => other.name === option.name).length > 1
-                          ? ` · ${option.id}`
-                          : ''}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              )
-            })}
+            {facetKeys
+              .filter(kind => kind !== 'tag')
+              .map(kind => {
+                const labels = {
+                  prefix: '番号前缀',
+                  director: '导演',
+                  maker: '片商',
+                  series: '系列',
+                  tag: '类别'
+                }
+                const options = workFacetOptions(entries, kind)
+                const selected = params.get(`wf_${kind}`) || ''
+                return (
+                  <label className="work-filter-field" key={kind}>
+                    <span>{labels[kind]}</span>
+                    <select
+                      aria-label={`作品${labels[kind]}`}
+                      value={selected}
+                      onChange={event => update(`wf_${kind}`, event.target.value)}
+                    >
+                      <option value="">全部{labels[kind]}</option>
+                      {selected && !options.some(option => option.id === selected) && (
+                        <option value={selected}>{selected}（当前范围无对应资料）</option>
+                      )}
+                      {options.map(option => (
+                        <option key={option.id} value={option.id}>
+                          {option.name}
+                          {options.filter(other => other.name === option.name).length > 1
+                            ? ` · ${option.id}`
+                            : ''}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                )
+              })}
           </div>
+          <TagFilters entries={entries} params={params} update={update} />
           <p className="small muted">导演、片商、系列和类别仅筛选已补充 JavDB 资料的作品。</p>
         </details>
         {conditions.length > 0 && (
@@ -207,7 +217,16 @@ export function WorkBrowser({
             {conditions.map(condition => (
               <button
                 key={condition.key}
-                onClick={() => update(condition.key, '')}
+                onClick={() =>
+                  condition.key.startsWith('tag:')
+                    ? update(
+                        'wf_tag',
+                        selectedTags(params)
+                          .filter(id => id !== condition.key.slice(4))
+                          .join(',')
+                      )
+                    : update(condition.key, '')
+                }
                 title={`清除${condition.label}`}
               >
                 <span>{condition.label}</span>
