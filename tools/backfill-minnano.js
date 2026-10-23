@@ -107,6 +107,16 @@ if (!targets.length) {
     if (result.error) throw result.error
     if (result.status !== 0) {
       report(result.status || 1)
+      // 日常榜单允许详情暂时不可用：保留真实失败报告，不写成功时间，下轮仍会重试。
+      // 仅接受详情脚本约定的退出码 2；语法、文件和其他子步骤错误必须继续阻断。
+      if (
+        file === 'profiles-relay.js' &&
+        result.status === 2 &&
+        process.env.ALLOW_PROFILE_UNAVAILABLE === '1'
+      ) {
+        console.warn('::warning::本轮人物详情暂不可用，已保留旧资料及失败报告，继续更新榜单')
+        process.exit(0)
+      }
       process.exit(result.status || 1)
     }
   }

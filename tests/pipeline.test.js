@@ -44,6 +44,35 @@ function run(dir, file, args = [], extra = {}) {
 }
 const json = (dir, f) => readJson(path.join(dir, f))
 
+test('榜单详情全部不可用仍发布榜单并补图，失败记录保留且下轮继续重试', () =>
+  sandbox(dir => {
+    writeJson(path.join(dir, 'minnano/actresses.json'), [
+      {
+        mnid: '123',
+        name: 'Test Actor',
+        agency: '保留',
+        mimg: 'https://www.minnano-av.com/images/test.jpg'
+      }
+    ])
+    for (let round = 0; round < 2; round++) {
+      success(
+        run(dir, 'collect.js', ['daily', 'ranked'], {
+          FIXTURE_FAIL: 'profile-empty',
+          SKIP_IMAGES: '0'
+        })
+      )
+      const report = json(dir, 'minnano/backfill-report.json')
+      assert.equal(report.exitCode, 2)
+      assert.equal(report.batch.profileFailed, 1)
+      assert.equal(report.batch.missingAvatars, 0)
+      assert.equal(report.scope, 'ranked-pool')
+      assert.equal(json(dir, 'minnano/rankings.json').day.length, 1)
+      const actor = json(dir, 'minnano/actresses.json')[0]
+      assert.equal(actor.agency, '保留')
+      assert.equal(actor.profileFetchedAt, undefined)
+    }
+  }))
+
 test('已知头像直链绕过人物页失败，并接受jpg地址返回的WebP', () =>
   sandbox(dir => {
     writeJson(path.join(dir, 'minnano/actresses.json'), [

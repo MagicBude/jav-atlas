@@ -28,6 +28,8 @@ if (!ids.length) throw new Error('榜单人物池为空，停止采集')
 const limit = envInt('BACKFILL_LIMIT', 750, 1, 1000)
 step('backfill-minnano.js', [], {
   RANKED_ONLY: '1',
+  // 详情补齐是可重试的附加步骤；不让单个人物长期被拦截阻塞完整榜单发布。
+  ALLOW_PROFILE_UNAVAILABLE: '1',
   BACKFILL_LIMIT: String(limit),
   SKIP_IMAGES: '1'
 })

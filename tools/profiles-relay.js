@@ -377,7 +377,10 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
   await Promise.all(Array.from({ length: CONC }, worker))
   if (!ok) {
     saveCache()
-    throw new Error('资料页全部失败或未识别到人物标题，保留原名册')
+    const error = new Error('资料页全部失败或未识别到人物标题，保留原名册')
+    // 退出码 2 只表示已完成请求但全部资料不可用；程序错误仍用 1，调用方不能混淆。
+    error.exitCode = 2
+    throw error
   }
   saveRoster()
   saveCache()
@@ -387,5 +390,5 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
   )
 })().catch(e => {
   console.error('FAIL:', e.stack || e.message)
-  process.exit(1)
+  process.exit(e.exitCode === 2 ? 2 : 1)
 })
