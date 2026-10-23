@@ -130,3 +130,7 @@ Actions仅对source=works的退出码2发出警告并保存有效数据和断点
 report.json新增scope、budgets、requests、eligiblePeople、budgetExhausted，保留实际访问页数、详情任务数、失败列表与逐人状态。eligiblePeople是范围内总人数，不是本轮抓取人数；requests才是实际网络尝试次数。
 
 本地PowerShell可设置WORK_SCOPE=ranked后运行npm run collect -- daily works。所有预算可由WORK_PEOPLE、WORK_PERSON_PAGES、WORK_PAGES、WORK_DETAILS、WORK_REQUESTS覆盖，工具检查合法范围。Actions目前固定保守预算，避免每次手填大量参数。
+
+### 本阶段验证结果
+
+2026-10-23两次真实trial运行成功：第一轮9次请求补到1部新作品，累计97份详情；第二台runner读取持久状态后0次请求，验证冷却和去重复用。70项采集测试与22项前端测试通过。真实全池轮转尚未运行，其边界目前由合成网络覆盖；具体运行ID和数据提交见validation.md。
