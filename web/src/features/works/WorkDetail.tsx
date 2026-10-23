@@ -44,24 +44,30 @@ export function WorkDetail({ id }: { id: string }) {
     m = data?.metadata
   const facts = [
     {
-      label: '发行日期',
-      value: work.releaseDate || m?.release_date,
-      source: work.releaseDate ? 'minnano' : 'JavDB'
+      label: '日期',
+      value: m?.release_date || work.releaseDate,
+      source: m?.release_date ? 'JavDB' : 'minnano'
     },
     { label: '时长', value: m?.duration ? `${m.duration} 分钟` : null, source: 'JavDB' },
-    {
-      label: '厂商 / 厂牌',
-      value: work.makerText || [m?.maker_name, m?.publisher_name].filter(Boolean).join(' / '),
-      source: work.makerText ? 'minnano' : 'JavDB'
-    },
     { label: '导演', value: m?.director_name, source: 'JavDB' },
-    { label: '系列', value: m?.series_name, source: 'JavDB' }
+    {
+      label: '片商',
+      value: m?.maker_name || work.makerText,
+      source: m?.maker_name ? 'JavDB' : 'minnano'
+    },
+    {
+      label: '评分',
+      value: m?.score
+        ? `${m.score} 分 · ${m.reviews_count?.toLocaleString('zh-CN') ?? '未知'} 人评价`
+        : null,
+      source: 'JavDB'
+    }
   ]
   return (
     <div className="work-detail work-reading">
       <header className="work-hero">
         <div className="work-hero-copy">
-          <p className="work-number">{work.code || `#${work.id}`}</p>
+          <p className="work-number">番号：{work.code || `#${work.id}`}</p>
           <h2>{work.title}</h2>
           <div className="work-source-links">
             {safeUrl(work.sourceUrl) && (
@@ -80,13 +86,6 @@ export function WorkDetail({ id }: { id: string }) {
             )}
           </div>
         </div>
-        {m?.score && (
-          <aside className="score-tile">
-            <strong>{m.score}</strong>
-            <span>JavDB 评分</span>
-            <small>{m.reviews_count?.toLocaleString('zh-CN') ?? '未知'} 人评价</small>
-          </aside>
-        )}
       </header>
       <dl className="facts work-core-facts">
         {facts
@@ -114,7 +113,7 @@ export function WorkDetail({ id }: { id: string }) {
       {m?.tags?.length ? (
         <section className="work-classification">
           <h3>
-            标签 <small className="muted">JavDB</small>
+            类别 <small className="muted">JavDB</small>
           </h3>
           <div className="work-tags">
             {m.tags.map(t => (
@@ -127,7 +126,7 @@ export function WorkDetail({ id }: { id: string }) {
       ) : null}
       <section className="work-performers">
         <h3>
-          出演者 <small className="muted">minnano</small>
+          演员 <small className="muted">minnano</small>
         </h3>
         <div className="work-cast">
           {work.cast?.map(a =>
@@ -175,6 +174,12 @@ export function WorkDetail({ id }: { id: string }) {
           </details>
         ) : null}
       </section>
+      {m?.series_name && (
+        <p className="small">
+          <strong>系列：</strong>
+          {m.series_name} <span className="muted">JavDB</span>
+        </p>
+      )}
       {extra.error && (
         <p role="alert">
           JavDB补充资料加载失败。<button onClick={extra.retry}>重试</button>
@@ -186,7 +191,7 @@ export function WorkDetail({ id }: { id: string }) {
       <details className="work-provenance">
         <summary>资料来源与原始记录</summary>
         <p className="small muted">
-          核心资料优先使用minnano，评分及扩展字段来自JavDB。来源差异保留，不回写原记录。
+          日期、片商及扩展字段优先使用JavDB，缺失时回退minnano；标题与主演员列表沿用minnano。来源差异保留，不回写原记录。
         </p>
         {data && (
           <p className="small muted">

@@ -139,3 +139,18 @@
     border-bottom: 1px solid var(--line);
   }
 }
+
+/* 核心字段按JavDB阅读顺序纵向排列，避免两列产生阅读顺序歧义。 */
+.work-core-facts {
+  grid-template-columns: minmax(0, 1fr);
+}
+.work-core-facts > div {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+}
+.work-core-facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
