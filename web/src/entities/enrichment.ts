@@ -12,9 +12,12 @@ export interface Enrichment {
     duration?: number
     release_date?: string
     maker_name?: string
+    maker_id?: string
     publisher_name?: string
     director_name?: string
+    director_id?: string
     series_name?: string
+    series_id?: string
     tags?: { id: string; name: string }[]
     actors?: { id: string; name: string }[]
   }

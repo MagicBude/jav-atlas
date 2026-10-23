@@ -8,6 +8,7 @@ export interface WorkEntry {
   releaseDate?: string | null
   makerText?: string
   actorIds?: string[]
+  facets?: Record<string, { id: string; name: string }[]>
   rating?: { score: number; count: number | null; source: 'javdb' } | null
 }
 /** 全库仅加载轻量摘要；作品详情、评论与来源原文仍按需读取。 */

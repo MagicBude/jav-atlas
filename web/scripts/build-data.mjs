@@ -243,6 +243,19 @@ if (fs.existsSync(path.join(worksRoot, 'people'))) {
   }
 }
 const actorIds = [...new Set([...workIndex.values()].flatMap(entry => entry.actorIds))].sort()
+// 跨作品浏览只保存来源ID及名称，不能用导演/片商同名作为身份合并依据。
+for (const entry of workIndex.values()) {
+  const mapping = mappings[entry.id]
+  const metadata = mapping
+    ? read(`javdb/work-enrichment/records/${mapping.javdbId}.json`, {})?.metadata
+    : null
+  entry.facets = {}
+  for (const kind of ['director', 'maker', 'series'])
+    if (metadata?.[kind + '_id'] && metadata?.[kind + '_name'])
+      entry.facets[kind] = [{ id: String(metadata[kind + '_id']), name: metadata[kind + '_name'] }]
+  if (metadata?.tags?.length)
+    entry.facets.tag = metadata.tags.map(tag => ({ id: String(tag.id), name: tag.name }))
+}
 manifest.works.index = emit('works-index', {
   entries: [...workIndex.values()].sort((a, b) => a.id.localeCompare(b.id)),
   actors: actorIds.map(id => ({ id, name: members[id]?.name || id }))

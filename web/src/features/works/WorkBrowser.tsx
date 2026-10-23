@@ -8,7 +8,7 @@ import type { WorkEntry } from '../../entities/work'
 import { normalize } from '../../entities/person'
 import { Modal } from '../../shared/Modal'
 import { WorkDetail } from './WorkDetail'
-import { clearWorkFilters, compareWorks, workQuery } from './query'
+import { clearWorkFilters, compareWorks, workQuery, facetKeys, matchesWorkFacets } from './query'
 export function WorkBrowser({
   entries,
   actors = [],
@@ -49,13 +49,14 @@ export function WorkBrowser({
         .filter(
           row =>
             row.kind === 'work' &&
+            matchesWorkFacets(row, params) &&
             (!q || normalize(`${row.title} ${'code' in row ? row.code : ''}`).includes(q)) &&
             (!year || row.releaseDate?.startsWith(year)) &&
             (!maker || row.makerText === maker) &&
             (!actor || row.actorIds?.includes(actor))
         )
         .sort((a, b) => compareWorks(a, b, sort)),
-    [entries, q, year, maker, sort, actor]
+    [entries, q, year, maker, sort, actor, location.search]
   )
   const pages = Math.max(1, Math.ceil(result.length / 24))
   const requestedPage = Number(params.get('wp'))
@@ -65,6 +66,20 @@ export function WorkBrowser({
   )
   const work = params.get('work')
   const conditions = [
+    ...facetKeys.flatMap(kind => {
+      const id = params.get(`wf_${kind}`)
+      const labels = {
+        prefix: '番号前缀',
+        director: '导演',
+        maker: '片商',
+        series: '系列',
+        tag: '类别'
+      }
+      const name =
+        entries.flatMap(entry => entry.facets?.[kind] || []).find(value => value.id === id)?.name ||
+        id
+      return id ? [{ key: `wf_${kind}`, label: `${labels[kind]}：${name}` }] : []
+    }),
     ...(!hideSearch && params.get(queryKey)
       ? [{ key: queryKey, label: `搜索：${params.get(queryKey)}` }]
       : []),

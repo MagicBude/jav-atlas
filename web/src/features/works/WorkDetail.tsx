@@ -11,6 +11,7 @@ import type { Enrichment } from '../../entities/enrichment'
 import { useResource } from '../../shared/useResource'
 import { RawTree } from '../../shared/RawTree'
 import { WorkEnrichment } from './WorkEnrichment'
+import { facetUrl } from './query'
 export function WorkDetail({ id }: { id: string }) {
   const { manifest } = useApp()
   const location = useLocation()
@@ -42,6 +43,9 @@ export function WorkDetail({ id }: { id: string }) {
   const work = request.value,
     data = extra.value,
     m = data?.metadata
+  const browse = (kind: string, id: string) =>
+    facetUrl(kind, id, location.pathname, location.search)
+  const prefix = work.code?.toUpperCase().match(/^([A-Z]+)(?=[-\d])/)?.[1]
   const facts = [
     {
       label: '日期',
@@ -49,13 +53,28 @@ export function WorkDetail({ id }: { id: string }) {
       source: m?.release_date ? 'JavDB' : 'minnano'
     },
     { label: '时长', value: m?.duration ? `${m.duration} 分钟` : null, source: 'JavDB' },
-    { label: '导演', value: m?.director_name, source: 'JavDB' },
+    {
+      label: '导演',
+      value: m?.director_name,
+      source: 'JavDB',
+      link: m?.director_id ? browse('director', m.director_id) : undefined
+    },
     {
       label: '片商',
       value: m?.maker_name || work.makerText,
-      source: m?.maker_name ? 'JavDB' : 'minnano'
+      source: m?.maker_name ? 'JavDB' : 'minnano',
+      link: m?.maker_id
+        ? browse('maker', m.maker_id)
+        : work.makerText
+          ? `/works?wm=${encodeURIComponent(work.makerText)}`
+          : undefined
     },
-    { label: '系列', value: m?.series_name, source: 'JavDB' },
+    {
+      label: '系列',
+      value: m?.series_name,
+      source: 'JavDB',
+      link: m?.series_id ? browse('series', m.series_id) : undefined
+    },
     {
       label: '评分',
       value: m?.score
@@ -68,7 +87,17 @@ export function WorkDetail({ id }: { id: string }) {
     <div className="work-detail work-reading">
       <header className="work-hero">
         <div className="work-hero-copy">
-          <p className="work-number">番号：{work.code || `#${work.id}`}</p>
+          <p className="work-number">
+            番号：
+            {prefix ? (
+              <>
+                <Link to={browse('prefix', prefix)}>{prefix}</Link>
+                {work.code?.slice(prefix.length)}
+              </>
+            ) : (
+              work.code || `#${work.id}`
+            )}
+          </p>
           <h2>{work.title}</h2>
           <div className="work-source-links">
             {safeUrl(work.sourceUrl) && (
@@ -97,7 +126,7 @@ export function WorkDetail({ id }: { id: string }) {
                 {f.label}
                 <small>{f.source}</small>
               </dt>
-              <dd>{f.value}</dd>
+              <dd>{f.link ? <Link to={f.link}>{f.value}</Link> : f.value}</dd>
             </div>
           ))}
         {m?.tags?.length ? (
@@ -108,9 +137,9 @@ export function WorkDetail({ id }: { id: string }) {
             <dd>
               <div className="work-tags">
                 {m.tags.map(t => (
-                  <span className="badge" key={t.id}>
+                  <Link to={browse('tag', t.id)} className="badge" key={t.id}>
                     {t.name}
-                  </span>
+                  </Link>
                 ))}
               </div>
             </dd>
