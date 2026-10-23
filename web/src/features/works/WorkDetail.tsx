@@ -100,6 +100,74 @@ export function WorkDetail({ id }: { id: string }) {
               <dd>{f.value}</dd>
             </div>
           ))}
+        {m?.tags?.length ? (
+          <div>
+            <dt>
+              类别 <small>JavDB</small>
+            </dt>
+            <dd>
+              <div className="work-tags">
+                {m.tags.map(t => (
+                  <span className="badge" key={t.id}>
+                    {t.name}
+                  </span>
+                ))}
+              </div>
+            </dd>
+          </div>
+        ) : null}
+        <div>
+          <dt>
+            演员 <small>minnano</small>
+          </dt>
+          <dd>
+            <div className="work-cast">
+              {work.cast?.map(a =>
+                manifest.works?.people[a.id] ? (
+                  <Link
+                    key={a.id}
+                    to={`/people/minnano/${a.id}`}
+                    state={{
+                      workOrigin: {
+                        pathname: location.pathname,
+                        search: location.search
+                      }
+                    }}
+                  >
+                    {a.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={a.id}
+                    href={`https://www.minnano-av.com/actress${encodeURIComponent(a.id)}.html`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {a.name} ↗
+                  </a>
+                )
+              )}
+            </div>
+            {m?.actors?.length ? (
+              <details className="cast-comparison">
+                <summary>查看 JavDB 出演者署名</summary>
+                <p className="small muted">署名和人数可能不同，未自动合并人物身份。</p>
+                <div className="work-cast">
+                  {m.actors.map(a => (
+                    <a
+                      key={a.id}
+                      href={`https://javdb.com/actors/${encodeURIComponent(a.id)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {a.name} ↗
+                    </a>
+                  ))}
+                </div>
+              </details>
+            ) : null}
+          </dd>
+        </div>
       </dl>
       {data?.mapping.dateDifference && (
         <details className="source-difference">
@@ -111,70 +179,6 @@ export function WorkDetail({ id }: { id: string }) {
           </p>
         </details>
       )}
-      {m?.tags?.length ? (
-        <section className="work-classification">
-          <h3>
-            类别 <small className="muted">JavDB</small>
-          </h3>
-          <div className="work-tags">
-            {m.tags.map(t => (
-              <span className="badge" key={t.id}>
-                {t.name}
-              </span>
-            ))}
-          </div>
-        </section>
-      ) : null}
-      <section className="work-performers">
-        <h3>
-          演员 <small className="muted">minnano</small>
-        </h3>
-        <div className="work-cast">
-          {work.cast?.map(a =>
-            manifest.works?.people[a.id] ? (
-              <Link
-                key={a.id}
-                to={`/people/minnano/${a.id}`}
-                state={{
-                  workOrigin: {
-                    pathname: location.pathname,
-                    search: location.search
-                  }
-                }}
-              >
-                {a.name}
-              </Link>
-            ) : (
-              <a
-                key={a.id}
-                href={`https://www.minnano-av.com/actress${encodeURIComponent(a.id)}.html`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {a.name} ↗
-              </a>
-            )
-          )}
-        </div>
-        {m?.actors?.length ? (
-          <details className="cast-comparison">
-            <summary>查看 JavDB 出演者署名</summary>
-            <p className="small muted">署名和人数可能不同，未自动合并人物身份。</p>
-            <div className="work-cast">
-              {m.actors.map(a => (
-                <a
-                  key={a.id}
-                  href={`https://javdb.com/actors/${encodeURIComponent(a.id)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {a.name} ↗
-                </a>
-              ))}
-            </div>
-          </details>
-        ) : null}
-      </section>
       {extra.error && (
         <p role="alert">
           JavDB补充资料加载失败。<button onClick={extra.retry}>重试</button>

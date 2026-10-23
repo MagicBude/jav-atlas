@@ -154,3 +154,14 @@
   margin: 0;
   overflow-wrap: anywhere;
 }
+
+/* 类别与演员是普通资料行，不额外使用标题区块或大段间距。 */
+.work-core-facts .work-tags,
+.work-core-facts .work-cast {
+  margin: 0;
+  gap: 6px 10px;
+}
+.work-core-facts .cast-comparison {
+  margin-top: 8px;
+  font-size: 12px;
+}
