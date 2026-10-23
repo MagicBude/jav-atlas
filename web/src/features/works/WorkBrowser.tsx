@@ -252,7 +252,7 @@ export function WorkBrowser({
               独立打开 ↗
             </Link>
           </div>
-          <WorkDetail id={work} />
+          <WorkDetail key={work} id={work} />
         </Modal>
       )}
     </>

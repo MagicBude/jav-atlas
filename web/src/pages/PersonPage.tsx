@@ -126,7 +126,18 @@ export default function PersonPage({
     key = identity(person),
     saved = !!record?.favorite?.active
   const returnRef = getReturn(location.state?.returnKey)
+  // 从作品出演者跳入人物时保留一次明确返回，不把作品层再叠成新人物抽屉。
+  const fromWork = location.state?.workOrigin
+  const hasWorkOrigin =
+    typeof fromWork?.pathname === 'string' &&
+    (/^\/works(?:\/minnano\/\d+)?$/.test(fromWork.pathname) ||
+      fromWork.pathname === '/search' ||
+      /^\/people\/minnano\/\d+$/.test(fromWork.pathname))
   const back = () => {
+    if (hasWorkOrigin) {
+      navigate(-1)
+      return
+    }
     if (close) {
       close()
       return
@@ -150,7 +161,13 @@ export default function PersonPage({
     <div className={`person-detail ${drawer ? 'in-drawer' : ''}`}>
       <header className="detail-toolbar">
         <button className="text-button" onClick={back}>
-          {drawer ? '关闭 ×' : returnRef ? '‹ 返回之前的结果' : '‹ 返回人物列表'}
+          {hasWorkOrigin
+            ? '‹ 返回刚才的作品'
+            : drawer
+              ? '关闭 ×'
+              : returnRef
+                ? '‹ 返回之前的结果'
+                : '‹ 返回人物列表'}
         </button>
         {drawer && (
           <button className="text-button" onClick={full}>

@@ -2,7 +2,7 @@
  * @file 统一的作品阅读视图：核心值集中显示，每个字段保留来源；来源原记录只在底部展开。
  * 这只是展示投影，优先级不会写回两个来源，日期冲突和出演者署名继续分别保留。
  */
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useApp } from '../../app/context'
 import { resource } from '../../data/repository'
 import { safeUrl } from '../../entities/person'
@@ -13,6 +13,7 @@ import { RawTree } from '../../shared/RawTree'
 import { WorkEnrichment } from './WorkEnrichment'
 export function WorkDetail({ id }: { id: string }) {
   const { manifest } = useApp()
+  const location = useLocation()
   const file = manifest?.works?.records[id],
     extraFile = manifest?.works?.enrichments?.[id]
   const request = useResource(file || '', () => resource<Work>(file!))
@@ -126,7 +127,16 @@ export function WorkDetail({ id }: { id: string }) {
         <div className="work-cast">
           {work.cast?.map(a =>
             manifest.works?.people[a.id] ? (
-              <Link key={a.id} to={`/people/minnano/${a.id}`}>
+              <Link
+                key={a.id}
+                to={`/people/minnano/${a.id}`}
+                state={{
+                  workOrigin: {
+                    pathname: location.pathname,
+                    search: location.search
+                  }
+                }}
+              >
                 {a.name}
               </Link>
             ) : (
@@ -175,7 +185,9 @@ export function WorkDetail({ id }: { id: string }) {
         {data && (
           <p className="small muted">
             JavDB取得时间：{new Date(data.fetchedAt).toLocaleString('zh-CN')}
-            ；评论为本次前两页样本，排序未确认。
+            {data.reviews.length > 0
+              ? '；评论为已保存的有限样本，排序未确认。'
+              : '；本轮仅补充基础元数据，未采集评论。'}
           </p>
         )}
         <details>
