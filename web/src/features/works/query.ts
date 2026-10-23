@@ -1,6 +1,19 @@
 /** 列表排序独立成纯函数：未知评分排最后，同分按日期及原生ID稳定排序。 */
 import type { WorkEntry } from '../../entities/work'
 export const facetKeys = ['prefix', 'director', 'maker', 'series', 'tag'] as const
+/** 选项从当前浏览范围生成，以ID去重；同名不同ID仍是独立选项。 */
+export function workFacetOptions(entries: WorkEntry[], kind: string) {
+  const values = new Map<string, string>()
+  for (const row of entries) {
+    if (kind === 'prefix') {
+      const prefix = row.code?.toUpperCase().match(/^([A-Z]+)(?=[-\d])/)?.[1]
+      if (prefix) values.set(prefix, prefix)
+    } else for (const value of row.facets?.[kind] || []) values.set(value.id, value.name)
+  }
+  return [...values]
+    .map(([id, name]) => ({ id, name }))
+    .sort((a, b) => a.name.localeCompare(b.name) || a.id.localeCompare(b.id))
+}
 export function matchesWorkFacets(row: WorkEntry, params: URLSearchParams) {
   return facetKeys.every(kind => {
     const selected = params.get(`wf_${kind}`)
@@ -37,7 +50,8 @@ export function workQuery(search: string, key: string, value: string) {
   const next = new URLSearchParams(search)
   if (value) next.set(key, value)
   else next.delete(key)
-  if (['q', 'wq', 'wy', 'wm', 'ws', 'wa'].includes(key)) next.delete('wp')
+  if (['q', 'wq', 'wy', 'wm', 'ws', 'wa', ...facetKeys.map(kind => `wf_${kind}`)].includes(key))
+    next.delete('wp')
   return next.toString()
 }
 

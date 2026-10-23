@@ -214,6 +214,18 @@ if (fs.existsSync(path.join(worksRoot, 'people'))) {
       const score = metadata?.score == null || metadata.score === '' ? null : Number(metadata.score)
       return {
         ...entry,
+        facets: {
+          ...Object.fromEntries(
+            ['director', 'maker', 'series'].flatMap(kind =>
+              metadata?.[kind + '_id'] && metadata?.[kind + '_name']
+                ? [[kind, [{ id: String(metadata[kind + '_id']), name: metadata[kind + '_name'] }]]]
+                : []
+            )
+          ),
+          ...(metadata?.tags?.length
+            ? { tag: metadata.tags.map(tag => ({ id: String(tag.id), name: tag.name })) }
+            : {})
+        },
         code: read(`minnano/works/records/${entry.id}.json`, {})?.code || null,
         rating:
           score != null && Number.isFinite(score)

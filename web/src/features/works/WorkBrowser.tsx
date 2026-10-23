@@ -8,7 +8,14 @@ import type { WorkEntry } from '../../entities/work'
 import { normalize } from '../../entities/person'
 import { Modal } from '../../shared/Modal'
 import { WorkDetail } from './WorkDetail'
-import { clearWorkFilters, compareWorks, workQuery, facetKeys, matchesWorkFacets } from './query'
+import {
+  clearWorkFilters,
+  compareWorks,
+  workQuery,
+  facetKeys,
+  matchesWorkFacets,
+  workFacetOptions
+} from './query'
 export function WorkBrowser({
   entries,
   actors = [],
@@ -150,6 +157,49 @@ export function WorkBrowser({
               ))}
           </select>
         </div>
+        <details
+          className="work-more-filters"
+          open={facetKeys.some(kind => params.has(`wf_${kind}`)) || undefined}
+        >
+          <summary>更多条件 · 前缀 / 导演 / 片商 / 系列 / 类别</summary>
+          <div className="work-filters">
+            {facetKeys.map(kind => {
+              const labels = {
+                prefix: '番号前缀',
+                director: '导演',
+                maker: '片商',
+                series: '系列',
+                tag: '类别'
+              }
+              const options = workFacetOptions(entries, kind)
+              const selected = params.get(`wf_${kind}`) || ''
+              return (
+                <label className="work-filter-field" key={kind}>
+                  <span>{labels[kind]}</span>
+                  <select
+                    aria-label={`作品${labels[kind]}`}
+                    value={selected}
+                    onChange={event => update(`wf_${kind}`, event.target.value)}
+                  >
+                    <option value="">全部{labels[kind]}</option>
+                    {selected && !options.some(option => option.id === selected) && (
+                      <option value={selected}>{selected}（当前范围无对应资料）</option>
+                    )}
+                    {options.map(option => (
+                      <option key={option.id} value={option.id}>
+                        {option.name}
+                        {options.filter(other => other.name === option.name).length > 1
+                          ? ` · ${option.id}`
+                          : ''}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )
+            })}
+          </div>
+          <p className="small muted">导演、片商、系列和类别仅筛选已补充 JavDB 资料的作品。</p>
+        </details>
         {conditions.length > 0 && (
           <div className="work-conditions" aria-label="已选作品条件">
             {conditions.map(condition => (
