@@ -1,22 +1,64 @@
 import { expect, it } from 'vitest'
 import dictionary from '../src/data/javdb-tag-labels.json'
-import { javdbTagLabel } from '../src/entities/tagLabels'
+import {
+  javdbTagLabel,
+  javdbTagGroup,
+  tagSelectionKey,
+  parseTagSelection
+} from '../src/entities/tagLabels'
 import { workFacetOptions, matchesWorkFacets } from '../src/features/works/query'
-it('类别词典覆盖目录，显示替换不改变ID匹配且新类别回退原文', () => {
-  expect(Object.keys(dictionary.terms)).toHaveLength(327)
-  for (const [id, term] of Object.entries(dictionary.terms)) {
-    expect(javdbTagLabel(id, 'fallback')).toBe(term.label)
-    expect(term.sourceNames.length).toBeGreaterThan(0)
+const row = (name: string) => ({
+  id: '1',
+  kind: 'work' as const,
+  title: '',
+  sourceUrl: '',
+  facets: { tag: [{ id: '109', name }] }
+})
+it('目录保留844个类型内类别，未知名称不被同号其他类别覆盖', () => {
+  expect(Object.keys(dictionary.terms)).toHaveLength(844)
+  for (const [key, term] of Object.entries(dictionary.terms)) {
+    const id = key.split(':')[1]
+    expect(javdbTagLabel(id, term.sourceNames[0])).toBe(term.label)
   }
+  expect(javdbTagLabel('109', '未知原名')).toBe('未知原名')
   expect(javdbTagLabel('future-tag', '原名称')).toBe('原名称')
-  const id = Object.keys(dictionary.terms)[0]
-  const row = {
-    id: '1',
-    kind: 'work' as const,
-    title: '',
-    sourceUrl: '',
-    facets: { tag: [{ id, name: '原名称' }] }
-  }
-  expect(workFacetOptions([row], 'tag')[0].name).toBe(javdbTagLabel(id, '原名称'))
-  expect(matchesWorkFacets(row, new URLSearchParams('wf_tag=' + id))).toBe(true)
+})
+it('109只有泳池可以归入地点，其他同号类别不串组', () => {
+  expect(javdbTagGroup('109', '泳池')?.id).toBe('place')
+  expect(javdbTagGroup('109', '戀乳癖')?.id).toBe('subject')
+  expect(javdbTagGroup('110', '濫交')?.id).toBe('behavior')
+  expect(javdbTagGroup('160', '流汗')?.id).toBe('subject')
+  expect(javdbTagGroup('109', '未经核对的名称')).toBeUndefined()
+})
+it('同号不同原名的选项、筛选和计数身份分开，逗号名称可以往返', () => {
+  const key = tagSelectionKey('109', '戀乳癖')
+  const params = new URLSearchParams({ wf_tag: key })
+  expect(workFacetOptions([row('戀乳癖'), row('泳池')], 'tag')).toHaveLength(2)
+  expect(matchesWorkFacets(row('戀乳癖'), params)).toBe(true)
+  expect(matchesWorkFacets(row('泳池'), params)).toBe(false)
+  expect(parseTagSelection(tagSelectionKey('109', 'a,b~c'))).toEqual({ id: '109', name: 'a,b~c' })
+  expect(matchesWorkFacets(row('戀乳癖'), new URLSearchParams('wf_tag=109'))).toBe(true)
+})
+
+it('筛选面板不会把截图中的三个类别放进地点，且同号名称各自计数', async () => {
+  const { createElement } = await import('react')
+  const { renderToStaticMarkup } = await import('react-dom/server')
+  const { TagFilters } = await import('../src/features/works/TagFilters')
+  const entries = [
+    row('戀乳癖'),
+    row('戀乳癖'),
+    row('泳池'),
+    { ...row('濫交'), facets: { tag: [{ id: '110', name: '濫交' }] } },
+    { ...row('流汗'), facets: { tag: [{ id: '160', name: '流汗' }] } }
+  ]
+  const html = renderToStaticMarkup(
+    createElement(TagFilters, { entries, params: new URLSearchParams(), update: () => {} })
+  )
+  const place = html.split('<details').find(section => section.includes('<summary>地點'))!
+  expect(place).toContain('泳池')
+  expect(place).not.toContain('戀乳癖')
+  expect(place).not.toContain('濫交')
+  expect(place).not.toContain('流汗')
+  expect(html).toContain('戀乳癖</span><small>2</small>')
+  expect(html).toContain('泳池</span><small>1</small>')
 })

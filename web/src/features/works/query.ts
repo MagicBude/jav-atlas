@@ -1,12 +1,12 @@
 /** 列表排序独立成纯函数：未知评分排最后，同分按日期及原生ID稳定排序。 */
 import type { WorkEntry } from '../../entities/work'
-import { javdbTagLabel } from '../../entities/tagLabels'
+import { javdbTagLabel, tagSelectionKey, parseTagSelection } from '../../entities/tagLabels'
 export const facetKeys = ['prefix', 'director', 'maker', 'series', 'tag'] as const
-/** 逗号分隔的来源ID兼容旧单选链接，去重防止重复条件。 */
+/** 逗号分隔查询键；名称部分已编码，兼容旧数字链接并去除重复条件。 */
 export const selectedTags = (params: URLSearchParams) => [
   ...new Set((params.get('wf_tag') || '').split(',').filter(Boolean))
 ]
-/** 选项从当前浏览范围生成，以ID去重；同名不同ID仍是独立选项。 */
+/** 选项来自当前范围；类别按 ID＋原名去重，其他维度按来源 ID 去重。 */
 export function workFacetOptions(entries: WorkEntry[], kind: string) {
   const values = new Map<string, string>()
   for (const row of entries) {
@@ -15,7 +15,10 @@ export function workFacetOptions(entries: WorkEntry[], kind: string) {
       if (prefix) values.set(prefix, prefix)
     } else
       for (const value of row.facets?.[kind] || [])
-        values.set(value.id, kind === 'tag' ? javdbTagLabel(value.id, value.name) : value.name)
+        values.set(
+          kind === 'tag' ? tagSelectionKey(value.id, value.name) : value.id,
+          kind === 'tag' ? javdbTagLabel(value.id, value.name) : value.name
+        )
   }
   return [...values]
     .map(([id, name]) => ({ id, name }))
@@ -27,7 +30,17 @@ export function matchesWorkFacets(row: WorkEntry, params: URLSearchParams) {
     if (!selected) return true
     if (kind === 'tag') {
       const ids = selectedTags(params)
-      const matches = (id: string) => row.facets?.tag?.some(value => value.id === id) || false
+      const matches = (key: string) => {
+        const selected = parseTagSelection(key)
+        // 旧数字链接继续可用；新链接总是携带原名，避免跨类型误匹配。
+        return (
+          row.facets?.tag?.some(
+            value =>
+              value.id === selected.id &&
+              (selected.name === undefined || value.name === selected.name)
+          ) || false
+        )
+      }
       return params.get('wt_mode') === 'any' ? ids.some(matches) : ids.every(matches)
     }
     if (kind === 'prefix')

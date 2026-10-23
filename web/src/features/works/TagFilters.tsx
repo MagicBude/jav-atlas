@@ -1,8 +1,11 @@
-/** 类别目录只定义分组，数量来自当前浏览范围；同一类别跨组共享选中状态。 */
+/** 类别计数按来源 ID＋原名隔离；目录证据不足的条目不强行归组。 */
 import { useState } from 'react'
-import groups from '../../data/javdb-tag-groups.json'
-import dictionary from '../../data/javdb-tag-labels.json'
-import { javdbTagLabel } from '../../entities/tagLabels'
+import {
+  javdbTagLabel,
+  javdbTagGroup,
+  tagSelectionKey,
+  parseTagSelection
+} from '../../entities/tagLabels'
 import { normalize } from '../../entities/person'
 import type { WorkEntry } from '../../entities/work'
 import { selectedTags } from './query'
@@ -17,31 +20,54 @@ export function TagFilters({
 }) {
   const [search, setSearch] = useState('')
   const selected = selectedTags(params)
-  const counts = new Map<string, number>(),
-    names = new Map<string, string>()
+  const options = new Map<string, { id: string; name: string; count: number }>()
   for (const entry of entries.filter(row => row.kind === 'work')) {
-    const ids = new Set<string>()
+    const seen = new Set<string>()
     for (const tag of entry.facets?.tag || []) {
-      names.set(tag.id, tag.name)
-      ids.add(tag.id)
+      const key = tagSelectionKey(tag.id, tag.name)
+      if (seen.has(key)) continue
+      seen.add(key)
+      const old = options.get(key)
+      options.set(key, { ...tag, count: (old?.count || 0) + 1 })
     }
-    for (const id of ids) counts.set(id, (counts.get(id) || 0) + 1)
   }
-  const terms: Record<string, { sourceNames: string[] }> = dictionary.terms
-  const toggle = (id: string) =>
+  // 保留旧数字 URL，并明确显示它不区分同号名称；切换为新选项后即使用精确查询键。
+  for (const key of selected)
+    if (!options.has(key)) {
+      const value = parseTagSelection(key)
+      options.set(key, {
+        id: value.id,
+        name: value.name || `ID ${value.id}（旧链接，未区分原名）`,
+        count: value.name
+          ? 0
+          : entries.filter(
+              row => row.kind === 'work' && row.facets?.tag?.some(tag => tag.id === value.id)
+            ).length
+      })
+    }
+  const grouped = new Map<string, { name: string; keys: string[] }>()
+  for (const [key, option] of options) {
+    const group = javdbTagGroup(option.id, option.name) || { id: 'unconfirmed', name: '未确认分组' }
+    const bucket = grouped.get(group.id) || { name: group.name, keys: [] }
+    bucket.keys.push(key)
+    grouped.set(group.id, bucket)
+  }
+  const matchesSearch = (key: string) => {
+    const tag = options.get(key)!
+    return (
+      !search ||
+      normalize(`${javdbTagLabel(tag.id, tag.name)} ${tag.name} ${tag.id}`).includes(
+        normalize(search)
+      )
+    )
+  }
+  const toggle = (key: string) =>
     update(
       'wf_tag',
-      (selected.includes(id) ? selected.filter(value => value !== id) : [...selected, id]).join(',')
+      (selected.includes(key) ? selected.filter(value => value !== key) : [...selected, key]).join(
+        ','
+      )
     )
-  const known = new Set(groups.flatMap(group => group.tags))
-  const allGroups = [
-    ...groups,
-    {
-      id: 'unlisted',
-      name: '目录外类别',
-      tags: [...new Set([...names.keys(), ...selected])].filter(id => !known.has(id))
-    }
-  ]
   return (
     <section className="tag-filter-browser" aria-label="分组类别筛选">
       <div className="tag-filter-toolbar">
@@ -61,57 +87,41 @@ export function TagFilters({
         </select>
       </div>
       <p className="small muted">
-        类别后为当前浏览范围内的作品数；无本地作品的类别默认不列出，已选条件始终保留。
+        类别后为当前浏览范围内的作品数；目录归属不明确的类别列入“未确认分组”。
       </p>
-      {allGroups.map(group => {
-        const tags = group.tags.filter(
-          id =>
-            (counts.has(id) || selected.includes(id)) &&
-            (!search ||
-              normalize(
-                [
-                  javdbTagLabel(id, names.get(id) || id),
-                  ...(terms[id]?.sourceNames || []),
-                  id
-                ].join(' ')
-              ).includes(normalize(search)))
-        )
-        if (!tags.length) return null
+      {[...grouped].map(([id, group]) => {
+        const keys = group.keys.filter(matchesSearch)
+        if (!keys.length) return null
         return (
           <details
-            key={group.id}
-            open={!!search || tags.some(id => selected.includes(id)) || undefined}
+            key={id}
+            open={!!search || keys.some(key => selected.includes(key)) || undefined}
           >
             <summary>
-              {group.name} <span className="muted">{tags.length}</span>
+              {group.name} <span className="muted">{keys.length}</span>
             </summary>
             <div className="tag-filter-options">
-              {tags.map(id => (
-                <label
-                  key={id}
-                  title={`来源原名：${(terms[id]?.sourceNames || [names.get(id) || id]).join(' / ')}`}
-                >
-                  <input
-                    type="checkbox"
-                    checked={selected.includes(id)}
-                    onChange={() => toggle(id)}
-                  />
-                  <span>{javdbTagLabel(id, names.get(id) || id)}</span>
-                  <small>{counts.get(id) || 0}</small>
-                </label>
-              ))}
+              {keys.map(key => {
+                const tag = options.get(key)!
+                return (
+                  <label key={key} title={`来源原名：${tag.name}；ID：${tag.id}`}>
+                    <input
+                      type="checkbox"
+                      checked={selected.includes(key)}
+                      onChange={() => toggle(key)}
+                    />
+                    <span>{javdbTagLabel(tag.id, tag.name)}</span>
+                    <small>{tag.count}</small>
+                  </label>
+                )
+              })}
             </div>
           </details>
         )
       })}
-      {search &&
-        ![...new Set([...names.keys(), ...selected])].some(id =>
-          normalize(
-            [javdbTagLabel(id, names.get(id) || id), ...(terms[id]?.sourceNames || []), id].join(
-              ' '
-            )
-          ).includes(normalize(search))
-        ) && <p className="muted">当前范围没有匹配类别。</p>}
+      {search && ![...options.keys()].some(matchesSearch) && (
+        <p className="muted">当前范围没有匹配类别。</p>
+      )}
     </section>
   )
 }

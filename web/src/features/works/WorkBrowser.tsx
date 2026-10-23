@@ -6,7 +6,7 @@ import { useMemo } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import type { WorkEntry } from '../../entities/work'
 import { normalize } from '../../entities/person'
-import { javdbTagLabel } from '../../entities/tagLabels'
+import { javdbTagLabel, parseTagSelection } from '../../entities/tagLabels'
 import { TagFilters } from './TagFilters'
 import { selectedTags } from './query'
 import { Modal } from '../../shared/Modal'
@@ -80,7 +80,15 @@ export function WorkBrowser({
       if (kind === 'tag')
         return selectedTags(params).map(id => ({
           key: `tag:${id}`,
-          label: `类别：${javdbTagLabel(id, id)}`
+          label: (() => {
+            const value = parseTagSelection(id)
+            const original =
+              value.name ||
+              entries.flatMap(row => row.facets?.tag || []).find(tag => tag.id === value.id)
+                ?.name ||
+              value.id
+            return '类别：' + javdbTagLabel(value.id, original)
+          })()
         }))
       const id = params.get(`wf_${kind}`)
       const labels = {
