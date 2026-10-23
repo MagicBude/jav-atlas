@@ -55,6 +55,7 @@ export function WorkDetail({ id }: { id: string }) {
       value: m?.maker_name || work.makerText,
       source: m?.maker_name ? 'JavDB' : 'minnano'
     },
+    { label: '系列', value: m?.series_name, source: 'JavDB' },
     {
       label: '评分',
       value: m?.score
@@ -174,12 +175,6 @@ export function WorkDetail({ id }: { id: string }) {
           </details>
         ) : null}
       </section>
-      {m?.series_name && (
-        <p className="small">
-          <strong>系列：</strong>
-          {m.series_name} <span className="muted">JavDB</span>
-        </p>
-      )}
       {extra.error && (
         <p role="alert">
           JavDB补充资料加载失败。<button onClick={extra.retry}>重试</button>
