@@ -35,6 +35,30 @@ beforeAll(() => {
   manifest = JSON.parse(fs.readFileSync(path.join(generated, 'manifest.json'), 'utf8'))
 }, 30000)
 describe('来源与生成资源', () => {
+  it('独立作品索引去重且覆盖全部已发现正式作品，保留待补详情关系', () => {
+    const index = JSON.parse(fs.readFileSync(path.join(generated, manifest.works!.index!), 'utf8'))
+    const expected = new Set(Object.keys(manifest.works!.records))
+    const relations = new Map<string, Set<string>>()
+    for (const [actorId, file] of Object.entries(manifest.works!.people)) {
+      const person = JSON.parse(fs.readFileSync(path.join(generated, file), 'utf8'))
+      for (const row of person.entries.filter((entry: { kind: string }) => entry.kind === 'work')) {
+        expected.add(row.id)
+        const actors = relations.get(row.id) || new Set<string>()
+        actors.add(actorId)
+        relations.set(row.id, actors)
+      }
+    }
+    expect(new Set(index.entries.map((row: { id: string }) => row.id)).size).toBe(
+      index.entries.length
+    )
+    expect(index.entries.map((row: { id: string }) => row.id).sort()).toEqual([...expected].sort())
+    for (const row of index.entries) {
+      expect(row.kind).toBe('work')
+      expect(row).not.toHaveProperty('reviews')
+      expect(row).not.toHaveProperty('observations')
+      for (const actor of relations.get(row.id) || []) expect(row.actorIds).toContain(actor)
+    }
+  })
   it('JavDB补充按minnano映射独立加载，评论数量与去重ID一致', () => {
     const source = read('javdb/work-enrichment/mappings.json').mappings
     expect(Object.keys(manifest.works?.enrichments || {})).toEqual(Object.keys(source))

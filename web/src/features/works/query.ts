@@ -5,7 +5,7 @@ export function workQuery(search: string, key: string, value: string) {
   const next = new URLSearchParams(search)
   if (value) next.set(key, value)
   else next.delete(key)
-  if (['wq', 'wy', 'wm', 'ws'].includes(key)) next.delete('wp')
+  if (['q', 'wq', 'wy', 'wm', 'ws', 'wa'].includes(key)) next.delete('wp')
   return next.toString()
 }
 

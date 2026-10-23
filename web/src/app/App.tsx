@@ -1,4 +1,6 @@
 import WorkPage from '../pages/WorkPage'
+import WorksPage from '../pages/WorksPage'
+import SearchPage from '../pages/SearchPage'
 /**
  * @file 路由与容器的组合层。桌面详情叠在保存的背景列表上，完整页使用同一份内容。
  * 草稿保护统一在此拦截导航；不会在每个链接里各写一套不一致的“是否离开”。
@@ -23,7 +25,7 @@ import { restoreList } from '../features/people/returnPosition'
 export default function App() {
   const location = useLocation(),
     navigate = useNavigate(),
-    { data, error, manifest, drafts, setDraft, saveDraft } = useApp()
+    { data, error, drafts, setDraft, saveDraft } = useApp()
   const [wide, setWide] = useState(window.innerWidth >= 1024)
   // 刷新后不要凭浏览器恢复的旧 state 强行打开没有背景的抽屉。
   const [firstKey] = useState(location.key)
@@ -58,7 +60,7 @@ export default function App() {
     return () => window.removeEventListener('resize', resize)
   }, [])
   useEffect(() => {
-    document.title = `${isPerson ? '人物详情' : location.pathname === '/favorites' ? '我的收藏' : location.pathname === '/rankings' ? '榜单' : '人物资料库'} · JAV Atlas`
+    document.title = `${isPerson ? '人物详情' : location.pathname === '/search' ? '搜索结果' : location.pathname === '/works' ? '作品库' : location.pathname.startsWith('/works/') ? '作品详情' : location.pathname === '/favorites' ? '我的收藏' : location.pathname === '/rankings' ? '榜单' : '人物资料库'} · JAV Atlas`
   }, [location.pathname])
   const close = () => navigate(-1)
   return (
@@ -82,18 +84,42 @@ export default function App() {
             <NavLink to="/people" className={({ isActive }) => (isActive ? 'active' : '')}>
               人物
             </NavLink>
+            <NavLink to="/works">作品</NavLink>
+            <NavLink to="/rankings">榜单</NavLink>
             <NavLink to="/favorites">
               收藏{' '}
               <span className="nav-count">
                 {Object.values(data.records).filter(r => r.favorite?.active).length}
               </span>
             </NavLink>
-            <NavLink to="/rankings">榜单</NavLink>
-            <NavLink to="/data">数据说明</NavLink>
           </nav>
-          <span className="version-label">
-            {manifest ? `数据 ${manifest.version.slice(0, 6)}` : '读取数据中'}
-          </span>
+          <form
+            className="global-search"
+            role="search"
+            onSubmit={event => {
+              event.preventDefault()
+              const q = String(new FormData(event.currentTarget).get('q') || '').trim()
+              if (q) navigate(`/search?q=${encodeURIComponent(q)}`)
+            }}
+          >
+            <input
+              key={
+                location.pathname +
+                (location.pathname === '/search'
+                  ? new URLSearchParams(location.search).get('q')
+                  : '')
+              }
+              name="q"
+              aria-label="全局搜索"
+              placeholder="姓名 / 标题 / 番号"
+              defaultValue={
+                location.pathname === '/search'
+                  ? new URLSearchParams(location.search).get('q') || ''
+                  : ''
+              }
+            />
+            <button type="submit">查找</button>
+          </form>
         </div>
       </header>
       <div id="main-content" tabIndex={-1} className="site-content">
@@ -108,6 +134,8 @@ export default function App() {
           <Route path="/" element={<PeoplePage />} />
           <Route path="/people" element={<PeoplePage />} />
           <Route path="/favorites" element={<PeoplePage favoritesOnly />} />
+          <Route path="/works" element={<WorksPage />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/works/minnano/:id" element={<WorkPage />} />
           <Route path="/rankings" element={<RankingsPage />} />
           <Route path="/data" element={<DataPage />} />

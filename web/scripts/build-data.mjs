@@ -159,6 +159,20 @@ for (const [source, rows] of Object.entries(sources)) {
 // 作品资源独立寻址，只有进入人物作品区才请求；详情保留原记录，列表仅加入检索所需番号。
 const worksRoot = path.join(relay, 'minnano/works')
 manifest.works = { people: {}, records: {}, enrichments: {} }
+const workIndex = new Map()
+const members = read('minnano/ranked-pool.json', { members: {} }).members
+/** 摘要字段显式列举，避免把原始观察、评论或完整详情装进列表索引。 */
+const summary = entry => ({
+  id: entry.id,
+  kind: 'work',
+  title: entry.title || '',
+  code: entry.code || null,
+  sourceUrl: entry.sourceUrl || `https://www.minnano-av.com/av${entry.id}.html`,
+  releaseDate: entry.releaseDate || null,
+  makerText: entry.makerText || '',
+  rating: entry.rating || null,
+  actorIds: []
+})
 const mappings = read('javdb/work-enrichment/mappings.json', { mappings: {} }).mappings
 for (const [localId, mapping] of Object.entries(mappings)) {
   if (!/^\d+$/.test(localId) || !/^[a-zA-Z0-9_-]+$/.test(mapping.javdbId))
@@ -176,7 +190,14 @@ if (fs.existsSync(path.join(worksRoot, 'records'))) {
     .readdirSync(path.join(worksRoot, 'records'))
     .filter(f => /^\d+\.json$/.test(f))) {
     const id = file.slice(0, -5)
-    manifest.works.records[id] = emit(`work-${id}`, read(`minnano/works/records/${file}`))
+    const detail = read(`minnano/works/records/${file}`)
+    manifest.works.records[id] = emit(`work-${id}`, detail)
+    workIndex.set(id, {
+      ...summary(detail),
+      actorIds: (detail.cast || [])
+        .map(actor => String(actor.id))
+        .filter(id => Object.hasOwn(members, id))
+    })
   }
 }
 if (fs.existsSync(path.join(worksRoot, 'people'))) {
@@ -200,12 +221,32 @@ if (fs.existsSync(path.join(worksRoot, 'people'))) {
             : null
       }
     })
+    for (const entry of entries.filter(entry => entry.kind === 'work')) {
+      if (!/^\d+$/.test(entry.id)) throw Error('作品索引包含非法来源ID')
+      const old = workIndex.get(entry.id)
+      // 多个人物指向同一作品时合并关系，不重复生成条目；详情规范值优先于列表摘要。
+      workIndex.set(entry.id, {
+        ...summary(entry),
+        ...old,
+        title: old?.title || entry.title,
+        code: old?.code || entry.code,
+        releaseDate: old?.releaseDate || entry.releaseDate,
+        makerText: old?.makerText || entry.makerText,
+        rating: entry.rating || old?.rating || null,
+        actorIds: [...new Set([...(old?.actorIds || []), String(person.actorId)])].sort()
+      })
+    }
     manifest.works.people[file.slice(0, -5)] = emit(`works-person-${file.slice(0, -5)}`, {
       ...person,
       entries
     })
   }
 }
+const actorIds = [...new Set([...workIndex.values()].flatMap(entry => entry.actorIds))].sort()
+manifest.works.index = emit('works-index', {
+  entries: [...workIndex.values()].sort((a, b) => a.id.localeCompare(b.id)),
+  actors: actorIds.map(id => ({ id, name: members[id]?.name || id }))
+})
 manifest.version = crypto
   .createHash('sha256')
   .update(

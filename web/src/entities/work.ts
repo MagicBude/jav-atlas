@@ -7,7 +7,13 @@ export interface WorkEntry {
   sourceUrl: string
   releaseDate?: string | null
   makerText?: string
+  actorIds?: string[]
   rating?: { score: number; count: number | null; source: 'javdb' } | null
+}
+/** 全库仅加载轻量摘要；作品详情、评论与来源原文仍按需读取。 */
+export interface WorkIndex {
+  entries: WorkEntry[]
+  actors: { id: string; name: string }[]
 }
 export interface WorkDetail extends WorkEntry {
   code?: string | null

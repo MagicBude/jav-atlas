@@ -216,3 +216,52 @@
     gap: 8px;
   }
 }
+
+/* 全局搜索属于应用外壳，索引结果由SearchPage按人物/作品分组展示。 */
+.global-search {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+  width: 280px;
+  min-width: 160px;
+}
+.global-search input {
+  min-width: 0;
+  width: 100%;
+}
+.global-search button {
+  white-space: nowrap;
+}
+.site-header > div {
+  gap: 28px;
+}
+.search-group {
+  margin: 28px 0 38px;
+}
+.search-group h2 {
+  margin-bottom: 16px;
+}
+@media (max-width: 1023px) {
+  .global-search {
+    width: 220px;
+  }
+  .site-header > div {
+    gap: 18px;
+  }
+  .site-header nav {
+    gap: 16px;
+  }
+}
+@media (max-width: 767px) {
+  .global-search {
+    width: 48%;
+    flex: 1 1 150px;
+    order: 2;
+  }
+  .site-header nav {
+    order: 3;
+  }
+  .person-detail .detail-toolbar {
+    top: 94px;
+  }
+}

@@ -44,6 +44,7 @@ export interface Manifest {
   rankings: string
   report: string
   works?: {
+    index?: string
     people: Record<string, string>
     records: Record<string, string>
     enrichments?: Record<string, string>
