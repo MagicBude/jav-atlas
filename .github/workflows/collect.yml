@@ -13,7 +13,7 @@ on:
       source:
         description: 'ranked 三榜Top250累积人物（推荐）；其他为独立维护工具'
         type: choice
-        options: [ranked, works, all, minnano, javdb, male, directory, profiles]
+        options: [ranked, works, enrichment, all, minnano, javdb, male, directory, profiles]
         default: ranked
       directory_pages:
         description: 'directory 每轮最多页数（1–2000）；其他来源忽略'
@@ -80,8 +80,8 @@ jobs:
             code=$?
             # 作品退出码2表示来源暂不可用，已有有效数据和失败队列均已安全保存。
             # 允许提交该断点，下一台runner才能续跑；其他来源/程序错误仍阻断提交。
-            if [ "$SOURCE" = "works" ] && [ "$code" = "2" ]; then
-              echo "::warning::部分作品来源不可用，保存有效进度与失败待办；不代表完整采集"
+            if { [ "$SOURCE" = "works" ] || [ "$SOURCE" = "enrichment" ]; } && [ "$code" = "2" ]; then
+              echo "::warning::部分作品资料未补齐，保存有效进度与待办；不代表完整采集"
               exit 0
             fi
             exit "$code"

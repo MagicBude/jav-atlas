@@ -62,3 +62,7 @@ Actions 选择 daily + profiles，profile_limit 默认20，允许1至1000；smok
 每轮 profiles 生成 minnano/backfill-report.json：本批详情成功、失败、未尝试、缺头像计数，以及每个人物ID和结果。total为全名册成功详情与缺头像统计；缺少成功时间不等于失败，只有本轮失败缓存才计为失败。报告失败ID可用ONLY指定重试 profiles-relay.js；缺图可独立运行roster-avatars.js。该报告保留最新一批，历史批次可通过Git提交或Actions产物查看。
 
 人物资料保留规范字段之外，profileFields保存资料表原始标签、文本和链接，relatedProfiles保存相关人物ID及姓名，既有rel继续保存ID列表。profileSchemaVersion=2表示该人物已执行原字段采集；旧版本即使有profileFetchedAt，也会重新进入限量补齐队列。源站没有提供的字段不补造，当前不包含全部作品列表或整页HTML，不能称为完整网页备份。
+
+## 分批作品评分与基础元数据
+
+运行npm run collect -- daily enrichment，默认每轮10部、30次请求；smoke只处理2部。只处理已有作品，严格番号搜索并再次验证详情身份；7天内成功资料复用，失败与待确认保存在relay/javdb/work-enrichment/progress.json。不会覆盖minnano资料，不请求评论/图片，不加入每日自动任务。HTTP429停止本轮并按来源要求退避。报告中的needsAttention包含无法匹配，不能把它当成已经全部完成。细节见docs/javdb-work-research.md。

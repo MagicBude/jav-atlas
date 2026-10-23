@@ -8,10 +8,20 @@ const { relayDir, envInt } = require('./lib/runtime')
 const [mode = 'smoke', source = 'ranked'] = process.argv.slice(2)
 if (
   !['smoke', 'daily'].includes(mode) ||
-  !['works', 'ranked', 'all', 'minnano', 'javdb', 'male', 'directory', 'profiles'].includes(source)
+  ![
+    'enrichment',
+    'works',
+    'ranked',
+    'all',
+    'minnano',
+    'javdb',
+    'male',
+    'directory',
+    'profiles'
+  ].includes(source)
 ) {
   throw new Error(
-    '用法：node tools/collect.js smoke|daily ranked|works|all|minnano|javdb|male|directory|profiles'
+    '用法：node tools/collect.js smoke|daily ranked|works|enrichment|all|minnano|javdb|male|directory|profiles'
   )
 }
 const env = { ...process.env, RELAY_DIR: relayDir() }
@@ -29,6 +39,10 @@ if (mode === 'smoke')
     HTTP_TIMEOUT_MS: '8000'
   })
 const jobs = []
+if (source === 'enrichment') {
+  env.ENRICH_LIMIT = mode === 'smoke' ? '2' : process.env.ENRICH_LIMIT || '10'
+  jobs.push(['enrich-works.js'])
+}
 if (source === 'works') {
   if (mode === 'smoke') Object.assign(env, { WORK_PAGES: '2', WORK_DETAILS: '2' })
   jobs.push(['works-relay.js'])
@@ -54,7 +68,7 @@ if (source === 'directory') {
   jobs.push(['discover-minnano-groups.js'])
   jobs.push(['gen-female-names.js'])
 }
-if (source !== 'works') jobs.push(['migrate-avatar-names.js'])
+if (!['works', 'enrichment'].includes(source)) jobs.push(['migrate-avatar-names.js'])
 for (const [file, ...args] of jobs) {
   console.log('\n>>> ' + file)
   const result = spawnSync(process.execPath, [path.join(__dirname, file), ...args], {

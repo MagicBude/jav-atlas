@@ -7,15 +7,25 @@ const normalize = value =>
     .normalize('NFKC')
     .toUpperCase()
     .replace(/[^A-Z0-9]/g, '')
-function project(local, search, detail, pages, fetchedAt) {
+/** 搜索结果再少也不能模糊兜底；保留前导零，只接受唯一规范番号候选。 */
+function matchCandidate(code, search) {
+  if (!Array.isArray(search.data?.movies)) throw Error('搜索响应缺少作品数组')
   const candidates = (search.data?.movies || []).filter(
-    row => normalize(row.number || row.code) === normalize(local.code)
+    row => normalize(row.number || row.code) === normalize(code)
   )
-  if (!normalize(local.code) || candidates.length !== 1) throw Error('番号未唯一精确匹配')
+  if (!normalize(code) || candidates.length !== 1)
+    throw Object.assign(Error('番号未唯一精确匹配'), {
+      matchStatus: candidates.length > 1 ? 'ambiguous' : 'unmatched'
+    })
+  if (!/^[a-zA-Z0-9]+$/.test(String(candidates[0].id || ''))) throw Error('来源作品ID无效')
+  return candidates[0]
+}
+function project(local, search, detail, pages, fetchedAt) {
+  const candidate = matchCandidate(local.code, search)
   const movie = detail.data?.movie
   if (
     !movie ||
-    movie.id !== candidates[0].id ||
+    movie.id !== candidate.id ||
     normalize(movie.number || movie.code) !== normalize(local.code)
   )
     throw Error('作品详情身份不一致')
@@ -99,4 +109,4 @@ function project(local, search, detail, pages, fetchedAt) {
     }
   }
 }
-module.exports = { project }
+module.exports = { project, matchCandidate }

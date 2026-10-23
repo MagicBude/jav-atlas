@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "tasks": {
+    "154994": {
+      "status": "success",
+      "checkedAt": 1792725526222,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "311453": {
+      "status": "success",
+      "checkedAt": 1792725531019,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "350921": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1792725532042,
+      "nextRetryAt": 1793330332042
+    },
+    "473658": {
+      "status": "success",
+      "checkedAt": 1792725522230,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "524900": {
+      "status": "success",
+      "checkedAt": 1792725536958,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "533002": {
+      "status": "success",
+      "checkedAt": 1792725528337,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "559928": {
+      "status": "success",
+      "checkedAt": 1792725538867,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "605586": {
+      "status": "success",
+      "checkedAt": 1792725534066,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "772378": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1792725528993,
+      "nextRetryAt": 1793330328993
+    },
+    "818841": {
+      "status": "success",
+      "checkedAt": 1792725524113,
+      "attempts": 0,
+      "nextRetryAt": 0
+    }
+  }
+}

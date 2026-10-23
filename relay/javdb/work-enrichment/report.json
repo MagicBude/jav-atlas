@@ -1,0 +1,79 @@
+{
+  "startedAt": 1792725520438,
+  "limit": 10,
+  "requestLimit": 30,
+  "results": [
+    {
+      "id": "473658",
+      "code": "SNOS-461",
+      "javdbId": "NQXx0B",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "818841",
+      "code": "OFJE-669",
+      "javdbId": "3n9323",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "154994",
+      "code": "MIDA-791",
+      "javdbId": "Bz0pPr",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "533002",
+      "code": "MFYD-204",
+      "javdbId": "QNkyrG",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "772378",
+      "code": "eyan00227",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
+    },
+    {
+      "id": "311453",
+      "code": "SNOS-384",
+      "javdbId": "RkPrn4",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "350921",
+      "code": "SPHONE-001",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
+    },
+    {
+      "id": "605586",
+      "code": "SNOS-338",
+      "javdbId": "J0MwO8",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "524900",
+      "code": "SIVR-525",
+      "javdbId": "4Dvp4b",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "559928",
+      "code": "KRG-038",
+      "javdbId": "XeRJ9b",
+      "status": "success",
+      "dateDifference": false
+    }
+  ],
+  "finishedAt": 1792725538868,
+  "requests": 18,
+  "success": 8,
+  "needsAttention": 2
+}
