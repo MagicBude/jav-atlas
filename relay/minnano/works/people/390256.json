@@ -1,0 +1,40 @@
+{
+  "actorId": "390256",
+  "entries": [
+    {
+      "id": "uk390256",
+      "kind": "unknown",
+      "title": "作品名不明（蜜野うさ）",
+      "sourceUrl": "https://www.minnano-av.com/avuk390256.html",
+      "cast": [
+        {
+          "id": "390256",
+          "name": "蜜野うさ"
+        }
+      ],
+      "raw": {
+        "date": "",
+        "maker": ""
+      },
+      "firstSeenAt": 1792799986201,
+      "lastSeenAt": 1792799986201,
+      "sourceOrdinal": 0,
+      "seenOnPages": [
+        1
+      ],
+      "observations": [
+        {
+          "page": 1,
+          "title": "作品名不明（蜜野うさ）",
+          "releaseDate": null,
+          "makerText": ""
+        }
+      ],
+      "missingFromLatestCompleteScan": false
+    }
+  ],
+  "completedAt": 1792799986616,
+  "updatedAt": 1792799986201,
+  "visitedAllPagesAt": 1792799986616,
+  "scanId": "390256-1792799985580"
+}

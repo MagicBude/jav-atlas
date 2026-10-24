@@ -1,82 +1,79 @@
 {
-  "startedAt": 1792733622385,
+  "startedAt": 1792799992709,
   "limit": 10,
   "requestLimit": 30,
   "results": [
     {
-      "id": "566552",
-      "code": "SDAB-357",
-      "javdbId": "kKPkD6",
+      "id": "643699",
+      "code": "003FAYS-017",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
+    },
+    {
+      "id": "491464",
+      "code": "JUR-279",
+      "javdbId": "V4vXx3",
       "status": "success",
       "dateDifference": true
     },
     {
-      "id": "911440",
-      "code": "APGH-059",
-      "javdbId": "Wwzveg",
+      "id": "907602",
+      "code": "JRZE-323",
+      "javdbId": "2mgRVX",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "294298",
+      "code": "55fays00017",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
+    },
+    {
+      "id": "424918",
+      "code": "JUR-093",
+      "javdbId": "NQkGWZ",
       "status": "success",
       "dateDifference": true
     },
     {
-      "id": "364093",
-      "code": "OFJE-657",
-      "javdbId": "Rk8eZ8",
+      "id": "712658",
+      "code": "KCDA-329",
+      "javdbId": "veqwzz",
       "status": "success",
       "dateDifference": true
     },
     {
-      "id": "213193",
-      "code": "PKPD-432",
-      "javdbId": "EbO1aJ",
+      "id": "694817",
+      "code": "SNOS-334",
+      "javdbId": "nK7zbV",
       "status": "success",
       "dateDifference": true
     },
     {
-      "id": "740125",
-      "code": "JUFE-629",
-      "javdbId": "wK7bVn",
+      "id": "850702",
+      "code": "HTHD-242",
+      "javdbId": "bKzPeB",
       "status": "success",
       "dateDifference": true
     },
     {
-      "id": "720737",
-      "code": "OFJE-655",
-      "javdbId": "82JRZd",
-      "status": "success",
-      "dateDifference": true
+      "id": "377339",
+      "code": "200GANA-3421",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
     },
     {
-      "id": "678157",
-      "code": "SDAB-355",
-      "javdbId": "kKrV5z",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "550706",
-      "code": "APNS-418",
-      "javdbId": "DRXVxK",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "235674",
-      "code": "OFJE-651",
-      "javdbId": "KkpKVQ",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "320422",
-      "code": "OFJE-652",
-      "javdbId": "z4Z53W",
+      "id": "934303",
+      "code": "APAK-334",
+      "javdbId": "veqPBp",
       "status": "success",
       "dateDifference": true
     }
   ],
-  "finishedAt": 1792733641649,
-  "requests": 20,
+  "finishedAt": 1792800008881,
+  "requests": 17,
   "blockedUntil": null,
-  "success": 10,
-  "needsAttention": 0
+  "success": 7,
+  "needsAttention": 3
 }

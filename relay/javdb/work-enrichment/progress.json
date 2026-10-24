@@ -31,6 +31,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "294298": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1792799997859,
+      "nextRetryAt": 1793404797859
+    },
     "311453": {
       "status": "success",
       "checkedAt": 1792725531019,
@@ -56,9 +63,28 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "377339": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1792800006864,
+      "nextRetryAt": 1793404806864
+    },
+    "424918": {
+      "status": "success",
+      "checkedAt": 1792799999899,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "473658": {
       "status": "success",
       "checkedAt": 1792725522230,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "491464": {
+      "status": "success",
+      "checkedAt": 1792799994861,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -122,6 +148,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "643699": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1792799993189,
+      "nextRetryAt": 1793404793189
+    },
     "647818": {
       "status": "success",
       "checkedAt": 1792731114440,
@@ -137,6 +170,18 @@
     "678157": {
       "status": "success",
       "checkedAt": 1792733635638,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "694817": {
+      "status": "success",
+      "checkedAt": 1792800003878,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "712658": {
+      "status": "success",
+      "checkedAt": 1792800001869,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -171,15 +216,33 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "850702": {
+      "status": "success",
+      "checkedAt": 1792800005868,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "866129": {
       "status": "success",
       "checkedAt": 1792731106357,
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "907602": {
+      "status": "success",
+      "checkedAt": 1792799996871,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "911440": {
       "status": "success",
       "checkedAt": 1792733625677,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "934303": {
+      "status": "success",
+      "checkedAt": 1792800008881,
       "attempts": 0,
       "nextRetryAt": 0
     }
