@@ -8,7 +8,8 @@
         "淫亂真實",
         "淫乱真实"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "淫乱真实"
     },
     "0:51": {
       "label": "出轨",
@@ -16,7 +17,8 @@
         "出軌",
         "出轨"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "出轨"
     },
     "0:52": {
       "label": "强奸",
@@ -24,7 +26,8 @@
         "強姦",
         "强奸"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "强奸"
     },
     "0:54": {
       "label": "乱伦",
@@ -32,7 +35,8 @@
         "亂倫",
         "乱伦"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "乱伦"
     },
     "0:56": {
       "label": "温泉",
@@ -40,7 +44,8 @@
         "溫泉",
         "温泉"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "温泉"
     },
     "0:64": {
       "label": "女同性恋",
@@ -48,7 +53,8 @@
         "女同性戀",
         "女同性恋"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女同性恋"
     },
     "0:86": {
       "label": "企画",
@@ -56,7 +62,8 @@
         "企畫",
         "企画"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "企画"
     },
     "0:107": {
       "label": "恋腿癖",
@@ -64,7 +71,8 @@
         "戀腿癖",
         "恋腿癖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "恋腿癖"
     },
     "0:112": {
       "label": "猎艳",
@@ -72,7 +80,8 @@
         "獵豔",
         "猎艳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "猎艳"
     },
     "0:145": {
       "label": "偷窥",
@@ -80,14 +89,16 @@
         "偷窺",
         "偷窥"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "偷窥"
     },
     "0:165": {
       "label": "洗澡",
       "sourceNames": [
         "洗澡"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "洗澡"
     },
     "0:2": {
       "label": "其他恋物癖",
@@ -95,7 +106,8 @@
         "其他戀物癖",
         "其他恋物癖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "其他恋物癖"
     },
     "0:7": {
       "label": "处女",
@@ -103,7 +115,8 @@
         "處女",
         "处女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "处女"
     },
     "0:13": {
       "label": "性爱",
@@ -111,7 +124,8 @@
         "性愛",
         "性爱"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "性爱"
     },
     "0:33": {
       "label": "学校作品",
@@ -119,28 +133,32 @@
         "學校作品",
         "学校作品"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "学校作品"
     },
     "0:34": {
       "label": "妄想",
       "sourceNames": [
         "妄想"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "妄想"
     },
     "0:63": {
       "label": "M男",
       "sourceNames": [
         "M男"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "M男"
     },
     "0:75": {
       "label": "跳舞",
       "sourceNames": [
         "跳舞"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "跳舞"
     },
     "0:103": {
       "label": "恋物癖",
@@ -148,7 +166,8 @@
         "戀物癖",
         "恋物癖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "恋物癖"
     },
     "0:109": {
       "label": "恋乳癖",
@@ -156,7 +175,8 @@
         "戀乳癖",
         "恋乳癖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "恋乳癖"
     },
     "0:111": {
       "label": "恶作剧",
@@ -164,7 +184,8 @@
         "惡作劇",
         "恶作剧"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "恶作剧"
     },
     "0:128": {
       "label": "运动",
@@ -172,28 +193,32 @@
         "運動",
         "运动"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "运动"
     },
     "0:130": {
       "label": "倒追",
       "sourceNames": [
         "倒追"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "倒追"
     },
     "0:132": {
       "label": "女同接吻",
       "sourceNames": [
         "女同接吻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女同接吻"
     },
     "0:135": {
       "label": "美容院",
       "sourceNames": [
         "美容院"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美容院"
     },
     "0:149": {
       "label": "奴隶",
@@ -201,7 +226,8 @@
         "奴隸",
         "奴隶"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "奴隶"
     },
     "0:157": {
       "label": "白天出轨",
@@ -209,14 +235,16 @@
         "白天出軌",
         "白天出轨"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "白天出轨"
     },
     "0:160": {
       "label": "流汗",
       "sourceNames": [
         "流汗"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "流汗"
     },
     "0:162": {
       "label": "性骚扰",
@@ -224,7 +252,8 @@
         "性騷擾",
         "性骚扰"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "性骚扰"
     },
     "0:173": {
       "label": "情侣",
@@ -232,7 +261,8 @@
         "情侶",
         "情侣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "情侣"
     },
     "0:184": {
       "label": "烂醉如泥的",
@@ -240,14 +270,16 @@
         "爛醉如泥的",
         "烂醉如泥的"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "烂醉如泥的"
     },
     "0:185": {
       "label": "魔鬼系",
       "sourceNames": [
         "魔鬼系"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "魔鬼系"
     },
     "0:187": {
       "label": "处男",
@@ -255,7 +287,8 @@
         "處男",
         "处男"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "处男"
     },
     "0:196": {
       "label": "残忍画面",
@@ -263,14 +296,16 @@
         "殘忍畫面",
         "残忍画面"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "残忍画面"
     },
     "0:200": {
       "label": "性感的",
       "sourceNames": [
         "性感的"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "性感的"
     },
     "0:206": {
       "label": "晒黑",
@@ -278,7 +313,8 @@
         "曬黑",
         "晒黑"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "晒黑"
     },
     "0:211": {
       "label": "双性人",
@@ -286,21 +322,24 @@
         "雙性人",
         "双性人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "双性人"
     },
     "0:218": {
       "label": "全裸",
       "sourceNames": [
         "全裸"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "全裸"
     },
     "0:221": {
       "label": "正太控",
       "sourceNames": [
         "正太控"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "正太控"
     },
     "0:234": {
       "label": "触手",
@@ -308,14 +347,16 @@
         "觸手",
         "触手"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "触手"
     },
     "0:243": {
       "label": "正常",
       "sourceNames": [
         "正常"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "正常"
     },
     "0:244": {
       "label": "奇异的",
@@ -323,7 +364,8 @@
         "奇異的",
         "奇异的"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "奇异的"
     },
     "0:249": {
       "label": "蛮横娇羞",
@@ -331,15 +373,17 @@
         "蠻橫嬌羞",
         "蛮横娇羞"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "蛮横娇羞"
     },
     "0:258": {
-      "label": "性转换・女体化",
+      "label": "性转换、女体化",
       "sourceNames": [
         "性轉換·女體化",
         "性转换・女体化"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "性转换・女体化"
     },
     "0:277": {
       "label": "男同性恋",
@@ -347,7 +391,8 @@
         "男同性戀",
         "男同性恋"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "男同性恋"
     },
     "0:291": {
       "label": "韩国",
@@ -355,7 +400,8 @@
         "韓國",
         "韩国"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "韩国"
     },
     "0:293": {
       "label": "偷窥",
@@ -363,7 +409,8 @@
         "偷窺",
         "偷窥"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "偷窥"
     },
     "0:300": {
       "label": "形象俱乐部",
@@ -371,7 +418,8 @@
         "形象俱樂部",
         "形象俱乐部"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "形象俱乐部"
     },
     "0:305": {
       "label": "友谊",
@@ -379,7 +427,8 @@
         "友誼",
         "友谊"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "友谊"
     },
     "0:316": {
       "label": "亚洲",
@@ -387,14 +436,16 @@
         "亞洲",
         "亚洲"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "亚洲"
     },
     "0:318": {
       "label": "暗黑系",
       "sourceNames": [
         "暗黑系"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "暗黑系"
     },
     "0:323": {
       "label": "天赋",
@@ -402,7 +453,8 @@
         "天賦",
         "天赋"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "天赋"
     },
     "0:343": {
       "label": "被外国人干",
@@ -410,7 +462,8 @@
         "被外國人幹",
         "被外国人干"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "被外国人干"
     },
     "0:344": {
       "label": "刺青纹身",
@@ -418,14 +471,16 @@
         "刺青紋身",
         "刺青纹身"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "刺青纹身"
     },
     "0:349": {
       "label": "黑白配",
       "sourceNames": [
         "黑白配"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "黑白配"
     },
     "0:360": {
       "label": "绝顶高潮",
@@ -433,7 +488,8 @@
         "絕頂高潮",
         "绝顶高潮"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "绝顶高潮"
     },
     "0:361": {
       "label": "运动",
@@ -441,7 +497,8 @@
         "運動",
         "运动"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "运动"
     },
     "0:362": {
       "label": "纯欲",
@@ -449,7 +506,8 @@
         "純欲",
         "纯欲"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "纯欲"
     },
     "0:386": {
       "label": "经历告白",
@@ -457,7 +515,8 @@
         "經歷告白",
         "经历告白"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "经历告白"
     },
     "0:387": {
       "label": "湿身",
@@ -465,21 +524,24 @@
         "濕身",
         "湿身"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "湿身"
     },
     "0:1": {
       "label": "高中女生",
       "sourceNames": [
         "高中女生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "高中女生"
     },
     "0:5": {
       "label": "美少女",
       "sourceNames": [
         "美少女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美少女"
     },
     "0:20": {
       "label": "已婚妇女",
@@ -487,7 +549,8 @@
         "已婚婦女",
         "已婚妇女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "已婚妇女"
     },
     "0:27": {
       "label": "艺人",
@@ -495,14 +558,16 @@
         "藝人",
         "艺人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "艺人"
     },
     "0:44": {
       "label": "姐姐",
       "sourceNames": [
         "姐姐"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "姐姐"
     },
     "0:47": {
       "label": "各种职业",
@@ -510,7 +575,8 @@
         "各種職業",
         "各种职业"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "各种职业"
     },
     "0:48": {
       "label": "荡妇",
@@ -518,7 +584,8 @@
         "蕩婦",
         "荡妇"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "荡妇"
     },
     "0:55": {
       "label": "母亲",
@@ -526,21 +593,24 @@
         "母親",
         "母亲"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "母亲"
     },
     "0:67": {
       "label": "辣妹",
       "sourceNames": [
         "辣妹"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "辣妹"
     },
     "0:70": {
       "label": "妓女",
       "sourceNames": [
         "妓女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "妓女"
     },
     "0:101": {
       "label": "新娘、年轻妻子",
@@ -548,7 +618,8 @@
         "新娘，年輕妻子",
         "新娘、年轻妻子"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "新娘、年轻妻子"
     },
     "0:158": {
       "label": "女教师",
@@ -556,21 +627,24 @@
         "女教師",
         "女教师"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女教师"
     },
     "0:6": {
       "label": "白人",
       "sourceNames": [
         "白人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "白人"
     },
     "0:16": {
       "label": "婆婆",
       "sourceNames": [
         "婆婆"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "婆婆"
     },
     "0:30": {
       "label": "女大学生",
@@ -578,14 +652,16 @@
         "女大學生",
         "女大学生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女大学生"
     },
     "0:32": {
       "label": "偶像",
       "sourceNames": [
         "偶像"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "偶像"
     },
     "0:82": {
       "label": "明星脸",
@@ -593,14 +669,16 @@
         "明星臉",
         "明星脸"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "明星脸"
     },
     "0:105": {
       "label": "大小姐",
       "sourceNames": [
         "大小姐"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "大小姐"
     },
     "0:108": {
       "label": "秘书",
@@ -608,7 +686,8 @@
         "秘書",
         "秘书"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "秘书"
     },
     "0:115": {
       "label": "护士",
@@ -616,14 +695,16 @@
         "護士",
         "护士"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "护士"
     },
     "0:118": {
       "label": "角色扮演者",
       "sourceNames": [
         "角色扮演者"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "角色扮演者"
     },
     "0:133": {
       "label": "赛车女郎",
@@ -631,14 +712,16 @@
         "賽車女郎",
         "赛车女郎"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "赛车女郎"
     },
     "0:136": {
       "label": "家教",
       "sourceNames": [
         "家教"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "家教"
     },
     "0:137": {
       "label": "黑人演员",
@@ -646,14 +729,16 @@
         "黑人演員",
         "黑人演员"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "黑人演员"
     },
     "0:139": {
       "label": "妹妹",
       "sourceNames": [
         "妹妹"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "妹妹"
     },
     "0:140": {
       "label": "寡妇",
@@ -661,7 +746,8 @@
         "寡婦",
         "寡妇"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "寡妇"
     },
     "0:142": {
       "label": "女医生",
@@ -669,7 +755,8 @@
         "女醫生",
         "女医生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女医生"
     },
     "0:144": {
       "label": "老板娘、女主人",
@@ -677,14 +764,16 @@
         "老闆娘，女主人",
         "老板娘、女主人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "老板娘、女主人"
     },
     "0:153": {
       "label": "女主播",
       "sourceNames": [
         "女主播"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女主播"
     },
     "0:163": {
       "label": "其他学生",
@@ -692,7 +781,8 @@
         "其他學生",
         "其他学生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "其他学生"
     },
     "0:169": {
       "label": "模特儿",
@@ -700,7 +790,8 @@
         "模特兒",
         "模特儿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "模特儿"
     },
     "0:172": {
       "label": "格斗家",
@@ -708,7 +799,8 @@
         "格鬥家",
         "格斗家"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "格斗家"
     },
     "0:188": {
       "label": "展场女孩",
@@ -716,7 +808,8 @@
         "展場女孩",
         "展场女孩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "展场女孩"
     },
     "0:190": {
       "label": "礼仪小姐",
@@ -724,7 +817,8 @@
         "禮儀小姐",
         "礼仪小姐"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "礼仪小姐"
     },
     "0:201": {
       "label": "女检察官",
@@ -732,7 +826,8 @@
         "女檢察官",
         "女检察官"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女检察官"
     },
     "0:204": {
       "label": "讲师",
@@ -740,7 +835,8 @@
         "講師",
         "讲师"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "讲师"
     },
     "0:224": {
       "label": "服务生",
@@ -748,7 +844,8 @@
         "服務生",
         "服务生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "服务生"
     },
     "0:233": {
       "label": "伴侣",
@@ -756,7 +853,8 @@
         "伴侶",
         "伴侣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "伴侣"
     },
     "0:237": {
       "label": "车掌小姐",
@@ -764,7 +862,8 @@
         "車掌小姐",
         "车掌小姐"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "车掌小姐"
     },
     "0:245": {
       "label": "女儿",
@@ -772,7 +871,8 @@
         "女兒",
         "女儿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女儿"
     },
     "0:246": {
       "label": "年轻女孩",
@@ -780,21 +880,24 @@
         "年輕女孩",
         "年轻女孩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "年轻女孩"
     },
     "0:264": {
       "label": "公主",
       "sourceNames": [
         "公主"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "公主"
     },
     "0:265": {
       "label": "童年朋友",
       "sourceNames": [
         "童年朋友"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "童年朋友"
     },
     "0:274": {
       "label": "飞特族",
@@ -802,7 +905,8 @@
         "飛特族",
         "飞特族"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "飞特族"
     },
     "0:282": {
       "label": "亚洲女演员",
@@ -810,7 +914,8 @@
         "亞洲女演員",
         "亚洲女演员"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "亚洲女演员"
     },
     "0:341": {
       "label": "痴汉",
@@ -818,28 +923,32 @@
         "痴漢",
         "痴汉"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "痴汉"
     },
     "0:363": {
       "label": "御宅族",
       "sourceNames": [
         "御宅族"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "御宅族"
     },
     "0:365": {
       "label": "老太婆",
       "sourceNames": [
         "老太婆"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "老太婆"
     },
     "0:366": {
       "label": "老年男性",
       "sourceNames": [
         "老年男性"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "老年男性"
     },
     "0:371": {
       "label": "拉拉队",
@@ -847,7 +956,8 @@
         "拉拉隊",
         "拉拉队"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "拉拉队"
     },
     "0:377": {
       "label": "妈妈的朋友",
@@ -855,7 +965,8 @@
         "媽媽的朋友",
         "妈妈的朋友"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "妈妈的朋友"
     },
     "0:383": {
       "label": "养女",
@@ -863,14 +974,16 @@
         "養女",
         "养女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "养女"
     },
     "0:384": {
       "label": "女王",
       "sourceNames": [
         "女王"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女王"
     },
     "0:3": {
       "label": "眼镜",
@@ -878,14 +991,16 @@
         "眼鏡",
         "眼镜"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "眼镜"
     },
     "0:43": {
       "label": "角色扮演",
       "sourceNames": [
         "角色扮演"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "角色扮演"
     },
     "0:49": {
       "label": "内衣",
@@ -893,21 +1008,24 @@
         "內衣",
         "内衣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "内衣"
     },
     "0:58": {
       "label": "制服",
       "sourceNames": [
         "制服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "制服"
     },
     "0:78": {
       "label": "水手服",
       "sourceNames": [
         "水手服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "水手服"
     },
     "0:84": {
       "label": "泳装",
@@ -915,7 +1033,8 @@
         "泳裝",
         "泳装"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "泳装"
     },
     "0:95": {
       "label": "和服、丧服",
@@ -923,7 +1042,8 @@
         "和服，喪服",
         "和服、丧服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "和服、丧服"
     },
     "0:106": {
       "label": "连裤袜",
@@ -931,7 +1051,8 @@
         "連褲襪",
         "连裤袜"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "连裤袜"
     },
     "0:113": {
       "label": "女佣",
@@ -939,7 +1060,8 @@
         "女傭",
         "女佣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女佣"
     },
     "0:127": {
       "label": "运动短裤",
@@ -947,7 +1069,8 @@
         "運動短褲",
         "运动短裤"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "运动短裤"
     },
     "0:151": {
       "label": "女战士",
@@ -955,21 +1078,24 @@
         "女戰士",
         "女战士"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女战士"
     },
     "0:154": {
       "label": "校服",
       "sourceNames": [
         "校服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "校服"
     },
     "0:4": {
       "label": "制服外套",
       "sourceNames": [
         "制服外套"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "制服外套"
     },
     "0:89": {
       "label": "裸体围裙",
@@ -977,14 +1103,16 @@
         "裸體圍裙",
         "裸体围裙"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "裸体围裙"
     },
     "0:96": {
       "label": "女忍者",
       "sourceNames": [
         "女忍者"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女忍者"
     },
     "0:99": {
       "label": "身体意识",
@@ -992,14 +1120,16 @@
         "身體意識",
         "身体意识"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "身体意识"
     },
     "0:114": {
       "label": "OL",
       "sourceNames": [
         "OL"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "OL"
     },
     "0:116": {
       "label": "猫耳女",
@@ -1007,14 +1137,16 @@
         "貓耳女",
         "猫耳女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "猫耳女"
     },
     "0:125": {
       "label": "短裙",
       "sourceNames": [
         "短裙"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "短裙"
     },
     "0:126": {
       "label": "学校泳装",
@@ -1022,21 +1154,24 @@
         "學校泳裝",
         "学校泳装"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "学校泳装"
     },
     "0:129": {
       "label": "迷你裙",
       "sourceNames": [
         "迷你裙"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "迷你裙"
     },
     "0:143": {
       "label": "浴衣",
       "sourceNames": [
         "浴衣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "浴衣"
     },
     "0:156": {
       "label": "猥亵穿着",
@@ -1044,7 +1179,8 @@
         "猥褻穿著",
         "猥亵穿着"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "猥亵穿着"
     },
     "0:177": {
       "label": "紧身衣",
@@ -1052,14 +1188,16 @@
         "緊身衣",
         "紧身衣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "紧身衣"
     },
     "0:181": {
       "label": "娃娃",
       "sourceNames": [
         "娃娃"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "娃娃"
     },
     "0:182": {
       "label": "萝莉角色扮演",
@@ -1067,7 +1205,8 @@
         "蘿莉角色扮演",
         "萝莉角色扮演"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "萝莉角色扮演"
     },
     "0:192": {
       "label": "女装人妖",
@@ -1075,7 +1214,8 @@
         "女裝人妖",
         "女装人妖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女装人妖"
     },
     "0:198": {
       "label": "丝袜、过膝袜",
@@ -1083,7 +1223,8 @@
         "絲襪、過膝襪",
         "丝袜、过膝袜"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "丝袜、过膝袜"
     },
     "0:199": {
       "label": "泡泡袜",
@@ -1091,35 +1232,40 @@
         "泡泡襪",
         "泡泡袜"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "泡泡袜"
     },
     "0:203": {
       "label": "空中小姐",
       "sourceNames": [
         "空中小姐"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "空中小姐"
     },
     "0:207": {
       "label": "旗袍",
       "sourceNames": [
         "旗袍"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "旗袍"
     },
     "0:216": {
       "label": "兔女郎",
       "sourceNames": [
         "兔女郎"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "兔女郎"
     },
     "0:223": {
       "label": "女祭司",
       "sourceNames": [
         "女祭司"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女祭司"
     },
     "0:230": {
       "label": "动画人物",
@@ -1127,21 +1273,24 @@
         "動畫人物",
         "动画人物"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "动画人物"
     },
     "0:248": {
       "label": "迷你裙警察",
       "sourceNames": [
         "迷你裙警察"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "迷你裙警察"
     },
     "0:270": {
       "label": "修女",
       "sourceNames": [
         "修女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "修女"
     },
     "0:297": {
       "label": "COSPLAY服饰",
@@ -1149,35 +1298,40 @@
         "COSPLAY服飾",
         "COSPLAY服饰"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "COSPLAY服饰"
     },
     "0:352": {
       "label": "高跟鞋",
       "sourceNames": [
         "高跟鞋"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "高跟鞋"
     },
     "0:358": {
       "label": "靴子",
       "sourceNames": [
         "靴子"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "靴子"
     },
     "0:15": {
       "label": "熟女",
       "sourceNames": [
         "熟女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "熟女"
     },
     "0:17": {
       "label": "巨乳",
       "sourceNames": [
         "巨乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "巨乳"
     },
     "0:19": {
       "label": "萝莉塔",
@@ -1185,7 +1339,8 @@
         "蘿莉塔",
         "萝莉塔"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "萝莉塔"
     },
     "0:22": {
       "label": "无毛",
@@ -1193,14 +1348,16 @@
         "無毛",
         "无毛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "无毛"
     },
     "0:57": {
       "label": "美臀",
       "sourceNames": [
         "美臀"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美臀"
     },
     "0:65": {
       "label": "苗条",
@@ -1208,14 +1365,16 @@
         "苗條",
         "苗条"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "苗条"
     },
     "0:91": {
       "label": "美乳",
       "sourceNames": [
         "美乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美乳"
     },
     "0:98": {
       "label": "巨大阴茎",
@@ -1223,35 +1382,40 @@
         "巨大陰莖",
         "巨大阴茎"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "巨大阴茎"
     },
     "0:104": {
       "label": "胖女人",
       "sourceNames": [
         "胖女人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "胖女人"
     },
     "0:146": {
       "label": "平胸",
       "sourceNames": [
         "平胸"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "平胸"
     },
     "0:338": {
       "label": "素人",
       "sourceNames": [
         "素人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "素人"
     },
     "0:62": {
       "label": "高挑",
       "sourceNames": [
         "高挑"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "高挑"
     },
     "0:92": {
       "label": "孕妇",
@@ -1259,21 +1423,24 @@
         "孕婦",
         "孕妇"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "孕妇"
     },
     "0:131": {
       "label": "大屁股",
       "sourceNames": [
         "大屁股"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "大屁股"
     },
     "0:134": {
       "label": "瘦小身型",
       "sourceNames": [
         "瘦小身型"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "瘦小身型"
     },
     "0:147": {
       "label": "变性者",
@@ -1281,21 +1448,24 @@
         "變性者",
         "变性者"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "变性者"
     },
     "0:166": {
       "label": "肌肉",
       "sourceNames": [
         "肌肉"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肌肉"
     },
     "0:217": {
       "label": "超乳",
       "sourceNames": [
         "超乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "超乳"
     },
     "0:339": {
       "label": "美脚",
@@ -1303,42 +1473,48 @@
         "美腳",
         "美脚"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美脚"
     },
     "0:388": {
       "label": "多毛",
       "sourceNames": [
         "多毛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "多毛"
     },
     "0:14": {
       "label": "乳交",
       "sourceNames": [
         "乳交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "乳交"
     },
     "0:18": {
       "label": "中出",
       "sourceNames": [
         "中出"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "中出"
     },
     "0:24": {
       "label": "多P",
       "sourceNames": [
         "多P"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "多P"
     },
     "0:25": {
       "label": "69",
       "sourceNames": [
         "69"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "69"
     },
     "0:36": {
       "label": "淫语",
@@ -1346,21 +1522,24 @@
         "淫語",
         "淫语"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "淫语"
     },
     "0:37": {
       "label": "女上位",
       "sourceNames": [
         "女上位"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女上位"
     },
     "0:38": {
       "label": "自慰",
       "sourceNames": [
         "自慰"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "自慰"
     },
     "0:46": {
       "label": "颜射",
@@ -1368,21 +1547,24 @@
         "顏射",
         "颜射"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "颜射"
     },
     "0:68": {
       "label": "潮吹",
       "sourceNames": [
         "潮吹"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "潮吹"
     },
     "0:72": {
       "label": "口交",
       "sourceNames": [
         "口交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "口交"
     },
     "0:73": {
       "label": "舔阴",
@@ -1390,71 +1572,81 @@
         "舔陰",
         "舔阴"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "舔阴"
     },
     "0:74": {
-      "label": "肛门・肛交",
+      "label": "肛门、肛交",
       "sourceNames": [
         "肛門・肛交",
         "肛门・肛交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肛门・肛交"
     },
     "0:77": {
       "label": "手指插入",
       "sourceNames": [
         "手指插入"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "手指插入"
     },
     "0:102": {
       "label": "手淫",
       "sourceNames": [
         "手淫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "手淫"
     },
     "0:123": {
       "label": "深喉",
       "sourceNames": [
         "深喉"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "深喉"
     },
     "0:42": {
       "label": "放尿",
       "sourceNames": [
         "放尿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "放尿"
     },
     "0:61": {
       "label": "足交",
       "sourceNames": [
         "足交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "足交"
     },
     "0:69": {
       "label": "按摩",
       "sourceNames": [
         "按摩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "按摩"
     },
     "0:81": {
       "label": "吞精",
       "sourceNames": [
         "吞精"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "吞精"
     },
     "0:100": {
       "label": "母乳",
       "sourceNames": [
         "母乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "母乳"
     },
     "0:110": {
       "label": "滥交",
@@ -1462,21 +1654,24 @@
         "濫交",
         "滥交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "滥交"
     },
     "0:124": {
       "label": "接吻",
       "sourceNames": [
         "接吻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "接吻"
     },
     "0:141": {
       "label": "拳交",
       "sourceNames": [
         "拳交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "拳交"
     },
     "0:195": {
       "label": "饮尿",
@@ -1484,7 +1679,8 @@
         "飲尿",
         "饮尿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "饮尿"
     },
     "0:197": {
       "label": "骑乘位",
@@ -1492,14 +1688,16 @@
         "騎乗位",
         "骑乘位"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "骑乘位"
     },
     "0:202": {
       "label": "排便",
       "sourceNames": [
         "排便"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "排便"
     },
     "0:209": {
       "label": "食粪",
@@ -1507,21 +1705,24 @@
         "食糞",
         "食粪"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "食粪"
     },
     "0:340": {
       "label": "剃毛",
       "sourceNames": [
         "剃毛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "剃毛"
     },
     "0:342": {
       "label": "二穴同入",
       "sourceNames": [
         "二穴同入"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "二穴同入"
     },
     "0:354": {
       "label": "两女一男",
@@ -1529,7 +1730,8 @@
         "兩女一男",
         "两女一男"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "两女一男"
     },
     "0:355": {
       "label": "两男两女",
@@ -1537,7 +1739,8 @@
         "兩男兩女",
         "两男两女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "两男两女"
     },
     "0:356": {
       "label": "两男一女",
@@ -1545,14 +1748,16 @@
         "兩男一女",
         "两男一女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "两男一女"
     },
     "0:368": {
       "label": "打屁股",
       "sourceNames": [
         "打屁股"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "打屁股"
     },
     "0:373": {
       "label": "约会",
@@ -1560,7 +1765,8 @@
         "約會",
         "约会"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "约会"
     },
     "0:374": {
       "label": "不穿内裤",
@@ -1568,14 +1774,16 @@
         "不穿內褲",
         "不穿内裤"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "不穿内裤"
     },
     "0:375": {
       "label": "不穿胸罩",
       "sourceNames": [
         "不穿胸罩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "不穿胸罩"
     },
     "0:376": {
       "label": "后入",
@@ -1583,21 +1791,24 @@
         "後入",
         "后入"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "后入"
     },
     "0:378": {
       "label": "瑜伽·健身",
       "sourceNames": [
         "瑜伽·健身"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "瑜伽·健身"
     },
     "0:379": {
       "label": "白眼失神",
       "sourceNames": [
         "白眼失神"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "白眼失神"
     },
     "0:385": {
       "label": "搔痒",
@@ -1605,14 +1816,16 @@
         "搔癢",
         "搔痒"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "搔痒"
     },
     "0:21": {
       "label": "凌辱",
       "sourceNames": [
         "凌辱"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "凌辱"
     },
     "0:29": {
       "label": "捆绑",
@@ -1620,7 +1833,8 @@
         "捆綁",
         "捆绑"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "捆绑"
     },
     "0:31": {
       "label": "紧缚",
@@ -1628,7 +1842,8 @@
         "緊縛",
         "紧缚"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "紧缚"
     },
     "0:41": {
       "label": "轮奸",
@@ -1636,21 +1851,24 @@
         "輪姦",
         "轮奸"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "轮奸"
     },
     "0:50": {
       "label": "玩具",
       "sourceNames": [
         "玩具"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "玩具"
     },
     "0:60": {
       "label": "SM",
       "sourceNames": [
         "SM"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "SM"
     },
     "0:66": {
       "label": "户外",
@@ -1658,14 +1876,16 @@
         "戶外",
         "户外"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "户外"
     },
     "0:71": {
       "label": "乳液",
       "sourceNames": [
         "乳液"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "乳液"
     },
     "0:79": {
       "label": "羞耻",
@@ -1673,7 +1893,8 @@
         "羞恥",
         "羞耻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "羞耻"
     },
     "0:90": {
       "label": "女优按摩棒",
@@ -1681,14 +1902,16 @@
         "女優按摩棒",
         "女优按摩棒"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女优按摩棒"
     },
     "0:93": {
       "label": "拘束",
       "sourceNames": [
         "拘束"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "拘束"
     },
     "0:94": {
       "label": "调教",
@@ -1696,21 +1919,24 @@
         "調教",
         "调教"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "调教"
     },
     "0:170": {
       "label": "立即口交",
       "sourceNames": [
         "立即口交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "立即口交"
     },
     "0:39": {
       "label": "跳蛋",
       "sourceNames": [
         "跳蛋"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "跳蛋"
     },
     "0:53": {
       "label": "监禁",
@@ -1718,14 +1944,16 @@
         "監禁",
         "监禁"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "监禁"
     },
     "0:76": {
       "label": "按摩棒",
       "sourceNames": [
         "按摩棒"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "按摩棒"
     },
     "0:120": {
       "label": "插入异物",
@@ -1733,7 +1961,8 @@
         "插入異物",
         "插入异物"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "插入异物"
     },
     "0:138": {
       "label": "灌肠",
@@ -1741,7 +1970,8 @@
         "灌腸",
         "灌肠"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "灌肠"
     },
     "0:155": {
       "label": "药物",
@@ -1749,14 +1979,16 @@
         "藥物",
         "药物"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "药物"
     },
     "0:159": {
       "label": "露出",
       "sourceNames": [
         "露出"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "露出"
     },
     "0:171": {
       "label": "汽车性爱",
@@ -1764,14 +1996,16 @@
         "汽車性愛",
         "汽车性爱"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "汽车性爱"
     },
     "0:176": {
       "label": "催眠",
       "sourceNames": [
         "催眠"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "催眠"
     },
     "0:179": {
       "label": "鸭嘴",
@@ -1779,7 +2013,8 @@
         "鴨嘴",
         "鸭嘴"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "鸭嘴"
     },
     "0:180": {
       "label": "粪便",
@@ -1787,7 +2022,8 @@
         "糞便",
         "粪便"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "粪便"
     },
     "0:225": {
       "label": "脱衣",
@@ -1795,7 +2031,8 @@
         "脫衣",
         "脱衣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "脱衣"
     },
     "0:232": {
       "label": "子宫颈",
@@ -1803,7 +2040,8 @@
         "子宮頸",
         "子宫颈"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "子宫颈"
     },
     "0:315": {
       "label": "导尿",
@@ -1811,21 +2049,24 @@
         "導尿",
         "导尿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "导尿"
     },
     "0:346": {
-      "label": "蒙面・面罩",
+      "label": "蒙面、面罩",
       "sourceNames": [
         "蒙面・面罩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "蒙面・面罩"
     },
     "0:350": {
       "label": "唾液敷面",
       "sourceNames": [
         "唾液敷面"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "唾液敷面"
     },
     "0:353": {
       "label": "乳钉、穿孔、乳环",
@@ -1833,14 +2074,16 @@
         "乳釘、穿孔、乳環",
         "乳钉、穿孔、乳环"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "乳钉、穿孔、乳环"
     },
     "0:357": {
       "label": "口球",
       "sourceNames": [
         "口球"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "口球"
     },
     "0:364": {
       "label": "辅助自慰",
@@ -1848,7 +2091,8 @@
         "輔助自慰",
         "辅助自慰"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "辅助自慰"
     },
     "0:369": {
       "label": "夫妻交换",
@@ -1856,7 +2100,8 @@
         "夫妻交換",
         "夫妻交换"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "夫妻交换"
     },
     "0:372": {
       "label": "假阳具",
@@ -1864,7 +2109,8 @@
         "假陽具",
         "假阳具"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "假阳具"
     },
     "0:380": {
       "label": "鼻钩",
@@ -1872,7 +2118,8 @@
         "鼻鉤",
         "鼻钩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "鼻钩"
     },
     "0:382": {
       "label": "蜡烛",
@@ -1880,7 +2127,8 @@
         "蠟燭",
         "蜡烛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "蜡烛"
     },
     "0:389": {
       "label": "站立后入",
@@ -1888,7 +2136,8 @@
         "站立後入",
         "站立后入"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "站立后入"
     },
     "0:28": {
       "label": "单体作品",
@@ -1896,21 +2145,24 @@
         "單體作品",
         "单体作品"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "单体作品"
     },
     "0:80": {
       "label": "首次亮相",
       "sourceNames": [
         "首次亮相"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "首次亮相"
     },
     "0:164": {
       "label": "故事集",
       "sourceNames": [
         "故事集"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "故事集"
     },
     "0:175": {
       "label": "经典",
@@ -1918,7 +2170,8 @@
         "經典",
         "经典"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "经典"
     },
     "0:178": {
       "label": "恋爱",
@@ -1926,14 +2179,16 @@
         "戀愛",
         "恋爱"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "恋爱"
     },
     "0:212": {
       "label": "VR",
       "sourceNames": [
         "VR"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "VR"
     },
     "0:213": {
       "label": "感谢祭",
@@ -1941,7 +2196,8 @@
         "感謝祭",
         "感谢祭"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "感谢祭"
     },
     "0:236": {
       "label": "给女性观众",
@@ -1949,7 +2205,8 @@
         "給女性觀眾",
         "给女性观众"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "给女性观众"
     },
     "0:345": {
       "label": "无码流出",
@@ -1957,14 +2214,16 @@
         "無碼流出",
         "无码流出"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "无码流出"
     },
     "0:347": {
       "label": "4K",
       "sourceNames": [
         "4K"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "4K"
     },
     "0:348": {
       "label": "无码破解",
@@ -1972,7 +2231,8 @@
         "無碼破解",
         "无码破解"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "无码破解"
     },
     "0:351": {
       "label": "综艺",
@@ -1980,7 +2240,8 @@
         "綜藝",
         "综艺"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "综艺"
     },
     "0:8": {
       "label": "精选综合",
@@ -1988,7 +2249,8 @@
         "精選綜合",
         "精选综合"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "精选综合"
     },
     "0:9": {
       "label": "国外进口",
@@ -1996,7 +2258,8 @@
         "國外進口",
         "国外进口"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "国外进口"
     },
     "0:10": {
       "label": "4小时以上作品",
@@ -2004,7 +2267,8 @@
         "4小時以上作品",
         "4小时以上作品"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "4小时以上作品"
     },
     "0:11": {
       "label": "戏剧",
@@ -2012,7 +2276,8 @@
         "戲劇",
         "戏剧"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "戏剧"
     },
     "0:12": {
       "label": "成人电影",
@@ -2020,7 +2285,8 @@
         "成人電影",
         "成人电影"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "成人电影"
     },
     "0:26": {
       "label": "介绍影片",
@@ -2028,7 +2294,8 @@
         "介紹影片",
         "介绍影片"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "介绍影片"
     },
     "0:45": {
       "label": "第一人称摄影",
@@ -2036,7 +2303,8 @@
         "第一人稱攝影",
         "第一人称摄影"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "第一人称摄影"
     },
     "0:83": {
       "label": "薄马赛克",
@@ -2044,7 +2312,8 @@
         "薄馬賽克",
         "薄马赛克"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "薄马赛克"
     },
     "0:85": {
       "label": "数位马赛克",
@@ -2052,14 +2321,16 @@
         "數位馬賽克",
         "数位马赛克"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "数位马赛克"
     },
     "0:87": {
       "label": "投稿",
       "sourceNames": [
         "投稿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "投稿"
     },
     "0:88": {
       "label": "业余",
@@ -2067,7 +2338,8 @@
         "業餘",
         "业余"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "业余"
     },
     "0:97": {
       "label": "纪录片",
@@ -2075,14 +2347,16 @@
         "紀錄片",
         "纪录片"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "纪录片"
     },
     "0:117": {
       "label": "去背影片",
       "sourceNames": [
         "去背影片"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "去背影片"
     },
     "0:121": {
       "label": "独立制作",
@@ -2090,7 +2364,8 @@
         "獨立製作",
         "独立制作"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "独立制作"
     },
     "0:148": {
       "label": "主观视角",
@@ -2098,7 +2373,8 @@
         "主觀視角",
         "主观视角"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "主观视角"
     },
     "0:150": {
       "label": "战斗行动",
@@ -2106,14 +2382,16 @@
         "戰鬥行動",
         "战斗行动"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "战斗行动"
     },
     "0:152": {
       "label": "特效",
       "sourceNames": [
         "特效"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "特效"
     },
     "0:161": {
       "label": "16小时以上作品",
@@ -2121,7 +2399,8 @@
         "16小時以上作品",
         "16小时以上作品"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "16小时以上作品"
     },
     "0:168": {
       "label": "局部特写",
@@ -2129,14 +2408,16 @@
         "局部特寫",
         "局部特写"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "局部特写"
     },
     "0:189": {
       "label": "重印版",
       "sourceNames": [
         "重印版"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "重印版"
     },
     "0:191": {
       "label": "历史剧",
@@ -2144,7 +2425,8 @@
         "歷史劇",
         "历史剧"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "历史剧"
     },
     "0:194": {
       "label": "写真偶像",
@@ -2152,14 +2434,16 @@
         "寫真偶像",
         "写真偶像"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "写真偶像"
     },
     "0:227": {
       "label": "3D",
       "sourceNames": [
         "3D"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "3D"
     },
     "0:238": {
       "label": "原作改编",
@@ -2167,7 +2451,8 @@
         "原作改編",
         "原作改编"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "原作改编"
     },
     "0:242": {
       "label": "访问",
@@ -2175,7 +2460,8 @@
         "訪問",
         "访问"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "访问"
     },
     "0:250": {
       "label": "教学",
@@ -2183,28 +2469,32 @@
         "教學",
         "教学"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "教学"
     },
     "0:253": {
       "label": "恐怖",
       "sourceNames": [
         "恐怖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "恐怖"
     },
     "0:254": {
       "label": "西洋片",
       "sourceNames": [
         "西洋片"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "西洋片"
     },
     "0:266": {
       "label": "科幻",
       "sourceNames": [
         "科幻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "科幻"
     },
     "0:267": {
       "label": "行动",
@@ -2212,7 +2502,8 @@
         "行動",
         "行动"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "行动"
     },
     "0:271": {
       "label": "综合短篇",
@@ -2220,21 +2511,24 @@
         "綜合短篇",
         "综合短篇"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "综合短篇"
     },
     "0:273": {
       "label": "滑稽模仿",
       "sourceNames": [
         "滑稽模仿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "滑稽模仿"
     },
     "0:280": {
       "label": "男性",
       "sourceNames": [
         "男性"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "男性"
     },
     "0:284": {
       "label": "冒险",
@@ -2242,7 +2536,8 @@
         "冒險",
         "冒险"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "冒险"
     },
     "0:285": {
       "label": "模拟",
@@ -2250,7 +2545,8 @@
         "模擬",
         "模拟"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "模拟"
     },
     "0:292": {
       "label": "爱好、文化",
@@ -2258,7 +2554,8 @@
         "愛好，文化",
         "爱好、文化"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "爱好、文化"
     },
     "0:296": {
       "label": "悬疑",
@@ -2266,14 +2563,16 @@
         "懸疑",
         "悬疑"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "悬疑"
     },
     "0:311": {
       "label": "R-15",
       "sourceNames": [
         "R-15"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "R-15"
     },
     "0:312": {
       "label": "美少女电影",
@@ -2281,14 +2580,16 @@
         "美少女電影",
         "美少女电影"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美少女电影"
     },
     "0:314": {
       "label": "感官作品",
       "sourceNames": [
         "感官作品"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "感官作品"
     },
     "0:325": {
       "label": "触摸打字",
@@ -2296,21 +2597,24 @@
         "觸摸打字",
         "触摸打字"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "触摸打字"
     },
     "0:330": {
       "label": "素人作品",
       "sourceNames": [
         "素人作品"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "素人作品"
     },
     "0:335": {
       "label": "HDTV",
       "sourceNames": [
         "HDTV"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "HDTV"
     },
     "0:367": {
       "label": "心理惊悚",
@@ -2318,7 +2622,8 @@
         "心理驚悚",
         "心理惊悚"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "心理惊悚"
     },
     "0:370": {
       "label": "养尊处优",
@@ -2326,3773 +2631,4312 @@
         "養尊處優",
         "养尊处优"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "养尊处优"
     },
     "0:381": {
       "label": "共演",
       "sourceNames": [
         "共演"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "共演"
     },
     "1:6": {
       "label": "肛交",
       "sourceNames": [
         "肛交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肛交"
     },
     "1:7": {
-      "label": "束縛",
+      "label": "束缚",
       "sourceNames": [
         "束縛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "束縛"
     },
     "1:8": {
-      "label": "顏射",
+      "label": "颜射",
       "sourceNames": [
         "顏射"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "顏射"
     },
     "1:9": {
       "label": "中出",
       "sourceNames": [
         "中出"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "中出"
     },
     "1:10": {
       "label": "二穴同插",
       "sourceNames": [
         "二穴同插"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "二穴同插"
     },
     "1:11": {
-      "label": "輪姦",
+      "label": "轮奸",
       "sourceNames": [
         "輪姦"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "輪姦"
     },
     "1:12": {
-      "label": "女同性戀",
+      "label": "女同性恋",
       "sourceNames": [
         "女同性戀"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女同性戀"
     },
     "1:13": {
-      "label": "無套內射",
+      "label": "无套内射",
       "sourceNames": [
         "無套內射"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "無套內射"
     },
     "1:14": {
-      "label": "捆綁",
+      "label": "捆绑",
       "sourceNames": [
         "捆綁"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "捆綁"
     },
     "1:15": {
       "label": "乳液",
       "sourceNames": [
         "乳液"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "乳液"
     },
     "1:16": {
-      "label": "與外國人玩",
+      "label": "与外国人玩",
       "sourceNames": [
         "與外國人玩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "與外國人玩"
     },
     "1:17": {
       "label": "立即口交",
       "sourceNames": [
         "立即口交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "立即口交"
     },
     "1:18": {
       "label": "1v1性交",
       "sourceNames": [
         "1v1性交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "1v1性交"
     },
     "1:19": {
-      "label": "淫蕩手淫",
+      "label": "淫荡手淫",
       "sourceNames": [
         "淫蕩手淫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "淫蕩手淫"
     },
     "1:20": {
       "label": "深喉",
       "sourceNames": [
         "深喉"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "深喉"
     },
     "1:21": {
       "label": "淋浴沐浴",
       "sourceNames": [
         "淋浴沐浴"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "淋浴沐浴"
     },
     "1:22": {
-      "label": "M字開腿",
+      "label": "M字开腿",
       "sourceNames": [
         "M字開腿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "M字開腿"
     },
     "1:23": {
-      "label": "淫語",
+      "label": "淫语",
       "sourceNames": [
         "淫語"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "淫語"
     },
     "1:24": {
-      "label": "打手槍",
+      "label": "打手枪",
       "sourceNames": [
         "打手槍"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "打手槍"
     },
     "1:25": {
       "label": "足交",
       "sourceNames": [
         "足交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "足交"
     },
     "1:26": {
       "label": "泡泡浴",
       "sourceNames": [
         "泡泡浴"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "泡泡浴"
     },
     "1:27": {
       "label": "跳舞",
       "sourceNames": [
         "跳舞"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "跳舞"
     },
     "1:28": {
-      "label": "背後插入",
+      "label": "背后插入",
       "sourceNames": [
         "背後插入"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "背後插入"
     },
     "1:29": {
       "label": "潮吹",
       "sourceNames": [
         "潮吹"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "潮吹"
     },
     "1:30": {
       "label": "3P",
       "sourceNames": [
         "3P"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "3P"
     },
     "1:31": {
       "label": "迷你裙",
       "sourceNames": [
         "迷你裙"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "迷你裙"
     },
     "1:32": {
       "label": "性奴",
       "sourceNames": [
         "性奴"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "性奴"
     },
     "1:33": {
       "label": "首次亮相",
       "sourceNames": [
         "首次亮相"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "首次亮相"
     },
     "1:34": {
       "label": "左右口交",
       "sourceNames": [
         "左右口交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "左右口交"
     },
     "1:35": {
-      "label": "奧斯曼株式會社",
+      "label": "奥斯曼株式会社",
       "sourceNames": [
         "奧斯曼株式會社"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "奧斯曼株式會社"
     },
     "1:36": {
-      "label": "女體料理",
+      "label": "女体料理",
       "sourceNames": [
         "女體料理"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女體料理"
     },
     "1:37": {
-      "label": "龜甲捆綁",
+      "label": "龟甲捆绑",
       "sourceNames": [
         "龜甲捆綁"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "龜甲捆綁"
     },
     "1:38": {
-      "label": "顏射",
+      "label": "颜射",
       "sourceNames": [
         "顏射"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "顏射"
     },
     "1:39": {
       "label": "站立性交",
       "sourceNames": [
         "站立性交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "站立性交"
     },
     "1:40": {
-      "label": "騎乘位",
+      "label": "骑乘位",
       "sourceNames": [
         "騎乘位"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "騎乘位"
     },
     "1:41": {
-      "label": "背部騎乘位",
+      "label": "背部骑乘位",
       "sourceNames": [
         "背部騎乘位"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "背部騎乘位"
     },
     "1:42": {
-      "label": "車站性交",
+      "label": "车站性交",
       "sourceNames": [
         "車站性交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "車站性交"
     },
     "1:43": {
       "label": "乳交",
       "sourceNames": [
         "乳交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "乳交"
     },
     "1:44": {
-      "label": "粉紅",
+      "label": "粉红",
       "sourceNames": [
         "粉紅"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "粉紅"
     },
     "1:45": {
       "label": "跳",
       "sourceNames": [
         "跳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "跳"
     },
     "1:46": {
       "label": "口塞",
       "sourceNames": [
         "口塞"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "口塞"
     },
     "1:47": {
-      "label": "輪姦",
+      "label": "轮奸",
       "sourceNames": [
         "輪姦"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "輪姦"
     },
     "1:48": {
-      "label": "第一人稱視角(POV)",
+      "label": "第一人称视角(POV)",
       "sourceNames": [
         "第一人稱視角(POV)"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "第一人稱視角(POV)"
     },
     "1:49": {
       "label": "口爆/吞精",
       "sourceNames": [
         "口爆/吞精"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "口爆/吞精"
     },
     "1:50": {
       "label": "浪叫",
       "sourceNames": [
         "浪叫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "浪叫"
     },
     "1:51": {
       "label": "肛交",
       "sourceNames": [
         "肛交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肛交"
     },
     "1:52": {
-      "label": "戶外",
+      "label": "户外",
       "sourceNames": [
         "戶外"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "戶外"
     },
     "1:53": {
       "label": "露出",
       "sourceNames": [
         "露出"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "露出"
     },
     "1:54": {
-      "label": "公共場所",
+      "label": "公共场所",
       "sourceNames": [
         "公共場所"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "公共場所"
     },
     "1:55": {
-      "label": "出軌",
+      "label": "出轨",
       "sourceNames": [
         "出軌"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "出軌"
     },
     "1:56": {
-      "label": "亂倫",
+      "label": "乱伦",
       "sourceNames": [
         "亂倫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "亂倫"
     },
     "1:57": {
-      "label": "汽車性愛",
+      "label": "汽车性爱",
       "sourceNames": [
         "汽車性愛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "汽車性愛"
     },
     "1:58": {
-      "label": "電車痴漢",
+      "label": "电车痴汉",
       "sourceNames": [
         "電車痴漢"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "電車痴漢"
     },
     "1:59": {
-      "label": "南國度假地",
+      "label": "南国度假地",
       "sourceNames": [
         "南國度假地"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "南國度假地"
     },
     "1:60": {
       "label": "在他人面前",
       "sourceNames": [
         "在他人面前"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "在他人面前"
     },
     "1:63": {
-      "label": "假陽具",
+      "label": "假阳具",
       "sourceNames": [
         "假陽具"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "假陽具"
     },
     "1:64": {
-      "label": "顏面騎乘",
+      "label": "颜面骑乘",
       "sourceNames": [
         "顏面騎乘"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "顏面騎乘"
     },
     "1:65": {
-      "label": "立即騎乘",
+      "label": "立即骑乘",
       "sourceNames": [
         "立即騎乘"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "立即騎乘"
     },
     "1:66": {
       "label": "口交",
       "sourceNames": [
         "口交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "口交"
     },
     "1:67": {
-      "label": "腔鏡",
+      "label": "腔镜",
       "sourceNames": [
         "腔鏡"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "腔鏡"
     },
     "1:135": {
       "label": "69",
       "sourceNames": [
         "69"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "69"
     },
     "1:136": {
-      "label": "濫交",
+      "label": "滥交",
       "sourceNames": [
         "濫交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "濫交"
     },
     "1:137": {
       "label": "玩具",
       "sourceNames": [
         "玩具"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "玩具"
     },
     "1:138": {
-      "label": "偷窺",
+      "label": "偷窥",
       "sourceNames": [
         "偷窺"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "偷窺"
     },
     "1:139": {
       "label": "旅行",
       "sourceNames": [
         "旅行"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "旅行"
     },
     "1:140": {
       "label": "按摩",
       "sourceNames": [
         "按摩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "按摩"
     },
     "1:141": {
       "label": "其他",
       "sourceNames": [
         "其他"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "其他"
     },
     "1:143": {
       "label": "口爆",
       "sourceNames": [
         "口爆"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "口爆"
     },
     "1:146": {
       "label": "尿失禁",
       "sourceNames": [
         "尿失禁"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "尿失禁"
     },
     "1:149": {
-      "label": "戀物癖",
+      "label": "恋物癖",
       "sourceNames": [
         "戀物癖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "戀物癖"
     },
     "1:289": {
-      "label": "搭訕",
+      "label": "搭讪",
       "sourceNames": [
         "搭訕"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "搭訕"
     },
     "1:293": {
       "label": "妊娠",
       "sourceNames": [
         "妊娠"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "妊娠"
     },
     "1:294": {
       "label": "母乳",
       "sourceNames": [
         "母乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "母乳"
     },
     "1:295": {
       "label": "舔",
       "sourceNames": [
         "舔"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "舔"
     },
     "1:61": {
       "label": "M男",
       "sourceNames": [
         "M男"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "M男"
     },
     "1:62": {
-      "label": "痴女與M男",
+      "label": "痴女与M男",
       "sourceNames": [
         "痴女與M男"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "痴女與M男"
     },
     "1:68": {
       "label": "巨乳爆乳",
       "sourceNames": [
         "巨乳爆乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "巨乳爆乳"
     },
     "1:69": {
       "label": "和服",
       "sourceNames": [
         "和服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "和服"
     },
     "1:70": {
       "label": "熟女",
       "sourceNames": [
         "熟女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "熟女"
     },
     "1:71": {
       "label": "美少女",
       "sourceNames": [
         "美少女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美少女"
     },
     "1:72": {
       "label": "美乳",
       "sourceNames": [
         "美乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美乳"
     },
     "1:73": {
       "label": "痴女",
       "sourceNames": [
         "痴女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "痴女"
     },
     "1:74": {
       "label": "白虎",
       "sourceNames": [
         "白虎"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "白虎"
     },
     "1:75": {
       "label": "美女",
       "sourceNames": [
         "美女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美女"
     },
     "1:76": {
-      "label": "曬黑",
+      "label": "晒黑",
       "sourceNames": [
         "曬黑"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "曬黑"
     },
     "1:77": {
-      "label": "苗條",
+      "label": "苗条",
       "sourceNames": [
         "苗條"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "苗條"
     },
     "1:78": {
-      "label": "貧乳",
+      "label": "贫乳",
       "sourceNames": [
         "貧乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "貧乳"
     },
     "1:79": {
       "label": "太太",
       "sourceNames": [
         "太太"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "太太"
     },
     "1:80": {
-      "label": "捲髮",
+      "label": "卷发",
       "sourceNames": [
         "捲髮"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "捲髮"
     },
     "1:81": {
-      "label": "美腳",
+      "label": "美脚",
       "sourceNames": [
         "美腳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美腳"
     },
     "1:82": {
       "label": "漂亮屁股",
       "sourceNames": [
         "漂亮屁股"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "漂亮屁股"
     },
     "1:83": {
-      "label": "眼鏡娘",
+      "label": "眼镜娘",
       "sourceNames": [
         "眼鏡娘"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "眼鏡娘"
     },
     "1:84": {
       "label": "美穴",
       "sourceNames": [
         "美穴"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美穴"
     },
     "1:85": {
-      "label": "淫亂S女",
+      "label": "淫乱S女",
       "sourceNames": [
         "淫亂S女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "淫亂S女"
     },
     "1:86": {
       "label": "M女",
       "sourceNames": [
         "M女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "M女"
     },
     "1:87": {
-      "label": "人妻",
+      "label": "已婚妇女",
       "sourceNames": [
         "人妻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "人妻"
     },
     "1:88": {
       "label": "素人",
       "sourceNames": [
         "素人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "素人"
     },
     "1:89": {
       "label": "辣妹",
       "sourceNames": [
         "辣妹"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "辣妹"
     },
     "1:90": {
-      "label": "精緻身材",
+      "label": "精致身材",
       "sourceNames": [
         "精緻身材"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "精緻身材"
     },
     "1:91": {
       "label": "混血美女",
       "sourceNames": [
         "混血美女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "混血美女"
     },
     "1:92": {
       "label": "高挑身材",
       "sourceNames": [
         "高挑身材"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "高挑身材"
     },
     "1:93": {
-      "label": "短髮",
+      "label": "短发",
       "sourceNames": [
         "短髮"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "短髮"
     },
     "1:94": {
-      "label": "變性人",
+      "label": "变性人",
       "sourceNames": [
         "變性人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "變性人"
     },
     "1:95": {
       "label": "肉肉女",
       "sourceNames": [
         "肉肉女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肉肉女"
     },
     "1:147": {
-      "label": "女學生",
+      "label": "女学生",
       "sourceNames": [
         "女學生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女學生"
     },
     "1:148": {
       "label": "姐姐",
       "sourceNames": [
         "姐姐"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "姐姐"
     },
     "1:150": {
-      "label": "女大學生",
+      "label": "女大学生",
       "sourceNames": [
         "女大學生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女大學生"
     },
     "1:290": {
-      "label": "單純",
+      "label": "单纯",
       "sourceNames": [
         "單純"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "單純"
     },
     "1:292": {
       "label": "幼妻",
       "sourceNames": [
         "幼妻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "幼妻"
     },
     "1:96": {
       "label": "角色扮演",
       "sourceNames": [
         "角色扮演"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "角色扮演"
     },
     "1:97": {
-      "label": "製服",
+      "label": "制服",
       "sourceNames": [
         "製服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "製服"
     },
     "1:98": {
       "label": "OL",
       "sourceNames": [
         "OL"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "OL"
     },
     "1:99": {
-      "label": "護士",
+      "label": "护士",
       "sourceNames": [
         "護士"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "護士"
     },
     "1:100": {
-      "label": "女傭",
+      "label": "女佣",
       "sourceNames": [
         "女傭"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女傭"
     },
     "1:101": {
-      "label": "婚紗禮服",
+      "label": "婚纱礼服",
       "sourceNames": [
         "婚紗禮服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "婚紗禮服"
     },
     "1:102": {
-      "label": "泳裝",
+      "label": "泳装",
       "sourceNames": [
         "泳裝"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "泳裝"
     },
     "1:103": {
-      "label": "女醫生",
+      "label": "女医生",
       "sourceNames": [
         "女醫生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女醫生"
     },
     "1:104": {
-      "label": "濕透",
+      "label": "湿透",
       "sourceNames": [
         "濕透"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "濕透"
     },
     "1:105": {
-      "label": "雪白皮膚",
+      "label": "雪白皮肤",
       "sourceNames": [
         "雪白皮膚"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "雪白皮膚"
     },
     "1:106": {
-      "label": "漁網褲襪",
+      "label": "渔网裤袜",
       "sourceNames": [
         "漁網褲襪"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "漁網褲襪"
     },
     "1:107": {
-      "label": "播音員",
+      "label": "播音员",
       "sourceNames": [
         "播音員"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "播音員"
     },
     "1:108": {
-      "label": "蘿莉",
+      "label": "萝莉",
       "sourceNames": [
         "蘿莉"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "蘿莉"
     },
     "1:109": {
-      "label": "西方時",
+      "label": "西方时",
       "sourceNames": [
         "西方時"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "西方時"
     },
     "1:110": {
       "label": "女主角",
       "sourceNames": [
         "女主角"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女主角"
     },
     "1:111": {
-      "label": "運動裝",
+      "label": "运动装",
       "sourceNames": [
         "運動裝"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "運動裝"
     },
     "1:112": {
-      "label": "女教師",
+      "label": "女教师",
       "sourceNames": [
         "女教師"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女教師"
     },
     "1:113": {
       "label": "比基尼",
       "sourceNames": [
         "比基尼"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "比基尼"
     },
     "1:114": {
-      "label": "家庭教師",
+      "label": "家庭教师",
       "sourceNames": [
         "家庭教師"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "家庭教師"
     },
     "1:115": {
       "label": "空姐",
       "sourceNames": [
         "空姐"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "空姐"
     },
     "1:116": {
-      "label": "體育Cosplay",
+      "label": "体育Cosplay",
       "sourceNames": [
         "體育Cosplay"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "體育Cosplay"
     },
     "1:144": {
-      "label": "女子高生製服",
+      "label": "女高中生制服",
       "sourceNames": [
         "女子高生製服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女子高生製服"
     },
     "1:145": {
-      "label": "學校泳裝",
+      "label": "学校泳装",
       "sourceNames": [
         "學校泳裝"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "學校泳裝"
     },
     "1:151": {
-      "label": "連褲襪",
+      "label": "连裤袜",
       "sourceNames": [
         "連褲襪"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "連褲襪"
     },
     "1:296": {
       "label": "高跟鞋",
       "sourceNames": [
         "高跟鞋"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "高跟鞋"
     },
     "1:117": {
-      "label": "人氣標題",
+      "label": "人气标题",
       "sourceNames": [
         "人氣標題"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "人氣標題"
     },
     "1:118": {
-      "label": "惡搞",
+      "label": "恶搞",
       "sourceNames": [
         "惡搞"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "惡搞"
     },
     "1:119": {
-      "label": "戲劇",
+      "label": "戏剧",
       "sourceNames": [
         "戲劇"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "戲劇"
     },
     "1:120": {
-      "label": "店長推薦",
+      "label": "店长推荐",
       "sourceNames": [
         "店長推薦"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "店長推薦"
     },
     "1:121": {
-      "label": "知名女優",
+      "label": "知名女优",
       "sourceNames": [
         "知名女優"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "知名女優"
     },
     "1:122": {
       "label": "最新影片",
       "sourceNames": [
         "最新影片"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "最新影片"
     },
     "1:123": {
-      "label": "動漫",
+      "label": "动漫",
       "sourceNames": [
         "動漫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "動漫"
     },
     "1:124": {
-      "label": "獨占影片",
+      "label": "独占影片",
       "sourceNames": [
         "獨占影片"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "獨占影片"
     },
     "1:125": {
-      "label": "復古",
+      "label": "复古",
       "sourceNames": [
         "復古"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "復古"
     },
     "1:126": {
-      "label": "金發",
+      "label": "金发",
       "sourceNames": [
         "金發"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "金發"
     },
     "1:127": {
-      "label": "寫真",
+      "label": "写真",
       "sourceNames": [
         "寫真"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "寫真"
     },
     "1:128": {
       "label": "正在上映",
       "sourceNames": [
         "正在上映"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "正在上映"
     },
     "1:129": {
-      "label": "懷舊",
+      "label": "怀旧",
       "sourceNames": [
         "懷舊"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "懷舊"
     },
     "1:130": {
       "label": "精品收藏",
       "sourceNames": [
         "精品收藏"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "精品收藏"
     },
     "1:131": {
       "label": "DVD已售罄",
       "sourceNames": [
         "DVD已售罄"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "DVD已售罄"
     },
     "1:132": {
-      "label": "週排名第一的作品",
+      "label": "周排名第一的作品",
       "sourceNames": [
         "週排名第一的作品"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "週排名第一的作品"
     },
     "1:133": {
-      "label": "2018暢銷Top100",
+      "label": "2018畅销Top100",
       "sourceNames": [
         "2018暢銷Top100"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "2018暢銷Top100"
     },
     "2:40": {
       "label": "按摩",
       "sourceNames": [
         "按摩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "按摩"
     },
     "2:51": {
-      "label": "騙色",
+      "label": "骗色",
       "sourceNames": [
         "騙色"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "騙色"
     },
     "2:53": {
       "label": "按摩油",
       "sourceNames": [
         "按摩油"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "按摩油"
     },
     "2:57": {
-      "label": "女同性戀",
+      "label": "女同性恋",
       "sourceNames": [
         "女同性戀"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女同性戀"
     },
     "2:58": {
       "label": "成熟妈妈",
       "sourceNames": [
         "成熟妈妈"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "成熟妈妈"
     },
     "2:62": {
-      "label": "綠帽男",
+      "label": "绿帽男",
       "sourceNames": [
         "綠帽男"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "綠帽男"
     },
     "2:64": {
-      "label": "採訪",
+      "label": "采访",
       "sourceNames": [
         "採訪"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "採訪"
     },
     "2:68": {
-      "label": "跨種族",
+      "label": "跨种族",
       "sourceNames": [
         "跨種族"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "跨種族"
     },
     "2:75": {
-      "label": "亞洲人",
+      "label": "亚洲人",
       "sourceNames": [
         "亞洲人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "亞洲人"
     },
     "2:77": {
       "label": "拉丁美女",
       "sourceNames": [
         "拉丁美女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "拉丁美女"
     },
     "2:82": {
-      "label": "奇聞趣事",
+      "label": "奇闻趣事",
       "sourceNames": [
         "奇聞趣事"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "奇聞趣事"
     },
     "2:83": {
-      "label": "運動健身",
+      "label": "运动健身",
       "sourceNames": [
         "運動健身"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "運動健身"
     },
     "2:90": {
-      "label": "第一人稱視角",
+      "label": "第一人称视角",
       "sourceNames": [
         "第一人稱視角"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "第一人稱視角"
     },
     "2:104": {
-      "label": "情侶幻想",
+      "label": "情侣幻想",
       "sourceNames": [
         "情侶幻想"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "情侶幻想"
     },
     "2:106": {
-      "label": "婚禮",
+      "label": "婚礼",
       "sourceNames": [
         "婚禮"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "婚禮"
     },
     "2:108": {
-      "label": "汽車",
+      "label": "汽车",
       "sourceNames": [
         "汽車"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "汽車"
     },
     "2:117": {
-      "label": "戀物癖",
+      "label": "恋物癖",
       "sourceNames": [
         "戀物癖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "戀物癖"
     },
     "2:118": {
-      "label": "微變態",
+      "label": "微变态",
       "sourceNames": [
         "微變態"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "微變態"
     },
     "2:119": {
       "label": "SM",
       "sourceNames": [
         "SM"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "SM"
     },
     "2:168": {
-      "label": "派對",
+      "label": "派对",
       "sourceNames": [
         "派對"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "派對"
     },
     "2:174": {
       "label": "芭蕾",
       "sourceNames": [
         "芭蕾"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "芭蕾"
     },
     "2:178": {
-      "label": "人體彩繪",
+      "label": "人体彩绘",
       "sourceNames": [
         "人體彩繪"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "人體彩繪"
     },
     "2:183": {
-      "label": "業餘",
+      "label": "业余",
       "sourceNames": [
         "業餘"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "業餘"
     },
     "2:184": {
-      "label": "聖誕",
+      "label": "圣诞",
       "sourceNames": [
         "聖誕"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "聖誕"
     },
     "2:185": {
-      "label": "萬聖節",
+      "label": "万圣节",
       "sourceNames": [
         "萬聖節"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "萬聖節"
     },
     "2:186": {
-      "label": "感恩節",
+      "label": "感恩节",
       "sourceNames": [
         "感恩節"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "感恩節"
     },
     "2:187": {
-      "label": "復活節",
+      "label": "复活节",
       "sourceNames": [
         "復活節"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "復活節"
     },
     "2:189": {
       "label": "瑜伽",
       "sourceNames": [
         "瑜伽"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "瑜伽"
     },
     "2:196": {
       "label": "足球",
       "sourceNames": [
         "足球"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "足球"
     },
     "2:197": {
       "label": "保姆",
       "sourceNames": [
         "保姆"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "保姆"
     },
     "2:199": {
       "label": "桑拿",
       "sourceNames": [
         "桑拿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "桑拿"
     },
     "2:200": {
-      "label": "軍事",
+      "label": "军事",
       "sourceNames": [
         "軍事"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "軍事"
     },
     "2:201": {
-      "label": "遊戲",
+      "label": "游戏",
       "sourceNames": [
         "遊戲"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "遊戲"
     },
     "2:283": {
-      "label": "歐洲人",
+      "label": "欧洲人",
       "sourceNames": [
         "歐洲人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "歐洲人"
     },
     "2:284": {
-      "label": "俄國人",
+      "label": "俄国人",
       "sourceNames": [
         "俄國人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "俄國人"
     },
     "2:1": {
-      "label": "褐髮",
+      "label": "褐发",
       "sourceNames": [
         "褐髮"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "褐髮"
     },
     "2:2": {
-      "label": "貧乳",
+      "label": "贫乳",
       "sourceNames": [
         "貧乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "貧乳"
     },
     "2:13": {
       "label": "巨乳",
       "sourceNames": [
         "巨乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "巨乳"
     },
     "2:14": {
-      "label": "金髮",
+      "label": "金发",
       "sourceNames": [
         "金髮"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "金髮"
     },
     "2:21": {
-      "label": "陰毛",
+      "label": "阴毛",
       "sourceNames": [
         "陰毛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "陰毛"
     },
     "2:25": {
-      "label": "紅頭髮",
+      "label": "红头发",
       "sourceNames": [
         "紅頭髮"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "紅頭髮"
     },
     "2:37": {
       "label": "大屁股",
       "sourceNames": [
         "大屁股"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "大屁股"
     },
     "2:39": {
-      "label": "黑髮",
+      "label": "黑发",
       "sourceNames": [
         "黑髮"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "黑髮"
     },
     "2:47": {
-      "label": "藍色眼晴",
+      "label": "蓝色眼晴",
       "sourceNames": [
         "藍色眼晴"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "藍色眼晴"
     },
     "2:50": {
-      "label": "大陰莖",
+      "label": "大阴茎",
       "sourceNames": [
         "大陰莖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "大陰莖"
     },
     "2:52": {
       "label": "黑人美女",
       "sourceNames": [
         "黑人美女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "黑人美女"
     },
     "2:60": {
       "label": "自然乳房",
       "sourceNames": [
         "自然乳房"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "自然乳房"
     },
     "2:65": {
-      "label": "小個子美女",
+      "label": "小个子美女",
       "sourceNames": [
         "小個子美女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "小個子美女"
     },
     "2:67": {
-      "label": "曬痕",
+      "label": "晒痕",
       "sourceNames": [
         "曬痕"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "曬痕"
     },
     "2:76": {
       "label": "瘦女孩",
       "sourceNames": [
         "瘦女孩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "瘦女孩"
     },
     "2:78": {
       "label": "白虎",
       "sourceNames": [
         "白虎"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "白虎"
     },
     "2:91": {
-      "label": "豐滿",
+      "label": "丰满",
       "sourceNames": [
         "豐滿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "豐滿"
     },
     "2:92": {
-      "label": "曲線身材",
+      "label": "曲线身材",
       "sourceNames": [
         "曲線身材"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "曲線身材"
     },
     "2:94": {
-      "label": "勻稱身材",
+      "label": "匀称身材",
       "sourceNames": [
         "勻稱身材"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "勻稱身材"
     },
     "2:95": {
-      "label": "雪白皮膚",
+      "label": "雪白皮肤",
       "sourceNames": [
         "雪白皮膚"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "雪白皮膚"
     },
     "2:96": {
-      "label": "曬黑皮膚",
+      "label": "晒黑皮肤",
       "sourceNames": [
         "曬黑皮膚"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "曬黑皮膚"
     },
     "2:97": {
       "label": "小屁股",
       "sourceNames": [
         "小屁股"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "小屁股"
     },
     "2:98": {
-      "label": "翹臀",
+      "label": "翘臀",
       "sourceNames": [
         "翹臀"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "翹臀"
     },
     "2:103": {
-      "label": "修剪的陰毛",
+      "label": "修剪的阴毛",
       "sourceNames": [
         "修剪的陰毛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "修剪的陰毛"
     },
     "2:122": {
-      "label": "紋身/穿孔",
+      "label": "纹身/穿孔",
       "sourceNames": [
         "紋身/穿孔"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "紋身/穿孔"
     },
     "2:198": {
-      "label": "大號美女",
+      "label": "大号美女",
       "sourceNames": [
         "大號美女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "大號美女"
     },
     "2:285": {
-      "label": "肌肉發達",
+      "label": "肌肉发达",
       "sourceNames": [
         "肌肉發達"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肌肉發達"
     },
     "2:286": {
-      "label": "短髮",
+      "label": "短发",
       "sourceNames": [
         "短髮"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "短髮"
     },
     "2:488": {
-      "label": "比基尼直線",
+      "label": "比基尼直线",
       "sourceNames": [
         "比基尼直線"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "比基尼直線"
     },
     "2:3": {
-      "label": "打飛機",
+      "label": "打飞机",
       "sourceNames": [
         "打飛機"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "打飛機"
     },
     "2:4": {
       "label": "口交",
       "sourceNames": [
         "口交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "口交"
     },
     "2:5": {
-      "label": "舔陰",
+      "label": "舔阴",
       "sourceNames": [
         "舔陰"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "舔陰"
     },
     "2:6": {
       "label": "背入式",
       "sourceNames": [
         "背入式"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "背入式"
     },
     "2:7": {
-      "label": "騎乘位",
+      "label": "骑乘位",
       "sourceNames": [
         "騎乘位"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "騎乘位"
     },
     "2:8": {
       "label": "站立抽插",
       "sourceNames": [
         "站立抽插"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "站立抽插"
     },
     "2:9": {
-      "label": "傳教士",
+      "label": "传教士",
       "sourceNames": [
         "傳教士"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "傳教士"
     },
     "2:10": {
-      "label": "俯臥後入式",
+      "label": "俯卧后入式",
       "sourceNames": [
         "俯臥後入式"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "俯臥後入式"
     },
     "2:11": {
-      "label": "顏射",
+      "label": "颜射",
       "sourceNames": [
         "顏射"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "顏射"
     },
     "2:12": {
       "label": "69",
       "sourceNames": [
         "69"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "69"
     },
     "2:15": {
       "label": "射精",
       "sourceNames": [
         "射精"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "射精"
     },
     "2:16": {
-      "label": "側躺後入",
+      "label": "侧躺后入",
       "sourceNames": [
         "側躺後入"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "側躺後入"
     },
     "2:17": {
-      "label": "內射",
+      "label": "内射",
       "sourceNames": [
         "內射"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "內射"
     },
     "2:18": {
       "label": "乳交",
       "sourceNames": [
         "乳交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "乳交"
     },
     "2:20": {
       "label": "3P",
       "sourceNames": [
         "3P"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "3P"
     },
     "2:22": {
-      "label": "前吞後入",
+      "label": "前吞后入",
       "sourceNames": [
         "前吞後入"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "前吞後入"
     },
     "2:23": {
       "label": "肛交",
       "sourceNames": [
         "肛交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肛交"
     },
     "2:24": {
-      "label": "雙插",
+      "label": "双插",
       "sourceNames": [
         "雙插"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "雙插"
     },
     "2:26": {
       "label": "深喉",
       "sourceNames": [
         "深喉"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "深喉"
     },
     "2:27": {
-      "label": "兩男一女",
+      "label": "两男一女",
       "sourceNames": [
         "兩男一女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "兩男一女"
     },
     "2:28": {
       "label": "手淫",
       "sourceNames": [
         "手淫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "手淫"
     },
     "2:29": {
       "label": "潮吹",
       "sourceNames": [
         "潮吹"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "潮吹"
     },
     "2:30": {
       "label": "站立背入式",
       "sourceNames": [
         "站立背入式"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "站立背入式"
     },
     "2:32": {
-      "label": "兩男兩女",
+      "label": "两男两女",
       "sourceNames": [
         "兩男兩女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "兩男兩女"
     },
     "2:33": {
       "label": "舔肛",
       "sourceNames": [
         "舔肛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "舔肛"
     },
     "2:34": {
       "label": "4P",
       "sourceNames": [
         "4P"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "4P"
     },
     "2:35": {
-      "label": "兩女一男",
+      "label": "两女一男",
       "sourceNames": [
         "兩女一男"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "兩女一男"
     },
     "2:36": {
-      "label": "顏面騎乘",
+      "label": "颜面骑乘",
       "sourceNames": [
         "顏面騎乘"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "顏面騎乘"
     },
     "2:38": {
-      "label": "肛門擴張",
+      "label": "肛门扩张",
       "sourceNames": [
         "肛門擴張"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肛門擴張"
     },
     "2:41": {
       "label": "接吻",
       "sourceNames": [
         "接吻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "接吻"
     },
     "2:42": {
       "label": "打屁股",
       "sourceNames": [
         "打屁股"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "打屁股"
     },
     "2:43": {
       "label": "群交",
       "sourceNames": [
         "群交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "群交"
     },
     "2:44": {
-      "label": "肛交轉口交",
+      "label": "肛交转口交",
       "sourceNames": [
         "肛交轉口交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肛交轉口交"
     },
     "2:45": {
-      "label": "多男對一女",
+      "label": "多男对一女",
       "sourceNames": [
         "多男對一女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "多男對一女"
     },
     "2:46": {
-      "label": "肛門射精",
+      "label": "肛门射精",
       "sourceNames": [
         "肛門射精"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肛門射精"
     },
     "2:48": {
-      "label": "旁觀",
+      "label": "旁观",
       "sourceNames": [
         "旁觀"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "旁觀"
     },
     "2:49": {
-      "label": "偷窺",
+      "label": "偷窥",
       "sourceNames": [
         "偷窺"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "偷窺"
     },
     "2:54": {
-      "label": "打樁式",
+      "label": "打桩式",
       "sourceNames": [
         "打樁式"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "打樁式"
     },
     "2:71": {
-      "label": "蕾絲剪刀式",
+      "label": "蕾丝剪刀式",
       "sourceNames": [
         "蕾絲剪刀式"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "蕾絲剪刀式"
     },
     "2:72": {
-      "label": "電動馬鞍",
+      "label": "电动马鞍",
       "sourceNames": [
         "電動馬鞍"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "電動馬鞍"
     },
     "2:73": {
-      "label": "緊縛",
+      "label": "紧缚",
       "sourceNames": [
         "緊縛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "緊縛"
     },
     "2:74": {
       "label": "玩具",
       "sourceNames": [
         "玩具"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "玩具"
     },
     "2:79": {
-      "label": "傳教剪刀式",
+      "label": "传教剪刀式",
       "sourceNames": [
         "傳教剪刀式"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "傳教剪刀式"
     },
     "2:84": {
-      "label": "粗暴性愛",
+      "label": "粗暴性爱",
       "sourceNames": [
         "粗暴性愛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "粗暴性愛"
     },
     "2:87": {
-      "label": "調教",
+      "label": "调教",
       "sourceNames": [
         "調教"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "調教"
     },
     "2:115": {
       "label": "足交",
       "sourceNames": [
         "足交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "足交"
     },
     "2:116": {
       "label": "小便",
       "sourceNames": [
         "小便"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "小便"
     },
     "2:120": {
       "label": "吞精",
       "sourceNames": [
         "吞精"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "吞精"
     },
     "2:121": {
-      "label": "精液交換",
+      "label": "精液交换",
       "sourceNames": [
         "精液交換"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "精液交換"
     },
     "2:169": {
-      "label": "脫衣舞",
+      "label": "脱衣舞",
       "sourceNames": [
         "脫衣舞"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "脫衣舞"
     },
     "2:171": {
-      "label": "疊屁股",
+      "label": "叠屁股",
       "sourceNames": [
         "疊屁股"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "疊屁股"
     },
     "2:173": {
-      "label": "換妻",
+      "label": "换妻",
       "sourceNames": [
         "換妻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "換妻"
     },
     "2:188": {
       "label": "拳交",
       "sourceNames": [
         "拳交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "拳交"
     },
     "2:191": {
       "label": "口塞器",
       "sourceNames": [
         "口塞器"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "口塞器"
     },
     "2:194": {
       "label": "流汗",
       "sourceNames": [
         "流汗"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "流汗"
     },
     "2:31": {
-      "label": "蕾絲",
+      "label": "蕾丝",
       "sourceNames": [
         "蕾絲"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "蕾絲"
     },
     "2:55": {
       "label": "高跟鞋",
       "sourceNames": [
         "高跟鞋"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "高跟鞋"
     },
     "2:56": {
-      "label": "絲襪",
+      "label": "丝袜",
       "sourceNames": [
         "絲襪"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "絲襪"
     },
     "2:59": {
-      "label": "吊帶",
+      "label": "吊带",
       "sourceNames": [
         "吊帶"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "吊帶"
     },
     "2:61": {
       "label": "比基尼",
       "sourceNames": [
         "比基尼"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "比基尼"
     },
     "2:63": {
-      "label": "眼鏡",
+      "label": "眼镜",
       "sourceNames": [
         "眼鏡"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "眼鏡"
     },
     "2:70": {
       "label": "眼罩",
       "sourceNames": [
         "眼罩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "眼罩"
     },
     "2:86": {
       "label": "制服",
       "sourceNames": [
         "制服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "制服"
     },
     "2:99": {
-      "label": "絲襪",
+      "label": "丝袜",
       "sourceNames": [
         "絲襪"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "絲襪"
     },
     "2:100": {
-      "label": "牛仔褲",
+      "label": "牛仔裤",
       "sourceNames": [
         "牛仔褲"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "牛仔褲"
     },
     "2:101": {
-      "label": "膠乳",
+      "label": "胶乳",
       "sourceNames": [
         "膠乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "膠乳"
     },
     "2:102": {
       "label": "靴子",
       "sourceNames": [
         "靴子"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "靴子"
     },
     "2:130": {
-      "label": "緊身衣",
+      "label": "紧身衣",
       "sourceNames": [
         "緊身衣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "緊身衣"
     },
     "2:134": {
-      "label": "吊襪腰帶",
+      "label": "吊袜腰带",
       "sourceNames": [
         "吊襪腰帶"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "吊襪腰帶"
     },
     "2:148": {
       "label": "背心",
       "sourceNames": [
         "背心"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "背心"
     },
     "2:149": {
       "label": "裙子",
       "sourceNames": [
         "裙子"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "裙子"
     },
     "2:150": {
       "label": "短裙",
       "sourceNames": [
         "短裙"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "短裙"
     },
     "2:151": {
-      "label": "短褲",
+      "label": "短裤",
       "sourceNames": [
         "短褲"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "短褲"
     },
     "2:152": {
-      "label": "綁腿",
+      "label": "绑腿",
       "sourceNames": [
         "綁腿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "綁腿"
     },
     "2:153": {
-      "label": "太陽鏡",
+      "label": "太阳镜",
       "sourceNames": [
         "太陽鏡"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "太陽鏡"
     },
     "2:154": {
       "label": "帽子",
       "sourceNames": [
         "帽子"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "帽子"
     },
     "2:155": {
-      "label": "襯衫",
+      "label": "衬衫",
       "sourceNames": [
         "襯衫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "襯衫"
     },
     "2:162": {
       "label": "睡衣",
       "sourceNames": [
         "睡衣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "睡衣"
     },
     "2:164": {
-      "label": "內褲",
+      "label": "内裤",
       "sourceNames": [
         "內褲"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "內褲"
     },
     "2:172": {
-      "label": "牛仔短褲",
+      "label": "牛仔短裤",
       "sourceNames": [
         "牛仔短褲"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "牛仔短褲"
     },
     "2:66": {
-      "label": "戶外",
+      "label": "户外",
       "sourceNames": [
         "戶外"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "戶外"
     },
     "2:85": {
-      "label": "學校",
+      "label": "学校",
       "sourceNames": [
         "學校"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "學校"
     },
     "2:105": {
       "label": "浴室",
       "sourceNames": [
         "浴室"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "浴室"
     },
     "2:107": {
-      "label": "海灘",
+      "label": "海滩",
       "sourceNames": [
         "海灘"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "海灘"
     },
     "2:109": {
       "label": "泳池",
       "sourceNames": [
         "泳池"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "泳池"
     },
     "2:110": {
-      "label": "辦公室",
+      "label": "办公室",
       "sourceNames": [
         "辦公室"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "辦公室"
     },
     "2:111": {
-      "label": "車庫",
+      "label": "车库",
       "sourceNames": [
         "車庫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "車庫"
     },
     "2:112": {
-      "label": "停車場",
+      "label": "停车场",
       "sourceNames": [
         "停車場"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "停車場"
     },
     "2:113": {
       "label": "船",
       "sourceNames": [
         "船"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "船"
     },
     "2:125": {
       "label": "酒吧",
       "sourceNames": [
         "酒吧"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "酒吧"
     },
     "2:126": {
-      "label": "餐廳",
+      "label": "餐厅",
       "sourceNames": [
         "餐廳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "餐廳"
     },
     "2:158": {
-      "label": "廚房",
+      "label": "厨房",
       "sourceNames": [
         "廚房"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "廚房"
     },
     "2:159": {
-      "label": "室內",
+      "label": "室内",
       "sourceNames": [
         "室內"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "室內"
     },
     "2:160": {
       "label": "浴缸",
       "sourceNames": [
         "浴缸"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "浴缸"
     },
     "2:163": {
-      "label": "酒店房間",
+      "label": "酒店房间",
       "sourceNames": [
         "酒店房間"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "酒店房間"
     },
     "2:165": {
-      "label": "監獄",
+      "label": "监狱",
       "sourceNames": [
         "監獄"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "監獄"
     },
     "2:175": {
       "label": "更衣室",
       "sourceNames": [
         "更衣室"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "更衣室"
     },
     "2:176": {
-      "label": "醫院",
+      "label": "医院",
       "sourceNames": [
         "醫院"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "醫院"
     },
     "2:177": {
-      "label": "公園",
+      "label": "公园",
       "sourceNames": [
         "公園"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "公園"
     },
     "2:181": {
-      "label": "圖書館",
+      "label": "图书馆",
       "sourceNames": [
         "圖書館"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "圖書館"
     },
     "2:182": {
-      "label": "劇院",
+      "label": "剧院",
       "sourceNames": [
         "劇院"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "劇院"
     },
     "2:190": {
-      "label": "尋歡洞",
+      "label": "寻欢洞",
       "sourceNames": [
         "尋歡洞"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "尋歡洞"
     },
     "2:281": {
-      "label": "臥室",
+      "label": "卧室",
       "sourceNames": [
         "臥室"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "臥室"
     },
     "2:282": {
-      "label": "客廳",
+      "label": "客厅",
       "sourceNames": [
         "客廳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "客廳"
     },
     "2:69": {
       "label": "少女",
       "sourceNames": [
         "少女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "少女"
     },
     "2:88": {
-      "label": "醫生/護士",
+      "label": "医生/护士",
       "sourceNames": [
         "醫生/護士"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "醫生/護士"
     },
     "2:89": {
-      "label": "性愛專家",
+      "label": "性爱专家",
       "sourceNames": [
         "性愛專家"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "性愛專家"
     },
     "2:93": {
       "label": "熟女",
       "sourceNames": [
         "熟女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "熟女"
     },
     "2:114": {
-      "label": "媽媽",
+      "label": "妈妈",
       "sourceNames": [
         "媽媽"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "媽媽"
     },
     "2:123": {
       "label": "女抖S",
       "sourceNames": [
         "女抖S"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女抖S"
     },
     "2:124": {
       "label": "抖M",
       "sourceNames": [
         "抖M"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "抖M"
     },
     "2:127": {
       "label": "妻子",
       "sourceNames": [
         "妻子"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "妻子"
     },
     "2:128": {
-      "label": "拉拉隊長",
+      "label": "拉拉队长",
       "sourceNames": [
         "拉拉隊長"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "拉拉隊長"
     },
     "2:129": {
-      "label": "廚師",
+      "label": "厨师",
       "sourceNames": [
         "廚師"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "廚師"
     },
     "2:131": {
       "label": "罪犯",
       "sourceNames": [
         "罪犯"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "罪犯"
     },
     "2:132": {
-      "label": "醫生",
+      "label": "医生",
       "sourceNames": [
         "醫生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "醫生"
     },
     "2:133": {
-      "label": "消防隊員",
+      "label": "消防队员",
       "sourceNames": [
         "消防隊員"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "消防隊員"
     },
     "2:135": {
-      "label": "女童子軍",
+      "label": "女童子军",
       "sourceNames": [
         "女童子軍"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女童子軍"
     },
     "2:136": {
-      "label": "救生員",
+      "label": "救生员",
       "sourceNames": [
         "救生員"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "救生員"
     },
     "2:137": {
-      "label": "女傭",
+      "label": "女佣",
       "sourceNames": [
         "女傭"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女傭"
     },
     "2:138": {
-      "label": "維修工",
+      "label": "维修工",
       "sourceNames": [
         "維修工"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "維修工"
     },
     "2:139": {
       "label": "水管工",
       "sourceNames": [
         "水管工"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "水管工"
     },
     "2:140": {
       "label": "警察",
       "sourceNames": [
         "警察"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "警察"
     },
     "2:141": {
       "label": "囚犯",
       "sourceNames": [
         "囚犯"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "囚犯"
     },
     "2:142": {
       "label": "水手",
       "sourceNames": [
         "水手"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "水手"
     },
     "2:143": {
-      "label": "女學生",
+      "label": "女学生",
       "sourceNames": [
         "女學生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女學生"
     },
     "2:144": {
-      "label": "女戰士",
+      "label": "女战士",
       "sourceNames": [
         "女戰士"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女戰士"
     },
     "2:145": {
-      "label": "特務",
+      "label": "特务",
       "sourceNames": [
         "特務"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "特務"
     },
     "2:146": {
-      "label": "老師",
+      "label": "老师",
       "sourceNames": [
         "老師"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "老師"
     },
     "2:147": {
-      "label": "女服務員",
+      "label": "女服务员",
       "sourceNames": [
         "女服務員"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女服務員"
     },
     "2:156": {
-      "label": "秘書",
+      "label": "秘书",
       "sourceNames": [
         "秘書"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "秘書"
     },
     "2:157": {
       "label": "女商人",
       "sourceNames": [
         "女商人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女商人"
     },
     "2:166": {
       "label": "法官",
       "sourceNames": [
         "法官"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "法官"
     },
     "2:167": {
-      "label": "律師",
+      "label": "律师",
       "sourceNames": [
         "律師"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "律師"
     },
     "2:179": {
       "label": "空姐",
       "sourceNames": [
         "空姐"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "空姐"
     },
     "2:180": {
-      "label": "老闆",
+      "label": "老板",
       "sourceNames": [
         "老闆"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "老闆"
     },
     "2:192": {
-      "label": "繼女",
+      "label": "继女",
       "sourceNames": [
         "繼女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "繼女"
     },
     "2:195": {
       "label": "角色扮演",
       "sourceNames": [
         "角色扮演"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "角色扮演"
     },
     "2:486": {
       "label": "女友",
       "sourceNames": [
         "女友"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女友"
     },
     "2:487": {
       "label": "女神",
       "sourceNames": [
         "女神"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女神"
     },
     "2:19": {
-      "label": "獨占",
+      "label": "独占",
       "sourceNames": [
         "獨占"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "獨占"
     },
     "2:161": {
-      "label": "幕後花絮",
+      "label": "幕后花絮",
       "sourceNames": [
         "幕後花絮"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "幕後花絮"
     },
     "2:170": {
       "label": "其他",
       "sourceNames": [
         "其他"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "其他"
     },
     "2:193": {
-      "label": "粉絲作品",
+      "label": "粉丝作品",
       "sourceNames": [
         "粉絲作品"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "粉絲作品"
     },
     "3:42": {
-      "label": "家庭主婦",
+      "label": "家庭主妇",
       "sourceNames": [
         "家庭主婦"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "家庭主婦"
     },
     "3:29": {
       "label": "美少女",
       "sourceNames": [
         "美少女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美少女"
     },
     "3:30": {
       "label": "自拍",
       "sourceNames": [
         "自拍"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "自拍"
     },
     "3:31": {
-      "label": "年輕",
+      "label": "年轻",
       "sourceNames": [
         "年輕"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "年輕"
     },
     "3:32": {
       "label": "露出",
       "sourceNames": [
         "露出"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "露出"
     },
     "3:33": {
-      "label": "電車",
+      "label": "电车",
       "sourceNames": [
         "電車"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "電車"
     },
     "3:34": {
-      "label": "騎乘位",
+      "label": "骑乘位",
       "sourceNames": [
         "騎乘位"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "騎乘位"
     },
     "3:35": {
       "label": "高清",
       "sourceNames": [
         "高清"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "高清"
     },
     "3:36": {
       "label": "3P",
       "sourceNames": [
         "3P"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "3P"
     },
     "3:37": {
-      "label": "妻子出軌",
+      "label": "妻子出轨",
       "sourceNames": [
         "妻子出軌"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "妻子出軌"
     },
     "3:38": {
       "label": "吞精",
       "sourceNames": [
         "吞精"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "吞精"
     },
     "3:39": {
       "label": "手淫",
       "sourceNames": [
         "手淫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "手淫"
     },
     "3:40": {
       "label": "按摩",
       "sourceNames": [
         "按摩"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "按摩"
     },
     "3:41": {
-      "label": "視頻聊天",
+      "label": "视频聊天",
       "sourceNames": [
         "視頻聊天"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "視頻聊天"
     },
     "3:28": {
       "label": "美女",
       "sourceNames": [
         "美女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美女"
     },
     "3:43": {
-      "label": "人妻",
+      "label": "已婚妇女",
       "sourceNames": [
         "人妻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "人妻"
     },
     "3:44": {
-      "label": "口內射精",
+      "label": "口内射精",
       "sourceNames": [
         "口內射精"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "口內射精"
     },
     "3:45": {
-      "label": "女大學生",
+      "label": "女大学生",
       "sourceNames": [
         "女大學生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女大學生"
     },
     "3:46": {
       "label": "人母",
       "sourceNames": [
         "人母"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "人母"
     },
     "3:47": {
       "label": "字幕",
       "sourceNames": [
         "字幕"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "字幕"
     },
     "3:48": {
       "label": "泳衣",
       "sourceNames": [
         "泳衣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "泳衣"
     },
     "3:49": {
-      "label": "無套性交",
+      "label": "无套性交",
       "sourceNames": [
         "無套性交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "無套性交"
     },
     "3:50": {
-      "label": "童顔",
+      "label": "童颜",
       "sourceNames": [
         "童顔"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "童顔"
     },
     "3:51": {
-      "label": "車內性愛",
+      "label": "车内性爱",
       "sourceNames": [
         "車內性愛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "車內性愛"
     },
     "3:52": {
-      "label": "金發",
+      "label": "金发",
       "sourceNames": [
         "金發"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "金發"
     },
     "3:53": {
       "label": "母乳",
       "sourceNames": [
         "母乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "母乳"
     },
     "3:54": {
       "label": "肛交",
       "sourceNames": [
         "肛交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肛交"
     },
     "3:55": {
-      "label": "曬黑",
+      "label": "晒黑",
       "sourceNames": [
         "曬黑"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "曬黑"
     },
     "3:15": {
-      "label": "模特兒",
+      "label": "模特儿",
       "sourceNames": [
         "模特兒"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "模特兒"
     },
     "3:2": {
       "label": "SM",
       "sourceNames": [
         "SM"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "SM"
     },
     "3:3": {
       "label": "其他",
       "sourceNames": [
         "其他"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "其他"
     },
     "3:4": {
       "label": "偶像",
       "sourceNames": [
         "偶像"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "偶像"
     },
     "3:5": {
       "label": "成人",
       "sourceNames": [
         "成人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "成人"
     },
     "3:6": {
-      "label": "日本動漫",
+      "label": "日本动漫",
       "sourceNames": [
         "日本動漫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "日本動漫"
     },
     "3:7": {
       "label": "原作",
       "sourceNames": [
         "原作"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "原作"
     },
     "3:8": {
       "label": "男同",
       "sourceNames": [
         "男同"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "男同"
     },
     "3:9": {
       "label": "角色扮演",
       "sourceNames": [
         "角色扮演"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "角色扮演"
     },
     "3:10": {
-      "label": "苗條",
+      "label": "苗条",
       "sourceNames": [
         "苗條"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "苗條"
     },
     "3:11": {
-      "label": "私人攝影",
+      "label": "私人摄影",
       "sourceNames": [
         "私人攝影"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "私人攝影"
     },
     "3:12": {
       "label": "白虎",
       "sourceNames": [
         "白虎"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "白虎"
     },
     "3:13": {
-      "label": "戀物癖",
+      "label": "恋物癖",
       "sourceNames": [
         "戀物癖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "戀物癖"
     },
     "3:14": {
       "label": "口交",
       "sourceNames": [
         "口交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "口交"
     },
     "3:1": {
-      "label": "辦公室美女",
+      "label": "办公室美女",
       "sourceNames": [
         "辦公室美女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "辦公室美女"
     },
     "3:16": {
       "label": "女同",
       "sourceNames": [
         "女同"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女同"
     },
     "3:17": {
-      "label": "內褲",
+      "label": "内裤",
       "sourceNames": [
         "內褲"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "內褲"
     },
     "3:18": {
-      "label": "內射",
+      "label": "内射",
       "sourceNames": [
         "內射"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "內射"
     },
     "3:19": {
       "label": "制服",
       "sourceNames": [
         "制服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "制服"
     },
     "3:20": {
-      "label": "可愛",
+      "label": "可爱",
       "sourceNames": [
         "可愛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "可愛"
     },
     "3:21": {
       "label": "巨乳",
       "sourceNames": [
         "巨乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "巨乳"
     },
     "3:22": {
       "label": "流出",
       "sourceNames": [
         "流出"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "流出"
     },
     "3:23": {
       "label": "海外",
       "sourceNames": [
         "海外"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "海外"
     },
     "3:24": {
-      "label": "無碼",
+      "label": "无码",
       "sourceNames": [
         "無碼"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "無碼"
     },
     "3:25": {
       "label": "熟女",
       "sourceNames": [
         "熟女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "熟女"
     },
     "3:26": {
       "label": "素人",
       "sourceNames": [
         "素人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "素人"
     },
     "3:27": {
       "label": "美乳",
       "sourceNames": [
         "美乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美乳"
     },
     "4:1": {
-      "label": "動作/戰鬥",
+      "label": "动作/战斗",
       "sourceNames": [
         "動作/戰鬥"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "動作/戰鬥"
     },
     "4:2": {
-      "label": "冒險",
+      "label": "冒险",
       "sourceNames": [
         "冒險"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "冒險"
     },
     "4:3": {
-      "label": "機器人",
+      "label": "机器人",
       "sourceNames": [
         "機器人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "機器人"
     },
     "4:4": {
-      "label": "淫亂真實",
+      "label": "淫乱真实",
       "sourceNames": [
         "淫亂真實"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "淫亂真實"
     },
     "4:5": {
-      "label": "科幻小說",
+      "label": "科幻小说",
       "sourceNames": [
         "科幻小說"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "科幻小說"
     },
     "4:6": {
       "label": "SM",
       "sourceNames": [
         "SM"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "SM"
     },
     "4:7": {
-      "label": "汽車性愛",
+      "label": "汽车性爱",
       "sourceNames": [
         "汽車性愛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "汽車性愛"
     },
     "4:8": {
-      "label": "學校作品",
+      "label": "学校作品",
       "sourceNames": [
         "學校作品"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "學校作品"
     },
     "4:9": {
-      "label": "企劃",
+      "label": "企划",
       "sourceNames": [
         "企劃"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "企劃"
     },
     "4:10": {
-      "label": "亂倫",
+      "label": "乱伦",
       "sourceNames": [
         "亂倫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "亂倫"
     },
     "4:11": {
-      "label": "懸疑",
+      "label": "悬疑",
       "sourceNames": [
         "懸疑"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "懸疑"
     },
     "4:12": {
-      "label": "歷史劇",
+      "label": "历史剧",
       "sourceNames": [
         "歷史劇"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "歷史劇"
     },
     "4:13": {
-      "label": "運動",
+      "label": "运动",
       "sourceNames": [
         "運動"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "運動"
     },
     "4:14": {
-      "label": "其他戀物癖",
+      "label": "其他恋物癖",
       "sourceNames": [
         "其他戀物癖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "其他戀物癖"
     },
     "4:15": {
       "label": "暗黑系",
       "sourceNames": [
         "暗黑系"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "暗黑系"
     },
     "4:16": {
-      "label": "內衣",
+      "label": "内衣",
       "sourceNames": [
         "內衣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "內衣"
     },
     "4:17": {
       "label": "幻想",
       "sourceNames": [
         "幻想"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "幻想"
     },
     "4:18": {
       "label": "恐怖",
       "sourceNames": [
         "恐怖"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "恐怖"
     },
     "4:19": {
-      "label": "男同性戀",
+      "label": "男同性恋",
       "sourceNames": [
         "男同性戀"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "男同性戀"
     },
     "4:20": {
       "label": "妄想",
       "sourceNames": [
         "妄想"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "妄想"
     },
     "4:21": {
-      "label": "浪漫喜劇",
+      "label": "浪漫喜剧",
       "sourceNames": [
         "浪漫喜劇"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "浪漫喜劇"
     },
     "4:22": {
-      "label": "亂交",
+      "label": "乱交",
       "sourceNames": [
         "亂交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "亂交"
     },
     "4:23": {
-      "label": "女同性戀",
+      "label": "女同性恋",
       "sourceNames": [
         "女同性戀"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女同性戀"
     },
     "4:24": {
-      "label": "戀愛",
+      "label": "恋爱",
       "sourceNames": [
         "戀愛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "戀愛"
     },
     "4:25": {
       "label": "3D",
       "sourceNames": [
         "3D"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "3D"
     },
     "4:124": {
-      "label": "遊戲",
+      "label": "游戏",
       "sourceNames": [
         "遊戲"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "遊戲"
     },
     "4:26": {
       "label": "偶像/名人",
       "sourceNames": [
         "偶像/名人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "偶像/名人"
     },
     "4:27": {
       "label": "姐妹",
       "sourceNames": [
         "姐妹"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "姐妹"
     },
     "4:28": {
-      "label": "女服務員",
+      "label": "女服务员",
       "sourceNames": [
         "女服務員"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女服務員"
     },
     "4:29": {
       "label": "OL",
       "sourceNames": [
         "OL"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "OL"
     },
     "4:30": {
-      "label": "母親",
+      "label": "母亲",
       "sourceNames": [
         "母親"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "母親"
     },
     "4:31": {
       "label": "女主人",
       "sourceNames": [
         "女主人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女主人"
     },
     "4:32": {
-      "label": "兒時的朋友",
+      "label": "儿时的朋友",
       "sourceNames": [
         "兒時的朋友"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "兒時的朋友"
     },
     "4:33": {
       "label": "千金小姐",
       "sourceNames": [
         "千金小姐"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "千金小姐"
     },
     "4:34": {
       "label": "姐姐",
       "sourceNames": [
         "姐姐"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "姐姐"
     },
     "4:35": {
       "label": "公主",
       "sourceNames": [
         "公主"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "公主"
     },
     "4:36": {
       "label": "洗澡",
       "sourceNames": [
         "洗澡"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "洗澡"
     },
     "4:37": {
-      "label": "女教師",
+      "label": "女教师",
       "sourceNames": [
         "女教師"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女教師"
     },
     "4:38": {
-      "label": "女戰士",
+      "label": "女战士",
       "sourceNames": [
         "女戰士"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女戰士"
     },
     "4:39": {
-      "label": "格鬥家",
+      "label": "格斗家",
       "sourceNames": [
         "格鬥家"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "格鬥家"
     },
     "4:40": {
-      "label": "導師",
+      "label": "导师",
       "sourceNames": [
         "導師"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "導師"
     },
     "4:41": {
-      "label": "護士",
+      "label": "护士",
       "sourceNames": [
         "護士"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "護士"
     },
     "4:42": {
       "label": "岳母",
       "sourceNames": [
         "岳母"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "岳母"
     },
     "4:43": {
       "label": "辣妹",
       "sourceNames": [
         "辣妹"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "辣妹"
     },
     "4:44": {
       "label": "女忍者",
       "sourceNames": [
         "女忍者"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女忍者"
     },
     "4:45": {
       "label": "修女",
       "sourceNames": [
         "修女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "修女"
     },
     "4:46": {
-      "label": "各種職業",
+      "label": "各种职业",
       "sourceNames": [
         "各種職業"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "各種職業"
     },
     "4:47": {
       "label": "熟女",
       "sourceNames": [
         "熟女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "熟女"
     },
     "4:48": {
-      "label": "女醫生",
+      "label": "女医生",
       "sourceNames": [
         "女醫生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女醫生"
     },
     "4:49": {
       "label": "女主播",
       "sourceNames": [
         "女主播"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女主播"
     },
     "4:50": {
-      "label": "女大學生",
+      "label": "女大学生",
       "sourceNames": [
         "女大學生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女大學生"
     },
     "4:51": {
-      "label": "女學生",
+      "label": "女学生",
       "sourceNames": [
         "女學生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女學生"
     },
     "4:52": {
-      "label": "其他學生",
+      "label": "其他学生",
       "sourceNames": [
         "其他學生"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "其他學生"
     },
     "4:53": {
-      "label": "啦啦隊員",
+      "label": "啦啦队员",
       "sourceNames": [
         "啦啦隊員"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "啦啦隊員"
     },
     "4:54": {
       "label": "痴女",
       "sourceNames": [
         "痴女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "痴女"
     },
     "4:55": {
-      "label": "蠻橫嬌羞",
+      "label": "蛮横娇羞",
       "sourceNames": [
         "蠻橫嬌羞"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "蠻橫嬌羞"
     },
     "4:56": {
-      "label": "偷窺",
+      "label": "偷窥",
       "sourceNames": [
         "偷窺"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "偷窺"
     },
     "4:57": {
-      "label": "孕婦",
+      "label": "孕妇",
       "sourceNames": [
         "孕婦"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "孕婦"
     },
     "4:58": {
-      "label": "閨蜜",
+      "label": "闺蜜",
       "sourceNames": [
         "閨蜜"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "閨蜜"
     },
     "4:59": {
       "label": "新娘",
       "sourceNames": [
         "新娘"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "新娘"
     },
     "4:60": {
-      "label": "秘書",
+      "label": "秘书",
       "sourceNames": [
         "秘書"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "秘書"
     },
     "4:61": {
-      "label": "人妻",
+      "label": "已婚妇女",
       "sourceNames": [
         "人妻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "人妻"
     },
     "4:62": {
       "label": "美少女",
       "sourceNames": [
         "美少女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "美少女"
     },
     "4:63": {
-      "label": "寡婦",
+      "label": "寡妇",
       "sourceNames": [
         "寡婦"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "寡婦"
     },
     "4:64": {
-      "label": "養母/養女",
+      "label": "养母/养女",
       "sourceNames": [
         "養母/養女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "養母/養女"
     },
     "4:65": {
-      "label": "女傭",
+      "label": "女佣",
       "sourceNames": [
         "女傭"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女傭"
     },
     "4:66": {
-      "label": "戶外露出",
+      "label": "户外露出",
       "sourceNames": [
         "戶外露出"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "戶外露出"
     },
     "4:67": {
       "label": "少妻",
       "sourceNames": [
         "少妻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "少妻"
     },
     "4:68": {
-      "label": "肛門",
+      "label": "肛门",
       "sourceNames": [
         "肛門"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "肛門"
     },
     "4:69": {
-      "label": "猥褻",
+      "label": "猥亵",
       "sourceNames": [
         "猥褻"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "猥褻"
     },
     "4:70": {
       "label": "喝尿",
       "sourceNames": [
         "喝尿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "喝尿"
     },
     "4:71": {
       "label": "手淫",
       "sourceNames": [
         "手淫"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "手淫"
     },
     "4:72": {
       "label": "玩具",
       "sourceNames": [
         "玩具"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "玩具"
     },
     "4:73": {
-      "label": "監禁",
+      "label": "监禁",
       "sourceNames": [
         "監禁"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "監禁"
     },
     "4:74": {
-      "label": "灌腸",
+      "label": "灌肠",
       "sourceNames": [
         "灌腸"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "灌腸"
     },
     "4:75": {
-      "label": "顏射",
+      "label": "颜射",
       "sourceNames": [
         "顏射"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "顏射"
     },
     "4:76": {
-      "label": "騎乘位",
+      "label": "骑乘位",
       "sourceNames": [
         "騎乘位"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "騎乘位"
     },
     "4:77": {
       "label": "鬼畜",
       "sourceNames": [
         "鬼畜"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "鬼畜"
     },
     "4:78": {
-      "label": "舔陰",
+      "label": "舔阴",
       "sourceNames": [
         "舔陰"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "舔陰"
     },
     "4:79": {
       "label": "拘束",
       "sourceNames": [
         "拘束"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "拘束"
     },
     "4:80": {
       "label": "吞精",
       "sourceNames": [
         "吞精"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "吞精"
     },
     "4:81": {
       "label": "潮吹",
       "sourceNames": [
         "潮吹"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "潮吹"
     },
     "4:82": {
       "label": "69",
       "sourceNames": [
         "69"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "69"
     },
     "4:83": {
-      "label": "捆綁/束縛",
+      "label": "捆绑/束缚",
       "sourceNames": [
         "捆綁/束縛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "捆綁/束縛"
     },
     "4:84": {
-      "label": "羞恥",
+      "label": "羞耻",
       "sourceNames": [
         "羞恥"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "羞恥"
     },
     "4:85": {
-      "label": "觸手",
+      "label": "触手",
       "sourceNames": [
         "觸手"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "觸手"
     },
     "4:86": {
-      "label": "糞便",
+      "label": "粪便",
       "sourceNames": [
         "糞便"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "糞便"
     },
     "4:87": {
-      "label": "打手槍",
+      "label": "打手枪",
       "sourceNames": [
         "打手槍"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "打手槍"
     },
     "4:88": {
-      "label": "體內射精",
+      "label": "体内射精",
       "sourceNames": [
         "體內射精"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "體內射精"
     },
     "4:89": {
       "label": "屈辱",
       "sourceNames": [
         "屈辱"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "屈辱"
     },
     "4:90": {
       "label": "按摩棒",
       "sourceNames": [
         "按摩棒"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "按摩棒"
     },
     "4:91": {
       "label": "乳交",
       "sourceNames": [
         "乳交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "乳交"
     },
     "4:92": {
       "label": "口交",
       "sourceNames": [
         "口交"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "口交"
     },
     "4:93": {
-      "label": "集體顏射",
+      "label": "集体颜射",
       "sourceNames": [
         "集體顏射"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "集體顏射"
     },
     "4:94": {
       "label": "放尿",
       "sourceNames": [
         "放尿"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "放尿"
     },
     "4:95": {
       "label": "母乳",
       "sourceNames": [
         "母乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "母乳"
     },
     "4:96": {
       "label": "跳蛋",
       "sourceNames": [
         "跳蛋"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "跳蛋"
     },
     "4:97": {
       "label": "多P",
       "sourceNames": [
         "多P"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "多P"
     },
     "4:98": {
       "label": "巨乳",
       "sourceNames": [
         "巨乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "巨乳"
     },
     "4:99": {
-      "label": "處女",
+      "label": "处女",
       "sourceNames": [
         "處女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "處女"
     },
     "4:100": {
       "label": "正太控",
       "sourceNames": [
         "正太控"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "正太控"
     },
     "4:101": {
-      "label": "苗條",
+      "label": "苗条",
       "sourceNames": [
         "苗條"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "苗條"
     },
     "4:102": {
-      "label": "貧乳/微乳",
+      "label": "贫乳/微乳",
       "sourceNames": [
         "貧乳/微乳"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "貧乳/微乳"
     },
     "4:103": {
-      "label": "雙性人",
+      "label": "双性人",
       "sourceNames": [
         "雙性人"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "雙性人"
     },
     "4:104": {
       "label": "瘦小身型",
       "sourceNames": [
         "瘦小身型"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "瘦小身型"
     },
     "4:105": {
-      "label": "眼鏡",
+      "label": "眼镜",
       "sourceNames": [
         "眼鏡"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "眼鏡"
     },
     "4:106": {
-      "label": "圍裙",
+      "label": "围裙",
       "sourceNames": [
         "圍裙"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "圍裙"
     },
     "4:107": {
       "label": "校服",
       "sourceNames": [
         "校服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "校服"
     },
     "4:108": {
-      "label": "學校泳裝",
+      "label": "学校泳装",
       "sourceNames": [
         "學校泳裝"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "學校泳裝"
     },
     "4:109": {
       "label": "角色扮演",
       "sourceNames": [
         "角色扮演"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "角色扮演"
     },
     "4:110": {
-      "label": "水手套裝",
+      "label": "水手套装",
       "sourceNames": [
         "水手套裝"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "水手套裝"
     },
     "4:111": {
       "label": "制服",
       "sourceNames": [
         "制服"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "制服"
     },
     "4:112": {
-      "label": "體操",
+      "label": "体操",
       "sourceNames": [
         "體操"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "體操"
     },
     "4:113": {
-      "label": "褲襪緊身衣",
+      "label": "裤袜紧身衣",
       "sourceNames": [
         "褲襪緊身衣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "褲襪緊身衣"
     },
     "4:114": {
-      "label": "緊縛",
+      "label": "紧缚",
       "sourceNames": [
         "緊縛"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "緊縛"
     },
     "4:115": {
       "label": "女祭司",
       "sourceNames": [
         "女祭司"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "女祭司"
     },
     "4:116": {
-      "label": "泳裝",
+      "label": "泳装",
       "sourceNames": [
         "泳裝"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "泳裝"
     },
     "4:117": {
       "label": "迷你裙",
       "sourceNames": [
         "迷你裙"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "迷你裙"
     },
     "4:118": {
-      "label": "內衣",
+      "label": "内衣",
       "sourceNames": [
         "內衣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "內衣"
     },
     "4:119": {
       "label": "日本衣服和浴衣",
       "sourceNames": [
         "日本衣服和浴衣"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "日本衣服和浴衣"
     },
     "4:120": {
-      "label": "貓耳女",
+      "label": "猫耳女",
       "sourceNames": [
         "貓耳女"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "貓耳女"
     },
     "4:121": {
       "label": "高清",
       "sourceNames": [
         "高清"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "高清"
     },
     "4:122": {
-      "label": "精選綜合",
+      "label": "精选综合",
       "sourceNames": [
         "精選綜合"
       ],
-      "status": "official-zh-CN"
+      "status": "simplified-zh-CN",
+      "officialLabel": "精選綜合"
     }
   },
   "groupLabels": {
@@ -6158,5 +7002,41 @@
       "verifiedAt": "2026-10-24",
       "terms": 123
     }
+  },
+  "officialGroupLabels": {
+    "0:subject": "主题",
+    "0:role": "角色",
+    "0:cloth": "服装",
+    "0:body": "体型",
+    "0:behavior": "行为",
+    "0:play_method": "玩法",
+    "0:category": "类别",
+    "1:subject": "主题",
+    "1:role": "角色",
+    "1:cloth": "服装",
+    "1:other": "其他",
+    "2:subject": "主题",
+    "2:body": "体型",
+    "2:behavior": "行为",
+    "2:cloth": "服装",
+    "2:place": "地点",
+    "2:role": "角色",
+    "2:other": "其他",
+    "3:tag": "标签",
+    "4:subject": "主题",
+    "4:role": "角色",
+    "4:behavior": "行为",
+    "4:body": "体型",
+    "4:cloth": "服装",
+    "4:other": "其他"
+  },
+  "displayNormalization": {
+    "locale": "zh-CN",
+    "engine": "opencc-js",
+    "engineVersion": "1.4.2",
+    "configuration": "tw2s",
+    "terminologyVersion": 1,
+    "punctuation": "中点统一为顿号",
+    "scope": "display-labels-only"
   }
 }

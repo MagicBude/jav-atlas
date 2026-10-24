@@ -9,7 +9,7 @@ import groups from '../data/javdb-tag-groups.json'
 import { javdbContentTypes } from './javdbCatalog'
 const terms: Record<string, { label: string; sourceNames: string[]; status: string }> =
   dictionary.terms
-/** 分组显示名只采用已核实的官方简体源码；没有证据的类型保留接口原名。 */
+/** 分组显示名使用本地统一简体词典；原始目录名称另存，不用显示名推断ID关系。 */
 export function javdbGroupLabel(id: string, original: string) {
   return (dictionary.groupLabels as Record<string, string>)[id] || original
 }

@@ -48,6 +48,8 @@ export default function TagCatalogPage() {
         localizations: dictionary.localizations,
         displayLabels: dictionary.terms,
         groupLabels: dictionary.groupLabels,
+        officialGroupLabels: dictionary.officialGroupLabels,
+        displayNormalization: dictionary.displayNormalization,
         groups
       },
       null,
@@ -76,8 +78,8 @@ export default function TagCatalogPage() {
         <summary>目录说明</summary>
         <p>
           按 JavDB
-          接口原有顺序、分组和名称展示，包含尚未收录作品的类别。快照日期：2026-10-23；仅展示类别分组，不含年份、月份、时长等通用筛选，不保证覆盖历史或隐藏标签。五类目录共
-          844 项均已核对官方简体页面名称；少数名称在官网简体页面中仍使用繁体字，按来源保留。
+          原有分组与顺序展示，类别名称统一使用简体显示词典，包含尚未收录作品的类别。快照日期：2026-10-23；仅展示类别分组，不含年份、月份、时长等通用筛选，不保证覆盖历史或隐藏标签。五类目录共
+          844 项均已核对来源并统一本地简体显示，官方页面名称另外保存在下载数据中。
         </p>
       </details>
       <nav className="catalog-types" aria-label="目录内容类型">

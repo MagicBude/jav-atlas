@@ -88,7 +88,7 @@ it('五类官方简体页面都已核实，重复数字ID保持类型隔离', ()
   ])
   expect(Object.keys(dictionary.groupLabels)).toHaveLength(25)
   expect(
-    Object.values(dictionary.terms).filter(term => term.status === 'official-zh-CN')
+    Object.values(dictionary.terms).filter(term => term.status === 'simplified-zh-CN')
   ).toHaveLength(844)
   expect(javdbTagLabel('109', '来源', 0)).toBe('恋乳癖')
   expect(javdbTagLabel('109', '来源', 2)).toBe('泳池')
