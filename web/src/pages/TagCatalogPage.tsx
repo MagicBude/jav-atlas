@@ -10,6 +10,8 @@ import { javdbGroupLabel, javdbTagLabel } from '../entities/tagLabels'
 import { javdbContentTypes } from '../entities/javdbCatalog'
 import { normalize } from '../entities/person'
 import './tag-catalog.css'
+import { CategoryRow } from '../shared/CategoryRow'
+import { tagSelectionKey } from '../entities/tagLabels'
 export default function TagCatalogPage() {
   const [params, setParams] = useSearchParams()
   const rawType = params.get('type') || '0'
@@ -70,11 +72,14 @@ export default function TagCatalogPage() {
         </div>
         <button onClick={download}>下载完整 JSON</button>
       </header>
-      <p className="notice">
-        按 JavDB
-        接口原有顺序、分组和名称展示，包含尚未收录作品的类别。快照日期：2026-10-23；仅展示类别分组，不含年份、月份、时长等通用筛选，不保证覆盖历史或隐藏标签。五类目录共
-        844 项均已核对官方简体页面名称；少数名称在官网简体页面中仍使用繁体字，按来源保留。
-      </p>
+      <details className="catalog-notes">
+        <summary>目录说明</summary>
+        <p>
+          按 JavDB
+          接口原有顺序、分组和名称展示，包含尚未收录作品的类别。快照日期：2026-10-23；仅展示类别分组，不含年份、月份、时长等通用筛选，不保证覆盖历史或隐藏标签。五类目录共
+          844 项均已核对官方简体页面名称；少数名称在官网简体页面中仍使用繁体字，按来源保留。
+        </p>
+      </details>
       <nav className="catalog-types" aria-label="目录内容类型">
         {javdbContentTypes.map(item => (
           <button
@@ -104,39 +109,28 @@ export default function TagCatalogPage() {
         数字 ID
         只在当前内容类型内有效；跨类型同号不代表同一类别。这里的数量是目录条目数，与本地作品数量无关。
       </p>
-      <div className="catalog-group-grid">
+      <p className="small muted">
+        每组先显示 12 项，可在右侧展开更多；点击类别可查看本地作品，尚未收录的类别可能没有结果。
+      </p>
+      <div className="catalog-rows">
         {visible.map(group => (
-          <section className="catalog-group" key={group.id} aria-labelledby={'catalog-' + group.id}>
-            <h2 id={'catalog-' + group.id}>
-              {javdbGroupLabel(group.id, group.name)}
-              <span>{group.tags.length}</span>
-            </h2>
-            <table>
-              <caption className="sr-only">
-                {javdbContentTypes[type].name} · {group.name}
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">类别名称</th>
-                </tr>
-              </thead>
-              <tbody>
-                {group.tags.map(id => (
-                  <tr key={id}>
-                    <td>{id}</td>
-                    <td>
-                      {javdbTagLabel(
-                        id,
-                        (group.sourceNames as Record<string, string | undefined>)[id] || id,
-                        type
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
+          <div id={'catalog-' + group.id} key={group.id}>
+            <CategoryRow
+              label={javdbGroupLabel(group.id, group.name)}
+              forceExpanded={!!search}
+              options={group.tags.map(id => {
+                const original = (group.sourceNames as Record<string, string | undefined>)[id] || id
+                return {
+                  key: id,
+                  label: javdbTagLabel(id, original, type),
+                  title: 'ID：' + id,
+                  to:
+                    '/works?' +
+                    new URLSearchParams({ wf_tag: tagSelectionKey(id, original, type) }).toString()
+                }
+              })}
+            />
+          </div>
         ))}
       </div>
       {!visible.length && (

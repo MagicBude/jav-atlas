@@ -59,7 +59,7 @@ it('筛选面板不会把截图中的三个类别放进地点，且同号名称�
       createElement(TagFilters, { entries, params: new URLSearchParams(), update: () => {} })
     )
   )
-  const place = html.split('<details').find(section => section.includes('<summary>地点'))!
+  const place = html.split('<section').find(section => section.includes('aria-label="地点"'))!
   expect(place).toContain('泳池')
   expect(place).not.toContain('戀乳癖')
   expect(place).not.toContain('濫交')

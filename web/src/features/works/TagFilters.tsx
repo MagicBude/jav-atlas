@@ -11,6 +11,8 @@ import {
 import { normalize } from '../../entities/person'
 import type { WorkEntry } from '../../entities/work'
 import { selectedTags } from './query'
+import { CategoryRow } from '../../shared/CategoryRow'
+import sourceGroups from '../../data/javdb-tag-groups.json'
 export function TagFilters({
   entries,
   params,
@@ -108,38 +110,47 @@ export function TagFilters({
         </select>
       </div>
       <p className="small muted">
-        类别后为当前浏览范围内的作品数；未提供类型的旧资料仍需核对归属；目录未返回的类别保留原名。
+        支持多选，点击已选类别可取消；“全部”只清除该分组，数字为当前浏览范围的作品数。
       </p>
-      {[...grouped].map(([id, group]) => {
-        const keys = group.keys.filter(matchesSearch)
-        if (!keys.length) return null
-        return (
-          <details
-            key={id}
-            open={!!search || keys.some(key => selected.includes(key)) || undefined}
-          >
-            <summary>
-              {group.name} <span className="muted">{keys.length}</span>
-            </summary>
-            <div className="tag-filter-options">
-              {keys.map(key => {
+      {[...grouped]
+        .sort(([left], [right]) => {
+          const order = (id: string) => {
+            const index = sourceGroups.findIndex(
+              group => group.id === id || group.id.split(':')[1] === id
+            )
+            return index < 0 ? sourceGroups.length : index
+          }
+          return order(left) - order(right)
+        })
+        .map(([id, group]) => {
+          const keys = group.keys.filter(matchesSearch)
+          if (!keys.length) return null
+          const types = new Set(
+            [...options.values()].map(option => option.type).filter(type => type !== undefined)
+          )
+          const label = types.size === 1 ? group.name.replace(/^.+ · /, '') : group.name
+          return (
+            <CategoryRow
+              key={id}
+              label={label}
+              forceExpanded={!!search}
+              onToggle={toggle}
+              onClear={() =>
+                update('wf_tag', selected.filter(key => !group.keys.includes(key)).join(','))
+              }
+              options={keys.map(key => {
                 const tag = options.get(key)!
-                return (
-                  <label key={key} title={`来源原名：${tag.name}；ID：${tag.id}`}>
-                    <input
-                      type="checkbox"
-                      checked={selected.includes(key)}
-                      onChange={() => toggle(key)}
-                    />
-                    <span>{javdbTagLabel(tag.id, tag.name)}</span>
-                    <small>{tag.count}</small>
-                  </label>
-                )
+                return {
+                  key,
+                  label: javdbTagLabel(tag.id, tag.name, tag.type),
+                  title: 'ID：' + tag.id,
+                  count: tag.count,
+                  selected: selected.includes(key)
+                }
               })}
-            </div>
-          </details>
-        )
-      })}
+            />
+          )
+        })}
       {search && ![...options.keys()].some(matchesSearch) && (
         <p className="muted">当前范围没有匹配类别。</p>
       )}

@@ -1,0 +1,91 @@
+/* 公用横向类别行：名称、标签、展开按钮分三列，避免长列表把控制按钮挤到末尾。 */
+.category-row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) 82px;
+  align-items: start;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.category-row-label {
+  margin: 3px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.category-row-label small {
+  display: inline;
+  margin-left: 5px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+.category-row-options {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+.category-row .category-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 3px 8px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: #edf0f3;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.6;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+.category-row .category-chip:hover {
+  background: var(--tint);
+  border-color: #b2c9ed;
+  color: var(--primary);
+}
+.category-row .category-chip[aria-pressed='true'] {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+.category-chip small {
+  font-size: 10px;
+  opacity: 0.72;
+  font-variant-numeric: tabular-nums;
+}
+.category-row .category-row-toggle {
+  justify-self: end;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 3px;
+  color: var(--primary);
+  border-color: #cfdaea;
+  background: #f2f6fc;
+  white-space: nowrap;
+}
+.category-row :is(button, a):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+@media (max-width: 640px) {
+  .category-row {
+    grid-template-columns: 62px minmax(0, 1fr) 72px;
+    gap: 6px;
+  }
+  .category-row-label {
+    font-size: 12px;
+  }
+  .category-row .category-chip {
+    min-height: 32px;
+    padding: 4px 7px;
+  }
+}
