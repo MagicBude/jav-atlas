@@ -121,3 +121,9 @@ AppShell只负责导航、全局搜索入口和容器；页面不内嵌采集逻
 ## 2026-10-24 类别栏交互布局
 
 目录与作品类别筛选共用shared/CategoryRow.tsx，布局为左侧分组名、中间横向标签、右侧更多/收起。可见项规则单独放在categoryRows.ts，样式独立放在category-row.css；默认展示前12项和全部已选项，展开不更改查询或来源顺序。目录标签作为站内链接，作品标签作为aria-pressed多选按钮；“全部”只清除当前组的条件。搜索结果自动全展开，隐藏条目不保留键盘焦点入口。
+
+## 2026-10-24 作品筛选字段整理
+
+年份使用CategoryRow，workYear将缺日期或无效年份归入unknown，并保留未知年份零数量选项。搜索单选共用shared/SearchSelect.tsx，筛选投影与片商来源选择键独立放在features/works/filterOptions.ts。
+
+统一片商入口包含两来源选项，JavDB仍按ID筛选，minnano仍按来源名称筛选；不按名称猜测跨站映射。query.ts负责切换时互斥清除wm/wf_maker，clear_maker为控件内部的清空操作、不进入URL。直接打开历史URL仍保留原匹配规则，逐项删除只删除该项。年份、人物、导演、系列和前缀的查询仍沿用现有参数，更新筛选只重置作品页码，保留排序、密度及人物页面上下文。

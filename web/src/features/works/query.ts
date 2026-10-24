@@ -75,6 +75,15 @@ export function clearWorkFilters(search: string, queryKey = 'wq', keepQuery = fa
 /** 密度只改变排版，不改变结果集合；保留页码，避免切换外观时跳回第一页。 */
 export function workQuery(search: string, key: string, value: string) {
   const next = new URLSearchParams(search)
+  // 新入口选择片商时互斥清除另一来源参数；直接打开旧URL时仍按原有条件执行。
+  if (key === 'clear_maker') {
+    next.delete('wm')
+    next.delete('wf_maker')
+    next.delete('wp')
+    return next.toString()
+  }
+  if (value && key === 'wf_maker') next.delete('wm')
+  if (value && key === 'wm') next.delete('wf_maker')
   if (value) next.set(key, value)
   else next.delete(key)
   if (

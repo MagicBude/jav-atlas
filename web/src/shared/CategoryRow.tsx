@@ -12,12 +12,14 @@ export function CategoryRow({
   options,
   onToggle,
   onClear,
+  clearLabel,
   forceExpanded = false
 }: {
   label: string
   options: CategoryOption[]
   onToggle?: (key: string) => void
   onClear?: () => void
+  clearLabel?: string
   forceExpanded?: boolean
 }) {
   const [expanded, setExpanded] = useState(false)
@@ -38,7 +40,7 @@ export function CategoryRow({
             type="button"
             className="category-chip category-all"
             aria-pressed={!options.some(option => option.selected)}
-            aria-label={`清除${label}类别条件`}
+            aria-label={clearLabel || `清除${label}类别条件`}
             onClick={onClear}
           >
             全部

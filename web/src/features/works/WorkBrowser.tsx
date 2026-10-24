@@ -1,3 +1,6 @@
+import { SearchSelect } from '../../shared/SearchSelect'
+import { CategoryRow } from '../../shared/CategoryRow'
+import { workYear, workYearOptions, makerOptions, makerFilter, unknownYear } from './filterOptions'
 /**
  * @file 人物作品区与独立作品库的共用浏览器。只接收轻量条目，不负责抓取来源资料。
  * 查询、分页、密度和详情历史在此统一，避免两个入口随功能演进出现不同结果。
@@ -61,7 +64,7 @@ export function WorkBrowser({
             row.kind === 'work' &&
             matchesWorkFacets(row, params) &&
             (!q || normalize(`${row.title} ${'code' in row ? row.code : ''}`).includes(q)) &&
-            (!year || row.releaseDate?.startsWith(year)) &&
+            (!year || workYear(row) === year) &&
             (!maker || row.makerText === maker) &&
             (!actor || row.actorIds?.includes(actor))
         )
@@ -104,7 +107,14 @@ export function WorkBrowser({
         entries.flatMap(entry => entry.facets?.[kind] || []).find(value => value.id === id)?.name ||
         id
       const name = originalName
-      return id ? [{ key: `wf_${kind}`, label: `${labels[kind]}：${name}` }] : []
+      return id
+        ? [
+            {
+              key: `wf_${kind}`,
+              label: `${labels[kind]}${kind === 'maker' ? '（JavDB）' : ''}：${name}`
+            }
+          ]
+        : []
     }),
     ...(!hideSearch && params.get(queryKey)
       ? [{ key: queryKey, label: `搜索：${params.get(queryKey)}` }]
@@ -112,8 +122,8 @@ export function WorkBrowser({
     ...(actor
       ? [{ key: 'wa', label: `人物：${actors.find(person => person.id === actor)?.name || actor}` }]
       : []),
-    ...(year ? [{ key: 'wy', label: `年份：${year}` }] : []),
-    ...(maker ? [{ key: 'wm', label: `厂商：${maker}` }] : [])
+    ...(year ? [{ key: 'wy', label: `年份：${year === unknownYear ? '未知年份' : year}` }] : []),
+    ...(maker ? [{ key: 'wm', label: `片商（minnano）：${maker}` }] : [])
   ]
   const reset = () =>
     navigate(
@@ -136,91 +146,66 @@ export function WorkBrowser({
         )}
         <div className="work-filters">
           {actors.length > 0 && (
-            <select
-              aria-label="作品人物"
+            <SearchSelect
+              label="人物"
               value={actor}
-              onChange={e => update('wa', e.target.value)}
-            >
-              <option value="">全部人物</option>
-              {actor && !actors.some(person => person.id === actor) && (
-                <option value={actor}>人物 ID {actor}</option>
-              )}
-              {[...actors]
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map(person => (
-                  <option key={person.id} value={person.id}>
-                    {person.name}
-                  </option>
-                ))}
-            </select>
+              options={[...actors].sort((a, b) => a.name.localeCompare(b.name))}
+              onChange={value => update('wa', value)}
+            />
           )}
-          <select
-            aria-label="作品发行年份"
-            value={year}
-            onChange={e => update('wy', e.target.value)}
-          >
-            <option value="">全部年份</option>
-            {[...new Set(entries.flatMap(e => (e.releaseDate ? [e.releaseDate.slice(0, 4)] : [])))]
-              .sort()
-              .reverse()
-              .map(y => (
-                <option key={y}>{y}</option>
-              ))}
-          </select>
-          <select aria-label="作品厂商" value={maker} onChange={e => update('wm', e.target.value)}>
-            <option value="">全部厂商</option>
-            {[...new Set(entries.flatMap(e => (e.makerText ? [e.makerText] : [])))]
-              .sort()
-              .map(m => (
-                <option key={m}>{m}</option>
-              ))}
-          </select>
+          <SearchSelect
+            label="片商"
+            value={
+              params.get('wf_maker')
+                ? 'javdb:' + params.get('wf_maker')
+                : maker
+                  ? 'minnano:' + encodeURIComponent(maker)
+                  : ''
+            }
+            options={makerOptions(entries)}
+            onChange={selection => {
+              const filter = makerFilter(selection)
+              update(filter.key, filter.value)
+            }}
+          />
         </div>
+        <CategoryRow
+          label="年份"
+          clearLabel="清除年份条件"
+          options={workYearOptions(entries, year)}
+          onToggle={value => update('wy', year === value ? '' : value)}
+          onClear={() => update('wy', '')}
+        />
         <details
           className="work-more-filters"
-          open={facetKeys.some(kind => params.has(`wf_${kind}`)) || undefined}
+          open={facetKeys.some(kind => kind !== 'maker' && params.has(`wf_${kind}`)) || undefined}
         >
-          <summary>更多条件 · 前缀 / 导演 / 片商 / 系列 / 类别</summary>
+          <summary>更多条件 · 番号前缀 / 导演 / 系列 / 类别</summary>
           <div className="work-filters">
-            {facetKeys
-              .filter(kind => kind !== 'tag')
-              .map(kind => {
-                const labels = {
-                  prefix: '番号前缀',
-                  director: '导演',
-                  maker: '片商',
-                  series: '系列',
-                  tag: '类别'
-                }
-                const options = workFacetOptions(entries, kind)
-                const selected = params.get(`wf_${kind}`) || ''
-                return (
-                  <label className="work-filter-field" key={kind}>
-                    <span>{labels[kind]}</span>
-                    <select
-                      aria-label={`作品${labels[kind]}`}
-                      value={selected}
-                      onChange={event => update(`wf_${kind}`, event.target.value)}
-                    >
-                      <option value="">全部{labels[kind]}</option>
-                      {selected && !options.some(option => option.id === selected) && (
-                        <option value={selected}>{selected}（当前范围无对应资料）</option>
-                      )}
-                      {options.map(option => (
-                        <option key={option.id} value={option.id}>
-                          {option.name}
-                          {options.filter(other => other.name === option.name).length > 1
-                            ? ` · ${option.id}`
-                            : ''}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                )
-              })}
+            {(['prefix', 'director', 'series'] as const).map(kind => {
+              const labels = { prefix: '番号前缀', director: '导演', series: '系列' }
+              const options = workFacetOptions(entries, kind)
+              const names = new Map<string, number>()
+              for (const option of options)
+                names.set(option.name, (names.get(option.name) || 0) + 1)
+              return (
+                <SearchSelect
+                  key={kind}
+                  label={labels[kind]}
+                  value={params.get('wf_' + kind) || ''}
+                  options={options.map(option => ({
+                    ...option,
+                    name: option.name + ((names.get(option.name) || 0) > 1 ? ' · ' + option.id : '')
+                  }))}
+                  onChange={value => update('wf_' + kind, value)}
+                />
+              )
+            })}
           </div>
           <TagFilters entries={entries} params={params} update={update} />
-          <p className="small muted">导演、片商、系列和类别仅筛选已补充 JavDB 资料的作品。</p>
+          <p className="small muted">
+            导演、系列和类别使用已补充的 JavDB 资料；片商选项标注来源，同名不代表同一身份。
+          </p>
         </details>
         {conditions.length > 0 && (
           <div className="work-conditions" aria-label="已选作品条件">
@@ -291,7 +276,7 @@ export function WorkBrowser({
             <span className="work-title">
               <span className="work-title-text">{row.title}</span>
               <small>
-                {row.makerText || '厂商未知'}
+                {row.makerText || '片商未知'}
                 {row.rating && (
                   <span
                     className="list-work-rating"
