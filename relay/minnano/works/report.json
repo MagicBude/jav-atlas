@@ -1,5 +1,5 @@
 {
-  "startedAt": 1792830420330,
+  "startedAt": 1792884999528,
   "scope": "ranked",
   "budgets": {
     "people": 5,
@@ -10,36 +10,23 @@
   },
   "pages": 0,
   "details": 50,
-  "failures": [
-    {
-      "workId": "276121",
-      "error": "fetch failed"
-    },
-    {
-      "workId": "373614",
-      "error": "fetch failed"
-    },
-    {
-      "workId": "388450",
-      "error": "fetch failed"
-    }
-  ],
+  "failures": [],
   "people": [],
   "budgetExhausted": false,
   "scheduling": {
     "mode": "details-first",
     "detailThreshold": 50,
     "before": {
-      "ready": 119,
+      "ready": 72,
       "waiting": 0
     },
     "skippedLists": true,
     "after": {
-      "ready": 70,
-      "waiting": 2
+      "ready": 22,
+      "waiting": 0
     }
   },
-  "finishedAt": 1792830650833,
-  "requests": 59,
-  "pendingDetails": 72
+  "finishedAt": 1792885026849,
+  "requests": 50,
+  "pendingDetails": 22
 }
