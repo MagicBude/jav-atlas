@@ -10,6 +10,7 @@ import { javdbGroupLabel, javdbTagLabel } from '../entities/tagLabels'
 import { javdbContentTypes } from '../entities/javdbCatalog'
 import { normalize } from '../entities/person'
 import './tag-catalog.css'
+import { TagTranslationTable } from './TagTranslationTable'
 import { CategoryRow } from '../shared/CategoryRow'
 import { tagSelectionKey } from '../entities/tagLabels'
 export default function TagCatalogPage() {
@@ -17,6 +18,10 @@ export default function TagCatalogPage() {
   const rawType = params.get('type') || '0'
   const type = /^[0-4]$/.test(rawType) ? Number(rawType) : 0
   const search = params.get('q') || ''
+  const comparison = params.get('view') === 'translations'
+  const terms: Record<string, { labelTraditional: string; labelEnglish: string | null }> =
+    dictionary.terms
+  const englishGroups: Record<string, string | null> = dictionary.englishGroupLabels
   const scoped = groups.filter(group => group.type === type)
   const visible = scoped
     .map(group => ({
@@ -25,7 +30,7 @@ export default function TagCatalogPage() {
         id =>
           !search ||
           normalize(
-            `${javdbGroupLabel(group.id, group.name)} ${javdbTagLabel(id, (group.sourceNames as Record<string, string | undefined>)[id] || id, type)} ${group.name} ${id} ${(group.sourceNames as Record<string, string | undefined>)[id]}`
+            `${javdbGroupLabel(group.id, group.name)} ${javdbTagLabel(id, (group.sourceNames as Record<string, string | undefined>)[id] || id, type)} ${terms[`${type}:${id}`]?.labelTraditional || ''} ${terms[`${type}:${id}`]?.labelEnglish || ''} ${englishGroups[group.id] || ''} ${group.name} ${id} ${(group.sourceNames as Record<string, string | undefined>)[id]}`
           ).includes(normalize(search))
       )
     }))
@@ -51,6 +56,7 @@ export default function TagCatalogPage() {
         traditionalGroupLabels: dictionary.traditionalGroupLabels,
         englishGroupLabels: dictionary.englishGroupLabels,
         displayNormalization: dictionary.displayNormalization,
+        languageSources: dictionary.languageSources,
         groups
       },
       null,
@@ -80,8 +86,7 @@ export default function TagCatalogPage() {
         <p>
           按 JavDB
           原有分组与顺序展示，类别名称统一使用简体显示词典，包含尚未收录作品的类别。快照日期：2026-10-23；仅展示类别分组，不含年份、月份、时长等通用筛选，不保证覆盖历史或隐藏标签。五类目录共
-          844
-          项均已核对来源并统一本地简体显示，下载数据保留繁体名称，并预留英文名称字段，英文尚未提取。
+          844 项均已核对来源并统一本地简体显示，繁体与英文名称已逐类型核对，可切换三语对照查看。
         </p>
       </details>
       <nav className="catalog-types" aria-label="目录内容类型">
@@ -97,6 +102,12 @@ export default function TagCatalogPage() {
         ))}
       </nav>
       <div className="catalog-toolbar">
+        <button
+          aria-pressed={comparison}
+          onClick={() => update('view', comparison ? '' : 'translations')}
+        >
+          {comparison ? '返回类别浏览' : '三语对照'}
+        </button>
         <input
           type="search"
           aria-label="搜索来源类别目录"
@@ -116,27 +127,34 @@ export default function TagCatalogPage() {
       <p className="small muted">
         每组先显示 12 项，可在右侧展开更多；点击类别可查看本地作品，尚未收录的类别可能没有结果。
       </p>
-      <div className="catalog-rows">
-        {visible.map(group => (
-          <div id={'catalog-' + group.id} key={group.id}>
-            <CategoryRow
-              label={javdbGroupLabel(group.id, group.name)}
-              forceExpanded={!!search}
-              options={group.tags.map(id => {
-                const original = (group.sourceNames as Record<string, string | undefined>)[id] || id
-                return {
-                  key: id,
-                  label: javdbTagLabel(id, original, type),
-                  title: 'ID：' + id,
-                  to:
-                    '/works?' +
-                    new URLSearchParams({ wf_tag: tagSelectionKey(id, original, type) }).toString()
-                }
-              })}
-            />
-          </div>
-        ))}
-      </div>
+      {comparison ? (
+        <TagTranslationTable groups={visible} type={type} />
+      ) : (
+        <div className="catalog-rows">
+          {visible.map(group => (
+            <div id={'catalog-' + group.id} key={group.id}>
+              <CategoryRow
+                label={javdbGroupLabel(group.id, group.name)}
+                forceExpanded={!!search}
+                options={group.tags.map(id => {
+                  const original =
+                    (group.sourceNames as Record<string, string | undefined>)[id] || id
+                  return {
+                    key: id,
+                    label: javdbTagLabel(id, original, type),
+                    title: 'ID：' + id,
+                    to:
+                      '/works?' +
+                      new URLSearchParams({
+                        wf_tag: tagSelectionKey(id, original, type)
+                      }).toString()
+                  }
+                })}
+              />
+            </div>
+          ))}
+        </div>
+      )}
       {!visible.length && (
         <p className="empty-state">该内容类型下没有匹配的类别，请更换关键词或切换类型。</p>
       )}

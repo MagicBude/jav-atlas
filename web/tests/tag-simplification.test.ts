@@ -38,10 +38,18 @@ it('繁体字、日文常用称谓和分隔符统一，缩写保持原样', () =
   expect(simplifyTagLabel('VR / 4K / SM / OL')).toBe('VR / 4K / SM / OL')
 })
 
-it('全部词条保留繁体并显式标识尚未提取的英文，不保留官方原名字段', () => {
+it('全部词条保留已核对的繁体与英文，不保留官方原名字段', () => {
   for (const term of Object.values(dictionary.terms)) {
     expect(term.labelTraditional).toBe(term.sourceNames[0])
-    expect(term.labelEnglish).toBeNull()
+    expect(term.labelEnglish.trim().length).toBeGreaterThan(0)
     expect(term).not.toHaveProperty('officialLabel')
   }
+})
+
+it('25个分组英文与繁体名称完整，语言来源覆盖五类目录', () => {
+  expect(Object.values(dictionary.englishGroupLabels)).toHaveLength(25)
+  for (const name of Object.values(dictionary.englishGroupLabels))
+    expect(name.trim().length).toBeGreaterThan(0)
+  expect(dictionary.traditionalGroupLabels['0:subject']).toBe('主題')
+  expect(dictionary.languageSources.locales.en.terms).toBe(844)
 })

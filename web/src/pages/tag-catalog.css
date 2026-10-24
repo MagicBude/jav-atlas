@@ -75,3 +75,35 @@
     white-space: nowrap;
   }
 }
+
+/* 对照表仅在用户主动切换时显示；窄屏横向滚动，不挤压英文。 */
+.catalog-translations h2 {
+  font-size: 16px;
+  margin-top: 24px;
+}
+.catalog-translations h2 small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+.catalog-table-scroll {
+  overflow-x: auto;
+}
+.catalog-translations table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 580px;
+  font-size: 13px;
+}
+.catalog-translations th,
+.catalog-translations td {
+  text-align: left;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.catalog-translations th {
+  background: var(--surface);
+}
+.catalog-translations th:first-child {
+  width: 70px;
+}

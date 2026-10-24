@@ -59,4 +59,10 @@ minnano 人物标签与 JavDB 作品类别分别维护，不能按同名或同�
 
 ## 三语字段约定（2026-10-24）
 
-不再单设官方原名字段。label 为简体默认显示，labelTraditional 为繁体来源名称，labelEnglish 为英文；英文尚未提取时使用 null。分组对应 groupLabels、traditionalGroupLabels、englishGroupLabels。sourceNames 是内部来源匹配别名，不是第四种展示语言。后续英文提取应按 type:id 和分组 ID 对齐，不能按中文名称猜测对应关系。
+不再单设官方原名字段。label 为简体默认显示，labelTraditional 为繁体来源名称，labelEnglish 为英文；未核实的英文使用 null；当前五类目录英文已全部核实补齐。分组对应 groupLabels、traditionalGroupLabels、englishGroupLabels。sourceNames 是内部来源匹配别名，不是第四种展示语言。后续英文提取应按 type:id 和分组 ID 对齐，不能按中文名称猜测对应关系。
+
+## 繁体与英文目录核对（2026-10-24）
+
+使用用户保存的五类繁体与五类英文页面，只解析类别与分组字段。繁体语言标记为 zh，英文为 en；每组按内容类型和完整类别 ID 集合匹配，五类均与已有分组完全一致，类别数分别为307、151、208、55、123。844 个繁体类别名与已有来源名称完全一致；25 个繁体分组名改用本次繁体页面的实际名称，修正此前从简体分组沿用的字形。英文补齐844个类别和25个分组。欧美和动漫英文源码分别重复包含完整目录，13个重复分组逐项验证一致后去重。未保存原始登录HTML。
+
+类别目录提供三语对照切换，URL参数 view=translations 可恢复该视图；支持简繁英文名称与英文分组搜索，下载JSON含完整三语词典和来源覆盖说明。三语只按 type:id 对齐，不合并同号跨类型条目。英文保留官方词汇和拼写，不额外机器改译。
