@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 /** 类别按类型＋ID隔离；旧资料缺类型时使用原名保守回退。 */
 import { useState } from 'react'
 import {
@@ -90,28 +89,19 @@ export function TagFilters({
     )
   return (
     <section className="tag-filter-browser" aria-label="分组类别筛选">
-      <div className="tag-filter-toolbar">
-        <Link to="/tags" className="button">
-          查看完整类别目录
-        </Link>
+      <div className="category-row work-field-row">
+        <h2 className="category-row-label">
+          类别<small>多选</small>
+        </h2>
         <input
+          className="work-field-control"
+          type="search"
           aria-label="查找类别"
-          placeholder="搜索中文名或来源原名"
+          placeholder="查找类别名称"
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={event => setSearch(event.target.value)}
         />
-        <select
-          aria-label="类别匹配方式"
-          value={params.get('wt_mode') === 'any' ? 'any' : 'all'}
-          onChange={e => update('wt_mode', e.target.value)}
-        >
-          <option value="all">全部满足</option>
-          <option value="any">满足任一</option>
-        </select>
       </div>
-      <p className="small muted">
-        支持多选，点击已选类别可取消；“全部”只清除该分组，数字为当前浏览范围的作品数。
-      </p>
       {[...grouped]
         .sort(([left], [right]) => {
           const order = (id: string) => {

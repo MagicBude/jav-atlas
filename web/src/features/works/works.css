@@ -166,34 +166,30 @@
   font-size: 12px;
 }
 
-.work-more-filters {
-  margin-top: 12px;
-  padding-top: 12px;
+/* 所有筛选字段按连续的行排列，搜索控件和标签行共享左侧对齐线。 */
+.work-filter-rows {
+  margin-top: 8px;
+}
+.work-filter-rows > .category-row:first-child {
   border-top: 1px solid var(--line);
 }
-.work-filter-field {
-  flex: 1 1 150px;
+.work-field-row .work-field-control {
+  grid-column: 2 / -1;
+  width: min(100%, 460px);
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  font-size: 12px;
-  color: var(--muted);
 }
-.work-query-panel .work-filter-field select {
-  width: 100%;
-  flex: initial;
+.work-field-row .search-select > summary {
+  min-height: 32px;
+  padding-block: 5px;
+}
+.work-field-row > input.work-field-control {
+  min-height: 32px;
+  padding-block: 5px;
+}
+.tag-filter-browser {
+  margin: 0;
 }
 
-.tag-filter-browser {
-  margin-top: 16px;
-}
-.tag-filter-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.tag-filter-toolbar input {
-  flex: 1 1 180px;
-  min-width: 0;
+.work-field-row {
+  padding-block: 8px;
 }

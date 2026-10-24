@@ -42,7 +42,8 @@ export function matchesWorkFacets(row: WorkEntry, params: URLSearchParams) {
           ) || false
         )
       }
-      return params.get('wt_mode') === 'any' ? ids.some(matches) : ids.every(matches)
+      // 类别多选统一取交集，不再提供两套容易混淆的匹配方式。
+      return ids.every(matches)
     }
     if (kind === 'prefix')
       return row.code?.toUpperCase().match(/^([A-Z]+)(?=[-\d])/)?.[1] === selected.toUpperCase()
@@ -75,6 +76,8 @@ export function clearWorkFilters(search: string, queryKey = 'wq', keepQuery = fa
 /** 密度只改变排版，不改变结果集合；保留页码，避免切换外观时跳回第一页。 */
 export function workQuery(search: string, key: string, value: string) {
   const next = new URLSearchParams(search)
+  // 清理已取消的匹配方式参数，避免旧链接留下隐藏开关。
+  next.delete('wt_mode')
   // 新入口选择片商时互斥清除另一来源参数；直接打开旧URL时仍按原有条件执行。
   if (key === 'clear_maker') {
     next.delete('wm')

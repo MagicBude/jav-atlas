@@ -127,3 +127,9 @@ AppShell只负责导航、全局搜索入口和容器；页面不内嵌采集逻
 年份使用CategoryRow，workYear将缺日期或无效年份归入unknown，并保留未知年份零数量选项。搜索单选共用shared/SearchSelect.tsx，筛选投影与片商来源选择键独立放在features/works/filterOptions.ts。
 
 统一片商入口包含两来源选项，JavDB仍按ID筛选，minnano仍按来源名称筛选；不按名称猜测跨站映射。query.ts负责切换时互斥清除wm/wf_maker，clear_maker为控件内部的清空操作、不进入URL。直接打开历史URL仍保留原匹配规则，逐项删除只删除该项。年份、人物、导演、系列和前缀的查询仍沿用现有参数，更新筛选只重置作品页码，保留排序、密度及人物页面上下文。
+
+## 2026-10-24 连续字段行
+
+WorkFilterRow把SearchSelect接入与年份和类别一致的网格；所有字段连续排列，不再在“更多条件”中嵌套另一套布局。SearchSelect通过showLabel=false消除行内重复标题，原生details的name组确保互斥，document的pointerdown监听在点击外部时关闭，并在组件卸载时清理。
+
+作品内类别区只保留搜索和多选标签，各组“全部”仅清组；移除目录链接和匹配方式切换，交集是唯一规则。旧wt_mode=any不再影响匹配，workQuery清理该参数；其余历史条件与片商来源逻辑沿用。主导航类别目录仍可独立查阅全部来源标签。

@@ -3,7 +3,7 @@
  * 不伪装成缺少方向键支持的combobox。选择后关闭；Escape返回触发器焦点。
  * 只显示前80个搜索结果，避免成千选项撑满页面；完整选项数据仍由调用方保留。
  */
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { normalize } from '../entities/person'
 import './search-select.css'
 export interface SearchOption {
@@ -15,16 +15,28 @@ export function SearchSelect({
   label,
   value,
   options,
-  onChange
+  onChange,
+  showLabel = true
 }: {
   label: string
   value: string
   options: SearchOption[]
+  showLabel?: boolean
   onChange: (value: string) => void
 }) {
   const [query, setQuery] = useState('')
   const details = useRef<HTMLDetailsElement>(null)
   const input = useRef<HTMLInputElement>(null)
+  // details提供原生展开语义，但没有弹出选择器的外部点击关闭行为，在此补齐。
+  useEffect(() => {
+    const dismiss = (event: PointerEvent) => {
+      const element = details.current
+      if (element?.open && event.target instanceof Node && !element.contains(event.target))
+        element.open = false
+    }
+    document.addEventListener('pointerdown', dismiss)
+    return () => document.removeEventListener('pointerdown', dismiss)
+  }, [])
   const selected = options.find(option => option.id === value)
   const matches = options.filter(option =>
     normalize(`${option.name} ${option.id} ${option.source || ''}`).includes(normalize(query))
@@ -36,9 +48,10 @@ export function SearchSelect({
   }
   return (
     <div className="search-select-field">
-      <span>{label}</span>
+      {showLabel && <span>{label}</span>}
       <details
         className="search-select"
+        name="work-filter-selectors"
         ref={details}
         onToggle={event => {
           if (event.currentTarget.open) input.current?.focus()

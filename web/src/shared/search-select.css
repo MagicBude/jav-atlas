@@ -8,6 +8,7 @@
   font-size: 12px;
 }
 .search-select {
+  margin: 0;
   position: relative;
   min-width: 0;
 }

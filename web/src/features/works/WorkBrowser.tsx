@@ -1,4 +1,4 @@
-import { SearchSelect } from '../../shared/SearchSelect'
+import { WorkFilterRow } from './WorkFilterRow'
 import { CategoryRow } from '../../shared/CategoryRow'
 import { workYear, workYearOptions, makerOptions, makerFilter, unknownYear } from './filterOptions'
 /**
@@ -144,69 +144,61 @@ export function WorkBrowser({
             onChange={e => update(queryKey, e.target.value)}
           />
         )}
-        <div className="work-filters">
+        <div className="work-filter-rows" aria-label="作品筛选">
           {actors.length > 0 && (
-            <SearchSelect
+            <WorkFilterRow
               label="人物"
               value={actor}
               options={[...actors].sort((a, b) => a.name.localeCompare(b.name))}
               onChange={value => update('wa', value)}
             />
           )}
-          <SearchSelect
-            label="片商"
-            value={
-              params.get('wf_maker')
-                ? 'javdb:' + params.get('wf_maker')
-                : maker
-                  ? 'minnano:' + encodeURIComponent(maker)
-                  : ''
-            }
-            options={makerOptions(entries)}
-            onChange={selection => {
-              const filter = makerFilter(selection)
-              update(filter.key, filter.value)
-            }}
+          <CategoryRow
+            label="年份"
+            clearLabel="清除年份条件"
+            options={workYearOptions(entries, year)}
+            onToggle={value => update('wy', year === value ? '' : value)}
+            onClear={() => update('wy', '')}
           />
-        </div>
-        <CategoryRow
-          label="年份"
-          clearLabel="清除年份条件"
-          options={workYearOptions(entries, year)}
-          onToggle={value => update('wy', year === value ? '' : value)}
-          onClear={() => update('wy', '')}
-        />
-        <details
-          className="work-more-filters"
-          open={facetKeys.some(kind => kind !== 'maker' && params.has(`wf_${kind}`)) || undefined}
-        >
-          <summary>更多条件 · 番号前缀 / 导演 / 系列 / 类别</summary>
-          <div className="work-filters">
-            {(['prefix', 'director', 'series'] as const).map(kind => {
-              const labels = { prefix: '番号前缀', director: '导演', series: '系列' }
-              const options = workFacetOptions(entries, kind)
-              const names = new Map<string, number>()
-              for (const option of options)
-                names.set(option.name, (names.get(option.name) || 0) + 1)
+          {(['prefix', 'director', 'maker', 'series'] as const).map(kind => {
+            const labels = { prefix: '番号前缀', director: '导演', maker: '片商', series: '系列' }
+            if (kind === 'maker')
               return (
-                <SearchSelect
+                <WorkFilterRow
                   key={kind}
                   label={labels[kind]}
-                  value={params.get('wf_' + kind) || ''}
-                  options={options.map(option => ({
-                    ...option,
-                    name: option.name + ((names.get(option.name) || 0) > 1 ? ' · ' + option.id : '')
-                  }))}
-                  onChange={value => update('wf_' + kind, value)}
+                  value={
+                    params.get('wf_maker')
+                      ? 'javdb:' + params.get('wf_maker')
+                      : maker
+                        ? 'minnano:' + encodeURIComponent(maker)
+                        : ''
+                  }
+                  options={makerOptions(entries)}
+                  onChange={selection => {
+                    const filter = makerFilter(selection)
+                    update(filter.key, filter.value)
+                  }}
                 />
               )
-            })}
-          </div>
+            const options = workFacetOptions(entries, kind)
+            const names = new Map<string, number>()
+            for (const option of options) names.set(option.name, (names.get(option.name) || 0) + 1)
+            return (
+              <WorkFilterRow
+                key={kind}
+                label={labels[kind]}
+                value={params.get('wf_' + kind) || ''}
+                options={options.map(option => ({
+                  ...option,
+                  name: option.name + ((names.get(option.name) || 0) > 1 ? ' · ' + option.id : '')
+                }))}
+                onChange={value => update('wf_' + kind, value)}
+              />
+            )
+          })}
           <TagFilters entries={entries} params={params} update={update} />
-          <p className="small muted">
-            导演、系列和类别使用已补充的 JavDB 资料；片商选项标注来源，同名不代表同一身份。
-          </p>
-        </details>
+        </div>
         {conditions.length > 0 && (
           <div className="work-conditions" aria-label="已选作品条件">
             {conditions.map(condition => (

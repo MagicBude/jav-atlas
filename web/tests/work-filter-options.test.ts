@@ -80,3 +80,21 @@ it('旧厂商URL和未知年份仍筛选正确，界面只提供一个片商入�
   expect(legacy).not.toContain('老年份作品')
   expect(legacy).toContain('片商（minnano）')
 })
+
+it('筛选连续按字段顺序排列，没有更多条件嵌套、目录入口或匹配方式开关', () => {
+  const html = renderToStaticMarkup(
+    createElement(
+      MemoryRouter,
+      { initialEntries: ['/works'] },
+      createElement(WorkBrowser, { entries, actors: [{ id: 'p', name: '人物甲' }] })
+    )
+  )
+  const fields = ['人物', '年份', '番号前缀', '导演', '片商', '系列', '分组类别筛选']
+  const positions = fields.map(label => html.indexOf(`aria-label="${label}"`))
+  expect(positions.every(position => position >= 0)).toBe(true)
+  expect(positions).toEqual([...positions].sort((a, b) => a - b))
+  expect(html).not.toContain('更多条件')
+  expect(html).not.toContain('查看完整类别目录')
+  expect(html).not.toContain('类别匹配方式')
+  expect(html).not.toContain('满足任一')
+})
