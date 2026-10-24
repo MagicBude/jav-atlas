@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-10-24T08:18:08.675Z",
+  "scope": "cumulative-ranked-pool",
+  "people": {
+    "total": 431,
+    "lists": {
+      "not-started": 404,
+      "partial": 2,
+      "unstable": 0,
+      "complete": 25
+    },
+    "waitingRetry": 0
+  },
+  "works": {
+    "listed": 369,
+    "details": 250,
+    "missingDetails": 119,
+    "withCode": 246,
+    "missingCode": 4
+  },
+  "metadata": {
+    "matched": 48,
+    "notMatched": 198,
+    "freshWithinSevenDays": 45,
+    "waitingRetry": 5
+  },
+  "pendingDetailTasks": 119
+}

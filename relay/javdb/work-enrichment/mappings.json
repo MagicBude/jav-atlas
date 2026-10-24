@@ -31,6 +31,16 @@
       "minnanoDate": "2026-10-20",
       "javdbDate": "2026-10-20"
     },
+    "186801": {
+      "minnanoId": "186801",
+      "javdbId": "qAZeOx",
+      "code": "JRZE-324",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1792829830767,
+      "dateDifference": false,
+      "minnanoDate": "2026-10-07",
+      "javdbDate": "2026-10-07"
+    },
     "190457": {
       "minnanoId": "190457",
       "javdbId": "82JMJ5",
@@ -41,6 +51,16 @@
       "minnanoDate": "2026-09-24",
       "javdbDate": "2026-09-29"
     },
+    "205002": {
+      "minnanoId": "205002",
+      "javdbId": "P91Np0",
+      "code": "MIDA-645",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1792829840543,
+      "dateDifference": true,
+      "minnanoDate": "2026-07-16",
+      "javdbDate": "2026-07-21"
+    },
     "213193": {
       "minnanoId": "213193",
       "javdbId": "EbO1aJ",
@@ -50,6 +70,16 @@
       "dateDifference": true,
       "minnanoDate": "2026-08-28",
       "javdbDate": "2026-09-02"
+    },
+    "223865": {
+      "minnanoId": "223865",
+      "javdbId": "AqXgdK",
+      "code": "MIDA-758",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1792829832498,
+      "dateDifference": true,
+      "minnanoDate": "2026-09-10",
+      "javdbDate": "2026-09-15"
     },
     "235674": {
       "minnanoId": "235674",
@@ -91,6 +121,36 @@
       "minnanoDate": "2026-08-06",
       "javdbDate": "2026-08-11"
     },
+    "321583": {
+      "minnanoId": "321583",
+      "javdbId": "7ybxwB",
+      "code": "OFJE-648",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1792829834222,
+      "dateDifference": true,
+      "minnanoDate": "2026-07-23",
+      "javdbDate": "2026-07-28"
+    },
+    "352072": {
+      "minnanoId": "352072",
+      "javdbId": "Ww7RYR",
+      "code": "SNOS-258",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1792829842004,
+      "dateDifference": true,
+      "minnanoDate": "2026-07-09",
+      "javdbDate": "2026-07-15"
+    },
+    "359712": {
+      "minnanoId": "359712",
+      "javdbId": "P913r9",
+      "code": "OFJE-653",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1792829837314,
+      "dateDifference": true,
+      "minnanoDate": "2026-07-23",
+      "javdbDate": "2026-07-28"
+    },
     "364093": {
       "minnanoId": "364093",
       "javdbId": "Rk8eZ8",
@@ -100,6 +160,16 @@
       "dateDifference": true,
       "minnanoDate": "2026-09-03",
       "javdbDate": "2026-09-08"
+    },
+    "366134": {
+      "minnanoId": "366134",
+      "javdbId": "96Q6Bw",
+      "code": "HONE-297",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1792829848903,
+      "dateDifference": false,
+      "minnanoDate": "2026-07-08",
+      "javdbDate": "2026-07-08"
     },
     "424918": {
       "minnanoId": "424918",
@@ -140,6 +210,26 @@
       "dateDifference": true,
       "minnanoDate": "2026-10-08",
       "javdbDate": "2026-10-13"
+    },
+    "514300": {
+      "minnanoId": "514300",
+      "javdbId": "Rk6Mw7",
+      "code": "OFJE-646",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1792829844253,
+      "dateDifference": true,
+      "minnanoDate": "2026-07-09",
+      "javdbDate": "2026-07-14"
+    },
+    "515848": {
+      "minnanoId": "515848",
+      "javdbId": "82JDKa",
+      "code": "SDAB-352",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1792829851073,
+      "dateDifference": true,
+      "minnanoDate": "2026-07-06",
+      "javdbDate": "2026-08-05"
     },
     "524900": {
       "minnanoId": "524900",
@@ -210,6 +300,16 @@
       "dateDifference": true,
       "minnanoDate": "2026-09-08",
       "javdbDate": "2026-07-28"
+    },
+    "598726": {
+      "minnanoId": "598726",
+      "javdbId": "82B0KK",
+      "code": "OFJE-645",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1792829845987,
+      "dateDifference": true,
+      "minnanoDate": "2026-07-09",
+      "javdbDate": "2026-07-14"
     },
     "605586": {
       "minnanoId": "605586",

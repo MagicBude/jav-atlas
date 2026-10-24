@@ -125,6 +125,8 @@ jobs:
             fi
             exit "$code"
           fi
+      - name: 生成作品覆盖报告
+        run: npm run report:works -- --output relay/derived/work-coverage.json
       # 所有现场均上传；只有正常结束或工具明确返回的可恢复来源失败才允许提交。
       - name: 保存本轮产物
         if: always()

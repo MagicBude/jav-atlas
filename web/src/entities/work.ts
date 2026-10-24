@@ -27,4 +27,9 @@ export interface PersonWorks {
   actorId: string
   entries: WorkEntry[]
   completedAt?: number | null
+  coverage?: {
+    status: 'not-started' | 'complete' | 'unstable' | 'partial'
+    nextPage: number | null
+    completedAt: number | null
+  }
 }

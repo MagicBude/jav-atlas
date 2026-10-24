@@ -36,7 +36,16 @@ export function PersonWorks({
       ) : !request.value ? (
         <p>正在读取作品…</p>
       ) : (
-        <WorkBrowser entries={request.value.entries} />
+        <>
+          <p className="muted small">
+            {request.value.coverage?.status === 'complete'
+              ? '来源作品分页已遍历并复核；作品详情与补充资料仍可能待补。'
+              : request.value.coverage?.status === 'unstable'
+                ? '来源列表在采集期间发生变化，尚待重新核对。'
+                : '目前为部分作品列表，后续继续补齐。'}
+          </p>
+          <WorkBrowser entries={request.value.entries} />
+        </>
       )}
     </>
   )

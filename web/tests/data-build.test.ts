@@ -176,3 +176,20 @@ it('内容类型从来源投影到全库与人物作品索引，保留有码零�
     person.entries.forEach(assertType)
   }
 })
+
+it('人物作品进度来自当前断点，部分扫描不能显示为完整', () => {
+  const progress = read('minnano/works/progress.json') as {
+    people: Record<string, { finished?: boolean; stable?: boolean; completedAt?: number }>
+  }
+  for (const [id, file] of Object.entries(manifest.works!.people)) {
+    const value = JSON.parse(fs.readFileSync(path.join(generated, file), 'utf8'))
+    const scan = progress.people[id]
+    if (scan?.finished && scan.stable && scan.completedAt) {
+      expect(value.coverage.status).toBe('complete')
+      expect(value.coverage.completedAt).toBe(scan.completedAt)
+    } else {
+      expect(value.coverage.status).not.toBe('complete')
+      expect(value.coverage.completedAt).toBeNull()
+    }
+  }
+})

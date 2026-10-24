@@ -8,6 +8,7 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { collectSources, projectPerson } from './adapters.mjs'
+import coveragePolicy from '../../tools/lib/work-coverage.js'
 const web = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const relay = path.resolve(web, '../relay')
 const out = path.join(web, 'public/generated')
@@ -253,6 +254,15 @@ if (fs.existsSync(path.join(worksRoot, 'people'))) {
     }
     manifest.works.people[file.slice(0, -5)] = emit(`works-person-${file.slice(0, -5)}`, {
       ...person,
+      // 当前断点决定本轮是否完成，历史completedAt只保留为来源记录。
+      coverage: (() => {
+        const scan = read('minnano/works/progress.json', { people: {} }).people?.[person.actorId]
+        return {
+          status: coveragePolicy.listCoverage(scan),
+          nextPage: scan?.nextPage ?? null,
+          completedAt: scan?.finished && scan.stable ? scan.completedAt : null
+        }
+      })(),
       entries
     })
   }

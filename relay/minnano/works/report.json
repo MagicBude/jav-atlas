@@ -1,56 +1,62 @@
 {
-  "startedAt": 1792799973877,
+  "startedAt": 1792829660802,
   "scope": "ranked",
   "budgets": {
     "people": 5,
     "pages": 20,
     "perPersonPages": 5,
-    "details": 50,
-    "requests": 100
+    "details": 30,
+    "requests": 80
   },
-  "pages": 5,
-  "details": 25,
-  "failures": [],
+  "pages": 10,
+  "details": 30,
+  "failures": [
+    {
+      "actorId": "125102",
+      "page": 1,
+      "error": "HTTP 403"
+    }
+  ],
   "people": [
     {
-      "actorId": "216623",
-      "formal": 0,
+      "actorId": "747882",
+      "formal": 43,
       "placeholders": 1,
       "nextPage": null,
       "stable": true
     },
     {
-      "actorId": "390256",
+      "actorId": "125102",
       "formal": 0,
-      "placeholders": 1,
-      "nextPage": null,
-      "stable": true
+      "placeholders": 0,
+      "nextPage": 1,
+      "stable": false
     },
     {
-      "actorId": "16443",
+      "actorId": "466991",
       "formal": 1,
       "placeholders": 1,
       "nextPage": null,
       "stable": true
     },
     {
-      "actorId": "386586",
-      "formal": 2,
+      "actorId": "621890",
+      "formal": 6,
       "placeholders": 1,
       "nextPage": null,
       "stable": true
     },
     {
-      "actorId": "456807",
-      "formal": 2,
-      "placeholders": 1,
-      "nextPage": null,
-      "stable": true
+      "actorId": "321865",
+      "formal": 99,
+      "placeholders": 0,
+      "nextPage": 6,
+      "stable": false
     }
   ],
   "budgetExhausted": false,
   "eligiblePeople": 431,
-  "finishedAt": 1792799992530,
-  "requests": 35,
-  "pendingDetails": 0
+  "finishedAt": 1792829789195,
+  "requests": 47,
+  "pendingDetails": 119
 }
