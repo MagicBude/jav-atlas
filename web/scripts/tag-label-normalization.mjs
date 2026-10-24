@@ -13,15 +13,22 @@ export function simplifyTagLabel(value) {
   const simplified = convert(value).replaceAll('・', '、').trim()
   return terminology.get(simplified) || simplified
 }
-/** 返回新文档，绝不改调用方对象；官方页面名称与观察名称和显示名称分别保存。 */
+/** 返回新文档，绝不改调用方对象；简体显示名、繁体名称和英文名称分开保存。 */
 export function normalizeTagDictionary(document) {
   const next = structuredClone(document)
   for (const term of Object.values(next.terms)) {
-    term.officialLabel ??= term.label
+    // 繁体采用来源名称；英文未知用null，不把机器猜测冒充已提取译名。
+    term.labelTraditional ??= term.sourceNames?.[0] || term.officialLabel || term.label
+    term.labelEnglish ??= null
+    delete term.officialLabel
     term.label = simplifyTagLabel(term.label)
     term.status = 'simplified-zh-CN'
   }
-  next.officialGroupLabels ??= structuredClone(next.groupLabels)
+  next.traditionalGroupLabels ??= structuredClone(next.officialGroupLabels || next.groupLabels)
+  next.englishGroupLabels ??= Object.fromEntries(
+    Object.keys(next.groupLabels).map(id => [id, null])
+  )
+  delete next.officialGroupLabels
   for (const [id, name] of Object.entries(next.groupLabels))
     next.groupLabels[id] = simplifyTagLabel(name)
   next.displayNormalization = {

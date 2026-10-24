@@ -12,7 +12,7 @@
 
 ## 网页词典与查询
 
-web/src/data/javdb-tag-labels.json 以“type:id”为键，含 label/sourceNames/status，共 844 项。五种类型844项均根据用户提供的官方zh-CN网页源码核对分组与ID，官方页面名称保存在officialLabel，label统一为本地简体，标记simplified-zh-CN。groupLabels保存25个经核实的网页分组名，localizations分别记录五种类型的来源与覆盖范围；sourceNames保留接口原名，并追加已核实的简体名称。先前在合并身份上维护的显示别名撤回，避免把一个类型的词套给另一个类型。没有使用外部翻译服务，也没有翻译标题和评论。
+web/src/data/javdb-tag-labels.json 以“type:id”为键，含 label/sourceNames/status，共 844 项。五种类型844项均根据用户提供的官方zh-CN网页源码核对分组与ID，繁体来源名称保存在labelTraditional，label统一为本地简体，标记simplified-zh-CN。groupLabels保存25个经核实的网页分组名，localizations分别记录五种类型的来源与覆盖范围；sourceNames保留接口原名，并追加已核实的简体名称。先前在合并身份上维护的显示别名撤回，避免把一个类型的词套给另一个类型。没有使用外部翻译服务，也没有翻译标题和评论。
 
 作品详情接口提供数值型 type，采集保存 metadata.type，构建时投影为 javdbType。2026-10-23 已对现有31份补充记录逐一请求详情、核对原生ID与番号后回填成功，原 fetchedAt、其他元数据与评论不变，另记 typeFetchedAt。以后正常采集保留此字段；旧记录缺类型时不会因七天缓存而跳过补齐。
 
@@ -41,7 +41,7 @@ minnano 人物标签与 JavDB 作品类别分别维护，不能按同名或同�
 
 已读取用户保存的无码、欧美、FC2、动漫四份文本源码，均标注zh-CN，标题与类别路由匹配。源码链接携带c10等附加条件，提取时按当前分组的c参数解析，不能只匹配单个查询参数链接。四类分别151、208、55、123项，共537项；各类型全部ID及各组ID集合与现有来源目录完全对应，无漏项、无额外项，按类型和完整集合核对分组后才导入。
 
-当前五类总覆盖844项、25组。official-zh-CN代表已核实官方简体语言页面，并不保证每个字都已简体化：部分动漫等标签在官网zh-CN源码里仍使用繁体字；这些原名保存在officialLabel，网页label另行整理为简体。只提取目录字段，不把原始登录HTML或账号相关字段放入仓库；采集原记录与来源ID均未修改。
+当前五类总覆盖844项、25组。official-zh-CN代表已核实官方简体语言页面，并不保证每个字都已简体化：部分动漫等标签在官网zh-CN源码里仍使用繁体字；繁体来源名称保存在labelTraditional，网页label另行整理为简体。只提取目录字段，不把原始登录HTML或账号相关字段放入仓库；采集原记录与来源ID均未修改。
 
 ## 2026-10-24 颜射分组与同名重复条目核实
 
@@ -53,6 +53,10 @@ minnano 人物标签与 JavDB 作品类别分别维护，不能按同名或同�
 
 ## 本地简体显示整理（2026-10-24）
 
-官方 zh-CN 页面仍包含繁体名称，因此网页显示不再直接沿用页面字形。844 个类别与 25 个分组统一经过本地 OpenCC tw2s 转换，少量明确的日文称谓通过整词规则处理；不使用外部翻译服务。label 是简体显示名，officialLabel 保留官方页面原名，sourceNames 保留来源观察名称；officialGroupLabels 保留官方分组名，groupLabels 用于简体显示。status 为 simplified-zh-CN，displayNormalization 记录规则版本。ID、内容类型、来源分组和采集原记录不变。
+官方 zh-CN 页面仍包含繁体名称，因此网页显示不再直接沿用页面字形。844 个类别与 25 个分组统一经过本地 OpenCC tw2s 转换，少量明确的日文称谓通过整词规则处理；不使用外部翻译服务。label 是简体显示名，labelTraditional 保留繁体来源名称，sourceNames 保留来源观察名称；traditionalGroupLabels 保留来源分组名，groupLabels 用于简体显示。status 为 simplified-zh-CN，displayNormalization 记录规则版本。ID、内容类型、来源分组和采集原记录不变。
 
 修改词典后运行 `npm run labels:normalize --prefix web` 统一名称，再运行 `npm run labels:check --prefix web` 检查遗漏。转换规则位于 web/scripts/tag-label-normalization.mjs，只在开发与测试时加载，不进入网页运行包。新增有歧义的词应先核实语义再加入整词规则，不能用全局单字替换猜测含义。
+
+## 三语字段约定（2026-10-24）
+
+不再单设官方原名字段。label 为简体默认显示，labelTraditional 为繁体来源名称，labelEnglish 为英文；英文尚未提取时使用 null。分组对应 groupLabels、traditionalGroupLabels、englishGroupLabels。sourceNames 是内部来源匹配别名，不是第四种展示语言。后续英文提取应按 type:id 和分组 ID 对齐，不能按中文名称猜测对应关系。

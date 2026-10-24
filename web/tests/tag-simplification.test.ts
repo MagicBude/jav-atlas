@@ -7,11 +7,11 @@ it('全部类别和分组都符合简体整理规则，重复执行没有变化'
   expect(Object.keys(dictionary.groupLabels)).toHaveLength(25)
   expect(normalizeTagDictionary(dictionary)).toEqual(dictionary)
   for (const term of Object.values(dictionary.terms)) {
-    expect(term.label).toBe(simplifyTagLabel(term.officialLabel))
+    expect(term.label).toBe(simplifyTagLabel(term.label))
   }
 })
 
-it('整理只修改显示名称，保留身份、来源观察名称和官方原名', () => {
+it('整理只修改显示名称，保留身份、来源观察名称和繁体名称', () => {
   const source = {
     terms: { '4:61': { label: '人妻', sourceNames: ['人妻'], status: 'official-zh-CN' } },
     groupLabels: { '4:role': '角色' },
@@ -23,11 +23,12 @@ it('整理只修改显示名称，保留身份、来源观察名称和官方原�
   expect(Object.keys(result.terms)).toEqual(['4:61'])
   expect(result.terms['4:61']).toMatchObject({
     label: '已婚妇女',
-    officialLabel: '人妻',
+    labelTraditional: '人妻',
+    labelEnglish: null,
     sourceNames: ['人妻']
   })
   expect(result.localizations).toEqual(source.localizations)
-  expect(result.officialGroupLabels).toEqual(source.groupLabels)
+  expect(result.traditionalGroupLabels).toEqual(source.groupLabels)
 })
 
 it('繁体字、日文常用称谓和分隔符统一，缩写保持原样', () => {
@@ -35,4 +36,12 @@ it('繁体字、日文常用称谓和分隔符统一，缩写保持原样', () =
   expect(simplifyTagLabel('女子高生製服')).toBe('女高中生制服')
   expect(simplifyTagLabel('母親・兒時的朋友')).toBe('母亲、儿时的朋友')
   expect(simplifyTagLabel('VR / 4K / SM / OL')).toBe('VR / 4K / SM / OL')
+})
+
+it('全部词条保留繁体并显式标识尚未提取的英文，不保留官方原名字段', () => {
+  for (const term of Object.values(dictionary.terms)) {
+    expect(term.labelTraditional).toBe(term.sourceNames[0])
+    expect(term.labelEnglish).toBeNull()
+    expect(term).not.toHaveProperty('officialLabel')
+  }
 })
