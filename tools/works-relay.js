@@ -7,7 +7,12 @@ const path = require('path')
 const { readJson, writeJson, envInt } = require('./lib/runtime')
 const { dataPaths } = require('./lib/data-paths')
 const { parseList, parseDetail } = require('./lib/minnano-works')
-const { planActors, RequestBudget, shouldRestartScan } = require('./lib/works-policy')
+const {
+  planActors,
+  RequestBudget,
+  shouldRestartScan,
+  planWorkRound
+} = require('./lib/works-policy')
 const base = 'https://www.minnano-av.com/'
 const root = path.join(path.dirname(dataPaths().minnanoActresses), 'works')
 const pool = readJson(dataPaths().minnanoRankedPool, null)
@@ -277,11 +282,34 @@ async function collectDetails() {
     save()
   }
 }
+/** 只统计当前范围中真正缺详情的任务；成功缓存和退避任务均不能误触发暂停。 */
+function detailBacklog(now) {
+  let ready = 0,
+    waiting = 0
+  for (const [id, task] of Object.entries(state.pendingDetails)) {
+    if (allowedDetails && !allowedDetails.has(id)) continue
+    if (readJson(path.join(root, 'records', id + '.json'), null)?.fetchedAt) continue
+    if (task.nextRetryAt > now) waiting++
+    else ready++
+  }
+  return { ready, waiting }
+}
 async function run() {
-  // 先处理旧待办，再发现新作品，最后用剩余详情预算补新待办，避免详情长期饥饿。
+  const before = detailBacklog(Date.now())
+  const mode = planWorkRound({ readyDetails: before.ready, detailLimit: detailBudget })
+  report.scheduling = {
+    mode,
+    detailThreshold: detailBudget,
+    before,
+    skippedLists: mode === 'details-first'
+  }
+  // 决策在轮次开始时固定；即便本轮恰好清空积压，也留到下一轮再恢复列表，防止立即回填。
   await collectDetails()
-  await collectLists()
-  await collectDetails()
+  if (mode === 'normal') {
+    await collectLists()
+    await collectDetails()
+  }
+  report.scheduling.after = detailBacklog(Date.now())
   save()
   report.finishedAt = Date.now()
   report.requests = requests.used

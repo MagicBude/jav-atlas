@@ -256,3 +256,38 @@ test('两人试采共享作品去重，详情预算待办可跨轮补齐，既�
     fs.rmSync(dir, { recursive: true, force: true })
   }
 })
+
+test('详情积压消耗整轮预算时暂停列表，清理后自动恢复且不会被退避任务拖住', () =>
+  queueSandbox(({ dir, read, write, run }) => {
+    const log = path.join(dir, 'backlog-requests.log')
+    write('works/progress.json', {
+      schemaVersion: 1,
+      people: {},
+      pendingDetails: {
+        123: { attempts: 0, nextRetryAt: 0 },
+        456: { attempts: 0, nextRetryAt: 0 },
+        999123: { attempts: 1, nextRetryAt: Date.now() + 86400000 }
+      }
+    })
+    const first = run({ WORK_DETAILS: '2', WORK_REQUESTS: '10', WORK_FIXTURE_LOG: log })
+    assert.equal(first.status, 0, first.stdout + first.stderr)
+    const report = read('report.json')
+    assert.equal(report.scheduling.mode, 'details-first')
+    assert.deepEqual(report.scheduling.before, { ready: 2, waiting: 1 })
+    assert.deepEqual(report.scheduling.after, { ready: 0, waiting: 1 })
+    assert.equal(report.pages, 0)
+    assert.equal(report.details, 2)
+    assert(!fs.readFileSync(log, 'utf8').includes('actress'))
+    const second = run({ WORK_DETAILS: '2' })
+    assert.equal(second.status, 0, second.stdout + second.stderr)
+    assert.equal(read('report.json').scheduling.mode, 'normal')
+    assert(read('report.json').pages > 0)
+    assert(read('progress.json').pendingDetails['999123'])
+  }))
+
+test('零详情预算和低积压正常发现，达到一轮预算才暂停', () => {
+  const { planWorkRound } = require('../tools/lib/works-policy')
+  assert.equal(planWorkRound({ readyDetails: 100, detailLimit: 0 }), 'normal')
+  assert.equal(planWorkRound({ readyDetails: 49, detailLimit: 50 }), 'normal')
+  assert.equal(planWorkRound({ readyDetails: 50, detailLimit: 50 }), 'details-first')
+})

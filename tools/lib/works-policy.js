@@ -60,4 +60,12 @@ class RequestBudget {
   }
 }
 
-module.exports = { planActors, RequestBudget, shouldRestartScan }
+/**
+ * 一轮开始时，可立即处理的详情若已够消耗整轮详情预算，就暂停本轮列表发现。
+ * 等待退避的任务不参与判断，否则某个长期失败任务可能阻止整个人物池更新。
+ * 详情预算为0是显式的仅列表模式，不应被队列阻塞；低于一轮预算时自动恢复正常。
+ */
+function planWorkRound({ readyDetails, detailLimit }) {
+  return detailLimit > 0 && readyDetails >= detailLimit ? 'details-first' : 'normal'
+}
+module.exports = { planActors, RequestBudget, shouldRestartScan, planWorkRound }

@@ -146,3 +146,9 @@ report.json新增scope、budgets、requests、eligiblePeople、budgetExhausted�
 扫描只有连续7天无分页进展才重启，成功读取每页后更新lastProgressAt；旧断点无该字段时回退startedAt。每天续跑不会因扫描总时长超过24小时而丢断点。最后仍复核首页ID序列，发现变化不标稳定完成；跨日遍历不保证事务级快照。
 
 每天北京时间05:30的同一个Actions任务先更新榜单和人物池，再执行ranked范围作品补齐，仍限5人、20列表页、每人5页、50详情和100次请求。手动daily + ranked可勾选include_works复现完整链路；默认不勾选，source=works仍可独立运行。来源失败退出2保留有效断点并警告，程序错误阻断提交。
+
+## 详情积压调度（2026-10-24）
+
+每轮开始盘点当前采集范围内真正缺失且已到重试时间的详情。如果数量达到本轮详情预算，进入 details-first，本轮不调用人物列表发现或续页，只消费原队列。低于阈值则走 normal：先补旧详情，再正常轮转人物，最后以剩余预算补新待办。规则不在本轮中途切换，因此清空队列也不会立即增加新列表。
+
+暂停阈值随WORK_DETAILS变化，默认50，不增加额外配置或持久化开关。等待退避、已有成功缓存、trial范围外任务不计入阈值；WORK_DETAILS=0保留显式只采列表的用途。详情和真实请求上限、失败退避及JavDB匹配策略保持原约束。报告scheduling保存before/after的ready、waiting、阈值、模式及skippedLists，便于区分计划暂停与来源失败；暂停列表不更新人物扫描断点。

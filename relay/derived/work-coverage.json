@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T08:18:08.675Z",
+  "generatedAt": "2026-10-24T08:31:30.476Z",
   "scope": "cumulative-ranked-pool",
   "people": {
     "total": 431,
@@ -13,16 +13,16 @@
   },
   "works": {
     "listed": 369,
-    "details": 250,
-    "missingDetails": 119,
-    "withCode": 246,
-    "missingCode": 4
+    "details": 297,
+    "missingDetails": 72,
+    "withCode": 290,
+    "missingCode": 7
   },
   "metadata": {
     "matched": 48,
-    "notMatched": 198,
+    "notMatched": 242,
     "freshWithinSevenDays": 45,
     "waitingRetry": 5
   },
-  "pendingDetailTasks": 119
+  "pendingDetailTasks": 72
 }
