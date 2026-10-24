@@ -10,15 +10,17 @@ import {
 } from '../../entities/tagLabels'
 import { normalize } from '../../entities/person'
 import type { WorkEntry } from '../../entities/work'
-import { selectedTags } from './query'
+import { selectedTags, matchesWorkFacets } from './query'
 import { CategoryRow } from '../../shared/CategoryRow'
 import sourceGroups from '../../data/javdb-tag-groups.json'
 export function TagFilters({
   entries,
+  countEntries = entries,
   params,
   update
 }: {
   entries: WorkEntry[]
+  countEntries?: WorkEntry[]
   params: URLSearchParams
   update: (key: string, value: string) => void
 }) {
@@ -60,18 +62,17 @@ export function TagFilters({
             value.type === undefined ? `ID ${value.id}（旧链接，未区分原名）` : `ID ${value.id}`,
             value.type
           ),
-        count: entries.filter(
-          row =>
-            row.kind === 'work' &&
-            row.facets?.tag?.some(
-              tag =>
-                tag.id === value.id &&
-                (value.name === undefined || tag.name === value.name) &&
-                (value.type === undefined || row.javdbType === value.type)
-            )
-        ).length
+        count: 0
       })
     }
+  // 所有可选项仍来自入口全量数据；数字则统计在当前条件上追加该类别后的交集。
+  // 统一调用结果列表的匹配函数，兼容旧链接、类型隔离和展示别名，避免重复计数。
+  for (const [key, option] of options) {
+    const candidate = new URLSearchParams({ wf_tag: key })
+    option.count = countEntries.filter(
+      row => row.kind === 'work' && matchesWorkFacets(row, candidate)
+    ).length
+  }
   const grouped = new Map<string, { name: string; keys: string[] }>()
   for (const [key, option] of options) {
     const group =
@@ -145,7 +146,7 @@ export function TagFilters({
                 return {
                   key,
                   label: javdbTagLabel(tag.id, tag.name, tag.type),
-                  title: 'ID：' + tag.id,
+                  title: 'ID：' + tag.id + '；当前条件下包含此类别的作品数',
                   count: tag.count,
                   selected: selected.includes(key)
                 }

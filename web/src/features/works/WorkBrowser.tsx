@@ -1,6 +1,6 @@
 import { WorkFilterRow } from './WorkFilterRow'
 import { CategoryRow } from '../../shared/CategoryRow'
-import { workYear, workYearOptions, makerOptions, makerFilter, unknownYear } from './filterOptions'
+import { workYearOptions, makerOptions, makerFilter, unknownYear } from './filterOptions'
 /**
  * @file 人物作品区与独立作品库的共用浏览器。只接收轻量条目，不负责抓取来源资料。
  * 查询、分页、密度和详情历史在此统一，避免两个入口随功能演进出现不同结果。
@@ -8,20 +8,13 @@ import { workYear, workYearOptions, makerOptions, makerFilter, unknownYear } fro
 import { useMemo } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import type { WorkEntry } from '../../entities/work'
-import { normalize } from '../../entities/person'
+import { filterWorks } from './selection'
 import { javdbTagLabel, parseTagSelection } from '../../entities/tagLabels'
 import { TagFilters } from './TagFilters'
 import { selectedTags } from './query'
 import { Modal } from '../../shared/Modal'
 import { WorkDetail } from './WorkDetail'
-import {
-  clearWorkFilters,
-  compareWorks,
-  workQuery,
-  facetKeys,
-  matchesWorkFacets,
-  workFacetOptions
-} from './query'
+import { clearWorkFilters, compareWorks, workQuery, facetKeys, workFacetOptions } from './query'
 export function WorkBrowser({
   entries,
   actors = [],
@@ -50,7 +43,6 @@ export function WorkBrowser({
       }
     )
   }
-  const q = normalize(params.get(queryKey) || '')
   const year = params.get('wy') || '',
     maker = params.get('wm') || ''
   const actor = actors.length ? params.get('wa') || '' : ''
@@ -58,19 +50,15 @@ export function WorkBrowser({
   const density = params.get('wd') === 'compact' ? 'compact' : 'standard'
   const result = useMemo(
     () =>
-      entries
-        .filter(
-          row =>
-            row.kind === 'work' &&
-            matchesWorkFacets(row, params) &&
-            (!q || normalize(`${row.title} ${'code' in row ? row.code : ''}`).includes(q)) &&
-            (!year || workYear(row) === year) &&
-            (!maker || row.makerText === maker) &&
-            (!actor || row.actorIds?.includes(actor))
-        )
-        .sort((a, b) => compareWorks(a, b, sort)),
-    [entries, q, year, maker, sort, actor, location.search]
+      filterWorks(entries, params, queryKey, actors.length > 0).sort((a, b) =>
+        compareWorks(a, b, sort)
+      ),
+    [entries, queryKey, actors.length, sort, location.search]
   )
+  // 年份是单选：计算备选年份时只移除年份本身，保留类别、人物等所有条件。
+  const yearParams = new URLSearchParams(params)
+  yearParams.delete('wy')
+  const yearEntries = filterWorks(entries, yearParams, queryKey, actors.length > 0)
   const pages = Math.max(1, Math.ceil(result.length / 24))
   const requestedPage = Number(params.get('wp'))
   const page = Math.min(
@@ -156,7 +144,7 @@ export function WorkBrowser({
           <CategoryRow
             label="年份"
             clearLabel="清除年份条件"
-            options={workYearOptions(entries, year)}
+            options={workYearOptions(yearEntries, year)}
             onToggle={value => update('wy', year === value ? '' : value)}
             onClear={() => update('wy', '')}
           />
@@ -197,7 +185,7 @@ export function WorkBrowser({
               />
             )
           })}
-          <TagFilters entries={entries} params={params} update={update} />
+          <TagFilters entries={entries} countEntries={result} params={params} update={update} />
         </div>
         {conditions.length > 0 && (
           <div className="work-conditions" aria-label="已选作品条件">
