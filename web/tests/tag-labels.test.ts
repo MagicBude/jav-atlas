@@ -59,7 +59,7 @@ it('筛选面板不会把截图中的三个类别放进地点，且同号名称�
       createElement(TagFilters, { entries, params: new URLSearchParams(), update: () => {} })
     )
   )
-  const place = html.split('<details').find(section => section.includes('<summary>地點'))!
+  const place = html.split('<details').find(section => section.includes('<summary>地点'))!
   expect(place).toContain('泳池')
   expect(place).not.toContain('戀乳癖')
   expect(place).not.toContain('濫交')
@@ -80,4 +80,16 @@ it('有类型后简繁差异不影响归组，同号其他类型不会被选中'
   expect(matchesWorkFacets(censored, new URLSearchParams({ wf_tag: key }))).toBe(true)
   expect(matchesWorkFacets(western, new URLSearchParams({ wf_tag: key }))).toBe(false)
   expect(javdbTagGroup('40', '颜射', 0)).toBeUndefined()
+})
+
+it('五类官方简体页面都已核实，重复数字ID保持类型隔离', () => {
+  expect(Object.values(dictionary.localizations).map(row => row.terms)).toEqual([
+    307, 151, 208, 55, 123
+  ])
+  expect(Object.keys(dictionary.groupLabels)).toHaveLength(25)
+  expect(
+    Object.values(dictionary.terms).filter(term => term.status === 'official-zh-CN')
+  ).toHaveLength(844)
+  expect(javdbTagLabel('109', '来源', 0)).toBe('恋乳癖')
+  expect(javdbTagLabel('109', '来源', 2)).toBe('泳池')
 })
