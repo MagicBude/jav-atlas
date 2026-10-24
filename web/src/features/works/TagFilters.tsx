@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import {
   javdbTagLabel,
+  displayJavdbTags,
   javdbTagGroup,
   tagSelectionKey,
   parseTagSelection,
@@ -26,7 +27,7 @@ export function TagFilters({
   const options = new Map<string, { id: string; name: string; count: number; type?: number }>()
   for (const entry of entries.filter(row => row.kind === 'work')) {
     const seen = new Set<string>()
-    for (const tag of entry.facets?.tag || []) {
+    for (const tag of displayJavdbTags(entry.facets?.tag || [], entry.javdbType)) {
       const key = tagSelectionKey(tag.id, tag.name, entry.javdbType)
       if (seen.has(key)) continue
       seen.add(key)
@@ -38,11 +39,22 @@ export function TagFilters({
   for (const key of selected)
     if (!options.has(key)) {
       const value = parseTagSelection(key)
+      // 直达来源旧ID时，从当前记录中核对原名，不能用一个未知数字猜测类别。
+      const originals = [
+        ...new Set(
+          entries
+            .filter(row => value.type === undefined || row.javdbType === value.type)
+            .flatMap(row => row.facets?.tag || [])
+            .filter(tag => tag.id === value.id)
+            .map(tag => tag.name)
+        )
+      ]
+      const original = value.name || (originals.length === 1 ? originals[0] : undefined)
       options.set(key, {
         id: value.id,
         type: value.type,
         name:
-          value.name ||
+          original ||
           javdbTagLabel(
             value.id,
             value.type === undefined ? `ID ${value.id}（旧链接，未区分原名）` : `ID ${value.id}`,

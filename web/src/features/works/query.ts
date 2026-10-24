@@ -1,6 +1,11 @@
 /** 列表排序独立成纯函数：未知评分排最后，同分按日期及原生ID稳定排序。 */
 import type { WorkEntry } from '../../entities/work'
-import { javdbTagLabel, tagSelectionKey, parseTagSelection } from '../../entities/tagLabels'
+import {
+  javdbDisplayTagId,
+  javdbTagLabel,
+  tagSelectionKey,
+  parseTagSelection
+} from '../../entities/tagLabels'
 export const facetKeys = ['prefix', 'director', 'maker', 'series', 'tag'] as const
 /** 逗号分隔查询键；名称部分已编码，兼容旧数字链接并去除重复条件。 */
 export const selectedTags = (params: URLSearchParams) => [
@@ -36,7 +41,8 @@ export function matchesWorkFacets(row: WorkEntry, params: URLSearchParams) {
         return (
           row.facets?.tag?.some(
             value =>
-              value.id === selected.id &&
+              (value.id === selected.id ||
+                javdbDisplayTagId(value.id, value.name, row.javdbType) === selected.id) &&
               (selected.type === undefined || row.javdbType === selected.type) &&
               (selected.name === undefined || value.name === selected.name)
           ) || false

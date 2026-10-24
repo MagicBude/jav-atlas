@@ -4,6 +4,7 @@
  * 老资料缺类型时按 ID＋原名保守核对；没有可靠匹配则保留原文。
  */
 import dictionary from '../data/javdb-tag-labels.json'
+import displayRules from '../data/javdb-tag-display-rules.json'
 import groups from '../data/javdb-tag-groups.json'
 import { javdbContentTypes } from './javdbCatalog'
 const terms: Record<string, { label: string; sourceNames: string[]; status: string }> =
@@ -14,7 +15,27 @@ export function javdbGroupLabel(id: string, original: string) {
 }
 export const validJavdbType = (type: unknown): type is number =>
   Number.isInteger(type) && Number(type) >= 0 && Number(type) <= 4
+/** 限定类型、原ID和已核实原名的展示规则；不是按同名自动推测全库ID关系。 */
+export function javdbDisplayTagId(id: string, original: string, type?: number) {
+  return (
+    displayRules.rules.find(
+      rule => rule.type === type && rule.sourceId === id && rule.names.includes(original)
+    )?.displayId || id
+  )
+}
+/** 来源同一作品重复返回同义条目时，只在浏览投影中去重，原数组始终不变。 */
+export function displayJavdbTags(tags: { id: string; name: string }[], type?: number) {
+  const seen = new Set<string>()
+  return tags.flatMap(tag => {
+    const id = javdbDisplayTagId(tag.id, tag.name, type)
+    const key = tagSelectionKey(id, tag.name, type)
+    if (seen.has(key)) return []
+    seen.add(key)
+    return [{ id, name: tag.name }]
+  })
+}
 export function javdbTagLabel(id: string, original: string, type?: number) {
+  id = javdbDisplayTagId(id, original, type)
   if (validJavdbType(type)) return terms[type + ':' + id]?.label || original
   const candidates = Object.entries(terms).filter(
     ([key, term]) => key.endsWith(':' + id) && term.sourceNames.includes(original)
@@ -24,7 +45,9 @@ export function javdbTagLabel(id: string, original: string, type?: number) {
 }
 /** 优先使用 type:id；缺类型时兼容 ID＋编码原名，避免同号串选及名称逗号破坏多选。 */
 export const tagSelectionKey = (id: string, name: string, type?: number) =>
-  validJavdbType(type) ? type + ':' + id : id + '~' + encodeURIComponent(name)
+  validJavdbType(type)
+    ? type + ':' + javdbDisplayTagId(id, name, type)
+    : id + '~' + encodeURIComponent(name)
 export function parseTagSelection(key: string) {
   const scoped = key.match(/^([0-4]):([^:~]+)$/)
   if (scoped) return { id: scoped[2], name: undefined, type: Number(scoped[1]) }
@@ -38,6 +61,7 @@ export function parseTagSelection(key: string) {
 }
 /** 有类型就按来源类型与 ID 找分组；无类型时要求原名匹配且候选归属一致。 */
 export function javdbTagGroup(id: string, original: string, type?: number) {
+  id = javdbDisplayTagId(id, original, type)
   const matches = groups.filter(
     group =>
       group.tags.includes(id) &&

@@ -265,3 +265,9 @@ JavDB中文类别词典首版（2026-10-23）：落盘327ID来源目录与独立
 SearchSelect支持点击外部关闭与原生同名details互斥展开；保留搜索、无结果提示和Escape。年份、片商来源、既有选择条件与清除行为不变。
 
 验证：45项前端测试、类型检查、生产构建通过；Playwright实测字段顺序、冗余入口缺席、选择器搜索/外部关闭、巨乳与素人作品多选、390px无横向溢出，均通过。截图.cache/output/playwright/work-unified-filter-panel.png。浏览器控制台保留favicon404与开发热更新导航提示，构建保留500KB单块提示，均未影响上述流程。最终布局与体验pending user acceptance。
+
+## 2026-10-24 同名标签展示核实
+
+实时核实OFJE-662详情同时返回40/颜射与46/颜射，目录仅46且位于行为；新增有证据、限定type/ID/原名的展示规则，将这条同名重复数据在浏览投影中按46归行为。源数据与两个原ID完整保留，未知类型、其他原名和其他内容类型不适用。
+
+47项前端测试、类型检查、构建通过；Playwright检查行为组颜射单项与8部计数、0:46筛选链接和问题作品详情去重均通过。截图.cache/output/playwright/tag-behavior-fixed.png。最终界面pending user acceptance。

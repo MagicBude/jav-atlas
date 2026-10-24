@@ -1,0 +1,12 @@
+{
+  "rules": [
+    {
+      "type": 0,
+      "sourceId": "40",
+      "displayId": "46",
+      "names": ["颜射", "顏射"],
+      "verifiedAt": "2026-10-24",
+      "evidence": "作品ZNzEz6（OFJE-662）当前详情同时返回40/颜射和46/颜射；有码目录46/顏射归behavior。仅用于展示，不声明官方ID等价，不改写来源记录。"
+    }
+  ]
+}

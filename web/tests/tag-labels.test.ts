@@ -79,7 +79,7 @@ it('有类型后简繁差异不影响归组，同号其他类型不会被选中'
   expect(javdbTagLabel('109', '恋乳癖', 0)).toBe('恋乳癖')
   expect(matchesWorkFacets(censored, new URLSearchParams({ wf_tag: key }))).toBe(true)
   expect(matchesWorkFacets(western, new URLSearchParams({ wf_tag: key }))).toBe(false)
-  expect(javdbTagGroup('40', '颜射', 0)).toBeUndefined()
+  expect(javdbTagGroup('40', '颜射', 0)?.id).toBe('0:behavior')
 })
 
 it('五类官方简体页面都已核实，重复数字ID保持类型隔离', () => {
@@ -92,4 +92,48 @@ it('五类官方简体页面都已核实，重复数字ID保持类型隔离', ()
   ).toHaveLength(844)
   expect(javdbTagLabel('109', '来源', 0)).toBe('恋乳癖')
   expect(javdbTagLabel('109', '来源', 2)).toBe('泳池')
+})
+
+it('实测同名条目仅在有码且名称一致时合并展示，来源数组完整保留', async () => {
+  const { displayJavdbTags, javdbDisplayTagId } = await import('../src/entities/tagLabels')
+  const tags = [
+    { id: '40', name: '颜射' },
+    { id: '46', name: '颜射' }
+  ]
+  const original = JSON.stringify(tags)
+  expect(displayJavdbTags(tags, 0)).toEqual([{ id: '46', name: '颜射' }])
+  expect(JSON.stringify(tags)).toBe(original)
+  expect(javdbDisplayTagId('40', '其他名称', 0)).toBe('40')
+  expect(javdbDisplayTagId('40', '按摩', 2)).toBe('40')
+  expect(javdbDisplayTagId('40', '颜射')).toBe('40')
+  expect(javdbTagGroup('40', '颜射', 0)?.id).toBe('0:behavior')
+  const record = { ...row('颜射'), javdbType: 0, facets: { tag: tags } }
+  const only40 = { ...record, facets: { tag: [tags[0]] } }
+  expect(matchesWorkFacets(only40, new URLSearchParams('wf_tag=0:46'))).toBe(true)
+  expect(matchesWorkFacets(record, new URLSearchParams('wf_tag=0:40'))).toBe(true)
+})
+it('同一作品的40与46只计数一次，统一出现在行为组', async () => {
+  const { createElement } = await import('react')
+  const { renderToStaticMarkup } = await import('react-dom/server')
+  const { TagFilters } = await import('../src/features/works/TagFilters')
+  const record = {
+    ...row('颜射'),
+    javdbType: 0,
+    facets: {
+      tag: [
+        { id: '40', name: '颜射' },
+        { id: '46', name: '颜射' }
+      ]
+    }
+  }
+  const html = renderToStaticMarkup(
+    createElement(TagFilters, {
+      entries: [record],
+      params: new URLSearchParams(),
+      update: () => {}
+    })
+  )
+  expect(html).toContain('aria-label="行为"')
+  expect(html).not.toContain('来源目录未收录')
+  expect(html.match(/<span>颜射<\/span><small>1<\/small>/g)).toHaveLength(1)
 })
