@@ -1,6 +1,12 @@
 {
   "schemaVersion": 1,
   "tasks": {
+    "112399": {
+      "status": "success",
+      "checkedAt": 1792971160947,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "154994": {
       "status": "success",
       "checkedAt": 1792725526222,
@@ -55,6 +61,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "229084": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1792971163936,
+      "nextRetryAt": 1793575963936
+    },
     "235674": {
       "status": "success",
       "checkedAt": 1792733639613,
@@ -83,6 +96,12 @@
     "311453": {
       "status": "success",
       "checkedAt": 1792725531019,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "313579": {
+      "status": "success",
+      "checkedAt": 1792971165939,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -142,6 +161,12 @@
       "checkedAt": 1792800006864,
       "nextRetryAt": 1793404806864
     },
+    "382442": {
+      "status": "success",
+      "checkedAt": 1792971175932,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "424918": {
       "status": "success",
       "checkedAt": 1792799999899,
@@ -151,6 +176,12 @@
     "473658": {
       "status": "success",
       "checkedAt": 1792725522230,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "479058": {
+      "status": "success",
+      "checkedAt": 1792971167944,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -226,6 +257,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "600407": {
+      "status": "success",
+      "checkedAt": 1792971173927,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "605586": {
       "status": "success",
       "checkedAt": 1792725534066,
@@ -250,6 +287,12 @@
       "lastError": "番号未唯一精确匹配",
       "checkedAt": 1792799993189,
       "nextRetryAt": 1793404793189
+    },
+    "644531": {
+      "status": "success",
+      "checkedAt": 1792971177978,
+      "attempts": 0,
+      "nextRetryAt": 0
     },
     "647818": {
       "status": "success",
@@ -348,6 +391,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "869316": {
+      "status": "success",
+      "checkedAt": 1792971162961,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "907602": {
       "status": "success",
       "checkedAt": 1792799996871,
@@ -363,6 +412,18 @@
     "934303": {
       "status": "success",
       "checkedAt": 1792800008881,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "995803": {
+      "status": "success",
+      "checkedAt": 1792971169933,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "999288": {
+      "status": "success",
+      "checkedAt": 1792971171942,
       "attempts": 0,
       "nextRetryAt": 0
     }

@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-10-24T23:37:26.401Z",
+  "generatedAt": "2026-10-25T23:32:58.100Z",
   "scope": "cumulative-ranked-pool",
   "people": {
-    "total": 480,
+    "total": 531,
     "lists": {
-      "not-started": 453,
+      "not-started": 501,
       "partial": 2,
       "unstable": 0,
-      "complete": 25
+      "complete": 28
     },
-    "waitingRetry": 0
+    "waitingRetry": 1
   },
   "works": {
-    "listed": 369,
-    "details": 347,
-    "missingDetails": 22,
-    "withCode": 338,
+    "listed": 548,
+    "details": 397,
+    "missingDetails": 151,
+    "withCode": 388,
     "missingCode": 9
   },
   "metadata": {
-    "matched": 58,
-    "notMatched": 280,
-    "freshWithinSevenDays": 55,
-    "waitingRetry": 5
+    "matched": 67,
+    "notMatched": 321,
+    "freshWithinSevenDays": 64,
+    "waitingRetry": 6
   },
-  "pendingDetailTasks": 22
+  "pendingDetailTasks": 151
 }
