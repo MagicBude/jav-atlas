@@ -1,0 +1,66 @@
+/* 来源说明沿用资料库浅色样式，宽屏并列、窄屏纵排；不载入外站图标或预览。 */
+.sources-page {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.source-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+.source-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: white;
+  padding: 22px;
+}
+.source-card h2 {
+  margin-bottom: 8px;
+}
+.source-capabilities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+.source-capabilities h3 {
+  font-size: 14px;
+}
+.source-capabilities ul {
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.9;
+  margin: 0;
+}
+.source-card dl {
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 0;
+}
+.source-card dl div + div {
+  margin-top: 12px;
+}
+.source-card dt {
+  color: var(--muted);
+}
+.source-card dd {
+  margin: 2px 0 0;
+}
+.source-notes {
+  font-size: 14px;
+  line-height: 1.9;
+}
+@media (max-width: 760px) {
+  .source-cards {
+    grid-template-columns: 1fr;
+  }
+  .source-card {
+    padding: 18px;
+  }
+}
+@media (max-width: 380px) {
+  .source-capabilities {
+    grid-template-columns: 1fr;
+  }
+}

@@ -5,7 +5,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useApp } from '../../app/context'
 import { resource } from '../../data/repository'
-import { safeUrl } from '../../entities/person'
+import { SourceRecordLink } from '../../shared/SourceRecordLink'
 import type { WorkDetail as Work } from '../../entities/work'
 import type { Enrichment } from '../../entities/enrichment'
 import { useResource } from '../../shared/useResource'
@@ -27,9 +27,9 @@ export function WorkDetail({ id }: { id: string }) {
       <p>
         当前资料暂未提供这部作品的详情。{' '}
         {/^\d+$/.test(id) && (
-          <a href={`https://www.minnano-av.com/av${id}.html`} target="_blank" rel="noreferrer">
+          <SourceRecordLink source="minnano" entity="work" id={id}>
             查看 minnano 来源页 ↗
-          </a>
+          </SourceRecordLink>
         )}
       </p>
     )
@@ -101,20 +101,8 @@ export function WorkDetail({ id }: { id: string }) {
           </p>
           <h2>{work.title}</h2>
           <div className="work-source-links">
-            {safeUrl(work.sourceUrl) && (
-              <a href={safeUrl(work.sourceUrl)} target="_blank" rel="noreferrer">
-                minnano ↗
-              </a>
-            )}
-            {data && (
-              <a
-                href={`https://javdb.com/v/${encodeURIComponent(data.id)}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                JavDB ↗
-              </a>
-            )}
+            <SourceRecordLink source="minnano" entity="work" id={work.id} />
+            {data && <SourceRecordLink source="javdb" entity="work" id={data.id} />}
           </div>
         </div>
       </header>
@@ -173,14 +161,9 @@ export function WorkDetail({ id }: { id: string }) {
                     {a.name}
                   </Link>
                 ) : (
-                  <a
-                    key={a.id}
-                    href={`https://www.minnano-av.com/actress${encodeURIComponent(a.id)}.html`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                  <SourceRecordLink key={a.id} source="minnano" entity="person" id={a.id}>
                     {a.name} ↗
-                  </a>
+                  </SourceRecordLink>
                 )
               )}
             </div>
@@ -190,14 +173,9 @@ export function WorkDetail({ id }: { id: string }) {
                 <p className="small muted">署名和人数可能不同，未自动合并人物身份。</p>
                 <div className="work-cast">
                   {m.actors.map(a => (
-                    <a
-                      key={a.id}
-                      href={`https://javdb.com/actors/${encodeURIComponent(a.id)}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
+                    <SourceRecordLink key={a.id} source="javdb" entity="person" id={a.id}>
                       {a.name} ↗
-                    </a>
+                    </SourceRecordLink>
                   ))}
                 </div>
               </details>

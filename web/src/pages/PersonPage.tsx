@@ -2,6 +2,9 @@
  * @file 同一人物内容既可放入桌面抽屉，也可独立成页。
  * 规范资料使用个人覆盖视图；原始区始终读完整来源记录，避免本地编辑污染原文。
  */
+
+import { SourceRecordLink } from '../shared/SourceRecordLink'
+import { sourceRecordUrl } from '../entities/dataSources'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useApp, operation } from '../app/context'
 import { loadDetail, loadIndex } from '../data/repository'
@@ -211,16 +214,14 @@ export default function PersonPage({
           <button onClick={() => setDraft(key, drafts[key] || createDraft(sourceValue, record))}>
             修改本地资料
           </button>
-          {safeUrl(sourceValue.sourceUrl) && (
-            <a
-              className="button primary"
-              href={safeUrl(sourceValue.sourceUrl)}
-              target="_blank"
-              rel="noreferrer"
-            >
-              查看来源 ↗
-            </a>
-          )}
+          <SourceRecordLink
+            source={sourceValue.source}
+            entity="person"
+            id={sourceValue.id}
+            className="button primary"
+          >
+            查看来源 ↗
+          </SourceRecordLink>
         </div>
       </div>
       {drafts[key] ? (
@@ -460,14 +461,10 @@ export default function PersonPage({
                         className="text-button related-person"
                         onClick={() => {
                           if (known) switchPerson(String(other.id))
-                          else
-                            window.open(
-                              source === 'minnano'
-                                ? `https://www.minnano-av.com/actress${encodeURIComponent(other.id)}.html`
-                                : `https://javdb.com/actors/${encodeURIComponent(other.id)}`,
-                              '_blank',
-                              'noopener,noreferrer'
-                            )
+                          else {
+                            const url = sourceRecordUrl(source, 'person', String(other.id))
+                            if (url) window.open(url, '_blank', 'noopener,noreferrer')
+                          }
                         }}
                       >
                         <PersonAvatar
