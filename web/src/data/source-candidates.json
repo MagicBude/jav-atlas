@@ -1,8 +1,8 @@
 {
   "checkedOn": "2026-10-26",
-  "scope": "首批文字资料来源筛选；不是188个站点全部可用性检测",
+  "scope": "188条本地目录已完成用途分流；网络核实仅限资料候选的文档及规则文件，不是全部站点在线或字段验证",
   "catalogEntries": 188,
-  "notes": "先从资料库类选出5个候选；ThePornDB的API和网站两条目录记录按服务归为一个候选，不合并人物或作品身份。",
+  "notes": "原目录中的网站和API可能属于同一服务；已归并服务候选，人物与作品身份仍分别核实。",
   "candidates": [
     {
       "id": "tpdb",
@@ -17,7 +17,14 @@
       ],
       "blockers": "仍需验证现有榜单人物与作品的实际覆盖、身份对应和字段准确率；接口中的评分不能直接当成JavDB评分。",
       "next": "若后续决定接入，先验证少量文字字段和唯一身份匹配，令牌仅用于采集端。",
-      "evidence": [{ "label": "官方API文档", "url": "https://api.theporndb.net/docs" }]
+      "evidence": [
+        {
+          "label": "官方API文档",
+          "url": "https://api.theporndb.net/docs"
+        }
+      ],
+      "categories": ["people", "works", "api"],
+      "inventoryIds": ["b020", "b140"]
     },
     {
       "id": "avbase",
@@ -33,9 +40,17 @@
       "blockers": "当前公开接口、稳定作品ID、匹配准确率及数据复用条件尚未核实。",
       "next": "先确认访问方式与字段对应，再判断能否补充现有缺口；不直接照搬旧解析规则。",
       "evidence": [
-        { "label": "官方站点说明", "url": "https://www.avbase.net/about" },
-        { "label": "官方使用条款", "url": "https://www.avbase.net/terms" }
-      ]
+        {
+          "label": "官方站点说明",
+          "url": "https://www.avbase.net/about"
+        },
+        {
+          "label": "官方使用条款",
+          "url": "https://www.avbase.net/terms"
+        }
+      ],
+      "categories": ["works"],
+      "inventoryIds": ["b002"]
     },
     {
       "id": "jav321",
@@ -49,7 +64,9 @@
       ],
       "blockers": "尚未验证当前详情结构、身份唯一性、使用说明和公开接口。",
       "next": "仍保留候选状态，先核对说明与文字字段样本，不启动采集。",
-      "evidence": []
+      "evidence": [],
+      "categories": ["works"],
+      "inventoryIds": ["b011"]
     },
     {
       "id": "iafd",
@@ -63,7 +80,9 @@
       ],
       "blockers": "访问方式、字段、身份对应与现有人物池的匹配价值均待核实。",
       "next": "暂停自动接入；后续取得可核实资料后再评估，不绕过验证。",
-      "evidence": []
+      "evidence": [],
+      "categories": ["people", "works"],
+      "inventoryIds": ["b022"]
     },
     {
       "id": "javlibrary",
@@ -77,7 +96,149 @@
       ],
       "blockers": "尚未确认可用访问方式、文字字段与自动化使用说明。",
       "next": "保留待核实状态，不启用采集或生成作品对应链接。",
+      "evidence": [],
+      "categories": ["works"],
+      "inventoryIds": ["b014"]
+    },
+    {
+      "id": "airav",
+      "name": "Airav",
+      "categories": ["works"],
+      "inventoryIds": ["b001"],
+      "status": "仅核实规则文件，字段待验证",
+      "basis": "本地作品解析规则、当前规则文件请求",
+      "potential": "本地规则预期标题、演员、类别等作品字段，当前详情页与字段覆盖尚未验证。",
+      "observations": [
+        "规则文件返回200且有可判读指令；这不证明存在公开API或字段可用。",
+        "本次未访问人物/作品详情、未下载媒体，也未确认自动化使用与再分发条件。",
+        "当前规则声明不抓取嵌入视频路径；本项目不处理这些路径。"
+      ],
+      "blockers": "尚未验证官方字段说明、稳定接口、身份对应及现有人物池的覆盖价值。",
+      "next": "仅保留文字资料候选；取得可靠说明并验证样本前，不启用采集或生成详情入口。",
+      "evidence": []
+    },
+    {
+      "id": "avmoo",
+      "name": "AVmoo",
+      "categories": ["works"],
+      "inventoryIds": ["b003"],
+      "status": "仅核实规则文件，字段待验证",
+      "basis": "本地作品解析规则、当前规则文件请求",
+      "potential": "本地目录将其列为作品数据源，当前详情字段和身份匹配尚未验证。",
+      "observations": [
+        "规则文件返回200且有可判读指令；这不证明存在公开API或字段可用。",
+        "本次未访问人物/作品详情、未下载媒体，也未确认自动化使用与再分发条件。"
+      ],
+      "blockers": "尚未验证官方字段说明、稳定接口、身份对应及现有人物池的覆盖价值。",
+      "next": "仅保留文字资料候选；取得可靠说明并验证样本前，不启用采集或生成详情入口。",
+      "evidence": []
+    },
+    {
+      "id": "avsox",
+      "name": "AVsox",
+      "categories": ["works"],
+      "inventoryIds": ["b004"],
+      "status": "仅核实规则文件，字段待验证",
+      "basis": "本地作品解析规则、当前规则文件请求",
+      "potential": "本地目录将其列为作品数据源，当前详情字段和身份匹配尚未验证。",
+      "observations": [
+        "规则文件返回200且有可判读指令；这不证明存在公开API或字段可用。",
+        "本次未访问人物/作品详情、未下载媒体，也未确认自动化使用与再分发条件。"
+      ],
+      "blockers": "尚未验证官方字段说明、稳定接口、身份对应及现有人物池的覆盖价值。",
+      "next": "仅保留文字资料候选；取得可靠说明并验证样本前，不启用采集或生成详情入口。",
+      "evidence": []
+    },
+    {
+      "id": "babepedia",
+      "name": "Babepedia",
+      "categories": ["people"],
+      "inventoryIds": ["b024"],
+      "status": "仅核实规则文件，字段待验证",
+      "basis": "本地人物目录说明、当前规则文件请求",
+      "potential": "人物资料用途来自本地目录描述，当前具体字段和日系人物覆盖尚未验证。",
+      "observations": [
+        "规则文件返回200且有可判读指令；这不证明存在公开API或字段可用。",
+        "本次未访问人物/作品详情、未下载媒体，也未确认自动化使用与再分发条件。"
+      ],
+      "blockers": "尚未验证官方字段说明、稳定接口、身份对应及现有人物池的覆盖价值。",
+      "next": "仅保留文字资料候选；取得可靠说明并验证样本前，不启用采集或生成详情入口。",
+      "evidence": []
+    },
+    {
+      "id": "boobpedia",
+      "name": "Boobpedia",
+      "categories": ["people"],
+      "inventoryIds": ["b025"],
+      "status": "仅核实规则文件，字段待验证",
+      "basis": "本地人物百科说明、当前规则文件请求",
+      "potential": "人物百科用途来自本地目录描述，当前具体字段和身份对应尚未验证。",
+      "observations": [
+        "规则文件返回200且有可判读指令；这不证明存在公开API或字段可用。",
+        "本次未访问人物/作品详情、未下载媒体，也未确认自动化使用与再分发条件。",
+        "当前规则将/api/列入不抓取范围，本次没有请求该路径。"
+      ],
+      "blockers": "尚未验证官方字段说明、稳定接口、身份对应及现有人物池的覆盖价值。",
+      "next": "仅保留文字资料候选；取得可靠说明并验证样本前，不启用采集或生成详情入口。",
+      "evidence": []
+    },
+    {
+      "id": "indexxx",
+      "name": "Indexxx",
+      "categories": ["people"],
+      "inventoryIds": ["b040"],
+      "status": "规则文本未确认",
+      "basis": "本地人物与片商索引说明、当前规则文件请求",
+      "potential": "人物与片商索引用途来自本地目录描述，具体文字字段尚未验证。",
+      "observations": [
+        "规则文件返回200，但未取得可判读的规则指令；不据此判断站点可采集。",
+        "本次未访问人物/作品详情、未下载媒体，也未确认自动化使用与再分发条件。"
+      ],
+      "blockers": "尚未验证官方字段说明、稳定接口、身份对应及现有人物池的覆盖价值。",
+      "next": "仅保留文字资料候选；取得可靠说明并验证样本前，不启用采集或生成详情入口。",
+      "evidence": []
+    },
+    {
+      "id": "javrate",
+      "name": "JavRate",
+      "categories": ["people", "works"],
+      "inventoryIds": ["b152"],
+      "status": "访问核实受阻",
+      "basis": "本地作品与人物评分说明、当前规则文件请求",
+      "potential": "本地目录将其描述为作品与人物评分站，评分口径和当前字段尚未验证。",
+      "observations": [
+        "规则文件请求返回403验证页，未取得有效规则文本。",
+        "本次未访问人物/作品详情、未下载媒体，也未确认自动化使用与再分发条件。"
+      ],
+      "blockers": "尚未验证官方字段说明、稳定接口、身份对应及现有人物池的覆盖价值。",
+      "next": "仅保留文字资料候选；取得可靠说明并验证样本前，不启用采集或生成详情入口。",
+      "evidence": []
+    },
+    {
+      "id": "javbooks",
+      "name": "javbooks",
+      "categories": ["works"],
+      "inventoryIds": ["b153"],
+      "status": "仅核实规则文件，字段待验证",
+      "basis": "本地作品目录说明、当前规则文件请求",
+      "potential": "作品资料用途来自本地目录描述，当前字段与唯一作品标识尚未验证。",
+      "observations": [
+        "规则文件返回200且有可判读指令；这不证明存在公开API或字段可用。",
+        "本次未访问人物/作品详情、未下载媒体，也未确认自动化使用与再分发条件。"
+      ],
+      "blockers": "尚未验证官方字段说明、稳定接口、身份对应及现有人物池的覆盖价值。",
+      "next": "仅保留文字资料候选；取得可靠说明并验证样本前，不启用采集或生成详情入口。",
       "evidence": []
     }
-  ]
+  ],
+  "inventorySummary": {
+    "catalogEntries": 188,
+    "reviewedEntries": 188,
+    "registeredEntries": 1,
+    "candidateEntries": 14,
+    "candidateServices": 13,
+    "deferredEntries": 9,
+    "excludedEntries": 164,
+    "existingOutsideCatalog": 1
+  }
 }

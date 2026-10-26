@@ -6,6 +6,7 @@
 export const dataSources = [
   {
     id: 'minnano',
+    categories: ['people', 'works'],
     name: 'minnano',
     homepage: 'https://www.minnano-av.com/',
     integration: '人物、榜单与作品资料已接入',
@@ -16,6 +17,7 @@ export const dataSources = [
   },
   {
     id: 'javdb',
+    categories: ['people', 'works'],
     name: 'JavDB',
     homepage: 'https://javdb.com/',
     integration: '作品补充资料已接入，人物资料为既有存档',

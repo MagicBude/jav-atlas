@@ -156,3 +156,35 @@
     grid-template-columns: 1fr;
   }
 }
+
+.website-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 12px;
+}
+.website-categories button {
+  gap: 10px;
+}
+.website-categories small {
+  opacity: 0.75;
+}
+.website-inventory-summary {
+  margin: 16px 0 24px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.website-inventory-summary summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.website-inventory-summary summary + p {
+  margin-top: 14px;
+}
+.website-inventory-summary p:last-child {
+  margin-bottom: 0;
+}

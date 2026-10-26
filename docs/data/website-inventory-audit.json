@@ -1,0 +1,1179 @@
+{
+  "checkedOn": "2026-10-26",
+  "sourceSnapshotDate": "2026-10-15",
+  "scope": "全188条本地用途分流，不等于全188站在线验证；排除记录仅保存原目录ID，不分发名称、网址或图标",
+  "summary": {
+    "catalogEntries": 188,
+    "reviewedEntries": 188,
+    "registeredEntries": 1,
+    "candidateEntries": 14,
+    "candidateServices": 13,
+    "deferredEntries": 9,
+    "excludedEntries": 164,
+    "existingOutsideCatalog": 1
+  },
+  "categoryCounts": {
+    "番号库": 64,
+    "磁力": 9,
+    "导航": 9,
+    "视频": 67,
+    "动漫": 8,
+    "图片": 15,
+    "论坛": 10,
+    "其他": 6
+  },
+  "reasons": {
+    "registered": "现有来源已登记",
+    "candidate": "资料库或元数据用途候选；能力另见核实记录",
+    "deferred": "用途或目标证据不足，暂不纳入",
+    "commerce": "销售或预览服务，不纳入本轮文字资料目录",
+    "mixed": "混合下载或磁力用途，不纳入导航",
+    "tool": "图像检索工具，不是人物作品文字资料库",
+    "media": "媒体、导航、论坛等不属于本轮文字资料范围"
+  },
+  "records": [
+    {
+      "inventoryId": "b001",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "airav"
+    },
+    {
+      "inventoryId": "b002",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "avbase"
+    },
+    {
+      "inventoryId": "b003",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "avmoo"
+    },
+    {
+      "inventoryId": "b004",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "avsox"
+    },
+    {
+      "inventoryId": "b005",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "commerce"
+    },
+    {
+      "inventoryId": "b006",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "commerce"
+    },
+    {
+      "inventoryId": "b007",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "commerce"
+    },
+    {
+      "inventoryId": "b008",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "mixed"
+    },
+    {
+      "inventoryId": "b009",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "mixed"
+    },
+    {
+      "inventoryId": "b010",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "commerce"
+    },
+    {
+      "inventoryId": "b011",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "jav321"
+    },
+    {
+      "inventoryId": "b012",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "mixed"
+    },
+    {
+      "inventoryId": "b013",
+      "originalCategory": "番号库",
+      "decision": "registered",
+      "reason": "registered",
+      "serviceId": "javdb"
+    },
+    {
+      "inventoryId": "b014",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "javlibrary"
+    },
+    {
+      "inventoryId": "b015",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b016",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b017",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "commerce"
+    },
+    {
+      "inventoryId": "b018",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b019",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b020",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "tpdb"
+    },
+    {
+      "inventoryId": "b021",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b022",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "iafd"
+    },
+    {
+      "inventoryId": "b023",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b024",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "babepedia"
+    },
+    {
+      "inventoryId": "b025",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "boobpedia"
+    },
+    {
+      "inventoryId": "b026",
+      "originalCategory": "番号库",
+      "decision": "deferred",
+      "reason": "deferred"
+    },
+    {
+      "inventoryId": "b027",
+      "originalCategory": "番号库",
+      "decision": "deferred",
+      "reason": "deferred"
+    },
+    {
+      "inventoryId": "b028",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b029",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b030",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b031",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b032",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b033",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b034",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b035",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b036",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b037",
+      "originalCategory": "番号库",
+      "decision": "deferred",
+      "reason": "deferred"
+    },
+    {
+      "inventoryId": "b038",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b039",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b040",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "indexxx"
+    },
+    {
+      "inventoryId": "b041",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b042",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b043",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b044",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b045",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b046",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "tool"
+    },
+    {
+      "inventoryId": "b047",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b048",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b049",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b050",
+      "originalCategory": "番号库",
+      "decision": "deferred",
+      "reason": "deferred"
+    },
+    {
+      "inventoryId": "b051",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b052",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b053",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b054",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b055",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b056",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b057",
+      "originalCategory": "磁力",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b058",
+      "originalCategory": "导航",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b059",
+      "originalCategory": "导航",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b060",
+      "originalCategory": "导航",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b061",
+      "originalCategory": "导航",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b062",
+      "originalCategory": "导航",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b063",
+      "originalCategory": "导航",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b064",
+      "originalCategory": "导航",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b065",
+      "originalCategory": "导航",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b066",
+      "originalCategory": "导航",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b067",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b068",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b069",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b070",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b071",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b072",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b073",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b074",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b075",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b076",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b077",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b078",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b079",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b080",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b081",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b082",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b083",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b084",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b085",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b086",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b087",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b088",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b089",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b090",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b091",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b092",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b093",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b094",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b095",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b096",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b097",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b098",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b099",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b100",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b101",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b102",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b103",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b104",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b105",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b106",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b107",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b108",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b109",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b110",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b111",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b112",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b113",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b114",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b115",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b116",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b117",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b118",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b119",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b120",
+      "originalCategory": "动漫",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b121",
+      "originalCategory": "动漫",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b122",
+      "originalCategory": "动漫",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b123",
+      "originalCategory": "动漫",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b124",
+      "originalCategory": "动漫",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b125",
+      "originalCategory": "动漫",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b126",
+      "originalCategory": "动漫",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b127",
+      "originalCategory": "动漫",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b128",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b129",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b130",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b131",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b132",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b133",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b134",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b135",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b136",
+      "originalCategory": "论坛",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b137",
+      "originalCategory": "论坛",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b138",
+      "originalCategory": "其他",
+      "decision": "deferred",
+      "reason": "deferred"
+    },
+    {
+      "inventoryId": "b139",
+      "originalCategory": "其他",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b140",
+      "originalCategory": "其他",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "tpdb"
+    },
+    {
+      "inventoryId": "b141",
+      "originalCategory": "其他",
+      "decision": "deferred",
+      "reason": "deferred"
+    },
+    {
+      "inventoryId": "b142",
+      "originalCategory": "其他",
+      "decision": "deferred",
+      "reason": "deferred"
+    },
+    {
+      "inventoryId": "b143",
+      "originalCategory": "其他",
+      "decision": "deferred",
+      "reason": "deferred"
+    },
+    {
+      "inventoryId": "b144",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b145",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b146",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b147",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b148",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b149",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b150",
+      "originalCategory": "图片",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b151",
+      "originalCategory": "番号库",
+      "decision": "deferred",
+      "reason": "deferred"
+    },
+    {
+      "inventoryId": "b152",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "javrate"
+    },
+    {
+      "inventoryId": "b153",
+      "originalCategory": "番号库",
+      "decision": "candidate",
+      "reason": "candidate",
+      "serviceId": "javbooks"
+    },
+    {
+      "inventoryId": "b154",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "mixed"
+    },
+    {
+      "inventoryId": "b155",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "commerce"
+    },
+    {
+      "inventoryId": "b156",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "mixed"
+    },
+    {
+      "inventoryId": "b157",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "tool"
+    },
+    {
+      "inventoryId": "b158",
+      "originalCategory": "番号库",
+      "decision": "excluded",
+      "reason": "tool"
+    },
+    {
+      "inventoryId": "b159",
+      "originalCategory": "磁力",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b160",
+      "originalCategory": "磁力",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b161",
+      "originalCategory": "磁力",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b162",
+      "originalCategory": "磁力",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b163",
+      "originalCategory": "磁力",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b164",
+      "originalCategory": "磁力",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b165",
+      "originalCategory": "磁力",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b166",
+      "originalCategory": "磁力",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b167",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b168",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b169",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b170",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b171",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b172",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b173",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b174",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b175",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b176",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b177",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b178",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b179",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b180",
+      "originalCategory": "视频",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b181",
+      "originalCategory": "论坛",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b182",
+      "originalCategory": "论坛",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b183",
+      "originalCategory": "论坛",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b184",
+      "originalCategory": "论坛",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b185",
+      "originalCategory": "论坛",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b186",
+      "originalCategory": "论坛",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b187",
+      "originalCategory": "论坛",
+      "decision": "excluded",
+      "reason": "media"
+    },
+    {
+      "inventoryId": "b188",
+      "originalCategory": "论坛",
+      "decision": "excluded",
+      "reason": "media"
+    }
+  ]
+}
