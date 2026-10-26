@@ -36,7 +36,7 @@ it('来源链接统一新标签打开与隔离，来源说明只展示实际接�
   expect(link).toContain('target="_blank"')
   expect(link).toContain('noreferrer noopener')
   const page = renderToStaticMarkup(createElement(SourceInformation))
-  expect(page.match(/<article /g)).toHaveLength(2)
+  expect(page.match(/class="source-card"/g)).toHaveLength(2)
   expect(page).toContain('人物资料为既有存档')
   expect(page).toContain('不代表每个人物或每部作品都已补齐')
   expect(page).toContain('不代表刚刚检查过外站连通性')

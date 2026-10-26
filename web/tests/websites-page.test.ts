@@ -7,7 +7,7 @@ import WebsitesPage from '../src/pages/WebsitesPage'
 it('网站目录保留站点入口和核实记录，采集说明通过数据页单独查看', () => {
   const html = renderToStaticMarkup(createElement(MemoryRouter, {}, createElement(WebsitesPage)))
   expect(html).toContain('<h1>网站目录</h1>')
-  expect(html).toContain('网站核实记录')
+  expect(html).toContain('待核实站点')
   expect(html).toContain('收录网站不代表已接入采集')
   expect(html).toContain('href="/data"')
   expect(html.match(/打开网站/g)).toHaveLength(2)
