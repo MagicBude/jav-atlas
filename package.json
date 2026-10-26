@@ -12,6 +12,7 @@
     "collect": "node tools/collect.js",
     "discover:minnano": "node tools/discover-minnano.js",
     "verify:genders": "node tools/verify-genders.js",
-    "report:works": "node tools/report-work-coverage.js"
+    "report:works": "node tools/report-work-coverage.js",
+    "sync": "node tools/sync-local.js"
   }
 }
