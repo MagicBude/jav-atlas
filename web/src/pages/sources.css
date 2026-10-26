@@ -82,3 +82,39 @@
   flex-shrink: 0;
   font-size: 13px;
 }
+
+.source-candidates {
+  margin: 30px 0;
+}
+.source-candidate {
+  margin: 10px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+.source-candidate summary {
+  cursor: pointer;
+  padding: 14px 16px;
+}
+.source-candidate summary strong {
+  margin-right: 16px;
+}
+.source-candidate-body {
+  padding: 4px 18px 8px;
+  font-size: 13px;
+  line-height: 1.85;
+}
+.source-candidate-body ul {
+  padding-left: 20px;
+}
+.source-evidence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+@media (max-width: 640px) {
+  .source-candidate summary span {
+    display: block;
+    margin: 8px 0 0 18px;
+  }
+}

@@ -321,3 +321,9 @@ Playwright刷新资源后实际验证新增作品240159的详情标题和来源�
 ### 2026-10-26 来源卡片增加网站入口
 
 两个现有来源在注册表集中保存主页地址，卡片标题旁增加“打开网站”独立按钮，新标签打开且保留noopener/noreferrer。构建通过；Playwright核对两个按钮、新标签属性及390px页面无整体溢出，未打开外站验证连通性。未新增来源或采集。实际体验待用户验收（pending user acceptance）。
+
+### 2026-10-26 首批候选资料来源核实
+
+新增5项候选审查记录与/sources候选区，已接入来源仍为2项。ThePornDB官方OpenAPI返回200，存在人物与日系作品查询、Bearer认证声明；未提供令牌或测试认证数据。AVbase说明和条款可读，公开API未确认。Jav321 robots返回200，IAFD/JavLibrary robots返回403验证页。状态均为当次观察，未批量检测188个站点、未绕过验证、未抓取图片视频或新人物作品数据。
+
+62项前端测试与生产构建通过，主包仍有体积提示；新增测试确保候选不进入来源注册表、不生成详情链接且只展示核实依据。Playwright验证5个候选可展开、3个说明/文档链接、已接入来源仍2项、390px无整体溢出。移动截图位于忽略目录.cache/output/playwright/source-candidates-mobile.png。实际展示待用户验收（pending user acceptance）。

@@ -1,6 +1,7 @@
 /** 来源说明仅展示已接入能力；与采集数据、匹配队列及个人收藏分别维护。 */
 import { dataSources } from '../entities/dataSources'
 import './sources.css'
+import { SourceCandidates } from './SourceCandidates'
 export default function SourcesPage() {
   return (
     <main className="sources-page">
@@ -61,6 +62,7 @@ export default function SourcesPage() {
           </article>
         ))}
       </div>
+      <SourceCandidates />
       <section className="source-notes">
         <h2>如何理解来源信息</h2>
         <p>
@@ -73,7 +75,7 @@ export default function SourcesPage() {
           minnano。来源冲突和原始记录在作品详情底部保留。
         </p>
         <p className="muted">
-          “已接入”表示本项目已有采集或展示能力，不代表刚刚检查过外站连通性。其他站点仍在本地盘点阶段，尚未作为新来源接入。
+          “已接入”表示本项目已有采集或展示能力，不代表刚刚检查过外站连通性。候选区保存首批核实记录，尚未作为新来源接入。
         </p>
       </section>
     </main>
