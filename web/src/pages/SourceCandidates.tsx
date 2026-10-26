@@ -5,10 +5,10 @@
 import audit from '../data/source-candidates.json'
 export function SourceCandidates() {
   return (
-    <section className="source-candidates" aria-label="候选资料来源">
-      <h2>候选资料来源</h2>
+    <section className="source-candidates" aria-label="网站核实记录">
+      <h2>网站核实记录</h2>
       <p className="muted">
-        首批整理 {audit.candidates.length} 个候选，尚未接入。核实日期：{audit.checkedOn}
+        首批整理 {audit.candidates.length} 个待核实站点，尚未接入采集。核实日期：{audit.checkedOn}
         。结论是当次观察，不是实时可用性检测。
       </p>
       <p className="small muted">

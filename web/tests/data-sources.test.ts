@@ -3,7 +3,7 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { sourceRecordUrl } from '../src/entities/dataSources'
 import { SourceRecordLink } from '../src/shared/SourceRecordLink'
-import SourcesPage from '../src/pages/SourcesPage'
+import { SourceInformation } from '../src/features/sources/SourceInformation'
 
 it('人物与作品入口按来源原生ID生成，保持已有四类链接路径', () => {
   expect(sourceRecordUrl('minnano', 'person', '551014')).toBe(
@@ -35,7 +35,7 @@ it('来源链接统一新标签打开与隔离，来源说明只展示实际接�
   )
   expect(link).toContain('target="_blank"')
   expect(link).toContain('noreferrer noopener')
-  const page = renderToStaticMarkup(createElement(SourcesPage))
+  const page = renderToStaticMarkup(createElement(SourceInformation))
   expect(page.match(/<article /g)).toHaveLength(2)
   expect(page).toContain('人物资料为既有存档')
   expect(page).toContain('不代表每个人物或每部作品都已补齐')

@@ -1,5 +1,5 @@
 /* 来源说明沿用资料库浅色样式，宽屏并列、窄屏纵排；不载入外站图标或预览。 */
-.sources-page {
+.websites-page {
   max-width: 1120px;
   margin: 0 auto;
 }
@@ -116,5 +116,43 @@
   .source-candidate summary span {
     display: block;
     margin: 8px 0 0 18px;
+  }
+}
+
+/* 目录卡片只描述站点用途；完整采集能力由数据页展开，避免重复长说明。 */
+.website-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 18px 0;
+}
+.website-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: white;
+}
+.website-card h3 {
+  margin: 0;
+  font-size: 18px;
+}
+.website-card p {
+  margin: 16px 0 8px;
+}
+.data-source-details {
+  margin: 20px 0;
+}
+.data-source-details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 10px 0;
+}
+.data-source-details > section {
+  font-size: 14px;
+  line-height: 1.85;
+}
+@media (max-width: 640px) {
+  .website-cards {
+    grid-template-columns: 1fr;
   }
 }

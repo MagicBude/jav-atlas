@@ -1,4 +1,4 @@
-import SourcesPage from '../pages/SourcesPage'
+import WebsitesPage from '../pages/WebsitesPage'
 import TagCatalogPage from '../pages/TagCatalogPage'
 import WorkPage from '../pages/WorkPage'
 import WorksPage from '../pages/WorksPage'
@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react'
 import {
   Link,
   NavLink,
+  Navigate,
   Route,
   Routes,
   useBlocker,
@@ -62,7 +63,7 @@ export default function App() {
     return () => window.removeEventListener('resize', resize)
   }, [])
   useEffect(() => {
-    document.title = `${isPerson ? '人物详情' : location.pathname === '/sources' ? '资料来源' : location.pathname === '/tags' ? '类别目录' : location.pathname === '/search' ? '搜索结果' : location.pathname === '/works' ? '作品库' : location.pathname.startsWith('/works/') ? '作品详情' : location.pathname === '/favorites' ? '我的收藏' : location.pathname === '/rankings' ? '榜单' : '人物资料库'} · JAV Atlas`
+    document.title = `${isPerson ? '人物详情' : location.pathname === '/websites' ? '网站目录' : location.pathname === '/data' ? '数据与本地资料' : location.pathname === '/tags' ? '类别目录' : location.pathname === '/search' ? '搜索结果' : location.pathname === '/works' ? '作品库' : location.pathname.startsWith('/works/') ? '作品详情' : location.pathname === '/favorites' ? '我的收藏' : location.pathname === '/rankings' ? '榜单' : '人物资料库'} · JAV Atlas`
   }, [location.pathname])
   const close = () => navigate(-1)
   return (
@@ -89,7 +90,7 @@ export default function App() {
             <NavLink to="/works">作品</NavLink>
             <NavLink to="/rankings">榜单</NavLink>
             <NavLink to="/tags">类别目录</NavLink>
-            <NavLink to="/sources">资料来源</NavLink>
+            <NavLink to="/websites">网站目录</NavLink>
             <NavLink to="/favorites">
               收藏{' '}
               <span className="nav-count">
@@ -140,7 +141,11 @@ export default function App() {
           <Route path="/favorites" element={<PeoplePage favoritesOnly />} />
           <Route path="/works" element={<WorksPage />} />
           <Route path="/tags" element={<TagCatalogPage />} />
-          <Route path="/sources" element={<SourcesPage />} />
+          <Route path="/websites" element={<WebsitesPage />} />
+          <Route
+            path="/sources"
+            element={<Navigate to={{ pathname: '/websites', search: location.search }} replace />}
+          />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/works/minnano/:id" element={<WorkPage />} />
           <Route path="/rankings" element={<RankingsPage />} />

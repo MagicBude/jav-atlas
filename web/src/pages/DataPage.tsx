@@ -3,6 +3,7 @@
  * 导入先验证再预览，冲突默认保留本地；不使用备份时间戳替用户决定覆盖。
  */
 import { useState } from 'react'
+import { SourceInformation } from '../features/sources/SourceInformation'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../app/context'
 import { asset, resource } from '../data/repository'
@@ -123,6 +124,10 @@ export default function DataPage() {
       <p className="eyebrow">SOURCES & PERSONAL DATA</p>
       <h1>数据与本地资料</h1>
       <p className="muted">了解采集范围，查看原始数据，备份自己的收藏与修改。</p>
+      <details className="data-source-details">
+        <summary>采集来源与字段说明</summary>
+        <SourceInformation />
+      </details>
       <section>
         <h2>来源与覆盖</h2>
         {manifest && (
