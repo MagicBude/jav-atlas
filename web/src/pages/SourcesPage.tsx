@@ -16,7 +16,18 @@ export default function SourcesPage() {
         {dataSources.map(source => (
           <article className="source-card" key={source.id}>
             <header>
-              <h2>{source.name}</h2>
+              <div className="source-card-heading">
+                <h2>{source.name}</h2>
+                <a
+                  className="button"
+                  href={source.homepage}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`打开 ${source.name} 网站（新标签页）`}
+                >
+                  打开网站 ↗
+                </a>
+              </div>
               <p className="small muted">{source.integration}</p>
             </header>
             <div className="source-capabilities">

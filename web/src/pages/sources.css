@@ -64,3 +64,21 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* 明确的独立按钮提供外站入口，避免整张资料卡片变成误触区域。 */
+.source-card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.source-card-heading h2 {
+  margin: 0;
+}
+.source-card-heading + p {
+  margin-top: 10px;
+}
+.source-card-heading .button {
+  flex-shrink: 0;
+  font-size: 13px;
+}

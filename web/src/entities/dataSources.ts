@@ -7,6 +7,7 @@ export const dataSources = [
   {
     id: 'minnano',
     name: 'minnano',
+    homepage: 'https://www.minnano-av.com/',
     integration: '人物、榜单与作品资料已接入',
     personFields: ['姓名与别名', '生日、身高与三围', '事务所、爱好与官网', '相关人物与头像'],
     workFields: ['标题与番号', '发行日期与片商', '出演者', '人物作品分页'],
@@ -16,6 +17,7 @@ export const dataSources = [
   {
     id: 'javdb',
     name: 'JavDB',
+    homepage: 'https://javdb.com/',
     integration: '作品补充资料已接入，人物资料为既有存档',
     personFields: ['已有演员目录与来源ID', '已有头像与性别核对记录'],
     workFields: ['评分与评价人数', '时长、导演、片商与系列', '类别与出演者', '部分历史评论样本'],
