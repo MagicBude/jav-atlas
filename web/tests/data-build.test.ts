@@ -29,11 +29,22 @@ function hashes(dir: string): Record<string, string> {
   )
 }
 let before: Record<string, string>, manifest: Manifest
+// 真实快照准备会读取头像与全部来源文件，CI冷磁盘可能明显慢于本机。
+// 仅此准备步骤放宽至180秒；生成子进程120秒硬超时，普通测试仍保持30秒。
 beforeAll(() => {
+  const started = performance.now()
   before = hashes(relay)
-  execFileSync(process.execPath, ['scripts/build-data.mjs'], { encoding: 'utf8' })
+  const hashed = performance.now()
+  console.log('快照准备：来源哈希完成，耗时毫秒：', Math.round(hashed - started))
+  const output = execFileSync(process.execPath, ['scripts/build-data.mjs'], {
+    encoding: 'utf8',
+    timeout: 120000,
+    maxBuffer: 1024 * 1024
+  })
+  console.log(output.trim())
+  console.log('快照准备：资源生成耗时毫秒：', Math.round(performance.now() - hashed))
   manifest = JSON.parse(fs.readFileSync(path.join(generated, 'manifest.json'), 'utf8'))
-}, 30000)
+}, 180000)
 describe('来源与生成资源', () => {
   it('独立作品索引去重且覆盖全部已发现正式作品，保留待补详情关系', () => {
     const index = JSON.parse(fs.readFileSync(path.join(generated, manifest.works!.index!), 'utf8'))
