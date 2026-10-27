@@ -1,0 +1,66 @@
+# 网站部署与采集分别执行；采集成功后重新读取 main，包含采集刚提交的数据。
+name: Deploy atlas Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['web/**', 'relay/**', 'tools/lib/works-policy.js', '.github/workflows/pages.yml']
+  # 采集使用 GITHUB_TOKEN 推送，不会再次触发 push 工作流，因此监听采集完成事件。
+  workflow_run:
+    workflows: ['Collect atlas data']
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: atlas-pages
+  # 已开始的发布不中断，避免部署停在中途；等待中的旧请求由 GitHub 合并。
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # workflow_run 的 head_sha 可能早于采集提交，必须取 main 最新快照。
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - uses: actions/configure-pages@v5
+      - name: 安装锁定依赖
+        working-directory: web
+        run: npm ci
+      - name: 验证数据与页面逻辑
+        working-directory: web
+        run: npm test
+      - name: 构建项目网址所需的静态文件
+        working-directory: web
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+        run: npm run build
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: web/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 发布到 GitHub 项目网址
+        id: deployment
+        uses: actions/deploy-pages@v4

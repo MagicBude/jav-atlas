@@ -19,7 +19,7 @@ npm run build
 npm run preview -- --port 4173
 ```
 
-构建产物在 `dist`。部署到仓库子路径时，设置环境变量 `BASE_PATH=/jav-atlas/` 再构建。Hash 路由不要求静态主机配置人物详情重写规则。Actions 中的浏览端检查工作流只检查、构建和提供产物下载，目前不自动发布网站。
+构建产物在 `dist`。部署到仓库子路径时，设置环境变量 `BASE_PATH=/jav-atlas/` 再构建。Hash 路由不要求静态主机配置人物详情重写规则。浏览端检查工作流提供检查和预览产物；独立的 Deploy atlas Pages 工作流在代码更新或采集成功后发布网站。首次需要开启仓库 Pages，详见 [GitHub Pages 操作指南](../docs/github-pages.md)。
 
 ## 使用方式
 
