@@ -1,13 +1,14 @@
 /**
  * @file 按固定数量补齐 minnano 人物详情与同批头像，避免新名册立即触发全量请求。
  * 成功时间保存在名册中，跨 runner 生效；没有成功标记的记录下轮仍可重试。
- * 已成功但缺失的字段可能是源站未提供，不据此无限重复抓取；刷新仍可直接用 profiles-relay.js。
+ * 已成功但缺失的字段可能是源站未提供，不据此无限重复抓取；满30天后限量复查。
  */
 const { spawnSync } = require('child_process')
 const path = require('path')
 const { readJson, writeJson, envInt } = require('./lib/runtime')
 const fs = require('fs')
 const { dataPaths } = require('./lib/data-paths')
+const { planProfiles, nextProfileTask } = require('./lib/profile-policy')
 const limit = envInt('BACKFILL_LIMIT', 20, 1, 1000)
 const roster = readJson(dataPaths().minnanoActresses, null)
 if (!Array.isArray(roster) || !roster.length) throw new Error('缺少人物名册，请先发现目录')
@@ -16,10 +17,10 @@ const pool = process.env.RANKED_ONLY === '1' ? readJson(dataPaths().minnanoRanke
 if (process.env.RANKED_ONLY === '1' && (!pool || !Object.keys(pool.members || {}).length))
   throw new Error('缺少榜单人物池，拒绝降级为全名册采集')
 const scoped = pool ? roster.filter(row => Object.hasOwn(pool.members, String(row.mnid))) : roster
-const targets = scoped
-  .filter(row => row.mnid && (!row.profileFetchedAt || row.profileSchemaVersion !== 2))
-  .slice(0, limit)
 const startedAt = Date.now()
+const progressFile = path.join(path.dirname(dataPaths().minnanoActresses), 'profile-progress.json')
+const progress = readJson(progressFile, { tasks: {} })
+const targets = planProfiles(scoped, progress.tasks, startedAt, limit)
 /** 即使子步骤失败，也保存本批ID与实际落盘状态；不把尚未尝试的人物算成访问失败。 */
 function report(exitCode) {
   const paths = dataPaths()
@@ -43,11 +44,14 @@ function report(exitCode) {
     const id = String(row.mnid)
     const attempt = cache[id]
     const status =
-      byId.get(id)?.profileSchemaVersion === 2
+      byId.get(id)?.profileSchemaVersion === 2 && byId.get(id)?.profileFetchedAt >= startedAt
         ? 'success'
         : attempt && attempt.fetchedAt >= startedAt && !attempt.ok
           ? 'failed'
           : 'not-attempted'
+    // 未实际尝试不能记为失败；旧详情仍在也不能把本轮复查失败报成成功。
+    if (status !== 'not-attempted')
+      progress.tasks[id] = nextProfileTask(progress.tasks[id], Date.now(), status === 'success')
     return {
       mnid: id,
       name: row.name,
@@ -82,13 +86,14 @@ function report(exitCode) {
     },
     results
   }
+  writeJson(progressFile, progress)
   writeJson(path.join(path.dirname(paths.minnanoActresses), 'backfill-report.json'), summary)
   console.log(
     '本批统计：' + JSON.stringify(summary.batch) + '；全册：' + JSON.stringify(summary.total)
   )
 }
 if (!targets.length) {
-  console.log('人物详情已全部尝试成功；缺图可独立运行 roster-avatars.js 补齐')
+  console.log('本轮没有到期的人物详情任务；缺图仍由独立头像队列补齐')
 } else {
   const env = {
     ...process.env,

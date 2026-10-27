@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T00:45:30.545Z",
+  "generatedAt": "2026-10-27T02:17:08.837Z",
   "scope": "cumulative-ranked-pool",
   "people": {
     "total": 556,
@@ -9,7 +9,19 @@
       "unstable": 0,
       "complete": 28
     },
-    "waitingRetry": 0
+    "waitingRetry": 0,
+    "profiles": {
+      "fetched": 555,
+      "waitingRetry": 0,
+      "availableFields": {
+        "birthday": 506,
+        "height": 523,
+        "cup": 528,
+        "agency": 386,
+        "official": 281,
+        "hobby": 344
+      }
+    }
   },
   "works": {
     "listed": 548,

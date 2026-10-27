@@ -9,6 +9,7 @@ import crypto from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { collectSources, projectPerson } from './adapters.mjs'
 import coveragePolicy from '../../tools/lib/work-coverage.js'
+import rankingHistory from '../../tools/lib/ranking-history.js'
 const web = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const relay = path.resolve(web, '../relay')
 const out = path.join(web, 'public/generated')
@@ -75,7 +76,13 @@ const manifest = {
   generatedAt: new Date().toISOString(),
   sources: {},
   rawFiles,
-  rankings: emit('rankings', read('minnano/rankings.json', {})),
+  rankings: emit('rankings', {
+    ...read('minnano/rankings.json', {}),
+    comparison: rankingHistory.compareRankings(
+      read('minnano/rankings.json', {}),
+      rankingHistory.readHistory(path.join(relay, 'minnano/ranking-history'))
+    )
+  }),
   report: emit('report', read('minnano/backfill-report.json', {}))
 }
 for (const [source, rows] of Object.entries(sources)) {

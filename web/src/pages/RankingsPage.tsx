@@ -9,11 +9,19 @@ import { PersonCard } from '../features/people/PersonCard'
 import { personView, ViewSwitcher } from '../features/people/ViewSwitcher'
 import { restoreList } from '../features/people/returnPosition'
 import { useResource } from '../shared/useResource'
+import type { RankChange } from '../entities/ranking'
 interface Rankings {
   fetchedAt: number
   day: { id: string; rank: number; name: string }[]
   week: Rankings['day']
   month: Rankings['day']
+  comparison?: Record<
+    'day' | 'week' | 'month',
+    {
+      previousFetchedAt: number | null
+      changes: Record<string, RankChange>
+    }
+  >
 }
 export default function RankingsPage() {
   const { manifest, data } = useApp(),
@@ -41,6 +49,7 @@ export default function RankingsPage() {
     ...row,
     person: request.value?.people.find(person => person.id === String(row.id))
   }))
+  const comparison = request.value?.rankings.comparison?.[period]
   return (
     <main className="rankings-page">
       <div className="page-heading">
@@ -80,6 +89,10 @@ export default function RankingsPage() {
         <p className="small muted">
           当前榜单 {entries.length} 位 · 采集时间：
           {new Date(request.value.rankings.fetchedAt).toLocaleString('zh-CN')}
+          <br />
+          {comparison?.previousFetchedAt
+            ? `名次变化对比 ${new Date(comparison.previousFetchedAt).toLocaleString('zh-CN')} 的同类榜单；进入前250不代表历史首次上榜。`
+            : '正在建立历史基准，暂不显示名次变化。'}
         </p>
       )}
       <div className="ranking-toolbar">
@@ -96,6 +109,7 @@ export default function RankingsPage() {
             {row.person ? (
               <PersonCard
                 rank={row.rank}
+                rankChange={comparison?.changes[row.id]}
                 compact={view === 'list'}
                 portrait={view === 'portrait'}
                 person={resolvePerson(row.person, data.records[identity(row.person)])}

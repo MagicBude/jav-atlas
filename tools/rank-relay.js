@@ -17,7 +17,9 @@
  */
 const fs = require('fs')
 const { avatarPath } = require('./lib/avatars')
-const { writeJson, envInt } = require('./lib/runtime')
+const { writeJson, readJson, envInt } = require('./lib/runtime')
+const path = require('path')
+const { validSnapshot, archiveRankings } = require('./lib/ranking-history')
 const { dataPaths } = require('./lib/data-paths')
 const paths = dataPaths()
 
@@ -196,6 +198,11 @@ const pool = async (items, n, fn) => {
   })
   console.log('头像：新抓 ' + ok + '，已存在 ' + skip + '，共 ' + list.length + ' 个')
   // 阶段 3：头像允许部分失败；所有榜单至少非空后才用临时文件替换 JSON。
+  const history = path.join(path.dirname(paths.minnanoRankings), 'ranking-history')
+  const previous = readJson(paths.minnanoRankings, null)
+  if (validSnapshot(previous)) archiveRankings(history, previous)
+  // 验证与归档发生在替换当前榜单之前，半份榜单不会成为未来的比较基准。
+  if (validSnapshot(out)) archiveRankings(history, out)
   writeJson(paths.minnanoRankings, out)
   console.log('relay/minnano/rankings.json 已生成')
 })().catch(e => {

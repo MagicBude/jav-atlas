@@ -44,7 +44,7 @@ function run(dir, file, args = [], extra = {}) {
 }
 const json = (dir, f) => readJson(path.join(dir, f))
 
-test('榜单详情全部不可用仍发布榜单并补图，失败记录保留且下轮继续重试', () =>
+test('榜单详情不可用仍发布榜单并补图，后续轮次遵守持久化退避', () =>
   sandbox(dir => {
     writeJson(path.join(dir, 'minnano/actresses.json'), [
       {
@@ -62,8 +62,9 @@ test('榜单详情全部不可用仍发布榜单并补图，失败记录保留�
         })
       )
       const report = json(dir, 'minnano/backfill-report.json')
-      assert.equal(report.exitCode, 2)
-      assert.equal(report.batch.profileFailed, 1)
+      assert.equal(report.exitCode, round === 0 ? 2 : 0)
+      assert.equal(report.batch.profileFailed, round === 0 ? 1 : 0)
+      assert(json(dir, 'minnano/profile-progress.json').tasks['123'].nextRetryAt > Date.now())
       assert.equal(report.batch.missingAvatars, 0)
       assert.equal(report.scope, 'ranked-pool')
       assert.equal(json(dir, 'minnano/rankings.json').day.length, 1)
@@ -88,15 +89,16 @@ test('已知头像直链绕过人物页失败，并接受jpg地址返回的WebP'
 
 test('榜单池详情已齐也独立重试缺图，并在最终报告更新图片状态', () =>
   sandbox(dir => {
+    const fetchedAt = Date.now()
     writeJson(path.join(dir, 'minnano/actresses.json'), [
-      { mnid: '123', name: 'Test Actor', profileFetchedAt: 1, profileSchemaVersion: 2 }
+      { mnid: '123', name: 'Test Actor', profileFetchedAt: fetchedAt, profileSchemaVersion: 2 }
     ])
     success(run(dir, 'collect.js', ['daily', 'ranked'], { SKIP_IMAGES: '0', BACKFILL_LIMIT: '3' }))
     const report = json(dir, 'minnano/backfill-report.json')
     assert.equal(report.selected, 0)
     assert.equal(report.total.missingAvatars, 0)
     assert.equal(report.scope, 'ranked-pool')
-    assert.equal(json(dir, 'minnano/actresses.json')[0].profileFetchedAt, 1)
+    assert.equal(json(dir, 'minnano/actresses.json')[0].profileFetchedAt, fetchedAt)
   }))
 
 test('Top250缺页或分页重复都拒绝覆盖已有榜单', () =>
@@ -205,7 +207,7 @@ test('限量详情入口跨缓存继续下一批，保留已有字段，失败�
 test('限量详情入口拒绝非法数量且无候选时不请求网络', () =>
   sandbox(dir => {
     writeJson(path.join(dir, 'minnano/actresses.json'), [
-      { mnid: '123', name: 'Done', profileFetchedAt: 1, profileSchemaVersion: 2 }
+      { mnid: '123', name: 'Done', profileFetchedAt: Date.now(), profileSchemaVersion: 2 }
     ])
     assert.notEqual(run(dir, 'backfill-minnano.js', [], { BACKFILL_LIMIT: '0' }).status, 0)
     success(run(dir, 'backfill-minnano.js', [], { FIXTURE_FAIL: 'all' }))

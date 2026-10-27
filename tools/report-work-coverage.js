@@ -13,6 +13,26 @@ const progress = read('minnano/works/progress.json', { people: {}, pendingDetail
 const enrichment = read('javdb/work-enrichment/progress.json', { tasks: {} })
 const mappings = read('javdb/work-enrichment/mappings.json', { mappings: {} }).mappings
 const now = Date.now()
+const profiles = read('minnano/actresses.json', []).filter(row =>
+  Object.hasOwn(pool, String(row.mnid))
+)
+const profileTasks = read('minnano/profile-progress.json', { tasks: {} }).tasks
+const profileCoverage = {
+  fetched: profiles.filter(row => row.profileSchemaVersion === 2 && row.profileFetchedAt).length,
+  waitingRetry: Object.values(profileTasks).filter(task => task.nextRetryAt > now).length,
+  // 这些是“当前保存的非空字段”数量，不把缺值直接解释成采集失败或来源确实没有。
+  availableFields: Object.fromEntries(
+    ['birthday', 'height', 'cup', 'agency', 'official', 'hobby'].map(field => [
+      field,
+      profiles.filter(
+        row =>
+          row[field] != null &&
+          row[field] !== '' &&
+          (!Array.isArray(row[field]) || row[field].length)
+      ).length
+    ])
+  )
+}
 const lists = { 'not-started': 0, partial: 0, unstable: 0, complete: 0 }
 let waitingLists = 0
 for (const id of Object.keys(pool)) {
@@ -62,7 +82,12 @@ for (const id of listed) {
 const report = {
   generatedAt: new Date(now).toISOString(),
   scope: 'cumulative-ranked-pool',
-  people: { total: Object.keys(pool).length, lists, waitingRetry: waitingLists },
+  people: {
+    total: Object.keys(pool).length,
+    lists,
+    waitingRetry: waitingLists,
+    profiles: profileCoverage
+  },
   works: {
     listed: listed.size,
     details,

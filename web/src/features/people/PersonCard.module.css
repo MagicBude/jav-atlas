@@ -1,4 +1,20 @@
 /* 共用卡片的三种布局只改变视觉，不复制收藏、链接或返回定位逻辑。 */
+.rankChange {
+  font-weight: 650;
+  white-space: nowrap;
+}
+.up {
+  color: #177647;
+}
+.down {
+  color: #b34646;
+}
+.same {
+  color: #718096;
+}
+.entered {
+  color: #285cbd;
+}
 .card {
   display: flex;
   position: relative;

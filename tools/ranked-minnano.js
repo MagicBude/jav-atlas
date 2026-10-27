@@ -1,7 +1,7 @@
 /**
  * @file 榜单人物的每日流水线：Top250 × 三榜 → 累积人物池 → 补详情 → 独立重试缺图。
  * 人物池按原生 ID 去重，当天最多新增 750 人；历史上榜者保留，所以长期总数不固定为 750。
- * 不遍历全站目录、不采集 JavDB、不清理历史资料。作品采集尚未接入。
+ * 不遍历全站目录、不采集 JavDB、不清理历史资料；Actions 在此步骤之后独立调度作品及元数据。
  */
 const { spawnSync } = require('child_process')
 const path = require('path')

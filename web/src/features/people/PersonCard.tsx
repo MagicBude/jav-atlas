@@ -6,18 +6,21 @@ import { HeartIcon } from '../../shared/HeartIcon'
 import { PersonAvatar } from '../../shared/PersonAvatar'
 import { rememberList } from './returnPosition'
 import styles from './PersonCard.module.css'
+import { rankChangeLabel, type RankChange } from '../../entities/ranking'
 export function PersonCard({
   person,
   sequence = [],
   compact = false,
   portrait = false,
-  rank
+  rank,
+  rankChange
 }: {
   person: Person
   sequence?: string[]
   compact?: boolean
   portrait?: boolean
   rank?: number
+  rankChange?: RankChange
 }) {
   const { data, favorite } = useApp(),
     location = useLocation()
@@ -62,6 +65,11 @@ export function PersonCard({
         <div className={styles.meta}>
           <span>{person.source}</span>
           <code>#{person.id}</code>
+          {rankChange && (
+            <span className={`${styles.rankChange} ${styles[rankChange.kind]}`}>
+              {rankChangeLabel(rankChange)}
+            </span>
+          )}
         </div>
         {Object.values(data.records[identity(person)]?.fields || {}).some(
           op => op.kind === 'set'
