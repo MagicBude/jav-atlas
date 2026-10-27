@@ -1,5 +1,5 @@
 {
-  "startedAt": 1793061883231,
+  "startedAt": 1793068572351,
   "scope": "ranked",
   "budgets": {
     "people": 5,
@@ -17,16 +17,16 @@
     "mode": "details-first",
     "detailThreshold": 50,
     "before": {
-      "ready": 151,
+      "ready": 101,
       "waiting": 0
     },
     "skippedLists": true,
     "after": {
-      "ready": 101,
+      "ready": 51,
       "waiting": 0
     }
   },
-  "finishedAt": 1793061911173,
-  "requests": 50,
-  "pendingDetails": 101
+  "finishedAt": 1793068689139,
+  "requests": 52,
+  "pendingDetails": 51
 }

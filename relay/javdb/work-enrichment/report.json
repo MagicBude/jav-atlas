@@ -1,82 +1,221 @@
 {
-  "startedAt": 1793061911312,
-  "limit": 10,
-  "requestLimit": 30,
+  "startedAt": 1793068739965,
+  "limit": 30,
+  "requestLimit": 90,
   "results": [
     {
-      "id": "281788",
-      "code": "RBB-346",
-      "javdbId": "ZNPnrm",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "283509",
-      "code": "UMSO-644",
-      "javdbId": "NQ7yQ4",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "262456",
-      "code": "NSFS-487",
-      "javdbId": "Yw3M5d",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "718888",
-      "code": "OFJE-632",
-      "javdbId": "BzaKZM",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "506927",
-      "code": "MIDA-591",
-      "javdbId": "V474kD",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "983824",
-      "code": "SNOS-183",
-      "javdbId": "AqnZBM",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "356561",
-      "code": "MOGI-157",
-      "javdbId": "AqVrBm",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "245726",
-      "code": "OFJE-631",
-      "javdbId": "Wwrp0e",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "344289",
-      "code": "OFJE-629",
-      "javdbId": "ZNxRmA",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "213223",
-      "code": "MESU-141",
-      "javdbId": "nKD7aa",
+      "id": "679024",
+      "code": "SNOS-331",
+      "javdbId": "DRQYJK",
       "status": "success",
       "dateDifference": false
+    },
+    {
+      "id": "520367",
+      "code": "MMPB-139",
+      "javdbId": "e8NAdb",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "661485",
+      "code": "NSFS-495",
+      "javdbId": "GZPrkg",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "178669",
+      "code": "OFJE-628",
+      "javdbId": "DRn3mM",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "258538",
+      "code": "OFJE-709",
+      "javdbId": "4Dx7g3",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "721770",
+      "code": "OAE-302",
+      "javdbId": "YwG1AD",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "419956",
+      "code": "ONCG-001",
+      "javdbId": "82Z8e9",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "237225",
+      "code": "SNOS-131",
+      "javdbId": "Ebn763",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "540796",
+      "code": "MOGI-155",
+      "javdbId": "pke8eZ",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "274133",
+      "code": "NSFS-470",
+      "javdbId": "xAO2bE",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "213131",
+      "code": "OFJE-623",
+      "javdbId": "2mX62N",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "972481",
+      "code": "HONE-296",
+      "javdbId": "YwGPr8",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "530295",
+      "code": "OFJE-620",
+      "javdbId": "0e4A2b",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "947573",
+      "code": "OFJE-621",
+      "javdbId": "WwrM7R",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "539944",
+      "code": "HYAS-147",
+      "javdbId": "3nWm83",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "623217",
+      "code": "HYAS-148",
+      "javdbId": "2mXARm",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "462093",
+      "code": "OFJE-617",
+      "javdbId": "GZnmBb",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "643267",
+      "code": "OFJE-619",
+      "javdbId": "WwrEeB",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "656066",
+      "code": "OFJE-701",
+      "javdbId": "96pNZg",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "544132",
+      "code": "SNOS-093",
+      "javdbId": "OXr49A",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "216563",
+      "code": "OFJE-616",
+      "javdbId": "NQ64Jg",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "409772",
+      "code": "OFJE-615",
+      "javdbId": "deQVmQ",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "971864",
+      "code": "OFJE-614",
+      "javdbId": "BzP5Na",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "250283",
+      "code": "NUKA-081",
+      "javdbId": "82ZYaK",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "269201",
+      "code": "MCSR-623",
+      "javdbId": "96prkE",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "686181",
+      "code": "OFJE-708",
+      "javdbId": "RkXW1z",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "835696",
+      "code": "OFJE-607",
+      "javdbId": "96prZ6",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "654378",
+      "code": "341AKDL-282A",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
+    },
+    {
+      "id": "590338",
+      "code": "SNOS-064",
+      "javdbId": "a8VKP4",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "620844",
+      "code": "OFJE-602",
+      "javdbId": "DRnXA4",
+      "status": "success",
+      "dateDifference": true
     }
   ],
-  "finishedAt": 1793061930437,
-  "requests": 20,
+  "finishedAt": 1793068807847,
+  "requests": 59,
   "blockedUntil": null,
-  "success": 10,
-  "needsAttention": 0
+  "success": 29,
+  "needsAttention": 1
 }

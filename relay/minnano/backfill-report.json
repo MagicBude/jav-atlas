@@ -1,9 +1,9 @@
 {
-  "generatedAt": 1793061831342,
-  "exitCode": 0,
-  "selected": 25,
+  "generatedAt": 1793068875219,
+  "exitCode": 3221226505,
+  "selected": 1,
   "batch": {
-    "profileSuccess": 24,
+    "profileSuccess": 0,
     "profileFailed": 1,
     "profileNotAttempted": 0,
     "missingAvatars": 0
@@ -20,151 +20,6 @@
       "name": "天音るな",
       "profile": "failed",
       "avatar": "available"
-    },
-    {
-      "mnid": "19506",
-      "name": "めぐり",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "204182",
-      "name": "さえか",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "293602",
-      "name": "白石こはる",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "370864",
-      "name": "村上悠華",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "380512",
-      "name": "青空ひかり",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "385045",
-      "name": "美咲そのか",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "448675",
-      "name": "ハジン",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "457320",
-      "name": "ももの真利奈",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "59674",
-      "name": "やまぐちりこ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "622253",
-      "name": "AYA",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "657945",
-      "name": "森山あかり",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "671983",
-      "name": "神木麗",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "771588",
-      "name": "星島麻帆",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "772800",
-      "name": "佐々木さき",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "77291",
-      "name": "澄悠里",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "783008",
-      "name": "品川マリ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "798863",
-      "name": "里美百音",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "835938",
-      "name": "鷲尾めい",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "8562",
-      "name": "岩沢香代",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "876999",
-      "name": "さとみ（しろハメ）",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "89666",
-      "name": "浅井舞香",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "902608",
-      "name": "鷹宮麗華",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "906363",
-      "name": "関彩華",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "966032",
-      "name": "工藤ゆり",
-      "profile": "success",
-      "avatar": "available"
     }
-  ],
-  "scope": "ranked-pool"
+  ]
 }

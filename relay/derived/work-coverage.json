@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T02:17:08.837Z",
+  "generatedAt": "2026-10-27T02:41:50.767Z",
   "scope": "cumulative-ranked-pool",
   "people": {
     "total": 556,
@@ -12,7 +12,7 @@
     "waitingRetry": 0,
     "profiles": {
       "fetched": 555,
-      "waitingRetry": 0,
+      "waitingRetry": 1,
       "availableFields": {
         "birthday": 506,
         "height": 523,
@@ -25,16 +25,16 @@
   },
   "works": {
     "listed": 548,
-    "details": 447,
-    "missingDetails": 101,
-    "withCode": 433,
-    "missingCode": 14
+    "details": 497,
+    "missingDetails": 51,
+    "withCode": 482,
+    "missingCode": 15
   },
   "metadata": {
-    "matched": 77,
-    "notMatched": 356,
-    "freshWithinSevenDays": 74,
-    "waitingRetry": 6
+    "matched": 106,
+    "notMatched": 376,
+    "freshWithinSevenDays": 103,
+    "waitingRetry": 7
   },
-  "pendingDetailTasks": 101
+  "pendingDetailTasks": 51
 }
