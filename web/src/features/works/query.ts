@@ -1,5 +1,6 @@
 /** 列表排序独立成纯函数：未知评分排最后，同分按日期及原生ID稳定排序。 */
 import type { WorkEntry } from '../../entities/work'
+import { workRanges } from './ranges'
 import {
   javdbDisplayTagId,
   javdbTagLabel,
@@ -73,6 +74,7 @@ export function clearWorkFilters(search: string, queryKey = 'wq', keepQuery = fa
     'wm',
     'wp',
     'wt_mode',
+    ...workRanges.map(range => range.key),
     ...facetKeys.map(kind => `wf_${kind}`),
     ...(keepQuery ? [] : [queryKey])
   ])
@@ -96,9 +98,17 @@ export function workQuery(search: string, key: string, value: string) {
   if (value) next.set(key, value)
   else next.delete(key)
   if (
-    ['q', 'wq', 'wy', 'wm', 'ws', 'wa', 'wt_mode', ...facetKeys.map(kind => `wf_${kind}`)].includes(
-      key
-    )
+    [
+      'q',
+      'wq',
+      'wy',
+      'wm',
+      'ws',
+      'wa',
+      'wt_mode',
+      ...workRanges.map(range => range.key),
+      ...facetKeys.map(kind => `wf_${kind}`)
+    ].includes(key)
   )
     next.delete('wp')
   return next.toString()

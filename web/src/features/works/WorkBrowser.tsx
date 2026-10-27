@@ -5,13 +5,14 @@ import { workYearOptions, makerOptions, makerFilter, unknownYear } from './filte
  * @file 人物作品区与独立作品库的共用浏览器。只接收轻量条目，不负责抓取来源资料。
  * 查询、分页、密度和详情历史在此统一，避免两个入口随功能演进出现不同结果。
  */
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import type { WorkEntry } from '../../entities/work'
 import { filterWorks } from './selection'
 import { javdbTagLabel, parseTagSelection } from '../../entities/tagLabels'
 import { TagFilters } from './TagFilters'
 import { selectedTags } from './query'
+import { workRanges, rangeValue } from './ranges'
 import { Modal } from '../../shared/Modal'
 import { WorkDetail } from './WorkDetail'
 import { clearWorkFilters, compareWorks, workQuery, facetKeys, workFacetOptions } from './query'
@@ -29,14 +30,21 @@ export function WorkBrowser({
   const location = useLocation(),
     navigate = useNavigate()
   const params = new URLSearchParams(location.search)
+  // 同一轮渲染前可能连续收到多个输入事件，后一个条件必须继承刚提交的条件。
+  // 路由真正改变（含浏览器后退）时，再以该路由为新的起点。
+  const pendingQuery = useRef({ observed: location.search, value: location.search })
+  if (pendingQuery.current.observed !== location.search)
+    pendingQuery.current = { observed: location.search, value: location.search }
   const update = (key: string, value: string) => {
     // 打开作品压入一层历史，让后退先关作品。直达链接没有该历史，只移除参数。
     if (key === 'work' && !value && location.state?.workModal) {
       navigate(-1)
       return
     }
+    const nextSearch = workQuery(pendingQuery.current.value, key, value)
+    pendingQuery.current.value = nextSearch
     navigate(
-      { pathname: location.pathname, search: workQuery(location.search, key, value) },
+      { pathname: location.pathname, search: nextSearch },
       {
         replace: key !== 'work' || !value,
         state: key === 'work' && value ? { ...location.state, workModal: true } : location.state
@@ -67,6 +75,11 @@ export function WorkBrowser({
   )
   const work = params.get('work')
   const conditions = [
+    ...workRanges.flatMap(range =>
+      rangeValue(params, range.key) === null
+        ? []
+        : [{ key: range.key, label: `${range.label}：${rangeValue(params, range.key)}` }]
+    ),
     ...facetKeys.flatMap(kind => {
       if (kind === 'tag')
         return selectedTags(params).map(id => ({
@@ -186,6 +199,36 @@ export function WorkBrowser({
             )
           })}
           <TagFilters entries={entries} countEntries={result} params={params} update={update} />
+          <details className="work-numeric-filters">
+            <summary>
+              评分与时长
+              {workRanges.some(range => rangeValue(params, range.key) !== null) ? '（已启用）' : ''}
+            </summary>
+            <p className="small muted">
+              启用条件后，缺少对应资料的作品不参与结果。评分为 JavDB 评分，满分5分。
+            </p>
+            <div className="work-range-fields">
+              {workRanges.map(range => (
+                <label key={range.key}>
+                  {range.label}
+                  <input
+                    type="number"
+                    min="0"
+                    max={'max' in range ? range.max : undefined}
+                    step={range.step}
+                    value={params.get(range.key) || ''}
+                    placeholder="不限"
+                    onChange={event => update(range.key, event.target.value)}
+                  />
+                </label>
+              ))}
+            </div>
+            {rangeValue(params, 'wr_min') !== null &&
+              rangeValue(params, 'wr_max') !== null &&
+              rangeValue(params, 'wr_min')! > rangeValue(params, 'wr_max')! && (
+                <p role="alert">最短时长不能大于最长时长，请调整条件。</p>
+              )}
+          </details>
         </div>
         {conditions.length > 0 && (
           <div className="work-conditions" aria-label="已选作品条件">

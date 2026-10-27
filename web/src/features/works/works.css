@@ -193,3 +193,25 @@
 .work-field-row {
   padding-block: 8px;
 }
+.work-numeric-filters {
+  padding: 10px 0;
+  border-top: 1px solid var(--line, #e0e5ed);
+}
+.work-numeric-filters summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.work-range-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 12px;
+}
+.work-range-fields label {
+  display: grid;
+  gap: 5px;
+  font-size: 13px;
+}
+.work-range-fields input {
+  min-width: 0;
+  width: 100%;
+}

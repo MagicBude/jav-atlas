@@ -8,6 +8,8 @@ export interface WorkEntry {
   releaseDate?: string | null
   makerText?: string
   actorIds?: string[]
+  /** 来自已匹配JavDB元数据，单位分钟；未知留空。 */
+  durationMinutes?: number
   /** JavDB 目录作用域，0 同样有效；没有来源证据时不填写。 */
   javdbType?: number
   facets?: Record<string, { id: string; name: string }[]>

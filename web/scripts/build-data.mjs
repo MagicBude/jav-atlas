@@ -222,6 +222,11 @@ if (fs.existsSync(path.join(worksRoot, 'people'))) {
       const score = metadata?.score == null || metadata.score === '' ? null : Number(metadata.score)
       return {
         ...entry,
+        ...(metadata?.duration != null &&
+        Number.isFinite(Number(metadata.duration)) &&
+        Number(metadata.duration) > 0
+          ? { durationMinutes: Number(metadata.duration) }
+          : {}),
         ...(Number.isInteger(metadata?.type) && metadata.type >= 0 && metadata.type <= 4
           ? { javdbType: metadata.type }
           : {}),
@@ -284,6 +289,9 @@ for (const entry of workIndex.values()) {
   if (Number.isInteger(metadata?.type) && metadata.type >= 0 && metadata.type <= 4)
     entry.javdbType = metadata.type
   entry.facets = {}
+  const duration = Number(metadata?.duration)
+  if (metadata?.duration != null && Number.isFinite(duration) && duration > 0)
+    entry.durationMinutes = duration
   for (const kind of ['director', 'maker', 'series'])
     if (metadata?.[kind + '_id'] && metadata?.[kind + '_name'])
       entry.facets[kind] = [{ id: String(metadata[kind + '_id']), name: metadata[kind + '_name'] }]

@@ -6,6 +6,7 @@ import type { WorkEntry } from '../../entities/work'
 import { normalize } from '../../entities/person'
 import { matchesWorkFacets } from './query'
 import { workYear } from './filterOptions'
+import { matchesWorkRanges, matchesWorkSearch } from './ranges'
 export function filterWorks(
   entries: WorkEntry[],
   params: URLSearchParams,
@@ -20,7 +21,8 @@ export function filterWorks(
     row =>
       row.kind === 'work' &&
       matchesWorkFacets(row, params) &&
-      (!q || normalize(`${row.title} ${row.code || ''}`).includes(q)) &&
+      matchesWorkRanges(row, params) &&
+      matchesWorkSearch(row, q) &&
       (!year || workYear(row) === year) &&
       (!maker || row.makerText === maker) &&
       (!actor || row.actorIds?.includes(actor))
