@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * @file 对已有 minnano 名册执行“只填空、不覆盖”的资料回填。
+ * @file 对已有 minnano 名册回填并复查资料；来源变化留历史，空值不清除旧资料。
  * 输入/输出：RELAY_DIR/minnano/actresses.json（默认仓库根 relay/）；仅处理包含 mnid 的记录，不发现新人物。
  * 字段：生日、身高、三围、别名、现用名、官网、标签、相关人物及图片 URL 等。
  * 参数：full（或 0）选取全部；默认选择 nick 或 official 至少一项缺失的记录。
@@ -255,6 +255,7 @@ const NEED = [
  * @returns {boolean} 0、false 及空对象均不被视为空。
  */
 const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray(v) && !v.length)
+const { updateProfile } = require('./lib/profile-update')
 
 ;(async () => {
   // 阶段 1：读取已有名册，不能从空目录自行生成名册；输入错误由顶层处理。
@@ -317,7 +318,7 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
   // 阶段 3：共享游标分配资料页任务；计数器在异步请求完成时更新。
   let cursor = 0
   /**
-   * 循环领取下一个候选人物，抓取并解析后只填空字段，同时记录成功/失败缓存。
+ * 循环领取下一个候选人物，抓取并解析后按来源基线合并字段，同时记录成功/失败缓存。
    * 每 200 条保存，每 100 条输出进度；DELAY 约束单个 worker 的迭代耗时，不是全局请求间隔。
    *
    * @returns {Promise<void>} 队列耗尽后完成；名册保存失败会向顶层传播。
@@ -339,20 +340,16 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
         // 持久化成功时间，让不同 Actions runner 也能继续补齐；失败不写成功标记。
         a.profileFetchedAt = Date.now()
         a.profileSchemaVersion = 2
-        // 规范字段用于筛选；原字段和相关人物姓名用于查阅。既有值不被新一轮空解析覆盖。
-        if (isEmpty(a.profileFields) && p.profileFields.length) a.profileFields = p.profileFields
-        if (isEmpty(a.relatedProfiles) && p.rel.length) a.relatedProfiles = p.rel
-
-        /*
-         * 只填空避免覆盖人工修正及已有较完整资料；名册作为消费端兜底数据，因此不以本次空解析结果清空已有字段。
-         */
-        if (p.canon && cnorm(p.canon) !== cnorm(a.name) && !a.mcanon) a.mcanon = p.canon
-        for (const f of NEED) if (isEmpty(a[f]) && !isEmpty(p[f])) a[f] = p[f]
-        if (!isEmpty(p.img) && isEmpty(a.mimg)) a.mimg = p.img
-        if (isEmpty(a.alias) && p.alias.length) a.alias = p.alias
-        if (isEmpty(a.tags) && p.tags.length) a.tags = p.tags
-        if (isEmpty(a.rel) && p.rel.length)
-          a.rel = p.rel.map(x => String(x.id || '')).filter(Boolean)
+        updateProfile(a, {
+          ...Object.fromEntries(NEED.map(field => [field, p[field]])),
+          mcanon: p.canon,
+          mimg: p.img,
+          profileFields: p.profileFields,
+          relatedProfiles: p.rel,
+          alias: p.alias,
+          tags: p.tags,
+          rel: p.rel.map(x => String(x.id || '')).filter(Boolean)
+        }, a.profileFetchedAt)
         if (!a.msrc) a.msrc = MN_BASE + 'actress' + a.mnid + '.html'
       } else {
         cache[a.mnid] = { fetchedAt: Date.now(), ok: false }

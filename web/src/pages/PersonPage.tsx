@@ -395,6 +395,22 @@ export default function PersonPage({
                           ? 'JavDB 无码出演样本'
                           : '性别原始证据'}
                   </h3>
+                  {raw.profileSource != null && (
+                    <details>
+                      <summary>最新来源值与保留差异</summary>
+                      <p className="small muted">
+                        空解析不会清空旧资料；与旧名册保留值不一致的字段列在 conflicts
+                        中。个人编辑仍独立保存。
+                      </p>
+                      <RawTree value={raw.profileSource} />
+                    </details>
+                  )}
+                  {Array.isArray(raw.profileHistory) && (
+                    <details>
+                      <summary>来源变更历史（{raw.profileHistory.length} 次）</summary>
+                      <RawTree value={raw.profileHistory} />
+                    </details>
+                  )}
                   {Array.isArray(raw.profileFields) && (
                     <dl className="raw-fields">
                       {raw.profileFields.map(
