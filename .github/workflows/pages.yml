@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['web/**', 'relay/**', 'tools/lib/works-policy.js', '.github/workflows/pages.yml']
+    paths: ['web/**', 'relay/**', 'tools/lib/**', '.github/workflows/pages.yml']
   # 采集使用 GITHUB_TOKEN 推送，不会再次触发 push 工作流，因此监听采集完成事件。
   workflow_run:
     workflows: ['Collect atlas data']
