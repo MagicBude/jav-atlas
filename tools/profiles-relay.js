@@ -390,5 +390,7 @@ const isEmpty = v => v === undefined || v === null || v === '' || (Array.isArray
   )
 })().catch(e => {
   console.error('FAIL:', e.stack || e.message)
-  process.exit(e.exitCode === 2 ? 2 : 1)
+  // fetch 的代理连接可能仍在释放底层句柄；设置退出码后让事件循环自然结束，
+  // 避免立即 process.exit() 打断 Windows 网络句柄清理。失败码语义保持不变。
+  process.exitCode = e.exitCode === 2 ? 2 : 1
 })
