@@ -1,9 +1,21 @@
 {
   "schemaVersion": 1,
   "tasks": {
+    "109709": {
+      "status": "success",
+      "checkedAt": 1793148274026,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "112399": {
       "status": "success",
       "checkedAt": 1792971160947,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "142772": {
+      "status": "success",
+      "checkedAt": 1793148295015,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -16,6 +28,18 @@
     "159081": {
       "status": "success",
       "checkedAt": 1792885032315,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "160521": {
+      "status": "success",
+      "checkedAt": 1793148303001,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "174075": {
+      "status": "success",
+      "checkedAt": 1793148297021,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -43,9 +67,28 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "193734": {
+      "status": "success",
+      "checkedAt": 1793148304990,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "194631": {
       "status": "success",
       "checkedAt": 1792885038301,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "197460": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793148314983,
+      "nextRetryAt": 1793753114983
+    },
+    "203645": {
+      "status": "success",
+      "checkedAt": 1793148300992,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -79,6 +122,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "223648": {
+      "status": "success",
+      "checkedAt": 1793148299036,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "223865": {
       "status": "success",
       "checkedAt": 1792829832500,
@@ -104,6 +153,18 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "238140": {
+      "status": "success",
+      "checkedAt": 1793148275992,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "245326": {
+      "status": "success",
+      "checkedAt": 1793148278018,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "245726": {
       "status": "success",
       "checkedAt": 1793061926456,
@@ -115,6 +176,20 @@
       "checkedAt": 1793068796647,
       "attempts": 0,
       "nextRetryAt": 0
+    },
+    "251221": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793148283004,
+      "nextRetryAt": 1793753083004
+    },
+    "252846": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793148316030,
+      "nextRetryAt": 1793753116030
     },
     "256024": {
       "status": "success",
@@ -146,6 +221,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "277741": {
+      "status": "success",
+      "checkedAt": 1793148293201,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "281788": {
       "status": "success",
       "checkedAt": 1793061912467,
@@ -155,6 +236,12 @@
     "283509": {
       "status": "success",
       "checkedAt": 1793061914446,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "292797": {
+      "status": "success",
+      "checkedAt": 1793148279989,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -168,6 +255,12 @@
     "304538": {
       "status": "success",
       "checkedAt": 1792885028306,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "308879": {
+      "status": "success",
+      "checkedAt": 1793148281990,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -275,6 +368,19 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "432512": {
+      "status": "success",
+      "checkedAt": 1793148287015,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "451252": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793148310981,
+      "nextRetryAt": 1793753110981
+    },
     "462093": {
       "status": "success",
       "checkedAt": 1793068782510,
@@ -302,6 +408,12 @@
     "492325": {
       "status": "success",
       "checkedAt": 1792731104883,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "496373": {
+      "status": "success",
+      "checkedAt": 1793148314002,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -419,6 +531,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "613664": {
+      "status": "success",
+      "checkedAt": 1793148272000,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "613908": {
       "status": "success",
       "checkedAt": 1792731112389,
@@ -481,6 +599,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "656169": {
+      "status": "success",
+      "checkedAt": 1793148285011,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "661485": {
       "status": "success",
       "checkedAt": 1793068746639,
@@ -529,11 +653,24 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "703747": {
+      "status": "success",
+      "checkedAt": 1793148309990,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "712658": {
       "status": "success",
       "checkedAt": 1792800001869,
       "attempts": 0,
       "nextRetryAt": 0
+    },
+    "714372": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793148305997,
+      "nextRetryAt": 1793753105997
     },
     "718888": {
       "status": "success",
@@ -553,9 +690,21 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "736948": {
+      "status": "success",
+      "checkedAt": 1793148308015,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "740125": {
       "status": "success",
       "checkedAt": 1792733631636,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "746515": {
+      "status": "success",
+      "checkedAt": 1793148266005,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -590,6 +739,20 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "829330": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793148266997,
+      "nextRetryAt": 1793753066997
+    },
+    "833363": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793148267999,
+      "nextRetryAt": 1793753067999
+    },
     "835696": {
       "status": "success",
       "checkedAt": 1793068802649,
@@ -602,6 +765,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "854345": {
+      "status": "success",
+      "checkedAt": 1793148290993,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "866129": {
       "status": "success",
       "checkedAt": 1792731106357,
@@ -611,6 +780,18 @@
     "869316": {
       "status": "success",
       "checkedAt": 1792971162961,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "888163": {
+      "status": "success",
+      "checkedAt": 1793148270016,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "890021": {
+      "status": "success",
+      "checkedAt": 1793148289016,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -631,6 +812,13 @@
       "checkedAt": 1792800008881,
       "attempts": 0,
       "nextRetryAt": 0
+    },
+    "941123": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793148311985,
+      "nextRetryAt": 1793753111985
     },
     "947573": {
       "status": "success",

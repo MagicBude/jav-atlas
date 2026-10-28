@@ -1,25 +1,260 @@
 {
-  "generatedAt": 1793068875219,
-  "exitCode": 3221226505,
-  "selected": 1,
+  "generatedAt": 1793148145094,
+  "exitCode": 0,
+  "selected": 40,
   "batch": {
-    "profileSuccess": 0,
-    "profileFailed": 1,
+    "profileSuccess": 40,
+    "profileFailed": 0,
     "profileNotAttempted": 0,
     "missingAvatars": 0
   },
   "total": {
-    "people": 556,
-    "profileSuccess": 555,
-    "profileFieldsSaved": 555,
+    "people": 598,
+    "profileSuccess": 597,
+    "profileFieldsSaved": 597,
     "missingAvatars": 2
   },
   "results": [
     {
-      "mnid": "125102",
-      "name": "天音るな",
-      "profile": "failed",
+      "mnid": "118609",
+      "name": "水樹まや",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "147924",
+      "name": "倉多まお",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "169669",
+      "name": "胡桃きき",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "210497",
+      "name": "三好佑香",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "228832",
+      "name": "今村楓",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "237991",
+      "name": "ゆり(FC2)",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "256290",
+      "name": "穂村あいね",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "25709",
+      "name": "高橋ゆら",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "25943",
+      "name": "竹内有紀",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "26088",
+      "name": "ココ・ラブロック",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "276946",
+      "name": "南條れいな",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "295275",
+      "name": "天川そら",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "340379",
+      "name": "和泉亮子",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "356018",
+      "name": "MEGUMI",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "385935",
+      "name": "御子柴美花",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "427018",
+      "name": "赤平瑠衣",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "456554",
+      "name": "吉根ゆりあ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "512642",
+      "name": "成咲優美",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "556661",
+      "name": "紗弥佳【AIAV女優】",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "597844",
+      "name": "七ツ森りり",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "627348",
+      "name": "茉白【ガールールプロ】",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "637058",
+      "name": "三枝由梨",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "648100",
+      "name": "小宵こなん",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "658833",
+      "name": "蒼いおり",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "729401",
+      "name": "音無鈴",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "740771",
+      "name": "宍戸里帆",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "749378",
+      "name": "椿りか",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "787441",
+      "name": "高田のぞみ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "790112",
+      "name": "和泉潤",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "794936",
+      "name": "横田美優",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "795049",
+      "name": "白峰ミウ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "815569",
+      "name": "新井ひなた",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "816735",
+      "name": "天野るみ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "82203",
+      "name": "光原ほのか",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "825606",
+      "name": "君島アンナ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "832690",
+      "name": "奥田咲",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "842854",
+      "name": "あみ(しろハメ)",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "910982",
+      "name": "白金れい奈",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "936282",
+      "name": "綾瀬ことね",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "12734",
+      "name": "乃崎えみ果",
+      "profile": "success",
       "avatar": "available"
     }
-  ]
+  ],
+  "scope": "ranked-pool"
 }

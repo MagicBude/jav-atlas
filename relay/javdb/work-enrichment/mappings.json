@@ -1,6 +1,16 @@
 {
   "schemaVersion": 1,
   "mappings": {
+    "109709": {
+      "minnanoId": "109709",
+      "javdbId": "QNrN37",
+      "code": "ABBA-691",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148274025,
+      "dateDifference": true,
+      "minnanoDate": "2026-01-14",
+      "javdbDate": "2026-01-15"
+    },
     "112399": {
       "minnanoId": "112399",
       "javdbId": "xA0DPg",
@@ -20,6 +30,16 @@
       "dateDifference": true,
       "minnanoDate": "2026-04-09",
       "javdbDate": "2026-04-14"
+    },
+    "142772": {
+      "minnanoId": "142772",
+      "javdbId": "xA4M8O",
+      "code": "OFJE-588",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148295014,
+      "dateDifference": true,
+      "minnanoDate": "2025-12-04",
+      "javdbDate": "2025-12-09"
     },
     "154346": {
       "minnanoId": "154346",
@@ -50,6 +70,26 @@
       "dateDifference": true,
       "minnanoDate": "2026-06-25",
       "javdbDate": "2026-06-30"
+    },
+    "160521": {
+      "minnanoId": "160521",
+      "javdbId": "xArdgV",
+      "code": "OFJE-580",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148303000,
+      "dateDifference": true,
+      "minnanoDate": "2025-11-06",
+      "javdbDate": "2025-11-11"
+    },
+    "174075": {
+      "minnanoId": "174075",
+      "javdbId": "6dRezE",
+      "code": "SONE-991",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148297020,
+      "dateDifference": true,
+      "minnanoDate": "2025-12-04",
+      "javdbDate": "2025-12-10"
     },
     "178669": {
       "minnanoId": "178669",
@@ -91,6 +131,16 @@
       "minnanoDate": "2026-09-24",
       "javdbDate": "2026-09-29"
     },
+    "193734": {
+      "minnanoId": "193734",
+      "javdbId": "6dEpqM",
+      "code": "OFJE-582",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148304988,
+      "dateDifference": true,
+      "minnanoDate": "2025-11-06",
+      "javdbDate": "2025-11-11"
+    },
     "194631": {
       "minnanoId": "194631",
       "javdbId": "Ww7JQZ",
@@ -100,6 +150,16 @@
       "dateDifference": true,
       "minnanoDate": "2026-06-18",
       "javdbDate": "2026-06-23"
+    },
+    "203645": {
+      "minnanoId": "203645",
+      "javdbId": "7yG3m4",
+      "code": "OFJE-585",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148300991,
+      "dateDifference": true,
+      "minnanoDate": "2025-11-20",
+      "javdbDate": "2025-11-25"
     },
     "205002": {
       "minnanoId": "205002",
@@ -151,6 +211,16 @@
       "minnanoDate": "2026-03-05",
       "javdbDate": "2026-03-10"
     },
+    "223648": {
+      "minnanoId": "223648",
+      "javdbId": "bKEz66",
+      "code": "FERA-209",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148299035,
+      "dateDifference": true,
+      "minnanoDate": "2025-12-03",
+      "javdbDate": "2025-12-04"
+    },
     "223865": {
       "minnanoId": "223865",
       "javdbId": "AqXgdK",
@@ -180,6 +250,26 @@
       "dateDifference": true,
       "minnanoDate": "2026-04-14",
       "javdbDate": "2026-04-15"
+    },
+    "238140": {
+      "minnanoId": "238140",
+      "javdbId": "BzV2a9",
+      "code": "SNOS-038",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148275991,
+      "dateDifference": true,
+      "minnanoDate": "2026-01-13",
+      "javdbDate": "2026-01-14"
+    },
+    "245326": {
+      "minnanoId": "245326",
+      "javdbId": "RkYm88",
+      "code": "FWAY-088",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148278017,
+      "dateDifference": false,
+      "minnanoDate": "2026-01-08",
+      "javdbDate": null
     },
     "245726": {
       "minnanoId": "245726",
@@ -251,6 +341,16 @@
       "minnanoDate": "2026-04-10",
       "javdbDate": "2026-04-14"
     },
+    "277741": {
+      "minnanoId": "277741",
+      "javdbId": "BzVE64",
+      "code": "GOMU-036",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148293200,
+      "dateDifference": true,
+      "minnanoDate": "2025-12-10",
+      "javdbDate": "2025-12-11"
+    },
     "281788": {
       "minnanoId": "281788",
       "javdbId": "ZNPnrm",
@@ -271,6 +371,16 @@
       "minnanoDate": "2026-06-19",
       "javdbDate": "2026-06-23"
     },
+    "292797": {
+      "minnanoId": "292797",
+      "javdbId": "de3JqM",
+      "code": "OFJE-596",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148279988,
+      "dateDifference": true,
+      "minnanoDate": "2026-01-08",
+      "javdbDate": "2026-01-13"
+    },
     "304538": {
       "minnanoId": "304538",
       "javdbId": "EbOOOA",
@@ -280,6 +390,16 @@
       "dateDifference": true,
       "minnanoDate": "2026-08-13",
       "javdbDate": "2026-08-18"
+    },
+    "308879": {
+      "minnanoId": "308879",
+      "javdbId": "NQgMkN",
+      "code": "OFJE-597",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148281989,
+      "dateDifference": true,
+      "minnanoDate": "2026-01-08",
+      "javdbDate": "2026-01-13"
     },
     "311453": {
       "minnanoId": "311453",
@@ -431,6 +551,16 @@
       "minnanoDate": "2026-09-22",
       "javdbDate": "2026-09-23"
     },
+    "432512": {
+      "minnanoId": "432512",
+      "javdbId": "0epa9b",
+      "code": "UMSO-621",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148287014,
+      "dateDifference": true,
+      "minnanoDate": "2025-12-19",
+      "javdbDate": "2025-12-23"
+    },
     "462093": {
       "minnanoId": "462093",
       "javdbId": "GZnmBb",
@@ -480,6 +610,16 @@
       "dateDifference": true,
       "minnanoDate": "2026-10-08",
       "javdbDate": "2026-10-13"
+    },
+    "496373": {
+      "minnanoId": "496373",
+      "javdbId": "5n40z8",
+      "code": "SONE-912",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148314001,
+      "dateDifference": false,
+      "minnanoDate": "2025-10-14",
+      "javdbDate": "2025-10-14"
     },
     "506927": {
       "minnanoId": "506927",
@@ -681,6 +821,16 @@
       "minnanoDate": "2026-10-13",
       "javdbDate": "2026-10-14"
     },
+    "613664": {
+      "minnanoId": "613664",
+      "javdbId": "DRKxY2",
+      "code": "OFJE-599",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148271999,
+      "dateDifference": true,
+      "minnanoDate": "2026-01-22",
+      "javdbDate": "2026-01-27"
+    },
     "613908": {
       "minnanoId": "613908",
       "javdbId": "ZNzEz6",
@@ -760,6 +910,16 @@
       "dateDifference": true,
       "minnanoDate": "2026-03-19",
       "javdbDate": "2026-03-24"
+    },
+    "656169": {
+      "minnanoId": "656169",
+      "javdbId": "r3xZak",
+      "code": "OFJE-595",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148285010,
+      "dateDifference": true,
+      "minnanoDate": "2025-12-25",
+      "javdbDate": "2025-12-30"
     },
     "661485": {
       "minnanoId": "661485",
@@ -841,6 +1001,16 @@
       "minnanoDate": "2026-08-06",
       "javdbDate": "2026-08-12"
     },
+    "703747": {
+      "minnanoId": "703747",
+      "javdbId": "nKWEw4",
+      "code": "JURA-168",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148309989,
+      "dateDifference": true,
+      "minnanoDate": "2025-11-05",
+      "javdbDate": "2025-11-06"
+    },
     "712658": {
       "minnanoId": "712658",
       "javdbId": "veqwzz",
@@ -881,6 +1051,16 @@
       "minnanoDate": "2026-04-23",
       "javdbDate": "2026-04-28"
     },
+    "736948": {
+      "minnanoId": "736948",
+      "javdbId": "e8EXO1",
+      "code": "SONE-974",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148308014,
+      "dateDifference": true,
+      "minnanoDate": "2025-11-06",
+      "javdbDate": "2025-11-11"
+    },
     "740125": {
       "minnanoId": "740125",
       "javdbId": "wK7bVn",
@@ -890,6 +1070,16 @@
       "dateDifference": true,
       "minnanoDate": "2026-08-27",
       "javdbDate": "2026-09-01"
+    },
+    "746515": {
+      "minnanoId": "746515",
+      "javdbId": "yxYKMr",
+      "code": "MMPB-142",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148266004,
+      "dateDifference": true,
+      "minnanoDate": "2026-10-02",
+      "javdbDate": "2026-10-06"
     },
     "803212": {
       "minnanoId": "803212",
@@ -951,6 +1141,16 @@
       "minnanoDate": "2026-08-05",
       "javdbDate": "2026-08-06"
     },
+    "854345": {
+      "minnanoId": "854345",
+      "javdbId": "KkqPqO",
+      "code": "JFB-494",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148290992,
+      "dateDifference": true,
+      "minnanoDate": "2025-12-11",
+      "javdbDate": "2025-12-16"
+    },
     "866129": {
       "minnanoId": "866129",
       "javdbId": "YwgkAz",
@@ -970,6 +1170,26 @@
       "dateDifference": true,
       "minnanoDate": "2026-10-15",
       "javdbDate": "2026-10-21"
+    },
+    "888163": {
+      "minnanoId": "888163",
+      "javdbId": "a8VKm4",
+      "code": "OFJE-606",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148270015,
+      "dateDifference": true,
+      "minnanoDate": "2026-02-05",
+      "javdbDate": "2026-02-10"
+    },
+    "890021": {
+      "minnanoId": "890021",
+      "javdbId": "Mbn52P",
+      "code": "OFJE-590",
+      "method": "unique-exact-code-and-detail-id",
+      "checkedAt": 1793148289015,
+      "dateDifference": true,
+      "minnanoDate": "2025-12-18",
+      "javdbDate": "2025-12-23"
     },
     "907602": {
       "minnanoId": "907602",
