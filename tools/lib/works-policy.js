@@ -36,7 +36,23 @@ function planActors({ ids, rankings, people, now, limit }) {
   const reserved = Math.max(1, Math.floor(limit / 2))
   const resumed = pending.slice(0, reserved)
   const discovered = fresh.slice(0, limit - resumed.length)
+  // 新人物的服务时间为0，天然排在已完成人物前面。若只按这个顺序取名额，
+  // 人物池持续增长时，七天复查可能永远轮不到。每轮最多预留一个到期复查位，
+  // 只替换发现组的最后一位；续跑名额保持不变，其余名额继续发现新人物。
+  // 单人预算沿用原有轮转，避免唯一名额长期被复查占用。
+  const overdue = fresh.find(id => people[id]?.finished && people[id].stable)
+  if (limit > 1 && overdue && discovered.length && !discovered.includes(overdue))
+    discovered[discovered.length - 1] = overdue
   return [...resumed, ...discovered, ...pending.slice(resumed.length)].slice(0, limit)
+}
+
+/**
+ * 给尚未开始的入选人物留出页数。比如20页分给5人时，第一人先取4页，
+ * 而不是连续取5页让最后一人完全没有机会；前一人提前结束，余量自动交给后面。
+ * 这是分页配额，网络重试和首页复核仍由RequestBudget单独约束。
+ */
+function actorPageAllowance(remainingPages, remainingPeople, perPersonLimit) {
+  return Math.min(perPersonLimit, Math.ceil(remainingPages / remainingPeople))
 }
 
 /** 每天续跑不能因为扫描总时长超过24小时而反复回到首页；仅连续7天无进展才重启。 */
@@ -68,4 +84,4 @@ class RequestBudget {
 function planWorkRound({ readyDetails, detailLimit }) {
   return detailLimit > 0 && readyDetails >= detailLimit ? 'details-first' : 'normal'
 }
-module.exports = { planActors, RequestBudget, shouldRestartScan, planWorkRound }
+module.exports = { planActors, RequestBudget, shouldRestartScan, planWorkRound, actorPageAllowance }

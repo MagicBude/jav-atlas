@@ -91,6 +91,37 @@ test('跨天持续推进保留扫描，连续七天无进展才重启，旧断�
   assert.equal(shouldRestartScan({ startedAt: now, finished: true }, now), true)
 })
 
+test('大量新人物不能挤掉到期复查，复查内部轮转且仍保留续跑和发现名额', () => {
+  const day = 86400000,
+    now = 20 * day
+  const args = {
+    ids: ['1', '2', '3', '4', '5', '6', '7', '8'],
+    rankings: {},
+    now,
+    limit: 5,
+    people: {
+      5: { lastScheduledAt: day },
+      6: { lastScheduledAt: 2 * day },
+      7: { lastScheduledAt: 3 * day, finished: true, stable: true, completedAt: day },
+      8: { lastScheduledAt: 4 * day, finished: true, stable: true, completedAt: day }
+    }
+  }
+  assert.deepEqual(planActors(args), ['5', '6', '1', '2', '7'])
+  args.people['7'].lastScheduledAt = now
+  args.people['7'].completedAt = now
+  assert.deepEqual(planActors(args), ['5', '6', '1', '2', '8'])
+  args.people['8'].nextRetryAt = now + day
+  assert.deepEqual(planActors(args), ['5', '6', '1', '2', '3'])
+})
+
+test('分页预算兼顾入选人物，短列表释放余量且不突破单人限制', () => {
+  const { actorPageAllowance } = require('../tools/lib/works-policy')
+  assert.equal(actorPageAllowance(20, 5, 5), 4)
+  assert.equal(actorPageAllowance(19, 4, 5), 5)
+  assert.equal(actorPageAllowance(3, 2, 5), 2)
+  assert.equal(actorPageAllowance(1, 1, 5), 1)
+})
+
 test('总请求预算涵盖全部尝试，耗尽信号与来源失败区分', () => {
   const budget = new RequestBudget(2)
   budget.take()
@@ -157,6 +188,37 @@ test('每人分页暂停后跨轮续跑，首页复核也受总请求上限约�
     assert.equal(run(env).status, 0)
     assert.equal(read('progress.json').people['125605'].finished, true)
     assert.equal(fs.readFileSync(log, 'utf8').trim().split('\n').length, 3)
+  }))
+
+test('有限页数让三个人物均获得进展，成功分页清除历史失败退避', () =>
+  queueSandbox(({ read, write, run }) => {
+    write('works/progress.json', {
+      schemaVersion: 1,
+      pendingDetails: {},
+      people: {
+        125605: {
+          startedAt: Date.now(),
+          nextPage: 1,
+          pages: {},
+          ids: [],
+          firstIds: [],
+          attempts: 6,
+          nextRetryAt: 1
+        }
+      }
+    })
+    const result = run({
+      WORK_FIXTURE_PAGES: '10',
+      WORK_PEOPLE: '3',
+      WORK_PAGES: '3',
+      WORK_PERSON_PAGES: '5'
+    })
+    assert.equal(result.status, 0, result.stdout + result.stderr)
+    const state = read('progress.json')
+    for (const id of ['125605', '190754', '999999']) assert.equal(state.people[id].nextPage, 2)
+    assert.equal(state.people['125605'].attempts, 0)
+    assert.equal(state.people['125605'].nextRetryAt, 0)
+    assert.equal(read('report.json').requests, 3)
   }))
 
 test('来源失败保留其他人物进度及退避，磁盘错误不能伪装成可恢复失败', () =>

@@ -11,7 +11,8 @@ const {
   planActors,
   RequestBudget,
   shouldRestartScan,
-  planWorkRound
+  planWorkRound,
+  actorPageAllowance
 } = require('./lib/works-policy')
 const base = 'https://www.minnano-av.com/'
 const root = path.join(path.dirname(dataPaths().minnanoActresses), 'works')
@@ -130,7 +131,8 @@ async function collectLists() {
     limit: peopleBudget
   })
   report.eligiblePeople = ids.length
-  for (const actorId of selected) {
+  report.selectedPeople = selected
+  for (const [actorIndex, actorId] of selected.entries()) {
     if (report.pages >= pageBudget || requests.used >= requests.limit) break
     const file = path.join(root, 'people', actorId + '.json')
     const person = readJson(file, { actorId, entries: [], completedAt: null })
@@ -147,9 +149,14 @@ async function collectLists() {
       }
     scan.lastScheduledAt = Date.now()
     let actorPages = 0
+    const actorPageLimit = actorPageAllowance(
+      pageBudget - report.pages,
+      selected.length - actorIndex,
+      perPersonPages
+    )
     const entries = new Map(person.entries.map(e => [e.id, e]))
     try {
-      while (scan.nextPage && report.pages < pageBudget && actorPages < perPersonPages) {
+      while (scan.nextPage && report.pages < pageBudget && actorPages < actorPageLimit) {
         const page = scan.nextPage
         const parsed = await sourceRead(listUrl(actorId, page), html =>
           parseList(html, actorId, page)
@@ -192,6 +199,9 @@ async function collectLists() {
         }
         scan.nextPage = parsed.nextPage
         scan.lastProgressAt = Date.now()
+        // 一次有效分页已证明来源恢复，清除历史失败；以后再失败从第一次退避开始。
+        scan.attempts = 0
+        scan.nextRetryAt = 0
         person.entries = [...entries.values()].sort((a, b) => a.id.localeCompare(b.id))
         person.updatedAt = Date.now()
         writeJson(file, person)
@@ -213,6 +223,8 @@ async function collectLists() {
         scan.finished = true
         scan.stable = stable
         scan.completedAt = stable ? Date.now() : null
+        scan.attempts = 0
+        scan.nextRetryAt = 0
         writeJson(file, person)
         save()
       }
