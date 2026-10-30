@@ -1,6 +1,16 @@
 const { test } = require('node:test')
 const assert = require('node:assert/strict')
-const { candidates, checkedRecord } = require('../tools/lib/fanza')
+const { candidates, checkedRecord, sameCode } = require('../tools/lib/fanza')
+
+test('补零可等价，前缀、集数和分片后缀必须严格区分', () => {
+  assert(sameCode('ofje00528', 'OFJE-528'))
+  assert(sameCode('AJVR00111', 'ajvr-111'))
+  assert(!sameCode('OFJE-528', 'OFJE-530'))
+  assert(!sameCode('FCDC-130', 'OFJE-130'))
+  assert(!sameCode('MCSR-042', 'MCSR-042-01'))
+  assert(!sameCode('1STARS-931', 'STARS-931'))
+  assert(!sameCode('', ''))
+})
 test('候选不猜数字前缀，返回番号和商品ID双重校验，秒数保持原单位', () => {
   assert.deepEqual(candidates('SNOS-461'), ['snos00461', 'snos461'])
   assert.deepEqual(candidates('../bad'), [])

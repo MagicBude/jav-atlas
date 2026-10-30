@@ -46,9 +46,16 @@
       "nextRetryAt": 1793932148991
     },
     "128777": {
-      "status": "unavailable",
-      "checkedAt": 1793327350190,
-      "nextRetryAt": 1793932150190
+      "status": "success",
+      "checkedAt": 1793328044131,
+      "observations": [
+        {
+          "candidateId": "ofje00528",
+          "returnedId": "ofje00528",
+          "returnedCode": "OFJE-528"
+        }
+      ],
+      "nextRetryAt": 0
     },
     "131773": {
       "status": "unavailable",
@@ -66,9 +73,16 @@
       "nextRetryAt": 1793932156209
     },
     "141076": {
-      "status": "unavailable",
-      "checkedAt": 1793327357433,
-      "nextRetryAt": 1793932157433
+      "status": "success",
+      "checkedAt": 1793328045324,
+      "observations": [
+        {
+          "candidateId": "ajvr00111",
+          "returnedId": "ajvr00111",
+          "returnedCode": "AJVR-111"
+        }
+      ],
+      "nextRetryAt": 0
     },
     "145961": {
       "status": "success",
@@ -86,14 +100,28 @@
       "nextRetryAt": 1793932162236
     },
     "158586": {
-      "status": "unavailable",
-      "checkedAt": 1793327363443,
-      "nextRetryAt": 1793932163443
+      "status": "success",
+      "checkedAt": 1793328046516,
+      "observations": [
+        {
+          "candidateId": "fcdc00130",
+          "returnedId": "fcdc00130",
+          "returnedCode": "FCDC-130"
+        }
+      ],
+      "nextRetryAt": 0
     },
     "161078": {
-      "status": "unavailable",
-      "checkedAt": 1793327365847,
-      "nextRetryAt": 1793932165847
+      "status": "success",
+      "checkedAt": 1793328047705,
+      "observations": [
+        {
+          "candidateId": "ofje00530",
+          "returnedId": "ofje00530",
+          "returnedCode": "OFJE-530"
+        }
+      ],
+      "nextRetryAt": 0
     },
     "162396": {
       "status": "success",

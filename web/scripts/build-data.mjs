@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url'
 import { collectSources, projectPerson } from './adapters.mjs'
 import coveragePolicy from '../../tools/lib/work-coverage.js'
 import rankingHistory from '../../tools/lib/ranking-history.js'
+import fanzaPolicy from '../../tools/lib/fanza.js'
 const web = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const relay = path.resolve(web, '../relay')
 const out = path.join(web, 'public/generated')
@@ -185,15 +186,10 @@ const mappings = read('javdb/work-enrichment/mappings.json', { mappings: {} }).m
 // FANZA与JavDB保持独立；展示时只补空字段，不把两个站点的分类ID混为一套。
 function fanzaSupplement(id, code) {
   const record = read(`fanza/work-enrichment/records/${id}.json`)
-  const norm = value =>
-    String(value || '')
-      .toUpperCase()
-      .replace(/[\s-]/g, '')
   if (!record) return null
   if (
     record.minnanoId !== String(id) ||
-    !norm(code) ||
-    norm(record.metadata?.makerContentId) !== norm(code)
+    !fanzaPolicy.sameCode(record.metadata?.makerContentId, code)
   )
     throw Error('FANZA浏览投影身份校验失败')
   return record

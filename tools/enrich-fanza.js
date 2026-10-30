@@ -16,6 +16,10 @@ const mappings = readJson(path.join(root, 'javdb/work-enrichment/mappings.json')
   mappings: {}
 }).mappings
 const limit = envInt('FANZA_LIMIT', 5, 1, 20)
+// 指定原生人物库作品ID进行有界复核，仅跳过这些作品的单项退避；来源限流仍然生效。
+const selectedIds = process.env.FANZA_IDS ? process.env.FANZA_IDS.split(',') : null
+if (selectedIds && !selectedIds.every(id => /^\d+$/.test(id)))
+  throw Error('FANZA_IDS必须是逗号分隔的作品原生ID')
 const report = { startedAt: Date.now(), requests: 0, results: [] }
 const query =
   'query AtlasSupplement($id: ID!) { ppvContent(id: $id) { id makerContentId duration makerReleasedAt directors { name } series { name } maker { name } label { id name } genres { id name } } }'
@@ -26,7 +30,11 @@ async function run() {
     .filter(f => /^\d+\.json$/.test(f))
     .map(f => readJson(path.join(folder, f)))
     .filter(row => {
-      if (!candidates(row.code).length || state.tasks[row.id]?.nextRetryAt > Date.now())
+      if (selectedIds && !selectedIds.includes(String(row.id))) return false
+      if (
+        !candidates(row.code).length ||
+        (!selectedIds && state.tasks[row.id]?.nextRetryAt > Date.now())
+      )
         return false
       if (readJson(path.join(out, 'records', row.id + '.json'), null)) return false
       const mapping = mappings[row.id]
@@ -43,6 +51,7 @@ async function run() {
     for (const local of locals) {
       let record,
         errorText = '候选商品未得到精确番号匹配'
+      const observations = []
       for (const id of candidates(local.code)) {
         await new Promise(resolve => setTimeout(resolve, 1000))
         let response, data
@@ -65,8 +74,22 @@ async function run() {
           if (!response.ok) throw Error('HTTP ' + response.status)
           data = await response.json()
           if (data.errors) throw Error('GraphQL返回错误，接口可能变化')
-          if (data.data?.ppvContent)
-            record = checkedRecord(local, data.data.ppvContent, id, Date.now())
+          const movie = data.data?.ppvContent
+          const observation = {
+            candidateId: id,
+            returnedId: movie?.id ?? null,
+            returnedCode: movie?.makerContentId ?? null
+          }
+          observations.push(observation)
+          if (movie) {
+            try {
+              record = checkedRecord(local, movie, id, Date.now())
+            } catch (error) {
+              errorText = error.message
+              observation.rejected = error.message
+              // 当前候选身份不符不代表下一个候选也不符；继续，但每部仍最多两个请求。
+            }
+          }
         } catch (error) {
           errorText = error.message
           break
@@ -78,12 +101,14 @@ async function run() {
       state.tasks[local.id] = {
         status: record ? 'success' : 'unavailable',
         checkedAt: Date.now(),
+        observations,
         nextRetryAt: record ? 0 : Date.now() + 7 * 86400000
       }
       report.results.push({
         id: local.id,
         code: local.code,
         status: state.tasks[local.id].status,
+        observations,
         ...(record ? {} : { error: errorText })
       })
       writeJson(stateFile, state)

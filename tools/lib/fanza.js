@@ -1,9 +1,21 @@
 /** FANZA的商品ID只是候选地址，必须用返回的厂商番号二次校验，不能据此直接绑定。 */
-const normalize = value =>
-  String(value || '')
+/**
+ * 借鉴OpenAver的严格号码比较：只对“字母前缀+纯数字”忽略数字补零。
+ * OFJE00528与OFJE-528相同；分片后缀、数字厂商前缀不随意删掉，避免串片。
+ * 这里只比较号码，不改写任何来源的原始编号。
+ */
+function codeKey(value) {
+  const text = String(value || '')
     .normalize('NFKC')
+    .trim()
     .toUpperCase()
-    .replace(/[\s-]/g, '')
+  const match = text.match(/^([A-Z]+)-?(\d+)$/)
+  return match ? `${match[1]}:${match[2].replace(/^0+/, '') || '0'}` : null
+}
+function sameCode(left, right) {
+  const key = codeKey(left)
+  return key !== null && key === codeKey(right)
+}
 function candidates(code) {
   const match = String(code).match(/^([A-Za-z]+)-?(\d+)$/)
   if (!match) return []
@@ -15,11 +27,7 @@ function candidates(code) {
   ]
 }
 function checkedRecord(local, movie, candidateId, now) {
-  if (
-    !movie ||
-    movie.id !== candidateId ||
-    normalize(movie.makerContentId) !== normalize(local.code)
-  )
+  if (!movie || movie.id !== candidateId || !sameCode(movie.makerContentId, local.code))
     throw Error('FANZA商品身份或番号不一致')
   return {
     source: 'fanza',
@@ -41,4 +49,4 @@ function checkedRecord(local, movie, candidateId, now) {
     }
   }
 }
-module.exports = { candidates, checkedRecord }
+module.exports = { candidates, checkedRecord, sameCode }
