@@ -1,5 +1,3 @@
-import WebsitesPage from '../pages/WebsitesPage'
-import TagCatalogPage from '../pages/TagCatalogPage'
 import WorkPage from '../pages/WorkPage'
 import WorksPage from '../pages/WorksPage'
 import SearchPage from '../pages/SearchPage'
@@ -7,7 +5,7 @@ import SearchPage from '../pages/SearchPage'
  * @file 路由与容器的组合层。桌面详情叠在保存的背景列表上，完整页使用同一份内容。
  * 草稿保护统一在此拦截导航；不会在每个链接里各写一套不一致的“是否离开”。
  */
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import {
   Link,
   NavLink,
@@ -22,13 +20,29 @@ import { useApp } from './context'
 import PeoplePage from '../pages/PeoplePage'
 import PersonPage from '../pages/PersonPage'
 import RankingsPage from '../pages/RankingsPage'
-import DataPage from '../pages/DataPage'
+import { loadIndex, resource } from '../data/repository'
 import { Modal } from '../shared/Modal'
 import { restoreList } from '../features/people/returnPosition'
+// 次要页面按需加载；浏览人物或作品时无需先下载网站清单与数据管理页面。
+const WebsitesPage = lazy(() => import('../pages/WebsitesPage'))
+const TagCatalogPage = lazy(() => import('../pages/TagCatalogPage'))
+const DataPage = lazy(() => import('../pages/DataPage'))
 export default function App() {
   const location = useLocation(),
     navigate = useNavigate(),
-    { data, error, drafts, setDraft, saveDraft } = useApp()
+    { manifest, data, error, drafts, setDraft, saveDraft } = useApp()
+  // 意图预取复用仓库的Promise缓存，鼠标/键盘重复触发不会重复下载。
+  // 预取失败保持静默，正式进入页面后仍有原来的错误提示和重试入口。
+  const prepare = (page: 'works' | 'rankings') => {
+    if (!manifest) return
+    const requests =
+      page === 'works'
+        ? manifest.works?.index
+          ? [resource(manifest.works.index)]
+          : []
+        : [resource(manifest.rankings), loadIndex(manifest, 'minnano')]
+    void Promise.all(requests).catch(() => {})
+  }
   const [wide, setWide] = useState(window.innerWidth >= 1024)
   // 刷新后不要凭浏览器恢复的旧 state 强行打开没有背景的抽屉。
   const [firstKey] = useState(location.key)
@@ -87,8 +101,22 @@ export default function App() {
             <NavLink to="/people" className={({ isActive }) => (isActive ? 'active' : '')}>
               人物
             </NavLink>
-            <NavLink to="/works">作品</NavLink>
-            <NavLink to="/rankings">榜单</NavLink>
+            <NavLink
+              to="/works"
+              onMouseEnter={() => prepare('works')}
+              onFocus={() => prepare('works')}
+              onTouchStart={() => prepare('works')}
+            >
+              作品
+            </NavLink>
+            <NavLink
+              to="/rankings"
+              onMouseEnter={() => prepare('rankings')}
+              onFocus={() => prepare('rankings')}
+              onTouchStart={() => prepare('rankings')}
+            >
+              榜单
+            </NavLink>
             <NavLink to="/tags">类别目录</NavLink>
             <NavLink to="/websites">相关网站</NavLink>
             <NavLink to="/favorites">
@@ -135,32 +163,34 @@ export default function App() {
             <button onClick={() => window.location.reload()}>重试</button>
           </div>
         )}
-        <Routes location={drawer ? background : location}>
-          <Route path="/" element={<PeoplePage />} />
-          <Route path="/people" element={<PeoplePage />} />
-          <Route path="/favorites" element={<PeoplePage favoritesOnly />} />
-          <Route path="/works" element={<WorksPage />} />
-          <Route path="/tags" element={<TagCatalogPage />} />
-          <Route path="/websites" element={<WebsitesPage />} />
-          <Route
-            path="/sources"
-            element={<Navigate to={{ pathname: '/websites', search: location.search }} replace />}
-          />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/works/minnano/:id" element={<WorkPage />} />
-          <Route path="/rankings" element={<RankingsPage />} />
-          <Route path="/data" element={<DataPage />} />
-          <Route path="/people/:source/:id" element={<PersonPage />} />
-          <Route
-            path="*"
-            element={
-              <main className="empty-state">
-                <h1>页面不存在</h1>
-                <Link to="/people">返回人物资料库</Link>
-              </main>
-            }
-          />
-        </Routes>
+        <Suspense fallback={<p role="status">正在加载页面…</p>}>
+          <Routes location={drawer ? background : location}>
+            <Route path="/" element={<PeoplePage />} />
+            <Route path="/people" element={<PeoplePage />} />
+            <Route path="/favorites" element={<PeoplePage favoritesOnly />} />
+            <Route path="/works" element={<WorksPage />} />
+            <Route path="/tags" element={<TagCatalogPage />} />
+            <Route path="/websites" element={<WebsitesPage />} />
+            <Route
+              path="/sources"
+              element={<Navigate to={{ pathname: '/websites', search: location.search }} replace />}
+            />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/works/minnano/:id" element={<WorkPage />} />
+            <Route path="/rankings" element={<RankingsPage />} />
+            <Route path="/data" element={<DataPage />} />
+            <Route path="/people/:source/:id" element={<PersonPage />} />
+            <Route
+              path="*"
+              element={
+                <main className="empty-state">
+                  <h1>页面不存在</h1>
+                  <Link to="/people">返回人物资料库</Link>
+                </main>
+              }
+            />
+          </Routes>
+        </Suspense>
       </div>
       {drawer && (
         <Modal title="人物详情" drawer close={close}>
