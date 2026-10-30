@@ -10,7 +10,7 @@ export function SourceCandidates({ category = 'all' }: { category?: string }) {
   )
   return (
     <section className="source-candidates" aria-label="网站核实记录">
-      <h2>待核实站点</h2>
+      <h2>更多相关网站</h2>
       <p className="muted">
         本分类显示 {candidates.length} / {audit.candidates.length}{' '}
         项核实记录，尚未接入采集。核实日期：{audit.checkedOn}
@@ -30,48 +30,12 @@ export function SourceCandidates({ category = 'all' }: { category?: string }) {
                 </p>
               </div>
             </header>
-            <p className="candidate-state">{candidate.status}</p>
-            <details className="source-candidate">
-              <summary>
-                查看核实详情 <span aria-hidden="true">⌄</span>
-              </summary>
-              <div className="source-candidate-body">
-                <p>
-                  <strong>用途分类：</strong>
-                  {candidate.categories.map(websiteCategoryLabel).join('、')}
-                </p>
-                <p>
-                  <strong>核实依据：</strong>
-                  {candidate.basis}
-                </p>
-                <p>
-                  <strong>可能补充：</strong>
-                  {candidate.potential}
-                </p>
-                <ul>
-                  {candidate.observations.map(observation => (
-                    <li key={observation}>{observation}</li>
-                  ))}
-                </ul>
-                <p>
-                  <strong>未确认：</strong>
-                  {candidate.blockers}
-                </p>
-                <p>
-                  <strong>下一步：</strong>
-                  {candidate.next}
-                </p>
-                {!!candidate.evidence.length && (
-                  <p className="source-evidence">
-                    {candidate.evidence.map(item => (
-                      <a key={item.url} href={item.url} target="_blank" rel="noopener noreferrer">
-                        {item.label} ↗
-                      </a>
-                    ))}
-                  </p>
-                )}
-              </div>
-            </details>
+            <p>{candidate.potential}</p>
+            <div className="source-evidence">
+              {candidate.evidence.map(item => (
+                <a key={item.url} href={item.url} target="_blank" rel="noopener noreferrer">{item.label} ↗</a>
+              ))}
+            </div>
           </article>
         ))}
       </div>

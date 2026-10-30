@@ -38,10 +38,11 @@ export default function RankingsPage() {
   const period = ['day', 'week', 'month'].includes(selected)
     ? (selected as 'day' | 'week' | 'month')
     : 'week'
-  const request = useResource(manifest ? `${manifest.version}:rankings` : '', async () => ({
-    rankings: await resource<Rankings>(manifest!.rankings),
-    people: await loadIndex(manifest!, 'minnano')
-  }))
+  const request = useResource(manifest ? `${manifest.version}:rankings` : '', async () => {
+    // 两个资源没有依赖，并行读取避免叠加网络等待时间。
+    const [rankings, people] = await Promise.all([resource<Rankings>(manifest!.rankings), loadIndex(manifest!, 'minnano')])
+    return { rankings, people }
+  })
   useEffect(() => {
     if (request.value) restoreList(location.key)
   }, [request.value, location.key])

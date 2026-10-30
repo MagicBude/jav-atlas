@@ -26,9 +26,9 @@ const read = (name, fallback = null) => {
   const file = path.join(relay, name)
   return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : fallback
 }
-/** 写入可独立缓存的 JSON；不压缩单行，便于本地排查生成结果。 */
+/** 网页派生资源使用紧凑 JSON 减少传输；relay 原始数据仍保留缩进供阅读。 */
 function emit(prefix, value) {
-  const body = JSON.stringify(value, null, 2) + '\n'
+  const body = JSON.stringify(value) + '\n'
   const hash = crypto.createHash('sha256').update(body).digest('hex').slice(0, 16)
   const name = `${prefix}-${hash}.json`
   fs.writeFileSync(path.join(out, name), body)

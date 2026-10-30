@@ -17,11 +17,8 @@ it('候选不混入已接入来源，也不能生成对应详情链接', () => {
 })
 it('候选页面展示核实依据与限制，不提供采集开关或主页跳转', () => {
   const html = renderToStaticMarkup(createElement(SourceCandidates))
-  expect(html.match(/<details /g)).toHaveLength(13)
-  expect(html).toContain('尚未接入')
-  expect(html).toContain('待令牌验证')
-  expect(html).toContain('访问核实受阻')
+  expect(html.match(/class="candidate-card"/g)).toHaveLength(13)
   expect(html).toContain('官方API文档')
-  expect(html).not.toContain('打开网站')
+  expect(html).not.toContain('下一步：')
   expect(html).not.toContain('type="checkbox"')
 })
