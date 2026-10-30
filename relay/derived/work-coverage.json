@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T01:22:08.324Z",
+  "generatedAt": "2026-10-30T01:56:47.450Z",
   "scope": "cumulative-ranked-pool",
   "people": {
     "total": 670,
@@ -31,10 +31,10 @@
     "missingCode": 27
   },
   "metadata": {
-    "matched": 160,
-    "notMatched": 460,
-    "freshWithinSevenDays": 157,
-    "waitingRetry": 43
+    "matched": 208,
+    "notMatched": 412,
+    "freshWithinSevenDays": 205,
+    "waitingRetry": 45
   },
   "pendingDetailTasks": 60
 }
