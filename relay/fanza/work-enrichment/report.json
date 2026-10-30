@@ -1,35 +1,120 @@
 {
-  "startedAt": 1793326712453,
-  "requests": 8,
+  "startedAt": 1793327342169,
+  "requests": 28,
   "results": [
     {
-      "id": "104441",
-      "code": "xmom15",
+      "id": "12292",
+      "code": "LPGX-011",
       "status": "unavailable",
       "error": "候选商品未得到精确番号匹配"
     },
     {
-      "id": "108011",
-      "code": "JUSD-345",
+      "id": "123884",
+      "code": "AAJB-005",
       "status": "success"
     },
     {
-      "id": "110050",
-      "code": "ASFB-228",
+      "id": "127524",
+      "code": "COM-081",
       "status": "unavailable",
       "error": "候选商品未得到精确番号匹配"
     },
     {
-      "id": "116714",
-      "code": "NACX-056",
+      "id": "128777",
+      "code": "ofje00528",
+      "status": "unavailable",
+      "error": "FANZA商品身份或番号不一致"
+    },
+    {
+      "id": "131773",
+      "code": "natr00451",
       "status": "unavailable",
       "error": "候选商品未得到精确番号匹配"
     },
     {
-      "id": "121297",
-      "code": "KSBJ-154",
+      "id": "135038",
+      "code": "zeaa12",
+      "status": "unavailable",
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "141039",
+      "code": "hawa195",
+      "status": "unavailable",
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "141076",
+      "code": "ajvr00111",
+      "status": "unavailable",
+      "error": "FANZA商品身份或番号不一致"
+    },
+    {
+      "id": "145961",
+      "code": "KSBJ-074",
       "status": "success"
+    },
+    {
+      "id": "149166",
+      "code": "CMN-162",
+      "status": "success"
+    },
+    {
+      "id": "155402",
+      "code": "r325",
+      "status": "unavailable",
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "158586",
+      "code": "fcdc00130",
+      "status": "unavailable",
+      "error": "FANZA商品身份或番号不一致"
+    },
+    {
+      "id": "15886",
+      "code": "ofje249",
+      "status": "success"
+    },
+    {
+      "id": "161078",
+      "code": "ofje00530",
+      "status": "unavailable",
+      "error": "FANZA商品身份或番号不一致"
+    },
+    {
+      "id": "162396",
+      "code": "KUDK-019",
+      "status": "success"
+    },
+    {
+      "id": "163368",
+      "code": "JUSD-421",
+      "status": "success"
+    },
+    {
+      "id": "165604",
+      "code": "NANX-131",
+      "status": "unavailable",
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "168494",
+      "code": "JUTA-095",
+      "status": "success"
+    },
+    {
+      "id": "170288",
+      "code": "OKAX-581",
+      "status": "unavailable",
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "171089",
+      "code": "MCSR-318",
+      "status": "unavailable",
+      "error": "候选商品未得到精确番号匹配"
     }
   ],
-  "finishedAt": 1793326723739
+  "finishedAt": 1793327376911
 }
