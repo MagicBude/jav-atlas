@@ -7,7 +7,7 @@ const fs = require('fs')
 const path = require('path')
 const { readJson, writeJson, envInt } = require('./lib/runtime')
 const { dataPaths } = require('./lib/data-paths')
-const { candidates, checkedRecord } = require('./lib/fanza')
+const { candidates, resolveFanza } = require('./lib/fanza')
 const root = path.dirname(path.dirname(dataPaths().minnanoActresses))
 const out = path.join(root, 'fanza/work-enrichment')
 const stateFile = path.join(out, 'progress.json')
@@ -23,6 +23,31 @@ if (selectedIds && !selectedIds.every(id => /^\d+$/.test(id)))
 const report = { startedAt: Date.now(), requests: 0, results: [] }
 const query =
   'query AtlasSupplement($id: ID!) { ppvContent(id: $id) { id makerContentId duration makerReleasedAt directors { name } series { name } maker { name } label { id name } genres { id name } } }'
+const searchQuery =
+  'query AtlasSearch($limit: Int!, $sort: ContentSearchPPVSort!, $queryWord: String) { legacySearchPPV(limit: $limit, sort: $sort, queryWord: $queryWord) { result { contents { id } } } }'
+/** 所有直查与搜索共用节流和来源停止状态，不通过搜索绕过限流。 */
+async function request(kind, variables) {
+  await new Promise(resolve => setTimeout(resolve, 1000))
+  report.requests++
+  const response = await fetch('https://api.video.dmm.co.jp/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Origin: 'https://video.dmm.co.jp',
+      Referer: 'https://video.dmm.co.jp/'
+    },
+    body: JSON.stringify({ query: kind === 'search' ? searchQuery : query, variables }),
+    signal: AbortSignal.timeout(15000)
+  })
+  if (response.status === 403 || response.status === 429) {
+    state.blockedUntil = Date.now() + 86400000
+    throw Error('HTTP ' + response.status + '，停止本轮FANZA请求')
+  }
+  if (!response.ok) throw Error('HTTP ' + response.status)
+  const data = await response.json()
+  if (data.errors) throw Error('GraphQL返回错误，接口可能变化')
+  return data
+}
 async function run() {
   const folder = path.join(root, 'minnano/works/records')
   const locals = fs
@@ -51,50 +76,15 @@ async function run() {
     for (const local of locals) {
       let record,
         errorText = '候选商品未得到精确番号匹配'
-      const observations = []
-      for (const id of candidates(local.code)) {
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        let response, data
-        try {
-          report.requests++
-          response = await fetch('https://api.video.dmm.co.jp/graphql', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Origin: 'https://video.dmm.co.jp',
-              Referer: 'https://video.dmm.co.jp/'
-            },
-            body: JSON.stringify({ query, variables: { id } }),
-            signal: AbortSignal.timeout(15000)
-          })
-          if (response.status === 403 || response.status === 429) {
-            state.blockedUntil = Date.now() + 86400000
-            throw Error('HTTP ' + response.status + '，停止本轮FANZA请求')
-          }
-          if (!response.ok) throw Error('HTTP ' + response.status)
-          data = await response.json()
-          if (data.errors) throw Error('GraphQL返回错误，接口可能变化')
-          const movie = data.data?.ppvContent
-          const observation = {
-            candidateId: id,
-            returnedId: movie?.id ?? null,
-            returnedCode: movie?.makerContentId ?? null
-          }
-          observations.push(observation)
-          if (movie) {
-            try {
-              record = checkedRecord(local, movie, id, Date.now())
-            } catch (error) {
-              errorText = error.message
-              observation.rejected = error.message
-              // 当前候选身份不符不代表下一个候选也不符；继续，但每部仍最多两个请求。
-            }
-          }
-        } catch (error) {
-          errorText = error.message
-          break
-        }
-        if (record) break
+      let observations = []
+      try {
+        const result = await resolveFanza(local, request)
+        record = result.record
+        observations = result.observations
+        errorText = result.reason || errorText
+      } catch (error) {
+        errorText = error.message
+        observations = error.observations || []
       }
       // 文件错误不属于来源失败，必须交给最外层非零退出，不能吞掉。
       if (record) writeJson(path.join(out, 'records', local.id + '.json'), record)

@@ -131,7 +131,7 @@ jobs:
         env:
           RELAY_DIR: relay
           FANZA_LIMIT: '5'
-          # 每部最多两个候选，严格番号校验；不下载图片和视频。
+          # 每部最多5次请求（直查、搜索与核验），严格番号校验；不下载图片和视频。
         run: |
           if node tools/enrich-fanza.js; then
             exit 0

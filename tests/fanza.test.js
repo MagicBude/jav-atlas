@@ -1,6 +1,69 @@
 const { test } = require('node:test')
 const assert = require('node:assert/strict')
-const { candidates, checkedRecord, sameCode } = require('../tools/lib/fanza')
+const {
+  candidates,
+  checkedRecord,
+  sameCode,
+  searchCandidates,
+  resolveFanza
+} = require('../tools/lib/fanza')
+
+test('搜索只接受相同前缀及集数，厂商数字前缀仅用于候选，仍需详情校验', async () => {
+  assert.deepEqual(
+    searchCandidates('COM-081', [{ id: 'h_123com00081' }, { id: 'com00082' }, { id: 'xcom00081' }]),
+    ['h_123com00081']
+  )
+  const calls = []
+  const result = await resolveFanza({ id: '1', code: 'COM-081' }, async (kind, variables) => {
+    calls.push(kind)
+    if (kind === 'search')
+      return { data: { legacySearchPPV: { result: { contents: [{ id: 'h_123com00081' }] } } } }
+    return {
+      data: {
+        ppvContent: variables.id.startsWith('h_')
+          ? { id: variables.id, makerContentId: 'COM-081', duration: 120 }
+          : null
+      }
+    }
+  })
+  assert.equal(result.record.metadata.id, 'h_123com00081')
+  assert.deepEqual(calls, ['detail', 'detail', 'search', 'detail'])
+})
+
+test('搜索同番号多版本不自动选择，超出预算不请求详情，异常保留已查证据', async () => {
+  for (const count of [2, 3]) {
+    let requests = 0
+    const result = await resolveFanza({ id: '1', code: 'COM-081' }, async (kind, variables) => {
+      requests++
+      if (kind === 'search')
+        return {
+          data: {
+            legacySearchPPV: {
+              result: {
+                contents: Array.from({ length: count }, (_, i) => ({ id: `h_${i + 1}com00081` }))
+              }
+            }
+          }
+        }
+      return {
+        data: {
+          ppvContent: variables.id.startsWith('h_')
+            ? { id: variables.id, makerContentId: 'COM-081' }
+            : null
+        }
+      }
+    })
+    assert.equal(result.record, null)
+    assert.equal(requests, count === 2 ? 5 : 3)
+  }
+  await assert.rejects(
+    resolveFanza({ id: '1', code: 'COM-081' }, async kind => {
+      if (kind === 'search') throw Error('HTTP 429')
+      return { data: { ppvContent: null } }
+    }),
+    error => error.observations.length === 2
+  )
+})
 
 test('补零可等价，前缀、集数和分片后缀必须严格区分', () => {
   assert(sameCode('ofje00528', 'OFJE-528'))
