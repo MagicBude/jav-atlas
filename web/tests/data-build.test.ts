@@ -93,7 +93,12 @@ describe('来源与生成资源', () => {
     expect(Object.keys(manifest.works?.records || {})).toHaveLength(sourceFiles.length)
     for (const [id, file] of Object.entries(manifest.works!.records)) {
       const value = JSON.parse(fs.readFileSync(path.join(generated, file), 'utf8'))
-      expect(value).toEqual(read(`minnano/works/records/${id}.json`))
+      const { fanza, ...minnano } = value
+      expect(minnano).toEqual(read(`minnano/works/records/${id}.json`))
+      if (fanza) {
+        expect(fanza).toEqual(read(`fanza/work-enrichment/records/${id}.json`))
+        expect(fanza.minnanoId).toBe(id)
+      }
     }
     for (const file of Object.values(manifest.works!.people)) {
       const value = JSON.parse(fs.readFileSync(path.join(generated, file), 'utf8'))

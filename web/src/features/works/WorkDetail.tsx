@@ -44,6 +44,7 @@ export function WorkDetail({ id }: { id: string }) {
   const work = request.value,
     data = extra.value,
     m = data?.metadata
+  const f = work.fanza?.metadata
   const browse = (kind: string, id: string) =>
     facetUrl(kind, id, location.pathname, location.search)
   const prefix = work.code?.toUpperCase().match(/^([A-Z]+)(?=[-\d])/)?.[1]
@@ -53,17 +54,25 @@ export function WorkDetail({ id }: { id: string }) {
       value: m?.release_date || work.releaseDate,
       source: m?.release_date ? 'JavDB' : 'minnano'
     },
-    { label: '时长', value: m?.duration ? `${m.duration} 分钟` : null, source: 'JavDB' },
+    {
+      label: '时长',
+      value: m?.duration
+        ? `${m.duration} 分钟`
+        : f?.durationSeconds
+          ? `${Math.floor(f.durationSeconds / 60)} 分 ${f.durationSeconds % 60} 秒`
+          : null,
+      source: m?.duration ? 'JavDB' : 'FANZA'
+    },
     {
       label: '导演',
-      value: m?.director_name,
-      source: 'JavDB',
+      value: m?.director_name || f?.directors.map(row => row.name).join('、'),
+      source: m?.director_name ? 'JavDB' : 'FANZA',
       link: m?.director_id ? browse('director', m.director_id) : undefined
     },
     {
       label: '片商',
-      value: m?.maker_name || work.makerText,
-      source: m?.maker_name ? 'JavDB' : 'minnano',
+      value: m?.maker_name || work.makerText || f?.maker?.name,
+      source: m?.maker_name ? 'JavDB' : work.makerText ? 'minnano' : 'FANZA',
       link: m?.maker_id
         ? browse('maker', m.maker_id)
         : work.makerText
@@ -72,8 +81,8 @@ export function WorkDetail({ id }: { id: string }) {
     },
     {
       label: '系列',
-      value: m?.series_name,
-      source: 'JavDB',
+      value: m?.series_name || f?.series?.name,
+      source: m?.series_name ? 'JavDB' : 'FANZA',
       link: m?.series_id ? browse('series', m.series_id) : undefined
     },
     {
@@ -204,7 +213,7 @@ export function WorkDetail({ id }: { id: string }) {
       <details className="work-provenance">
         <summary>资料来源与原始记录</summary>
         <p className="small muted">
-          日期、片商及扩展字段优先使用JavDB，缺失时回退minnano；标题与主演员列表沿用minnano。来源差异保留，不回写原记录。
+          标题与主演员列表沿用minnano；其他字段标注各自来源，FANZA仅补空缺。来源差异保留，不回写原记录。
         </p>
         {data && (
           <p className="small muted">
@@ -216,8 +225,15 @@ export function WorkDetail({ id }: { id: string }) {
         )}
         <details>
           <summary>minnano 完整记录</summary>
-          <RawTree value={work} />
+          <RawTree value={Object.fromEntries(Object.entries(work).filter(([key]) => key !== 'fanza'))} />
         </details>
+        {work.fanza && (
+          <details>
+            <summary>FANZA 补充记录</summary>
+            <p className="small muted">取得时间：{new Date(work.fanza.fetchedAt).toLocaleString('zh-CN')}</p>
+            <RawTree value={work.fanza} />
+          </details>
+        )}
         {data && (
           <details>
             <summary>JavDB 完整记录与匹配依据</summary>

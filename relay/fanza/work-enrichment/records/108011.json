@@ -1,0 +1,40 @@
+{
+  "source": "fanza",
+  "minnanoId": "108011",
+  "code": "JUSD-345",
+  "fetchedAt": 1793326717174,
+  "sourceUrl": "https://video.dmm.co.jp/av/content/?id=jusd00345",
+  "metadata": {
+    "id": "jusd00345",
+    "makerContentId": "JUSD-345",
+    "durationSeconds": 14340,
+    "directors": [],
+    "series": null,
+    "maker": {
+      "name": "マドンナ"
+    },
+    "label": {
+      "id": "2931",
+      "name": "Madonna"
+    },
+    "genres": [
+      {
+        "id": "6548",
+        "name": "独占配信"
+      },
+      {
+        "id": "6004",
+        "name": "デジモ"
+      },
+      {
+        "id": "6003",
+        "name": "ベスト・総集編"
+      },
+      {
+        "id": "1014",
+        "name": "熟女"
+      }
+    ],
+    "makerReleasedAt": "2011-06-06T15:00:00Z"
+  }
+}

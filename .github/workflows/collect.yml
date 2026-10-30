@@ -126,6 +126,23 @@ jobs:
             fi
             exit "$code"
           fi
+      - name: 小范围补齐FANZA文字资料
+        if: github.event_name == 'schedule' || (inputs.include_works && inputs.mode == 'daily' && inputs.source == 'ranked')
+        env:
+          RELAY_DIR: relay
+          FANZA_LIMIT: '5'
+          # 每部最多两个候选，严格番号校验；不下载图片和视频。
+        run: |
+          if node tools/enrich-fanza.js; then
+            exit 0
+          else
+            code=$?
+            if [ "$code" = "2" ]; then
+              echo "::warning::FANZA部分资料不可用，保留断点，JavDB继续作为主来源"
+              exit 0
+            fi
+            exit "$code"
+          fi
       - name: 生成作品覆盖报告
         run: npm run report:works -- --output relay/derived/work-coverage.json
       # 所有现场均上传；只有正常结束或工具明确返回的可恢复来源失败才允许提交。

@@ -21,6 +21,17 @@ export interface WorkIndex {
   actors: { id: string; name: string }[]
 }
 export interface WorkDetail extends WorkEntry {
+  /** 独立来源记录；不将FANZA类别ID放入JavDB类别筛选。时长原单位为秒。 */
+  fanza?: {
+    sourceUrl: string
+    fetchedAt: number
+    metadata: {
+      durationSeconds: number | null
+      directors: { name: string }[]
+      series: { name: string } | null
+      maker: { name: string } | null
+    }
+  }
   code?: string | null
   cast?: { id: string; name: string }[]
   profileFields?: { label: string; text: string; links: { text: string; url: string }[] }[]

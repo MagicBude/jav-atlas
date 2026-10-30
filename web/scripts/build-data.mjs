@@ -182,6 +182,28 @@ const summary = entry => ({
   actorIds: []
 })
 const mappings = read('javdb/work-enrichment/mappings.json', { mappings: {} }).mappings
+// FANZA与JavDB保持独立；展示时只补空字段，不把两个站点的分类ID混为一套。
+function fanzaSupplement(id, code) {
+  const record = read(`fanza/work-enrichment/records/${id}.json`)
+  const norm = value =>
+    String(value || '')
+      .toUpperCase()
+      .replace(/[\s-]/g, '')
+  if (!record) return null
+  if (
+    record.minnanoId !== String(id) ||
+    !norm(code) ||
+    norm(record.metadata?.makerContentId) !== norm(code)
+  )
+    throw Error('FANZA浏览投影身份校验失败')
+  return record
+}
+function durationMinutes(metadata, fanza) {
+  const minutes = Number(metadata?.duration)
+  if (Number.isFinite(minutes) && minutes > 0) return minutes
+  const seconds = Number(fanza?.metadata?.durationSeconds)
+  return Number.isFinite(seconds) && seconds > 0 ? seconds / 60 : undefined
+}
 for (const [localId, mapping] of Object.entries(mappings)) {
   if (!/^\d+$/.test(localId) || !/^[a-zA-Z0-9_-]+$/.test(mapping.javdbId))
     throw Error('补充作品身份无效')
@@ -199,7 +221,8 @@ if (fs.existsSync(path.join(worksRoot, 'records'))) {
     .filter(f => /^\d+\.json$/.test(f))) {
     const id = file.slice(0, -5)
     const detail = read(`minnano/works/records/${file}`)
-    manifest.works.records[id] = emit(`work-${id}`, detail)
+    const fanza = fanzaSupplement(id, detail.code)
+    manifest.works.records[id] = emit(`work-${id}`, { ...detail, ...(fanza ? { fanza } : {}) })
     workIndex.set(id, {
       ...summary(detail),
       actorIds: (detail.cast || [])
@@ -222,10 +245,16 @@ if (fs.existsSync(path.join(worksRoot, 'people'))) {
       const score = metadata?.score == null || metadata.score === '' ? null : Number(metadata.score)
       return {
         ...entry,
-        ...(metadata?.duration != null &&
-        Number.isFinite(Number(metadata.duration)) &&
-        Number(metadata.duration) > 0
-          ? { durationMinutes: Number(metadata.duration) }
+        ...(durationMinutes(
+          metadata,
+          fanzaSupplement(entry.id, entry.code || workIndex.get(entry.id)?.code)
+        ) != null
+          ? {
+              durationMinutes: durationMinutes(
+                metadata,
+                fanzaSupplement(entry.id, entry.code || workIndex.get(entry.id)?.code)
+              )
+            }
           : {}),
         ...(Number.isInteger(metadata?.type) && metadata.type >= 0 && metadata.type <= 4
           ? { javdbType: metadata.type }
@@ -289,9 +318,8 @@ for (const entry of workIndex.values()) {
   if (Number.isInteger(metadata?.type) && metadata.type >= 0 && metadata.type <= 4)
     entry.javdbType = metadata.type
   entry.facets = {}
-  const duration = Number(metadata?.duration)
-  if (metadata?.duration != null && Number.isFinite(duration) && duration > 0)
-    entry.durationMinutes = duration
+  const duration = durationMinutes(metadata, fanzaSupplement(entry.id, entry.code))
+  if (duration != null) entry.durationMinutes = duration
   for (const kind of ['director', 'maker', 'series'])
     if (metadata?.[kind + '_id'] && metadata?.[kind + '_name'])
       entry.facets[kind] = [{ id: String(metadata[kind + '_id']), name: metadata[kind + '_name'] }]
