@@ -1,72 +1,159 @@
 {
-  "startedAt": 1793408562437,
-  "requests": 5,
+  "startedAt": 1793492725339,
+  "requests": 15,
   "results": [
     {
-      "id": "220857",
-      "code": "RBD-273",
+      "id": "232864",
+      "code": "JMA-038",
+      "status": "unavailable",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "jma00038",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "jma038",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [],
+          "eligibleIds": []
+        }
+      ],
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "233646",
+      "code": "sdmm047",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "rbd00273",
-          "returnedId": "rbd00273",
-          "returnedCode": "RBD-273"
+          "candidateId": "sdmm00047",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "sdmm047",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "1sdmm14711",
+            "1sdmm14712",
+            "1sdmm14710",
+            "1sdmm14709",
+            "1sdmm14708",
+            "1sdmm14707",
+            "1sdmm14704",
+            "1sdmm14705",
+            "1sdmm14706",
+            "1sdmm14701",
+            "1sdmm14702",
+            "1sdmm14703",
+            "1sdmm00147",
+            "1sdmm00047"
+          ],
+          "eligibleIds": [
+            "1sdmm00047"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "1sdmm00047",
+          "returnedId": "1sdmm00047",
+          "returnedCode": "SDMM-047"
         }
       ]
     },
     {
-      "id": "221879",
-      "code": "JUC-433",
+      "id": "233764",
+      "code": "nhb00004",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "juc00433",
-          "returnedId": "juc00433",
-          "returnedCode": "JUC-433"
+          "candidateId": "nhb00004",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "30nhb00005",
+            "30nhb00004",
+            "30nhb00002"
+          ],
+          "eligibleIds": [
+            "30nhb00004"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "30nhb00004",
+          "returnedId": "30nhb00004",
+          "returnedCode": "NHB-004"
         }
       ]
     },
     {
-      "id": "221976",
-      "code": "OFJE-245",
+      "id": "241171",
+      "code": "NACX-060",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "ofje00245",
-          "returnedId": "ofje00245",
-          "returnedCode": "OFJE-245"
+          "candidateId": "nacx00060",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "nacx060",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "h_237nacx00160",
+            "h_237nacx00049sa1",
+            "h_237nacx00118",
+            "h_237nacx00060"
+          ],
+          "eligibleIds": [
+            "h_237nacx00060"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "h_237nacx00060",
+          "returnedId": "h_237nacx00060",
+          "returnedCode": "NACX-060"
         }
       ]
     },
     {
-      "id": "230266",
-      "code": "tura00213",
+      "id": "242196",
+      "code": "DDOB-037",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "tura00213",
-          "returnedId": "tura00213",
-          "returnedCode": "TURA-213"
-        }
-      ]
-    },
-    {
-      "id": "231160",
-      "code": "JUSD-361",
-      "status": "success",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "jusd00361",
-          "returnedId": "jusd00361",
-          "returnedCode": "JUSD-361"
+          "candidateId": "ddob00037",
+          "returnedId": "ddob00037",
+          "returnedCode": "DDOB-037"
         }
       ]
     }
   ],
-  "finishedAt": 1793408569691
+  "finishedAt": 1793492745130
 }

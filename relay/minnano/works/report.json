@@ -1,5 +1,5 @@
 {
-  "startedAt": 1793408484054,
+  "startedAt": 1793492648935,
   "scope": "ranked",
   "budgets": {
     "people": 5,
@@ -8,25 +8,90 @@
     "details": 50,
     "requests": 100
   },
-  "pages": 0,
-  "details": 50,
-  "failures": [],
-  "people": [],
+  "pages": 3,
+  "details": 31,
+  "failures": [
+    {
+      "actorId": "125102",
+      "page": 1,
+      "error": "HTTP 403"
+    },
+    {
+      "actorId": "25709",
+      "page": 6,
+      "error": "返回页码不匹配"
+    },
+    {
+      "actorId": "513123",
+      "page": 2,
+      "error": "返回页码不匹配"
+    },
+    {
+      "actorId": "125605",
+      "page": 2,
+      "error": "返回页码不匹配"
+    }
+  ],
+  "people": [
+    {
+      "actorId": "125102",
+      "formal": 0,
+      "placeholders": 0,
+      "nextPage": 1,
+      "stable": false
+    },
+    {
+      "actorId": "25709",
+      "formal": 100,
+      "placeholders": 0,
+      "nextPage": 6,
+      "stable": false
+    },
+    {
+      "actorId": "78406",
+      "formal": 1,
+      "placeholders": 1,
+      "nextPage": null,
+      "stable": true
+    },
+    {
+      "actorId": "513123",
+      "formal": 20,
+      "placeholders": 0,
+      "nextPage": 2,
+      "stable": false
+    },
+    {
+      "actorId": "125605",
+      "formal": 96,
+      "placeholders": 2,
+      "nextPage": 2,
+      "stable": false
+    }
+  ],
   "budgetExhausted": false,
   "scheduling": {
-    "mode": "details-first",
+    "mode": "normal",
     "detailThreshold": 50,
     "before": {
-      "ready": 60,
+      "ready": 10,
       "waiting": 0
     },
-    "skippedLists": true,
+    "skippedLists": false,
     "after": {
-      "ready": 10,
+      "ready": 0,
       "waiting": 0
     }
   },
-  "finishedAt": 1793408509076,
-  "requests": 50,
-  "pendingDetails": 10
+  "eligiblePeople": 774,
+  "selectedPeople": [
+    "125102",
+    "25709",
+    "78406",
+    "513123",
+    "125605"
+  ],
+  "finishedAt": 1793492668387,
+  "requests": 39,
+  "pendingDetails": 0
 }
