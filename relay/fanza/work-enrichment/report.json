@@ -1,21 +1,21 @@
 {
-  "startedAt": 1793492725339,
+  "startedAt": 1793581410735,
   "requests": 15,
   "results": [
     {
-      "id": "232864",
-      "code": "JMA-038",
+      "id": "247098",
+      "code": "mywife451",
       "status": "unavailable",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "jma00038",
+          "candidateId": "mywife00451",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "direct",
-          "candidateId": "jma038",
+          "candidateId": "mywife451",
           "returnedId": null,
           "returnedCode": null
         },
@@ -28,132 +28,128 @@
       "error": "候选商品未得到精确番号匹配"
     },
     {
-      "id": "233646",
-      "code": "sdmm047",
-      "status": "success",
+      "id": "251221",
+      "code": "KAAD-084",
+      "status": "unavailable",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "sdmm00047",
+          "candidateId": "kaad00084",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "direct",
-          "candidateId": "sdmm047",
+          "candidateId": "kaad084",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [],
+          "eligibleIds": []
+        }
+      ],
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "252846",
+      "code": "ofje00546",
+      "status": "success",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "ofje00546",
+          "returnedId": "ofje00546",
+          "returnedCode": "OFJE-546"
+        }
+      ]
+    },
+    {
+      "id": "254324",
+      "code": "NACX-024",
+      "status": "success",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "nacx00024",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "nacx024",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "search",
           "returnedIds": [
-            "1sdmm14711",
-            "1sdmm14712",
-            "1sdmm14710",
-            "1sdmm14709",
-            "1sdmm14708",
-            "1sdmm14707",
-            "1sdmm14704",
-            "1sdmm14705",
-            "1sdmm14706",
-            "1sdmm14701",
-            "1sdmm14702",
-            "1sdmm14703",
-            "1sdmm00147",
-            "1sdmm00047"
+            "h_237nacx00179",
+            "h_237nacx00178",
+            "h_237nacx00158jo01jo01",
+            "h_237nacx00124sa1",
+            "h_237nacx00094",
+            "h_237nacx00024"
           ],
           "eligibleIds": [
-            "1sdmm00047"
+            "h_237nacx00024"
           ]
         },
         {
           "via": "search-detail",
-          "candidateId": "1sdmm00047",
-          "returnedId": "1sdmm00047",
-          "returnedCode": "SDMM-047"
+          "candidateId": "h_237nacx00024",
+          "returnedId": "h_237nacx00024",
+          "returnedCode": "NACX-024"
         }
       ]
     },
     {
-      "id": "233764",
-      "code": "nhb00004",
+      "id": "255109",
+      "code": "skmj062",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "nhb00004",
+          "candidateId": "skmj00062",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "skmj062",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "search",
           "returnedIds": [
-            "30nhb00005",
-            "30nhb00004",
-            "30nhb00002"
+            "h_1324skmj00762",
+            "h_1324skmj00629",
+            "h_1324skmj00627",
+            "h_1324skmj00626",
+            "h_1324skmj00625",
+            "h_1324skmj00624",
+            "h_1324skmj00623",
+            "h_1324skmj00621",
+            "h_1324skmj00562",
+            "h_1324skmj00462",
+            "h_1324skmj00262",
+            "h_1324skmj00162",
+            "h_1324skmj00062"
           ],
           "eligibleIds": [
-            "30nhb00004"
+            "h_1324skmj00062"
           ]
         },
         {
           "via": "search-detail",
-          "candidateId": "30nhb00004",
-          "returnedId": "30nhb00004",
-          "returnedCode": "NHB-004"
-        }
-      ]
-    },
-    {
-      "id": "241171",
-      "code": "NACX-060",
-      "status": "success",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "nacx00060",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "direct",
-          "candidateId": "nacx060",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "search",
-          "returnedIds": [
-            "h_237nacx00160",
-            "h_237nacx00049sa1",
-            "h_237nacx00118",
-            "h_237nacx00060"
-          ],
-          "eligibleIds": [
-            "h_237nacx00060"
-          ]
-        },
-        {
-          "via": "search-detail",
-          "candidateId": "h_237nacx00060",
-          "returnedId": "h_237nacx00060",
-          "returnedCode": "NACX-060"
-        }
-      ]
-    },
-    {
-      "id": "242196",
-      "code": "DDOB-037",
-      "status": "success",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "ddob00037",
-          "returnedId": "ddob00037",
-          "returnedCode": "DDOB-037"
+          "candidateId": "h_1324skmj00062",
+          "returnedId": "h_1324skmj00062",
+          "returnedCode": "SKMJ-062"
         }
       ]
     }
   ],
-  "finishedAt": 1793492745130
+  "finishedAt": 1793581428902
 }

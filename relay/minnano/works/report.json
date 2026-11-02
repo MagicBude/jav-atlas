@@ -1,5 +1,5 @@
 {
-  "startedAt": 1793492648935,
+  "startedAt": 1793581340173,
   "scope": "ranked",
   "budgets": {
     "people": 5,
@@ -9,7 +9,7 @@
     "requests": 100
   },
   "pages": 3,
-  "details": 31,
+  "details": 21,
   "failures": [
     {
       "actorId": "125102",
@@ -22,12 +22,7 @@
       "error": "返回页码不匹配"
     },
     {
-      "actorId": "513123",
-      "page": 2,
-      "error": "返回页码不匹配"
-    },
-    {
-      "actorId": "125605",
+      "actorId": "673176",
       "page": 2,
       "error": "返回页码不匹配"
     }
@@ -48,25 +43,25 @@
       "stable": false
     },
     {
-      "actorId": "78406",
+      "actorId": "141240",
       "formal": 1,
       "placeholders": 1,
       "nextPage": null,
       "stable": true
     },
     {
-      "actorId": "513123",
+      "actorId": "673176",
       "formal": 20,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "125605",
-      "formal": 96,
-      "placeholders": 2,
-      "nextPage": 2,
-      "stable": false
+      "actorId": "190754",
+      "formal": 1,
+      "placeholders": 1,
+      "nextPage": null,
+      "stable": true
     }
   ],
   "budgetExhausted": false,
@@ -74,7 +69,7 @@
     "mode": "normal",
     "detailThreshold": 50,
     "before": {
-      "ready": 10,
+      "ready": 0,
       "waiting": 0
     },
     "skippedLists": false,
@@ -83,15 +78,15 @@
       "waiting": 0
     }
   },
-  "eligiblePeople": 774,
+  "eligiblePeople": 805,
   "selectedPeople": [
     "125102",
     "25709",
-    "78406",
-    "513123",
-    "125605"
+    "141240",
+    "673176",
+    "190754"
   ],
-  "finishedAt": 1793492668387,
-  "requests": 39,
+  "finishedAt": 1793581354782,
+  "requests": 29,
   "pendingDetails": 0
 }

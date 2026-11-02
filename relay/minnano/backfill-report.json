@@ -1,336 +1,198 @@
 {
-  "generatedAt": 1793492568917,
+  "generatedAt": 1793581240964,
   "exitCode": 0,
-  "selected": 53,
+  "selected": 30,
   "batch": {
-    "profileSuccess": 52,
-    "profileFailed": 1,
+    "profileSuccess": 30,
+    "profileFailed": 0,
     "profileNotAttempted": 0,
     "missingAvatars": 0
   },
   "total": {
-    "people": 774,
-    "profileSuccess": 773,
-    "profileFieldsSaved": 773,
+    "people": 805,
+    "profileSuccess": 804,
+    "profileFieldsSaved": 804,
     "missingAvatars": 2
   },
   "results": [
     {
-      "mnid": "130562",
-      "name": "大橋未久",
+      "mnid": "152996",
+      "name": "前田可奈子",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "178475",
-      "name": "大沢美加",
+      "mnid": "177939",
+      "name": "折原ゆかり",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "19739",
-      "name": "南見京",
+      "mnid": "241366",
+      "name": "長浜みつり",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "203126",
-      "name": "山手梨愛",
+      "mnid": "323573",
+      "name": "北川エリカ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "223864",
-      "name": "鈴木あむ",
+      "mnid": "352968",
+      "name": "恋渕ももな",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "237552",
-      "name": "西田カリナ",
+      "mnid": "407780",
+      "name": "藤本紫媛",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "268053",
-      "name": "山本美和子",
+      "mnid": "444763",
+      "name": "永瀬ゆい",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "275806",
-      "name": "八神さおり",
+      "mnid": "462382",
+      "name": "末広純",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "298599",
-      "name": "成澤ひなみ",
+      "mnid": "469746",
+      "name": "牧原れい子",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "315209",
-      "name": "百瀬凛花",
+      "mnid": "481075",
+      "name": "舞原聖",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "328900",
-      "name": "本郷愛",
+      "mnid": "487502",
+      "name": "夏目彩春",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "357774",
-      "name": "桜木えりか",
+      "mnid": "489252",
+      "name": "椎名そら",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "361289",
-      "name": "原美織",
+      "mnid": "490592",
+      "name": "今井ゆあ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "366682",
-      "name": "麻里梨夏",
+      "mnid": "545826",
+      "name": "浅倉彩音",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "384229",
-      "name": "阿部乃みく",
+      "mnid": "602629",
+      "name": "那賀崎ゆきね",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "397341",
-      "name": "香苗レノン",
+      "mnid": "609615",
+      "name": "西村ニーナ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "402376",
-      "name": "きみと歩実",
+      "mnid": "613018",
+      "name": "谷口優香",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "412170",
-      "name": "永野いち夏",
+      "mnid": "718019",
+      "name": "瀬名ひかり",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "45215",
-      "name": "希島あいり",
+      "mnid": "760714",
+      "name": "杜乃いつは",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "513692",
-      "name": "さつき芽衣",
+      "mnid": "822697",
+      "name": "水川潤",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "517879",
-      "name": "佐藤みき",
+      "mnid": "822902",
+      "name": "小野六花",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "534729",
-      "name": "小野夕子",
+      "mnid": "831560",
+      "name": "月本愛",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "546428",
-      "name": "篠崎かんな",
+      "mnid": "875451",
+      "name": "天使もえ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "568711",
-      "name": "小西まりえ",
+      "mnid": "935873",
+      "name": "佐山愛",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "569655",
-      "name": "北原夏美",
+      "mnid": "960427",
+      "name": "ELICA(事業家)",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "576418",
-      "name": "冬愛ことね",
+      "mnid": "969629",
+      "name": "結城りの",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "588954",
-      "name": "Rio",
+      "mnid": "989925",
+      "name": "桃園怜奈",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "591870",
-      "name": "瀬奈涼",
+      "mnid": "141240",
+      "name": "大原伶菜",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "593483",
-      "name": "希志あいの",
+      "mnid": "931023",
+      "name": "今井なつめ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "61975",
-      "name": "西条沙羅",
+      "mnid": "397477",
+      "name": "川広えな",
       "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "628738",
-      "name": "いち花【マドンナ】",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "631459",
-      "name": "佐々木恋海",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "647761",
-      "name": "平岡愛",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "664974",
-      "name": "二宮和香",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "686591",
-      "name": "神波多一花",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "708682",
-      "name": "七沢みあ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "710961",
-      "name": "渚みつき",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "722107",
-      "name": "美咲結衣",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "758972",
-      "name": "☆LUNA☆",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "789471",
-      "name": "愛原さえ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "813126",
-      "name": "弓乃りむ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "824217",
-      "name": "辺見なお",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "825812",
-      "name": "土屋あさみ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "834181",
-      "name": "浜崎りお",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "869403",
-      "name": "今井夏帆",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "87698",
-      "name": "星宮一花",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "886425",
-      "name": "松本メイ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "887777",
-      "name": "春陽モカ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "930364",
-      "name": "逢沢はるか",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "935069",
-      "name": "石原希望",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "959205",
-      "name": "冨樫美緒（天然むすめ）",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "982645",
-      "name": "音羽文子",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "125102",
-      "name": "天音るな",
-      "profile": "failed",
       "avatar": "available"
     }
   ],

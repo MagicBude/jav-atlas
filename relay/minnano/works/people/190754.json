@@ -20,7 +20,7 @@
         "maker": "TAMEIKE / 溜池ゴロー"
       },
       "firstSeenAt": 1792651170829,
-      "lastSeenAt": 1792718704614,
+      "lastSeenAt": 1793581343606,
       "sourceOrdinal": 0,
       "seenOnPages": [
         1
@@ -51,7 +51,7 @@
         "maker": ""
       },
       "firstSeenAt": 1792651170829,
-      "lastSeenAt": 1792718704614,
+      "lastSeenAt": 1793581343606,
       "sourceOrdinal": 1,
       "seenOnPages": [
         1
@@ -67,8 +67,8 @@
       "missingFromLatestCompleteScan": false
     }
   ],
-  "completedAt": 1792718705110,
-  "updatedAt": 1792718704614,
-  "visitedAllPagesAt": 1792718705110,
-  "scanId": "190754-1792718704118"
+  "completedAt": 1793581344105,
+  "updatedAt": 1793581343606,
+  "visitedAllPagesAt": 1793581344105,
+  "scanId": "190754-1793581343110"
 }
