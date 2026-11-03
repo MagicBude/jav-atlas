@@ -1349,6 +1349,130 @@
         }
       ],
       "nextRetryAt": 0
+    },
+    "258683": {
+      "status": "success",
+      "checkedAt": 1793675159387,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "migd00111",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "migd111",
+          "returnedId": "migd111",
+          "returnedCode": "MIGD-111"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "259647": {
+      "status": "success",
+      "checkedAt": 1793675160592,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "rbb00190",
+          "returnedId": "rbb00190",
+          "returnedCode": "RBB-190"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "259814": {
+      "status": "unavailable",
+      "checkedAt": 1793675164265,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "jg00245",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "jg245",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1794279964265
+    },
+    "264114": {
+      "status": "success",
+      "checkedAt": 1793675169179,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "docp00234",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "docp234",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "118docp00234"
+          ],
+          "eligibleIds": [
+            "118docp00234"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "118docp00234",
+          "returnedId": "118docp00234",
+          "returnedCode": "DOCP-234"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "266810": {
+      "status": "success",
+      "checkedAt": 1793675174108,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "agemix00152",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "agemix152",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "436agemix00152"
+          ],
+          "eligibleIds": [
+            "436agemix00152"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "436agemix00152",
+          "returnedId": "436agemix00152",
+          "returnedCode": "AGEMIX-152"
+        }
+      ],
+      "nextRetryAt": 0
     }
   }
 }
