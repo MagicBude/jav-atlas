@@ -1,5 +1,5 @@
 {
-  "startedAt": 1793675081219,
+  "startedAt": 1793756356552,
   "scope": "ranked",
   "budgets": {
     "people": 5,
@@ -9,61 +9,56 @@
     "requests": 100
   },
   "pages": 3,
-  "details": 26,
+  "details": 17,
   "failures": [
     {
-      "actorId": "513123",
-      "page": 2,
+      "actorId": "125102",
+      "page": 1,
+      "error": "HTTP 403"
+    },
+    {
+      "actorId": "25709",
+      "page": 6,
       "error": "返回页码不匹配"
     },
     {
-      "actorId": "125605",
-      "page": 2,
-      "error": "返回页码不匹配"
-    },
-    {
-      "actorId": "908789",
-      "page": 2,
-      "error": "返回页码不匹配"
-    },
-    {
-      "actorId": "527379",
+      "actorId": "272417",
       "page": 2,
       "error": "返回页码不匹配"
     }
   ],
   "people": [
     {
-      "actorId": "513123",
-      "formal": 20,
-      "placeholders": 0,
-      "nextPage": 2,
-      "stable": false
-    },
-    {
-      "actorId": "125605",
-      "formal": 96,
-      "placeholders": 2,
-      "nextPage": 2,
-      "stable": false
-    },
-    {
-      "actorId": "908789",
-      "formal": 20,
-      "placeholders": 0,
-      "nextPage": 2,
-      "stable": false
-    },
-    {
-      "actorId": "527379",
-      "formal": 19,
-      "placeholders": 0,
-      "nextPage": 2,
-      "stable": false
-    },
-    {
-      "actorId": "206396",
+      "actorId": "125102",
       "formal": 0,
+      "placeholders": 0,
+      "nextPage": 1,
+      "stable": false
+    },
+    {
+      "actorId": "25709",
+      "formal": 100,
+      "placeholders": 0,
+      "nextPage": 6,
+      "stable": false
+    },
+    {
+      "actorId": "272417",
+      "formal": 20,
+      "placeholders": 0,
+      "nextPage": 2,
+      "stable": false
+    },
+    {
+      "actorId": "71336",
+      "formal": 0,
+      "placeholders": 1,
+      "nextPage": null,
+      "stable": true
+    },
+    {
+      "actorId": "404326",
+      "formal": 14,
       "placeholders": 1,
       "nextPage": null,
       "stable": true
@@ -83,15 +78,15 @@
       "waiting": 0
     }
   },
-  "eligiblePeople": 826,
+  "eligiblePeople": 843,
   "selectedPeople": [
-    "513123",
-    "125605",
-    "908789",
-    "527379",
-    "206396"
+    "125102",
+    "25709",
+    "272417",
+    "71336",
+    "404326"
   ],
-  "finishedAt": 1793675098077,
-  "requests": 34,
+  "finishedAt": 1793756368736,
+  "requests": 25,
   "pendingDetails": 0
 }

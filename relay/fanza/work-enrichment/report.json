@@ -1,132 +1,115 @@
 {
-  "startedAt": 1793675156661,
-  "requests": 14,
+  "startedAt": 1793756422132,
+  "requests": 11,
   "results": [
     {
-      "id": "258683",
-      "code": "MIGD-111",
+      "id": "268161",
+      "code": "JUSD-356",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "migd00111",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "direct",
-          "candidateId": "migd111",
-          "returnedId": "migd111",
-          "returnedCode": "MIGD-111"
+          "candidateId": "jusd00356",
+          "returnedId": "jusd00356",
+          "returnedCode": "JUSD-356"
         }
       ]
     },
     {
-      "id": "259647",
-      "code": "RBB-190",
+      "id": "268268",
+      "code": "ktra00741",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "rbb00190",
-          "returnedId": "rbb00190",
-          "returnedCode": "RBB-190"
+          "candidateId": "ktra00741",
+          "returnedId": "ktra00741",
+          "returnedCode": "KTRA-741"
         }
       ]
     },
     {
-      "id": "259814",
-      "code": "JG-245",
-      "status": "unavailable",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "jg00245",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "direct",
-          "candidateId": "jg245",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "search",
-          "returnedIds": [],
-          "eligibleIds": []
-        }
-      ],
-      "error": "候选商品未得到精确番号匹配"
-    },
-    {
-      "id": "264114",
-      "code": "DOCP-234",
+      "id": "268347",
+      "code": "atkd186",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "docp00234",
+          "candidateId": "atkd00186",
+          "returnedId": "atkd00186",
+          "returnedCode": "ATKD-186"
+        }
+      ]
+    },
+    {
+      "id": "275224",
+      "code": "GIGL-205",
+      "status": "success",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "gigl00205",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "direct",
-          "candidateId": "docp234",
+          "candidateId": "gigl205",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "search",
           "returnedIds": [
-            "118docp00234"
+            "h_860gigl00205"
           ],
           "eligibleIds": [
-            "118docp00234"
+            "h_860gigl00205"
           ]
         },
         {
           "via": "search-detail",
-          "candidateId": "118docp00234",
-          "returnedId": "118docp00234",
-          "returnedCode": "DOCP-234"
+          "candidateId": "h_860gigl00205",
+          "returnedId": "h_860gigl00205",
+          "returnedCode": "GIGL-205"
         }
       ]
     },
     {
-      "id": "266810",
-      "code": "AGEMIX-152",
+      "id": "276053",
+      "code": "NACX-058",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "agemix00152",
+          "candidateId": "nacx00058",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "direct",
-          "candidateId": "agemix152",
+          "candidateId": "nacx058",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "search",
           "returnedIds": [
-            "436agemix00152"
+            "h_237nacx00158jo01jo01",
+            "h_237nacx00058"
           ],
           "eligibleIds": [
-            "436agemix00152"
+            "h_237nacx00058"
           ]
         },
         {
           "via": "search-detail",
-          "candidateId": "436agemix00152",
-          "returnedId": "436agemix00152",
-          "returnedCode": "AGEMIX-152"
+          "candidateId": "h_237nacx00058",
+          "returnedId": "h_237nacx00058",
+          "returnedCode": "NACX-058"
         }
       ]
     }
   ],
-  "finishedAt": 1793675174109
+  "finishedAt": 1793756436183
 }

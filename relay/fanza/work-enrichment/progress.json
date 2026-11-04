@@ -1473,6 +1473,114 @@
         }
       ],
       "nextRetryAt": 0
+    },
+    "268161": {
+      "status": "success",
+      "checkedAt": 1793756423560,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "jusd00356",
+          "returnedId": "jusd00356",
+          "returnedCode": "JUSD-356"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "268268": {
+      "status": "success",
+      "checkedAt": 1793756424776,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "ktra00741",
+          "returnedId": "ktra00741",
+          "returnedCode": "KTRA-741"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "268347": {
+      "status": "success",
+      "checkedAt": 1793756426459,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "atkd00186",
+          "returnedId": "atkd00186",
+          "returnedCode": "ATKD-186"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "275224": {
+      "status": "success",
+      "checkedAt": 1793756431315,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "gigl00205",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "gigl205",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "h_860gigl00205"
+          ],
+          "eligibleIds": [
+            "h_860gigl00205"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "h_860gigl00205",
+          "returnedId": "h_860gigl00205",
+          "returnedCode": "GIGL-205"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "276053": {
+      "status": "success",
+      "checkedAt": 1793756436183,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "nacx00058",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "nacx058",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "h_237nacx00158jo01jo01",
+            "h_237nacx00058"
+          ],
+          "eligibleIds": [
+            "h_237nacx00058"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "h_237nacx00058",
+          "returnedId": "h_237nacx00058",
+          "returnedCode": "NACX-058"
+        }
+      ],
+      "nextRetryAt": 0
     }
   }
 }
