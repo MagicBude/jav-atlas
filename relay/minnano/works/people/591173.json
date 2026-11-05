@@ -1,0 +1,40 @@
+{
+  "actorId": "591173",
+  "entries": [
+    {
+      "id": "uk591173",
+      "kind": "unknown",
+      "title": "作品名不明（大友愛）",
+      "sourceUrl": "https://www.minnano-av.com/avuk591173.html",
+      "cast": [
+        {
+          "id": "591173",
+          "name": "大友愛"
+        }
+      ],
+      "raw": {
+        "date": "",
+        "maker": ""
+      },
+      "firstSeenAt": 1793843210688,
+      "lastSeenAt": 1793843210688,
+      "sourceOrdinal": 0,
+      "seenOnPages": [
+        1
+      ],
+      "observations": [
+        {
+          "page": 1,
+          "title": "作品名不明（大友愛）",
+          "releaseDate": null,
+          "makerText": ""
+        }
+      ],
+      "missingFromLatestCompleteScan": false
+    }
+  ],
+  "completedAt": 1793843211196,
+  "updatedAt": 1793843210688,
+  "visitedAllPagesAt": 1793843211196,
+  "scanId": "591173-1793843209858"
+}

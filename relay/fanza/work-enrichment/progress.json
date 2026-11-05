@@ -1581,6 +1581,108 @@
         }
       ],
       "nextRetryAt": 0
+    },
+    "276781": {
+      "status": "success",
+      "checkedAt": 1793843280942,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "rbb00037",
+          "returnedId": "rbb00037",
+          "returnedCode": "RBB-037"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "279518": {
+      "status": "unavailable",
+      "checkedAt": 1793843283585,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "ofje00465",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1794448083585
+    },
+    "281024": {
+      "status": "success",
+      "checkedAt": 1793843284724,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "add00045",
+          "returnedId": "add00045",
+          "returnedCode": "ADD-045"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "286981": {
+      "status": "unavailable",
+      "checkedAt": 1793843288265,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "zooo00011",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "zooo011",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "h_1515zooo00311",
+            "h_1515zooo00111",
+            "h_1515zooo00118",
+            "h_1515zooo00116",
+            "h_1515zooo00119",
+            "h_1515zooo00112",
+            "h_1515zooo00114",
+            "h_1515zooo00113",
+            "h_1515zooo00087",
+            "hobb211",
+            "zoho011",
+            "rabf011",
+            "hobb117",
+            "hobb118",
+            "hobb119",
+            "hobb114",
+            "hobb115",
+            "hobb116",
+            "hobb111",
+            "hobb112"
+          ],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1794448088265
+    },
+    "288850": {
+      "status": "success",
+      "checkedAt": 1793843289400,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "chrv00091",
+          "returnedId": "chrv00091",
+          "returnedCode": "CHRV-091"
+        }
+      ],
+      "nextRetryAt": 0
     }
   }
 }

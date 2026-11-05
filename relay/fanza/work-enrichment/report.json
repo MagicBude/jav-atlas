@@ -1,115 +1,111 @@
 {
-  "startedAt": 1793756422132,
-  "requests": 11,
+  "startedAt": 1793843279447,
+  "requests": 8,
   "results": [
     {
-      "id": "268161",
-      "code": "JUSD-356",
+      "id": "276781",
+      "code": "RBB-037",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "jusd00356",
-          "returnedId": "jusd00356",
-          "returnedCode": "JUSD-356"
+          "candidateId": "rbb00037",
+          "returnedId": "rbb00037",
+          "returnedCode": "RBB-037"
         }
       ]
     },
     {
-      "id": "268268",
-      "code": "ktra00741",
+      "id": "279518",
+      "code": "ofje00465",
+      "status": "unavailable",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "ofje00465",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [],
+          "eligibleIds": []
+        }
+      ],
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "281024",
+      "code": "ADD-045",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "ktra00741",
-          "returnedId": "ktra00741",
-          "returnedCode": "KTRA-741"
+          "candidateId": "add00045",
+          "returnedId": "add00045",
+          "returnedCode": "ADD-045"
         }
       ]
     },
     {
-      "id": "268347",
-      "code": "atkd186",
-      "status": "success",
+      "id": "286981",
+      "code": "ZOOO-011",
+      "status": "unavailable",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "atkd00186",
-          "returnedId": "atkd00186",
-          "returnedCode": "ATKD-186"
-        }
-      ]
-    },
-    {
-      "id": "275224",
-      "code": "GIGL-205",
-      "status": "success",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "gigl00205",
+          "candidateId": "zooo00011",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "direct",
-          "candidateId": "gigl205",
+          "candidateId": "zooo011",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "search",
           "returnedIds": [
-            "h_860gigl00205"
+            "h_1515zooo00311",
+            "h_1515zooo00111",
+            "h_1515zooo00118",
+            "h_1515zooo00116",
+            "h_1515zooo00119",
+            "h_1515zooo00112",
+            "h_1515zooo00114",
+            "h_1515zooo00113",
+            "h_1515zooo00087",
+            "hobb211",
+            "zoho011",
+            "rabf011",
+            "hobb117",
+            "hobb118",
+            "hobb119",
+            "hobb114",
+            "hobb115",
+            "hobb116",
+            "hobb111",
+            "hobb112"
           ],
-          "eligibleIds": [
-            "h_860gigl00205"
-          ]
-        },
-        {
-          "via": "search-detail",
-          "candidateId": "h_860gigl00205",
-          "returnedId": "h_860gigl00205",
-          "returnedCode": "GIGL-205"
+          "eligibleIds": []
         }
-      ]
+      ],
+      "error": "候选商品未得到精确番号匹配"
     },
     {
-      "id": "276053",
-      "code": "NACX-058",
+      "id": "288850",
+      "code": "CHRV-091",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "nacx00058",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "direct",
-          "candidateId": "nacx058",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "search",
-          "returnedIds": [
-            "h_237nacx00158jo01jo01",
-            "h_237nacx00058"
-          ],
-          "eligibleIds": [
-            "h_237nacx00058"
-          ]
-        },
-        {
-          "via": "search-detail",
-          "candidateId": "h_237nacx00058",
-          "returnedId": "h_237nacx00058",
-          "returnedCode": "NACX-058"
+          "candidateId": "chrv00091",
+          "returnedId": "chrv00091",
+          "returnedCode": "CHRV-091"
         }
       ]
     }
   ],
-  "finishedAt": 1793756436183
+  "finishedAt": 1793843289401
 }

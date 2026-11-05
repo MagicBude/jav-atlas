@@ -1,6 +1,13 @@
 {
   "schemaVersion": 1,
   "tasks": {
+    "102332": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793843273385,
+      "nextRetryAt": 1794448073385
+    },
     "104150": {
       "status": "success",
       "checkedAt": 1793675117649,
@@ -63,6 +70,12 @@
       "checkedAt": 1793236437742,
       "nextRetryAt": 1793841237742
     },
+    "128953": {
+      "status": "success",
+      "checkedAt": 1793843246390,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "130250": {
       "status": "success",
       "checkedAt": 1793581362658,
@@ -86,6 +99,13 @@
       "checkedAt": 1793325348882,
       "attempts": 0,
       "nextRetryAt": 0
+    },
+    "141076": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793843263386,
+      "nextRetryAt": 1794448063386
     },
     "142772": {
       "status": "success",
@@ -258,6 +278,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "203765": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793843265399,
+      "nextRetryAt": 1794448065399
+    },
     "204688": {
       "status": "unmatched",
       "attempts": 1,
@@ -415,6 +442,18 @@
     "248594": {
       "status": "success",
       "checkedAt": 1793325986439,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "248782": {
+      "status": "success",
+      "checkedAt": 1793843228410,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "250219": {
+      "status": "success",
+      "checkedAt": 1793843256403,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -765,6 +804,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "322196": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793843270385,
+      "nextRetryAt": 1794448070385
+    },
     "323399": {
       "status": "unmatched",
       "attempts": 1,
@@ -775,6 +821,12 @@
     "323429": {
       "status": "success",
       "checkedAt": 1793325321910,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "326606": {
+      "status": "success",
+      "checkedAt": 1793843258404,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -926,6 +978,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "383561": {
+      "status": "success",
+      "checkedAt": 1793843277398,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "388316": {
       "status": "success",
       "checkedAt": 1793323315186,
@@ -1055,12 +1113,31 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "433177": {
+      "status": "success",
+      "checkedAt": 1793843244395,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "435699": {
+      "status": "success",
+      "checkedAt": 1793843267391,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "439997": {
       "status": "unmatched",
       "attempts": 1,
       "lastError": "番号未唯一精确匹配",
       "checkedAt": 1793325334339,
       "nextRetryAt": 1793930134339
+    },
+    "442054": {
+      "status": "unmatched",
+      "attempts": 1,
+      "lastError": "番号未唯一精确匹配",
+      "checkedAt": 1793843264402,
+      "nextRetryAt": 1794448064402
     },
     "442937": {
       "status": "success",
@@ -1134,6 +1211,12 @@
     "460435": {
       "status": "success",
       "checkedAt": 1793325362954,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "462007": {
+      "status": "success",
+      "checkedAt": 1793843248399,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -1449,6 +1532,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "521417": {
+      "status": "success",
+      "checkedAt": 1793843275464,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "523456": {
       "status": "success",
       "checkedAt": 1793236431731,
@@ -1500,6 +1589,12 @@
     "533002": {
       "status": "success",
       "checkedAt": 1792725528337,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "533973": {
+      "status": "success",
+      "checkedAt": 1793843226404,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -1603,6 +1698,12 @@
     "570850": {
       "status": "success",
       "checkedAt": 1792731120429,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "572329": {
+      "status": "success",
+      "checkedAt": 1793843236391,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -1766,6 +1867,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "632650": {
+      "status": "success",
+      "checkedAt": 1793843242441,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "633110": {
       "status": "success",
       "checkedAt": 1792731116452,
@@ -1872,6 +1979,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "670390": {
+      "status": "success",
+      "checkedAt": 1793843250395,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "672882": {
       "status": "success",
       "checkedAt": 1793236442745,
@@ -1918,6 +2031,12 @@
     "679024": {
       "status": "success",
       "checkedAt": 1793068742846,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "680482": {
+      "status": "success",
+      "checkedAt": 1793843279391,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -2005,6 +2124,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "710752": {
+      "status": "success",
+      "checkedAt": 1793843234414,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "712086": {
       "status": "success",
       "checkedAt": 1793492702291,
@@ -2024,9 +2149,21 @@
       "checkedAt": 1793148305997,
       "nextRetryAt": 1793753105997
     },
+    "714500": {
+      "status": "success",
+      "checkedAt": 1793843232414,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "717822": {
       "status": "success",
       "checkedAt": 1793325295665,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "718353": {
+      "status": "success",
+      "checkedAt": 1793843240394,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -2146,6 +2283,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "761999": {
+      "status": "success",
+      "checkedAt": 1793843252399,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "768969": {
       "status": "success",
       "checkedAt": 1793408514403,
@@ -2235,9 +2378,21 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "809640": {
+      "status": "success",
+      "checkedAt": 1793843269399,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "811223": {
       "status": "success",
       "checkedAt": 1793326017190,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "812382": {
+      "status": "success",
+      "checkedAt": 1793843260396,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -2346,6 +2501,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "861222": {
+      "status": "success",
+      "checkedAt": 1793843230392,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "862612": {
       "status": "success",
       "checkedAt": 1793408510521,
@@ -2379,6 +2540,12 @@
     "869316": {
       "status": "success",
       "checkedAt": 1792971162961,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "870699": {
+      "status": "success",
+      "checkedAt": 1793843272385,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -2486,6 +2653,12 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "908191": {
+      "status": "success",
+      "checkedAt": 1793843254389,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
     "909910": {
       "status": "success",
       "checkedAt": 1793675154569,
@@ -2502,6 +2675,12 @@
     "911440": {
       "status": "success",
       "checkedAt": 1792733625677,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "913835": {
+      "status": "success",
+      "checkedAt": 1793843238389,
       "attempts": 0,
       "nextRetryAt": 0
     },
@@ -2607,6 +2786,12 @@
     "958862": {
       "status": "success",
       "checkedAt": 1793325959988,
+      "attempts": 0,
+      "nextRetryAt": 0
+    },
+    "959743": {
+      "status": "success",
+      "checkedAt": 1793843262395,
       "attempts": 0,
       "nextRetryAt": 0
     },
