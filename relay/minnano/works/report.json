@@ -1,5 +1,5 @@
 {
-  "startedAt": 1793843209156,
+  "startedAt": 1793929678596,
   "scope": "ranked",
   "budgets": {
     "people": 5,
@@ -9,57 +9,57 @@
     "requests": 100
   },
   "pages": 3,
-  "details": 18,
+  "details": 15,
   "failures": [
     {
-      "actorId": "673176",
+      "actorId": "125605",
       "page": 2,
-      "error": "人物身份无法确认"
+      "error": "返回页码不匹配"
     },
     {
-      "actorId": "513123",
+      "actorId": "908789",
       "page": 2,
-      "error": "人物身份无法确认"
+      "error": "返回页码不匹配"
     },
     {
-      "actorId": "504478",
+      "actorId": "515479",
       "page": 2,
       "error": "返回页码不匹配"
     }
   ],
   "people": [
     {
-      "actorId": "673176",
+      "actorId": "125605",
+      "formal": 96,
+      "placeholders": 2,
+      "nextPage": 2,
+      "stable": false
+    },
+    {
+      "actorId": "908789",
       "formal": 20,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "513123",
-      "formal": 20,
+      "actorId": "650469",
+      "formal": 2,
       "placeholders": 0,
-      "nextPage": 2,
-      "stable": false
-    },
-    {
-      "actorId": "591173",
-      "formal": 0,
-      "placeholders": 1,
       "nextPage": null,
       "stable": true
     },
     {
-      "actorId": "504478",
+      "actorId": "515479",
       "formal": 20,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "930586",
-      "formal": 12,
-      "placeholders": 1,
+      "actorId": "122406",
+      "formal": 3,
+      "placeholders": 0,
       "nextPage": null,
       "stable": true
     }
@@ -78,15 +78,15 @@
       "waiting": 0
     }
   },
-  "eligiblePeople": 863,
+  "eligiblePeople": 895,
   "selectedPeople": [
-    "673176",
-    "513123",
-    "591173",
-    "504478",
-    "930586"
+    "125605",
+    "908789",
+    "650469",
+    "515479",
+    "122406"
   ],
-  "finishedAt": 1793843224811,
-  "requests": 26,
+  "finishedAt": 1793929689813,
+  "requests": 23,
   "pendingDetails": 0
 }

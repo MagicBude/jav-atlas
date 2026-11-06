@@ -1,111 +1,72 @@
 {
-  "startedAt": 1793843279447,
-  "requests": 8,
+  "startedAt": 1793929739228,
+  "requests": 5,
   "results": [
     {
-      "id": "276781",
-      "code": "RBB-037",
+      "id": "289955",
+      "code": "sivr00444",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "rbb00037",
-          "returnedId": "rbb00037",
-          "returnedCode": "RBB-037"
+          "candidateId": "sivr00444",
+          "returnedId": "sivr00444",
+          "returnedCode": "SIVR-444"
         }
       ]
     },
     {
-      "id": "279518",
-      "code": "ofje00465",
-      "status": "unavailable",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "ofje00465",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "search",
-          "returnedIds": [],
-          "eligibleIds": []
-        }
-      ],
-      "error": "候选商品未得到精确番号匹配"
-    },
-    {
-      "id": "281024",
-      "code": "ADD-045",
+      "id": "290675",
+      "code": "RKI-158",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "add00045",
-          "returnedId": "add00045",
-          "returnedCode": "ADD-045"
+          "candidateId": "rki00158",
+          "returnedId": "rki00158",
+          "returnedCode": "RKI-158"
         }
       ]
     },
     {
-      "id": "286981",
-      "code": "ZOOO-011",
-      "status": "unavailable",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "zooo00011",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "direct",
-          "candidateId": "zooo011",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "search",
-          "returnedIds": [
-            "h_1515zooo00311",
-            "h_1515zooo00111",
-            "h_1515zooo00118",
-            "h_1515zooo00116",
-            "h_1515zooo00119",
-            "h_1515zooo00112",
-            "h_1515zooo00114",
-            "h_1515zooo00113",
-            "h_1515zooo00087",
-            "hobb211",
-            "zoho011",
-            "rabf011",
-            "hobb117",
-            "hobb118",
-            "hobb119",
-            "hobb114",
-            "hobb115",
-            "hobb116",
-            "hobb111",
-            "hobb112"
-          ],
-          "eligibleIds": []
-        }
-      ],
-      "error": "候选商品未得到精确番号匹配"
-    },
-    {
-      "id": "288850",
-      "code": "CHRV-091",
+      "id": "293120",
+      "code": "oae00291",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "chrv00091",
-          "returnedId": "chrv00091",
-          "returnedCode": "CHRV-091"
+          "candidateId": "oae00291",
+          "returnedId": "oae00291",
+          "returnedCode": "OAE-291"
+        }
+      ]
+    },
+    {
+      "id": "293564",
+      "code": "STCESD-038",
+      "status": "success",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "stcesd00038",
+          "returnedId": "stcesd00038",
+          "returnedCode": "STCESD-038"
+        }
+      ]
+    },
+    {
+      "id": "293741",
+      "code": "OFJE-237",
+      "status": "success",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "ofje00237",
+          "returnedId": "ofje00237",
+          "returnedCode": "OFJE-237"
         }
       ]
     }
   ],
-  "finishedAt": 1793843289401
+  "finishedAt": 1793929746085
 }

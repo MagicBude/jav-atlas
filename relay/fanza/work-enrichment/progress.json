@@ -1683,6 +1683,71 @@
         }
       ],
       "nextRetryAt": 0
+    },
+    "289955": {
+      "status": "success",
+      "checkedAt": 1793929740707,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "sivr00444",
+          "returnedId": "sivr00444",
+          "returnedCode": "SIVR-444"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "290675": {
+      "status": "success",
+      "checkedAt": 1793929742425,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "rki00158",
+          "returnedId": "rki00158",
+          "returnedCode": "RKI-158"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "293120": {
+      "status": "success",
+      "checkedAt": 1793929743642,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "oae00291",
+          "returnedId": "oae00291",
+          "returnedCode": "OAE-291"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "293564": {
+      "status": "success",
+      "checkedAt": 1793929744869,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "stcesd00038",
+          "returnedId": "stcesd00038",
+          "returnedCode": "STCESD-038"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "293741": {
+      "status": "success",
+      "checkedAt": 1793929746085,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "ofje00237",
+          "returnedId": "ofje00237",
+          "returnedCode": "OFJE-237"
+        }
+      ],
+      "nextRetryAt": 0
     }
   }
 }

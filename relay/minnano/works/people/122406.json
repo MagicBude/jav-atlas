@@ -28,7 +28,7 @@
         "maker": "ROOKIE / ROOKIE"
       },
       "firstSeenAt": 1792719384303,
-      "lastSeenAt": 1792719384303,
+      "lastSeenAt": 1793929681817,
       "sourceOrdinal": 0,
       "seenOnPages": [
         1
@@ -62,7 +62,7 @@
         "maker": "ダマール"
       },
       "firstSeenAt": 1792719384303,
-      "lastSeenAt": 1792719384303,
+      "lastSeenAt": 1793929681817,
       "sourceOrdinal": 2,
       "seenOnPages": [
         1
@@ -96,7 +96,7 @@
         "maker": "キュープランニング / TABOO"
       },
       "firstSeenAt": 1792719384303,
-      "lastSeenAt": 1792719384303,
+      "lastSeenAt": 1793929681817,
       "sourceOrdinal": 1,
       "seenOnPages": [
         1
@@ -112,8 +112,8 @@
       "missingFromLatestCompleteScan": false
     }
   ],
-  "completedAt": 1792719384933,
-  "updatedAt": 1792719384303,
-  "visitedAllPagesAt": 1792719384933,
-  "scanId": "122406-1792719383936"
+  "completedAt": 1793929682320,
+  "updatedAt": 1793929681817,
+  "visitedAllPagesAt": 1793929682320,
+  "scanId": "122406-1793929681517"
 }
