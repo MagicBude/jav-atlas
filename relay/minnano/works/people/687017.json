@@ -20,8 +20,8 @@
         "maker": "エスワン ナンバーワンスタイル / S1 NO.1 STYLE"
       },
       "firstSeenAt": 1792719385426,
-      "lastSeenAt": 1792719385426,
-      "sourceOrdinal": 0,
+      "lastSeenAt": 1794013692210,
+      "sourceOrdinal": 1,
       "seenOnPages": [
         1
       ],
@@ -54,8 +54,8 @@
         "maker": "エスワン ナンバーワンスタイル / S1 NO.1 STYLE"
       },
       "firstSeenAt": 1792719385426,
-      "lastSeenAt": 1792719385426,
-      "sourceOrdinal": 1,
+      "lastSeenAt": 1794013692210,
+      "sourceOrdinal": 0,
       "seenOnPages": [
         1
       ],
@@ -85,7 +85,7 @@
         "maker": ""
       },
       "firstSeenAt": 1792719385426,
-      "lastSeenAt": 1792719385426,
+      "lastSeenAt": 1794013692210,
       "sourceOrdinal": 2,
       "seenOnPages": [
         1
@@ -101,8 +101,8 @@
       "missingFromLatestCompleteScan": false
     }
   ],
-  "completedAt": 1792719385926,
-  "updatedAt": 1792719385426,
-  "visitedAllPagesAt": 1792719385926,
-  "scanId": "687017-1792719384933"
+  "completedAt": 1794013692706,
+  "updatedAt": 1794013692210,
+  "visitedAllPagesAt": 1794013692706,
+  "scanId": "687017-1794013692012"
 }

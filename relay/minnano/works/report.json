@@ -1,5 +1,5 @@
 {
-  "startedAt": 1793929678596,
+  "startedAt": 1794013688867,
   "scope": "ranked",
   "budgets": {
     "people": 5,
@@ -9,57 +9,57 @@
     "requests": 100
   },
   "pages": 3,
-  "details": 15,
+  "details": 17,
   "failures": [
     {
-      "actorId": "125605",
+      "actorId": "527379",
       "page": 2,
       "error": "返回页码不匹配"
     },
     {
-      "actorId": "908789",
-      "page": 2,
-      "error": "返回页码不匹配"
+      "actorId": "125102",
+      "page": 1,
+      "error": "HTTP 403"
     },
     {
-      "actorId": "515479",
+      "actorId": "631323",
       "page": 2,
       "error": "返回页码不匹配"
     }
   ],
   "people": [
     {
-      "actorId": "125605",
-      "formal": 96,
-      "placeholders": 2,
-      "nextPage": 2,
-      "stable": false
-    },
-    {
-      "actorId": "908789",
-      "formal": 20,
+      "actorId": "527379",
+      "formal": 19,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "650469",
-      "formal": 2,
+      "actorId": "125102",
+      "formal": 0,
+      "placeholders": 0,
+      "nextPage": 1,
+      "stable": false
+    },
+    {
+      "actorId": "452629",
+      "formal": 1,
       "placeholders": 0,
       "nextPage": null,
       "stable": true
     },
     {
-      "actorId": "515479",
+      "actorId": "631323",
       "formal": 20,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "122406",
-      "formal": 3,
-      "placeholders": 0,
+      "actorId": "687017",
+      "formal": 2,
+      "placeholders": 1,
       "nextPage": null,
       "stable": true
     }
@@ -78,15 +78,15 @@
       "waiting": 0
     }
   },
-  "eligiblePeople": 895,
+  "eligiblePeople": 910,
   "selectedPeople": [
-    "125605",
-    "908789",
-    "650469",
-    "515479",
-    "122406"
+    "527379",
+    "125102",
+    "452629",
+    "631323",
+    "687017"
   ],
-  "finishedAt": 1793929689813,
-  "requests": 23,
+  "finishedAt": 1794013701216,
+  "requests": 25,
   "pendingDetails": 0
 }

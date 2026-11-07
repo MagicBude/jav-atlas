@@ -1,40 +1,40 @@
 {
-  "generatedAt": "2026-11-06T01:49:06.228Z",
+  "generatedAt": "2026-11-07T01:09:39.360Z",
   "scope": "cumulative-ranked-pool",
   "people": {
-    "total": 895,
+    "total": 910,
     "lists": {
-      "not-started": 850,
-      "partial": 10,
+      "not-started": 863,
+      "partial": 11,
       "unstable": 0,
-      "complete": 35
+      "complete": 36
     },
     "waitingRetry": 3,
     "profiles": {
-      "fetched": 894,
+      "fetched": 909,
       "waitingRetry": 1,
       "availableFields": {
-        "birthday": 821,
-        "height": 847,
-        "cup": 853,
-        "agency": 634,
-        "official": 455,
-        "hobby": 570
+        "birthday": 834,
+        "height": 859,
+        "cup": 866,
+        "agency": 639,
+        "official": 464,
+        "hobby": 575
       }
     }
   },
   "works": {
-    "listed": 825,
-    "details": 825,
+    "listed": 842,
+    "details": 842,
     "missingDetails": 0,
-    "withCode": 795,
-    "missingCode": 30
+    "withCode": 811,
+    "missingCode": 31
   },
   "metadata": {
-    "matched": 431,
-    "notMatched": 364,
-    "freshWithinSevenDays": 271,
-    "waitingRetry": 39
+    "matched": 460,
+    "notMatched": 351,
+    "freshWithinSevenDays": 180,
+    "waitingRetry": 30
   },
   "pendingDetailTasks": 0
 }
