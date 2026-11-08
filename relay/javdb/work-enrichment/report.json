@@ -1,221 +1,215 @@
 {
-  "startedAt": 1794013701343,
+  "startedAt": 1794099372547,
   "limit": 30,
   "requestLimit": 90,
   "results": [
     {
-      "id": "513588",
-      "code": "RLMP-028",
-      "javdbId": "NQXxxB",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "841394",
-      "code": "MKMP-773",
-      "javdbId": "Yw8v0x",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "791233",
-      "code": "BBSS-107",
-      "javdbId": "mOxavv",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "850761",
-      "code": "NGOD-368",
-      "javdbId": "KkJxxv",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "494347",
-      "code": "DFE-118",
-      "javdbId": "EbK9ex",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "483017",
-      "code": "XVSR-905",
-      "javdbId": "veAknG",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "397285",
-      "code": "JFB-520",
-      "javdbId": "xARm5P",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "692893",
-      "code": "BF-774",
-      "javdbId": "0ea1Dq",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "748945",
-      "code": "JJDA-083",
-      "javdbId": "3nJDqN",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "896926",
-      "code": "MIRD-288",
-      "javdbId": "Wwmene",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "936792",
-      "code": "SAME-252",
-      "javdbId": "DR6GB4",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "885814",
-      "code": "002REHODV-20544",
+      "id": "289147",
+      "code": "idpc00035",
       "status": "unmatched",
       "error": "番号未唯一精确匹配"
     },
     {
-      "id": "128561",
-      "code": "CADV-958",
-      "javdbId": "vep0QW",
+      "id": "288928",
+      "code": "SNOS-460",
+      "javdbId": "4Dvzz6",
       "status": "success",
       "dateDifference": true
     },
     {
-      "id": "563182",
-      "code": "UMSO-660",
-      "javdbId": "pkWVnk",
-      "status": "success",
-      "dateDifference": true
+      "id": "979567",
+      "code": "15YMDD00011AI",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
     },
     {
-      "id": "836961",
-      "code": "CEAD-772",
-      "javdbId": "RkWPWm",
-      "status": "success",
-      "dateDifference": true
+      "id": "363767",
+      "code": "59hez208",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
     },
     {
-      "id": "294777",
-      "code": "CJOD-539",
-      "javdbId": "96rqyX",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "879445",
-      "code": "ofje276",
-      "javdbId": "yWBRA",
+      "id": "608573",
+      "code": "mgt-118",
+      "javdbId": "4E97p",
       "status": "success",
       "dateDifference": false
     },
     {
-      "id": "286981",
-      "code": "ZOOO-011",
-      "javdbId": "KBRBQ",
+      "id": "941523",
+      "code": "345SIMM-484",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
+    },
+    {
+      "id": "241171",
+      "code": "NACX-060",
+      "javdbId": "XzyGV",
       "status": "success",
       "dateDifference": false
     },
     {
-      "id": "399530",
-      "code": "DDT-640",
-      "javdbId": "8WODE",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "259647",
-      "code": "RBB-190",
-      "javdbId": "kPaWe",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "850605",
-      "code": "RBB-194",
-      "javdbId": "JzyR8",
-      "status": "success",
-      "dateDifference": true
-    },
-    {
-      "id": "316913",
-      "code": "MDVR-114",
-      "javdbId": "MBx3X",
+      "id": "276053",
+      "code": "NACX-058",
+      "javdbId": "zZeQQ",
       "status": "success",
       "dateDifference": false
     },
     {
-      "id": "761980",
-      "code": "NASH-381",
-      "javdbId": "ZPyGm",
+      "id": "618407",
+      "code": "345SIMM-471",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
+    },
+    {
+      "id": "525773",
+      "code": "345SIMM-468",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
+    },
+    {
+      "id": "264114",
+      "code": "DOCP-234",
+      "javdbId": "aKEK4",
       "status": "success",
       "dateDifference": false
     },
     {
-      "id": "655128",
-      "code": "NACX-063",
-      "javdbId": "dq7Be",
-      "status": "success",
-      "dateDifference": false
-    },
-    {
-      "id": "899482",
-      "code": "NASH-369",
-      "javdbId": "bzWga",
-      "status": "success",
-      "dateDifference": false
-    },
-    {
-      "id": "636321",
-      "code": "CADV-783",
-      "javdbId": "JZKG8",
+      "id": "490807",
+      "code": "DDT-633",
+      "javdbId": "WzQwK",
       "status": "success",
       "dateDifference": true
     },
     {
-      "id": "127524",
-      "code": "COM-081",
-      "javdbId": "W44r7",
+      "id": "625398",
+      "code": "DOCP-235",
+      "javdbId": "x3N3A",
       "status": "success",
       "dateDifference": false
     },
     {
-      "id": "523257",
-      "code": "KSBJ-098",
-      "javdbId": "m7BGd",
+      "id": "338027",
+      "code": "RBB-185",
+      "javdbId": "q7OK3",
       "status": "success",
       "dateDifference": true
     },
     {
-      "id": "605852",
-      "code": "DDT-637",
-      "javdbId": "q7ryx",
+      "id": "116714",
+      "code": "NACX-056",
+      "javdbId": "KP8VO",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "737263",
+      "code": "KTKC-088",
+      "javdbId": "02rnJ",
       "status": "success",
       "dateDifference": true
     },
     {
-      "id": "984455",
-      "code": "FCH-063",
-      "javdbId": "4mxOa",
+      "id": "788822",
+      "code": "ADD-050",
+      "javdbId": "44JDR",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "15886",
+      "code": "ofje249",
+      "javdbId": "yzByb",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "695644",
+      "code": "300MAAN-546",
+      "status": "unmatched",
+      "error": "番号未唯一精确匹配"
+    },
+    {
+      "id": "609135",
+      "code": "NACX-054",
+      "javdbId": "M7eeJ",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "625601",
+      "code": "CJOB-065",
+      "javdbId": "a3J0q",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "688098",
+      "code": "DDT-632",
+      "javdbId": "eDxmr",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "221976",
+      "code": "OFJE-245",
+      "javdbId": "AVVAe",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "197630",
+      "code": "NACX-053",
+      "javdbId": "qqx9D",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "853506",
+      "code": "avkh143",
+      "javdbId": "b3y46",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "436460",
+      "code": "NASH-271",
+      "javdbId": "ZxQK8",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "145961",
+      "code": "KSBJ-074",
+      "javdbId": "04V5k",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "208211",
+      "code": "SYKH-006",
+      "javdbId": "Qr80K",
+      "status": "success",
+      "dateDifference": false
+    },
+    {
+      "id": "293741",
+      "code": "OFJE-237",
+      "javdbId": "4x1PZ",
+      "status": "success",
+      "dateDifference": true
+    },
+    {
+      "id": "996884",
+      "code": "HMD-041",
+      "javdbId": "peRBe",
       "status": "success",
       "dateDifference": false
     }
   ],
-  "finishedAt": 1794013759457,
-  "requests": 59,
+  "finishedAt": 1794099424646,
+  "requests": 53,
   "blockedUntil": null,
-  "success": 29,
-  "needsAttention": 1
+  "success": 23,
+  "needsAttention": 7
 }

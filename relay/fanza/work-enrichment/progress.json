@@ -41,7 +41,7 @@
     },
     "20462": {
       "status": "unavailable",
-      "checkedAt": 1793328837110,
+      "checkedAt": 1794099428840,
       "observations": [
         {
           "via": "direct",
@@ -61,7 +61,7 @@
           "eligibleIds": []
         }
       ],
-      "nextRetryAt": 1793933637110
+      "nextRetryAt": 1794704228840
     },
     "104441": {
       "status": "success",
@@ -961,7 +961,7 @@
     },
     "216858": {
       "status": "unavailable",
-      "checkedAt": 1793328845529,
+      "checkedAt": 1794099432318,
       "observations": [
         {
           "via": "direct",
@@ -981,7 +981,7 @@
           "eligibleIds": []
         }
       ],
-      "nextRetryAt": 1793933645529
+      "nextRetryAt": 1794704232318
     },
     "220857": {
       "status": "success",
@@ -1050,7 +1050,7 @@
     },
     "232864": {
       "status": "unavailable",
-      "checkedAt": 1793492729819,
+      "checkedAt": 1794099435805,
       "observations": [
         {
           "via": "direct",
@@ -1070,7 +1070,7 @@
           "eligibleIds": []
         }
       ],
-      "nextRetryAt": 1794097529819
+      "nextRetryAt": 1794704235805
     },
     "233646": {
       "status": "success",
@@ -1679,6 +1679,19 @@
       ],
       "nextRetryAt": 0
     },
+    "289147": {
+      "status": "success",
+      "checkedAt": 1794099436940,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "idpc00035",
+          "returnedId": "idpc00035",
+          "returnedCode": "IDPC-035"
+        }
+      ],
+      "nextRetryAt": 0
+    },
     "289955": {
       "status": "success",
       "checkedAt": 1793929740707,
@@ -1743,6 +1756,30 @@
         }
       ],
       "nextRetryAt": 0
+    },
+    "304849": {
+      "status": "unavailable",
+      "checkedAt": 1794099440420,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "dvdes00953",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "dvdes953",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1794704240420
     }
   }
 }

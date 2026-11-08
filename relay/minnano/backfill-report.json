@@ -1,107 +1,125 @@
 {
-  "generatedAt": 1794013620375,
+  "generatedAt": 1794099261683,
   "exitCode": 0,
-  "selected": 15,
+  "selected": 18,
   "batch": {
-    "profileSuccess": 15,
+    "profileSuccess": 18,
     "profileFailed": 0,
     "profileNotAttempted": 0,
     "missingAvatars": 0
   },
   "total": {
-    "people": 910,
-    "profileSuccess": 909,
-    "profileFieldsSaved": 909,
+    "people": 928,
+    "profileSuccess": 927,
+    "profileFieldsSaved": 927,
     "missingAvatars": 2
   },
   "results": [
     {
-      "mnid": "207446",
-      "name": "藤代恵子",
+      "mnid": "162715",
+      "name": "里美ゆりあ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "35271",
-      "name": "西岡紗希",
+      "mnid": "173234",
+      "name": "井東なの",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "357671",
-      "name": "鈴川玲理",
+      "mnid": "328282",
+      "name": "香西咲",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "377317",
-      "name": "RARA(アイポケ)",
+      "mnid": "391349",
+      "name": "若月みいな",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "452629",
-      "name": "瀬奈りおな",
+      "mnid": "394057",
+      "name": "花咲澪",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "469076",
-      "name": "ミッキー・ガランテ",
+      "mnid": "488612",
+      "name": "陽木かれん",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "528984",
-      "name": "ティファニー・ルッソ",
+      "mnid": "49628",
+      "name": "齋齋いつき",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "64536",
-      "name": "みわ(ガチん娘)",
+      "mnid": "50799",
+      "name": "今賀はる",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "69476",
-      "name": "美澄玲衣",
+      "mnid": "549951",
+      "name": "百田くるみ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "779730",
-      "name": "フロラナ・ラッセル",
+      "mnid": "647217",
+      "name": "加納綾子",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "789443",
-      "name": "瞳りん",
+      "mnid": "650812",
+      "name": "高梨れいな",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "888167",
-      "name": "ケンナ・ジェームス",
+      "mnid": "699765",
+      "name": "安達夕莉",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "896751",
-      "name": "神喜ミア",
+      "mnid": "832453",
+      "name": "愛才りあ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "933456",
-      "name": "高山エミリ",
+      "mnid": "840252",
+      "name": "春菜はな",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "845550",
-      "name": "相楽ちな",
+      "mnid": "844407",
+      "name": "伊東ちなみ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "864473",
+      "name": "真野祈",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "964050",
+      "name": "野々浦暖",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "972452",
+      "name": "栗林里莉",
       "profile": "success",
       "avatar": "available"
     }

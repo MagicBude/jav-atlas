@@ -1,21 +1,21 @@
 {
-  "startedAt": 1794013759499,
-  "requests": 15,
+  "startedAt": 1794099424704,
+  "requests": 13,
   "results": [
     {
-      "id": "110050",
-      "code": "ASFB-228",
+      "id": "20462",
+      "code": "LPGX-004",
       "status": "unavailable",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "asfb00228",
+          "candidateId": "lpgx00004",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "direct",
-          "candidateId": "asfb228",
+          "candidateId": "lpgx004",
           "returnedId": null,
           "returnedCode": null
         },
@@ -28,88 +28,19 @@
       "error": "候选商品未得到精确番号匹配"
     },
     {
-      "id": "155402",
-      "code": "r325",
+      "id": "216858",
+      "code": "SIRO-2571",
       "status": "unavailable",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "r00325",
+          "candidateId": "siro02571",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "direct",
-          "candidateId": "r325",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "search",
-          "returnedIds": [
-            "mdud00325",
-            "180advsr00147",
-            "1vspds325",
-            "42sp00325"
-          ],
-          "eligibleIds": []
-        }
-      ],
-      "error": "候选商品未得到精确番号匹配"
-    },
-    {
-      "id": "182731",
-      "code": "SIV-038",
-      "status": "unavailable",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "siv00038",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "direct",
-          "candidateId": "siv038",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "search",
-          "returnedIds": [
-            "sivr00381",
-            "sivr00380",
-            "sivr00438",
-            "sivr00389",
-            "sivr00388",
-            "sivr00386",
-            "sivr00385",
-            "sivr00382",
-            "sivr00384",
-            "sivr00338",
-            "sivr00138",
-            "h_1382tnsivr00002",
-            "h_1382tnsivr00001"
-          ],
-          "eligibleIds": []
-        }
-      ],
-      "error": "候选商品未得到精确番号匹配"
-    },
-    {
-      "id": "184935",
-      "code": "DOMD-001",
-      "status": "unavailable",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "domd00001",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "direct",
-          "candidateId": "domd001",
+          "candidateId": "siro2571",
           "returnedId": null,
           "returnedCode": null
         },
@@ -122,51 +53,68 @@
       "error": "候选商品未得到精确番号匹配"
     },
     {
-      "id": "199623",
-      "code": "ANS-004",
+      "id": "232864",
+      "code": "JMA-038",
       "status": "unavailable",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "ans00004",
+          "candidateId": "jma00038",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "direct",
-          "candidateId": "ans004",
+          "candidateId": "jma038",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "search",
-          "returnedIds": [
-            "waaa00709",
-            "mizd00570",
-            "idpc00039",
-            "bmw00371",
-            "idpc00034",
-            "cawb00056",
-            "vrkm01912",
-            "kagp00411",
-            "snos00471",
-            "mthg00002",
-            "1nhdtc00272",
-            "1fthtd00237",
-            "1dandya00054",
-            "1cpz6900016",
-            "1sdjs00361z",
-            "h_1711docd00104",
-            "1sgki00110",
-            "h_1758jjgg00012",
-            "kdmi00070",
-            "vagu00296"
-          ],
+          "returnedIds": [],
+          "eligibleIds": []
+        }
+      ],
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "289147",
+      "code": "idpc00035",
+      "status": "success",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "idpc00035",
+          "returnedId": "idpc00035",
+          "returnedCode": "IDPC-035"
+        }
+      ]
+    },
+    {
+      "id": "304849",
+      "code": "DVDES-953",
+      "status": "unavailable",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "dvdes00953",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "dvdes953",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [],
           "eligibleIds": []
         }
       ],
       "error": "候选商品未得到精确番号匹配"
     }
   ],
-  "finishedAt": 1794013779260
+  "finishedAt": 1794099440420
 }
