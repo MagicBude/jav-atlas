@@ -1,21 +1,21 @@
 {
-  "startedAt": 1794099424704,
+  "startedAt": 1794186876797,
   "requests": 13,
   "results": [
     {
-      "id": "20462",
-      "code": "LPGX-004",
+      "id": "247098",
+      "code": "mywife451",
       "status": "unavailable",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "lpgx00004",
+          "candidateId": "mywife00451",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "direct",
-          "candidateId": "lpgx004",
+          "candidateId": "mywife451",
           "returnedId": null,
           "returnedCode": null
         },
@@ -28,19 +28,19 @@
       "error": "候选商品未得到精确番号匹配"
     },
     {
-      "id": "216858",
-      "code": "SIRO-2571",
+      "id": "251221",
+      "code": "KAAD-084",
       "status": "unavailable",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "siro02571",
+          "candidateId": "kaad00084",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "direct",
-          "candidateId": "siro2571",
+          "candidateId": "kaad084",
           "returnedId": null,
           "returnedCode": null
         },
@@ -53,57 +53,57 @@
       "error": "候选商品未得到精确番号匹配"
     },
     {
-      "id": "232864",
-      "code": "JMA-038",
-      "status": "unavailable",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "jma00038",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "direct",
-          "candidateId": "jma038",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "search",
-          "returnedIds": [],
-          "eligibleIds": []
-        }
-      ],
-      "error": "候选商品未得到精确番号匹配"
-    },
-    {
-      "id": "289147",
-      "code": "idpc00035",
+      "id": "269459",
+      "code": "RKI-744",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "idpc00035",
-          "returnedId": "idpc00035",
-          "returnedCode": "IDPC-035"
+          "candidateId": "rki00744",
+          "returnedId": "rki00744",
+          "returnedCode": "RKI-744"
         }
       ]
     },
     {
-      "id": "304849",
-      "code": "DVDES-953",
+      "id": "30828",
+      "code": "spz976",
       "status": "unavailable",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "dvdes00953",
+          "candidateId": "spz00976",
           "returnedId": null,
           "returnedCode": null
         },
         {
           "via": "direct",
-          "candidateId": "dvdes953",
+          "candidateId": "spz976",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [],
+          "eligibleIds": []
+        }
+      ],
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "308767",
+      "code": "BJV-02",
+      "status": "unavailable",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "bjv00002",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "bjv02",
           "returnedId": null,
           "returnedCode": null
         },
@@ -116,5 +116,5 @@
       "error": "候选商品未得到精确番号匹配"
     }
   ],
-  "finishedAt": 1794099440420
+  "finishedAt": 1794186893007
 }

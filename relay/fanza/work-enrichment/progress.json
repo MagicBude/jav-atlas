@@ -63,6 +63,30 @@
       ],
       "nextRetryAt": 1794704228840
     },
+    "30828": {
+      "status": "unavailable",
+      "checkedAt": 1794186889220,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "spz00976",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "spz976",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1794791689220
+    },
     "104441": {
       "status": "success",
       "checkedAt": 1793328285454,
@@ -1201,7 +1225,7 @@
     },
     "247098": {
       "status": "unavailable",
-      "checkedAt": 1793581414607,
+      "checkedAt": 1794186881116,
       "observations": [
         {
           "via": "direct",
@@ -1221,11 +1245,11 @@
           "eligibleIds": []
         }
       ],
-      "nextRetryAt": 1794186214607
+      "nextRetryAt": 1794791681116
     },
     "251221": {
       "status": "unavailable",
-      "checkedAt": 1793581418406,
+      "checkedAt": 1794186884600,
       "observations": [
         {
           "via": "direct",
@@ -1245,7 +1269,7 @@
           "eligibleIds": []
         }
       ],
-      "nextRetryAt": 1794186218406
+      "nextRetryAt": 1794791684600
     },
     "252846": {
       "status": "success",
@@ -1504,6 +1528,19 @@
           "candidateId": "atkd00186",
           "returnedId": "atkd00186",
           "returnedCode": "ATKD-186"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "269459": {
+      "status": "success",
+      "checkedAt": 1794186885736,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "rki00744",
+          "returnedId": "rki00744",
+          "returnedCode": "RKI-744"
         }
       ],
       "nextRetryAt": 0
@@ -1780,6 +1817,30 @@
         }
       ],
       "nextRetryAt": 1794704240420
+    },
+    "308767": {
+      "status": "unavailable",
+      "checkedAt": 1794186893007,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "bjv00002",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "bjv02",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1794791693007
     }
   }
 }
