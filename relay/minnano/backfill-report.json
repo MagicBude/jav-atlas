@@ -1,53 +1,77 @@
 {
-  "generatedAt": 1794186687368,
+  "generatedAt": 1794282398385,
   "exitCode": 0,
-  "selected": 6,
+  "selected": 10,
   "batch": {
-    "profileSuccess": 6,
+    "profileSuccess": 10,
     "profileFailed": 0,
     "profileNotAttempted": 0,
     "missingAvatars": 0
   },
   "total": {
-    "people": 934,
-    "profileSuccess": 933,
-    "profileFieldsSaved": 933,
+    "people": 944,
+    "profileSuccess": 943,
+    "profileFieldsSaved": 943,
     "missingAvatars": 2
   },
   "results": [
     {
-      "mnid": "437257",
-      "name": "有村のぞみ",
+      "mnid": "126577",
+      "name": "桃果あかり",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "505615",
-      "name": "赤目レイラン",
+      "mnid": "246445",
+      "name": "更科莉愛",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "765957",
-      "name": "上原あゆな",
+      "mnid": "366853",
+      "name": "有加里ののか",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "808252",
-      "name": "西尾まりな",
+      "mnid": "393633",
+      "name": "宮沢ゆかり",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "816671",
-      "name": "九条みちる",
+      "mnid": "438491",
+      "name": "最上一花",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "867676",
-      "name": "咲々原リン",
+      "mnid": "802341",
+      "name": "星谷うた",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "811420",
+      "name": "栗山莉緒",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "9935",
+      "name": "北村海智",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "782548",
+      "name": "上高なりみ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "377299",
+      "name": "猫居ことね",
       "profile": "success",
       "avatar": "available"
     }

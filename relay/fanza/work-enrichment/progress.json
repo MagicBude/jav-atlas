@@ -196,6 +196,32 @@
       "checkedAt": 1793327346618,
       "nextRetryAt": 0
     },
+    "126601": {
+      "status": "unavailable",
+      "checkedAt": 1794282588503,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "jjpp00147",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "jjpp147",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "jjpp00158"
+          ],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1794887388503
+    },
     "127524": {
       "status": "success",
       "checkedAt": 1793328305061,
@@ -1020,6 +1046,41 @@
       ],
       "nextRetryAt": 0
     },
+    "221685": {
+      "status": "unavailable",
+      "checkedAt": 1794282592287,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "pym00300",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "pym300",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "h_283pym00572",
+            "h_283pym00557",
+            "h_283pym00545",
+            "h_283pym00483",
+            "h_283pym00476",
+            "h_283pym00454",
+            "h_283pym00438",
+            "h_283pym00417",
+            "h_283pym00414",
+            "h_283pym00409"
+          ],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1794887392287
+    },
     "221879": {
       "status": "success",
       "checkedAt": 1793408565809,
@@ -1172,6 +1233,35 @@
         }
       ],
       "nextRetryAt": 0
+    },
+    "235556": {
+      "status": "unavailable",
+      "checkedAt": 1794282596067,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "meko01111",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "h_1377meko01111"
+          ],
+          "eligibleIds": [
+            "h_1377meko01111"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "h_1377meko01111",
+          "returnedId": "h_1377meko01111",
+          "returnedCode": "MEKO-111-1",
+          "rejected": "FANZA商品身份或番号不一致"
+        }
+      ],
+      "nextRetryAt": 1794887396067
     },
     "241171": {
       "status": "success",
@@ -1403,7 +1493,7 @@
     },
     "259814": {
       "status": "unavailable",
-      "checkedAt": 1793675164265,
+      "checkedAt": 1794282600322,
       "observations": [
         {
           "via": "direct",
@@ -1423,7 +1513,7 @@
           "eligibleIds": []
         }
       ],
-      "nextRetryAt": 1794279964265
+      "nextRetryAt": 1794887400322
     },
     "264114": {
       "status": "success",
@@ -1657,6 +1747,30 @@
         }
       ],
       "nextRetryAt": 0
+    },
+    "286192": {
+      "status": "unavailable",
+      "checkedAt": 1794282604069,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "arf00023",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "arf23",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1794887404069
     },
     "286981": {
       "status": "unavailable",
