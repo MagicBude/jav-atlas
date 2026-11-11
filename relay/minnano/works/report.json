@@ -1,5 +1,5 @@
 {
-  "startedAt": 1794282504136,
+  "startedAt": 1794360478211,
   "scope": "ranked",
   "budgets": {
     "people": 5,
@@ -9,62 +9,57 @@
     "requests": 100
   },
   "pages": 4,
-  "details": 38,
+  "details": 27,
   "failures": [
     {
-      "actorId": "504478",
+      "actorId": "908789",
       "page": 2,
       "error": "返回页码不匹配"
     },
     {
-      "actorId": "125605",
+      "actorId": "515479",
       "page": 2,
       "error": "返回页码不匹配"
     },
     {
-      "actorId": "910982",
-      "page": 2,
-      "error": "返回页码不匹配"
-    },
-    {
-      "actorId": "759593",
+      "actorId": "985557",
       "page": 2,
       "error": "返回页码不匹配"
     }
   ],
   "people": [
     {
-      "actorId": "504478",
+      "actorId": "908789",
+      "formal": 23,
+      "placeholders": 0,
+      "nextPage": 2,
+      "stable": false
+    },
+    {
+      "actorId": "515479",
       "formal": 20,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "125605",
-      "formal": 98,
-      "placeholders": 2,
-      "nextPage": 2,
-      "stable": false
+      "actorId": "605498",
+      "formal": 18,
+      "placeholders": 0,
+      "nextPage": null,
+      "stable": true
     },
     {
-      "actorId": "910982",
+      "actorId": "985557",
       "formal": 20,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "759593",
-      "formal": 20,
-      "placeholders": 0,
-      "nextPage": 2,
-      "stable": false
-    },
-    {
-      "actorId": "384744",
-      "formal": 1,
-      "placeholders": 0,
+      "actorId": "411266",
+      "formal": 4,
+      "placeholders": 1,
       "nextPage": null,
       "stable": true
     }
@@ -85,13 +80,13 @@
   },
   "eligiblePeople": 944,
   "selectedPeople": [
-    "504478",
-    "125605",
-    "910982",
-    "759593",
-    "384744"
+    "908789",
+    "515479",
+    "605498",
+    "985557",
+    "411266"
   ],
-  "finishedAt": 1794282528060,
-  "requests": 47,
+  "finishedAt": 1794360496204,
+  "requests": 36,
   "pendingDetails": 0
 }

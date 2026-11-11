@@ -1,9 +1,9 @@
 {
-  "generatedAt": 1794282398385,
+  "generatedAt": 1794360389008,
   "exitCode": 0,
-  "selected": 10,
+  "selected": 0,
   "batch": {
-    "profileSuccess": 10,
+    "profileSuccess": 0,
     "profileFailed": 0,
     "profileNotAttempted": 0,
     "missingAvatars": 0
@@ -14,67 +14,6 @@
     "profileFieldsSaved": 943,
     "missingAvatars": 2
   },
-  "results": [
-    {
-      "mnid": "126577",
-      "name": "桃果あかり",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "246445",
-      "name": "更科莉愛",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "366853",
-      "name": "有加里ののか",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "393633",
-      "name": "宮沢ゆかり",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "438491",
-      "name": "最上一花",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "802341",
-      "name": "星谷うた",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "811420",
-      "name": "栗山莉緒",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "9935",
-      "name": "北村海智",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "782548",
-      "name": "上高なりみ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "377299",
-      "name": "猫居ことね",
-      "profile": "success",
-      "avatar": "available"
-    }
-  ],
+  "results": [],
   "scope": "ranked-pool"
 }

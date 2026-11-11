@@ -1,218 +1,192 @@
 {
-  "startedAt": 1794282528242,
+  "startedAt": 1794360496355,
   "limit": 30,
   "requestLimit": 90,
   "results": [
     {
-      "id": "924850",
-      "code": "OFJE-672",
-      "javdbId": "r3paaR",
-      "status": "success",
-      "dateDifference": false
+      "id": "225503",
+      "code": "SODS-102",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "920144",
-      "code": "VRKM-1914",
-      "javdbId": "QNYnDM",
-      "status": "success",
-      "dateDifference": false
+      "id": "482628",
+      "code": "APNS-426",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "722760",
-      "code": "VRKM-1917",
-      "javdbId": "bKvKaB",
-      "status": "success",
-      "dateDifference": false
+      "id": "516141",
+      "code": "DVAJ-762",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "623959",
-      "code": "AVSA-465",
-      "javdbId": "wKmaNe",
-      "status": "success",
-      "dateDifference": true
+      "id": "696185",
+      "code": "SODAH-012",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "984095",
-      "code": "SKTK-001",
-      "javdbId": "veAaaO",
-      "status": "success",
-      "dateDifference": true
+      "id": "369100",
+      "code": "IENFA-46502",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "270488",
-      "code": "ROYD-372",
-      "javdbId": "82gaaO",
-      "status": "success",
-      "dateDifference": true
+      "id": "118183",
+      "code": "SDMF-054",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "625757",
-      "code": "OFJE-673",
-      "javdbId": "gyx55g",
-      "status": "success",
-      "dateDifference": true
+      "id": "380818",
+      "code": "TANF-045",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "714505",
-      "code": "DSOD-133",
-      "javdbId": "z49aw4",
-      "status": "success",
-      "dateDifference": true
+      "id": "611690",
+      "code": "APKH-200",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "843844",
-      "code": "NBES-118",
-      "javdbId": "2mgzzZ",
-      "status": "success",
-      "dateDifference": true
+      "id": "615922",
+      "code": "RLMP-027",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "491415",
-      "code": "UMD-1027",
-      "javdbId": "7ynP8Z",
-      "status": "success",
-      "dateDifference": true
+      "id": "630477",
+      "code": "MANX-035",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "626962",
-      "code": "JERA-056",
-      "javdbId": "0ea1kJ",
-      "status": "success",
-      "dateDifference": true
+      "id": "643537",
+      "code": "MIDA-849",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "450269",
-      "code": "FJIN-173",
-      "javdbId": "82gYx5",
-      "status": "success",
-      "dateDifference": true
+      "id": "722272",
+      "code": "MKCK-433",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "115853",
-      "code": "BMW-369",
-      "javdbId": "pkYnbE",
-      "status": "success",
-      "dateDifference": true
+      "id": "278904",
+      "code": "SODSVR-006",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "171278",
-      "code": "HOMA-170",
-      "javdbId": "EbKNQJ",
-      "status": "success",
-      "dateDifference": true
+      "id": "488787",
+      "code": "FOFI-002",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "397686",
-      "code": "KAM-283",
-      "javdbId": "a8mb33",
-      "status": "success",
-      "dateDifference": true
+      "id": "165730",
+      "code": "ATKD-444",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "937682",
-      "code": "MKCK-434",
-      "javdbId": "MbZNK1",
-      "status": "success",
-      "dateDifference": true
+      "id": "765923",
+      "code": "MIZD-550",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "753182",
-      "code": "FJIN00173A",
-      "status": "unmatched",
-      "error": "番号未唯一精确匹配"
+      "id": "824230",
+      "code": "VRKM-1896",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "783537",
-      "code": "FJIN00173B",
-      "status": "unmatched",
-      "error": "番号未唯一精确匹配"
+      "id": "472740",
+      "code": "200GANA-3432",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "375326",
-      "code": "AGMX-264",
-      "javdbId": "yx5Emv",
-      "status": "success",
-      "dateDifference": true
+      "id": "870029",
+      "code": "APAK-335",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "982241",
-      "code": "AGMX-263",
-      "javdbId": "gyQEBA",
-      "status": "success",
-      "dateDifference": true
+      "id": "750799",
+      "code": "858DOJN-020",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "511936",
-      "code": "SYKH-187",
-      "javdbId": "OXrZVy",
-      "status": "success",
-      "dateDifference": true
+      "id": "639520",
+      "code": "REBD-1053",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "738449",
-      "code": "AGMX-260",
-      "javdbId": "qAbBrP",
-      "status": "success",
-      "dateDifference": true
+      "id": "749913",
+      "code": "SIRO-5720",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "318404",
-      "code": "RCTD-727",
-      "javdbId": "V4VWOz",
-      "status": "success",
-      "dateDifference": true
+      "id": "136694",
+      "code": "EBVR-128",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "269459",
-      "code": "RKI-744",
-      "javdbId": "0e4x3v",
-      "status": "success",
-      "dateDifference": true
+      "id": "294739",
+      "code": "EBWH-331",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "535226",
-      "code": "AQUMA-132",
-      "javdbId": "OXrerB",
-      "status": "success",
-      "dateDifference": false
+      "id": "973399",
+      "code": "EBWH-320",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "912749",
-      "code": "HNHU-191",
-      "status": "unmatched",
-      "error": "番号未唯一精确匹配"
+      "id": "955735",
+      "code": "EBWH-319",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "435738",
-      "code": "413INSTV-379",
-      "status": "unmatched",
-      "error": "番号未唯一精确匹配"
+      "id": "452287",
+      "code": "EBWH-317",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "640612",
-      "code": "RBB-175",
-      "javdbId": "e7pQz",
-      "status": "success",
-      "dateDifference": true
+      "id": "316235",
+      "code": "nacr302",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "679366",
-      "code": "OFJE-235",
-      "javdbId": "9pdPq",
-      "status": "success",
-      "dateDifference": true
+      "id": "759845",
+      "code": "DTT-045",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     },
     {
-      "id": "181914",
-      "code": "SSNI-696",
-      "javdbId": "1MG69",
-      "status": "success",
-      "dateDifference": false
+      "id": "104441",
+      "code": "xmom15",
+      "status": "failed",
+      "error": "来源接口未返回有效资料"
     }
   ],
-  "finishedAt": 1794282583786,
-  "requests": 56,
+  "finishedAt": 1794360585449,
+  "requests": 90,
   "blockedUntil": null,
-  "success": 26,
-  "needsAttention": 4
+  "success": 0,
+  "needsAttention": 30
 }

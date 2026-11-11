@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-11-10T03:50:04.210Z",
+  "generatedAt": "2026-11-11T01:30:00.312Z",
   "scope": "cumulative-ranked-pool",
   "people": {
     "total": 944,
     "lists": {
-      "not-started": 891,
-      "partial": 15,
+      "not-started": 889,
+      "partial": 16,
       "unstable": 0,
-      "complete": 38
+      "complete": 39
     },
-    "waitingRetry": 4,
+    "waitingRetry": 2,
     "profiles": {
       "fetched": 943,
       "waitingRetry": 1,
@@ -24,17 +24,17 @@
     }
   },
   "works": {
-    "listed": 921,
-    "details": 921,
+    "listed": 948,
+    "details": 948,
     "missingDetails": 0,
-    "withCode": 888,
+    "withCode": 915,
     "missingCode": 33
   },
   "metadata": {
     "matched": 535,
-    "notMatched": 353,
+    "notMatched": 380,
     "freshWithinSevenDays": 173,
-    "waitingRetry": 37
+    "waitingRetry": 67
   },
   "pendingDetailTasks": 0
 }
