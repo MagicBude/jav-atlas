@@ -1,19 +1,104 @@
 {
-  "generatedAt": 1794360389008,
+  "generatedAt": 1794450481037,
   "exitCode": 0,
-  "selected": 0,
+  "selected": 14,
   "batch": {
-    "profileSuccess": 0,
-    "profileFailed": 0,
+    "profileSuccess": 13,
+    "profileFailed": 1,
     "profileNotAttempted": 0,
     "missingAvatars": 0
   },
   "total": {
-    "people": 944,
-    "profileSuccess": 943,
-    "profileFieldsSaved": 943,
+    "people": 957,
+    "profileSuccess": 956,
+    "profileFieldsSaved": 956,
     "missingAvatars": 2
   },
-  "results": [],
+  "results": [
+    {
+      "mnid": "147278",
+      "name": "立華静音",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "154090",
+      "name": "柴田明美",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "155388",
+      "name": "今藤霧子",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "204819",
+      "name": "雨村梨花",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "273788",
+      "name": "小坂ひまり",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "323794",
+      "name": "美原すみれ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "471499",
+      "name": "松永さな",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "472932",
+      "name": "森月茉由",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "475487",
+      "name": "原紗央莉",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "797850",
+      "name": "白石真琴",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "845484",
+      "name": "沖野るり",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "699749",
+      "name": "南えな",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "157381",
+      "name": "竹下美彩",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "125102",
+      "name": "天音るな",
+      "profile": "failed",
+      "avatar": "available"
+    }
+  ],
   "scope": "ranked-pool"
 }

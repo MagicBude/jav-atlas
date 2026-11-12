@@ -1,5 +1,5 @@
 {
-  "startedAt": 1794360478211,
+  "startedAt": 1794450590883,
   "scope": "ranked",
   "budgets": {
     "people": 5,
@@ -9,56 +9,61 @@
     "requests": 100
   },
   "pages": 4,
-  "details": 27,
+  "details": 39,
   "failures": [
     {
-      "actorId": "908789",
+      "actorId": "527379",
       "page": 2,
       "error": "返回页码不匹配"
     },
     {
-      "actorId": "515479",
+      "actorId": "125102",
+      "page": 1,
+      "error": "HTTP 403"
+    },
+    {
+      "actorId": "475487",
       "page": 2,
       "error": "返回页码不匹配"
     },
     {
-      "actorId": "985557",
+      "actorId": "797850",
       "page": 2,
       "error": "返回页码不匹配"
     }
   ],
   "people": [
     {
-      "actorId": "908789",
-      "formal": 23,
-      "placeholders": 0,
-      "nextPage": 2,
-      "stable": false
-    },
-    {
-      "actorId": "515479",
+      "actorId": "527379",
       "formal": 20,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "605498",
-      "formal": 18,
+      "actorId": "125102",
+      "formal": 0,
       "placeholders": 0,
-      "nextPage": null,
-      "stable": true
+      "nextPage": 1,
+      "stable": false
     },
     {
-      "actorId": "985557",
+      "actorId": "475487",
       "formal": 20,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "411266",
-      "formal": 4,
+      "actorId": "797850",
+      "formal": 20,
+      "placeholders": 0,
+      "nextPage": 2,
+      "stable": false
+    },
+    {
+      "actorId": "565249",
+      "formal": 2,
       "placeholders": 1,
       "nextPage": null,
       "stable": true
@@ -78,15 +83,15 @@
       "waiting": 0
     }
   },
-  "eligiblePeople": 944,
+  "eligiblePeople": 957,
   "selectedPeople": [
-    "908789",
-    "515479",
-    "605498",
-    "985557",
-    "411266"
+    "527379",
+    "125102",
+    "475487",
+    "797850",
+    "565249"
   ],
-  "finishedAt": 1794360496204,
-  "requests": 36,
+  "finishedAt": 1794450614684,
+  "requests": 48,
   "pendingDetails": 0
 }

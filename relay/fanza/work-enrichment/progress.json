@@ -1,5 +1,38 @@
 {
   "tasks": {
+    "11679": {
+      "status": "unavailable",
+      "checkedAt": 1794450708991,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "star00214",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "star214",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "1fns00214",
+            "1start00214",
+            "h_254vnds05214",
+            "1fsdss00214",
+            "h_254kanz00214",
+            "1stars00214",
+            "h_491love00214",
+            "h_254spz00214"
+          ],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1795055508991
+    },
     "12292": {
       "status": "success",
       "checkedAt": 1793328300188,
@@ -38,6 +71,37 @@
       "status": "success",
       "checkedAt": 1793327364627,
       "nextRetryAt": 0
+    },
+    "16743": {
+      "status": "unavailable",
+      "checkedAt": 1794450713958,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "star00231",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "star231",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "mism00468",
+            "1start00231",
+            "h_254kanz00231",
+            "1fsdss00231",
+            "h_254wan00231",
+            "h_254spz00231"
+          ],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1795055513958
     },
     "20462": {
       "status": "unavailable",
@@ -505,6 +569,19 @@
       "checkedAt": 1793327368473,
       "nextRetryAt": 0
     },
+    "164762": {
+      "status": "success",
+      "checkedAt": 1794450710214,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "gaor00091",
+          "returnedId": "gaor00091",
+          "returnedCode": "GAOR-091"
+        }
+      ],
+      "nextRetryAt": 0
+    },
     "165604": {
       "status": "success",
       "checkedAt": 1793328326923,
@@ -878,6 +955,51 @@
       ],
       "nextRetryAt": 0
     },
+    "189058": {
+      "status": "unavailable",
+      "checkedAt": 1794450718187,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "star00254",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "star254",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "1fns00254",
+            "1start00254",
+            "h_254pes00071",
+            "h_254pes00070",
+            "h_254nxg00401",
+            "h_254doki00022",
+            "h_254vnds03395",
+            "h_254kanz00259",
+            "h_254eihb00069",
+            "h_254spz01132",
+            "h_254nxg00398",
+            "h_254nxg00397",
+            "h_254pes00066",
+            "h_254kanz00257",
+            "h_254kanz00256",
+            "h_254kir00060",
+            "h_254nxg00394",
+            "h_254nxg00390",
+            "h_254nxg00392",
+            "h_254nxg00393"
+          ],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1795055518187
+    },
     "197460": {
       "status": "success",
       "checkedAt": 1793328815206,
@@ -922,6 +1044,19 @@
           "candidateId": "h_237nacx00053",
           "returnedId": "h_237nacx00053",
           "returnedCode": "NACX-053"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "199253": {
+      "status": "success",
+      "checkedAt": 1794450719395,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "mida00852",
+          "returnedId": "mida00852",
+          "returnedCode": "MIDA-852"
         }
       ],
       "nextRetryAt": 0
