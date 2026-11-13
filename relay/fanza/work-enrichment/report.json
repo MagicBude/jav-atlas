@@ -1,145 +1,134 @@
 {
-  "startedAt": 1794450704066,
+  "startedAt": 1794535734572,
   "requests": 11,
   "results": [
     {
-      "id": "11679",
-      "code": "star214",
-      "status": "unavailable",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "star00214",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "direct",
-          "candidateId": "star214",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "search",
-          "returnedIds": [
-            "1fns00214",
-            "1start00214",
-            "h_254vnds05214",
-            "1fsdss00214",
-            "h_254kanz00214",
-            "1stars00214",
-            "h_491love00214",
-            "h_254spz00214"
-          ],
-          "eligibleIds": []
-        }
-      ],
-      "error": "候选商品未得到精确番号匹配"
-    },
-    {
-      "id": "164762",
-      "code": "GAOR-091",
+      "id": "222941",
+      "code": "OFJE-078",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "gaor00091",
-          "returnedId": "gaor00091",
-          "returnedCode": "GAOR-091"
+          "candidateId": "ofje00078",
+          "returnedId": "ofje00078",
+          "returnedCode": "OFJE-078"
         }
       ]
     },
     {
-      "id": "16743",
-      "code": "STAR-231",
-      "status": "unavailable",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "star00231",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "direct",
-          "candidateId": "star231",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "search",
-          "returnedIds": [
-            "mism00468",
-            "1start00231",
-            "h_254kanz00231",
-            "1fsdss00231",
-            "h_254wan00231",
-            "h_254spz00231"
-          ],
-          "eligibleIds": []
-        }
-      ],
-      "error": "候选商品未得到精确番号匹配"
-    },
-    {
-      "id": "189058",
-      "code": "STAR-254",
-      "status": "unavailable",
-      "observations": [
-        {
-          "via": "direct",
-          "candidateId": "star00254",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "direct",
-          "candidateId": "star254",
-          "returnedId": null,
-          "returnedCode": null
-        },
-        {
-          "via": "search",
-          "returnedIds": [
-            "1fns00254",
-            "1start00254",
-            "h_254pes00071",
-            "h_254pes00070",
-            "h_254nxg00401",
-            "h_254doki00022",
-            "h_254vnds03395",
-            "h_254kanz00259",
-            "h_254eihb00069",
-            "h_254spz01132",
-            "h_254nxg00398",
-            "h_254nxg00397",
-            "h_254pes00066",
-            "h_254kanz00257",
-            "h_254kanz00256",
-            "h_254kir00060",
-            "h_254nxg00394",
-            "h_254nxg00390",
-            "h_254nxg00392",
-            "h_254nxg00393"
-          ],
-          "eligibleIds": []
-        }
-      ],
-      "error": "候选商品未得到精确番号匹配"
-    },
-    {
-      "id": "199253",
-      "code": "MIDA-852",
+      "id": "252354",
+      "code": "RBB-165",
       "status": "success",
       "observations": [
         {
           "via": "direct",
-          "candidateId": "mida00852",
-          "returnedId": "mida00852",
-          "returnedCode": "MIDA-852"
+          "candidateId": "rbb00165",
+          "returnedId": "rbb00165",
+          "returnedCode": "RBB-165"
         }
       ]
+    },
+    {
+      "id": "25666",
+      "code": "star242",
+      "status": "unavailable",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "star00242",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "star242",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "1fns00242",
+            "1start00242",
+            "h_491fone01002",
+            "1fsdss00242",
+            "1stars00242",
+            "h_491love00242",
+            "h_254yoz00242",
+            "h_254spz00242"
+          ],
+          "eligibleIds": []
+        }
+      ],
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "27181",
+      "code": "OFJE-088",
+      "status": "unavailable",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "ofje00088",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "ofje088",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "ofje00667",
+            "ofje00588",
+            "ofje00488",
+            "ofje00388",
+            "ofje00288",
+            "ofje00238",
+            "ofje00093"
+          ],
+          "eligibleIds": []
+        }
+      ],
+      "error": "候选商品未得到精确番号匹配"
+    },
+    {
+      "id": "27186",
+      "code": "STAR-222",
+      "status": "unavailable",
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "star00222",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "star222",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "1fns00222",
+            "1start00222",
+            "ssis00222",
+            "1fsdss00222",
+            "h_254kanz00222",
+            "h_254wan00222",
+            "1sdmt00222",
+            "h_254spz00222"
+          ],
+          "eligibleIds": []
+        }
+      ],
+      "error": "候选商品未得到精确番号匹配"
     }
   ],
-  "finishedAt": 1794450719396
+  "finishedAt": 1794535749216
 }

@@ -1,102 +1,66 @@
 {
-  "generatedAt": 1794450481037,
+  "generatedAt": 1794535530095,
   "exitCode": 0,
-  "selected": 14,
+  "selected": 8,
   "batch": {
-    "profileSuccess": 13,
-    "profileFailed": 1,
+    "profileSuccess": 8,
+    "profileFailed": 0,
     "profileNotAttempted": 0,
     "missingAvatars": 0
   },
   "total": {
-    "people": 957,
-    "profileSuccess": 956,
-    "profileFieldsSaved": 956,
+    "people": 966,
+    "profileSuccess": 965,
+    "profileFieldsSaved": 965,
     "missingAvatars": 2
   },
   "results": [
     {
-      "mnid": "147278",
-      "name": "立華静音",
+      "mnid": "407739",
+      "name": "桜木なぎさ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "154090",
-      "name": "柴田明美",
+      "mnid": "467947",
+      "name": "町村京子",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "155388",
-      "name": "今藤霧子",
+      "mnid": "530410",
+      "name": "碧那美海",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "204819",
-      "name": "雨村梨花",
+      "mnid": "584585",
+      "name": "長澤あずさ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "273788",
-      "name": "小坂ひまり",
+      "mnid": "658111",
+      "name": "唯井まひろ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "323794",
-      "name": "美原すみれ",
+      "mnid": "684595",
+      "name": "KINGレイナ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "471499",
-      "name": "松永さな",
+      "mnid": "745335",
+      "name": "加山なつこ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "472932",
-      "name": "森月茉由",
+      "mnid": "892757",
+      "name": "一色さら",
       "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "475487",
-      "name": "原紗央莉",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "797850",
-      "name": "白石真琴",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "845484",
-      "name": "沖野るり",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "699749",
-      "name": "南えな",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "157381",
-      "name": "竹下美彩",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "125102",
-      "name": "天音るな",
-      "profile": "failed",
       "avatar": "available"
     }
   ],

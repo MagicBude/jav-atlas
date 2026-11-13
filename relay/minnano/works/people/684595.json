@@ -1,0 +1,35 @@
+{
+  "actorId": "684595",
+  "entries": [
+    {
+      "id": "uk684595",
+      "kind": "unknown",
+      "title": "作品名不明（KINGレイナ）",
+      "sourceUrl": "https://www.minnano-av.com/avuk684595.html",
+      "cast": [],
+      "raw": {
+        "date": "",
+        "maker": ""
+      },
+      "firstSeenAt": 1794535641920,
+      "lastSeenAt": 1794535641920,
+      "sourceOrdinal": 0,
+      "seenOnPages": [
+        1
+      ],
+      "observations": [
+        {
+          "page": 1,
+          "title": "作品名不明（KINGレイナ）",
+          "releaseDate": null,
+          "makerText": ""
+        }
+      ],
+      "missingFromLatestCompleteScan": false
+    }
+  ],
+  "completedAt": 1794535642410,
+  "updatedAt": 1794535641920,
+  "visitedAllPagesAt": 1794535642410,
+  "scanId": "684595-1794535641492"
+}
