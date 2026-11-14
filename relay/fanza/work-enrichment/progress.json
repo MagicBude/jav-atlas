@@ -291,7 +291,7 @@
     },
     "110050": {
       "status": "unavailable",
-      "checkedAt": 1794013763839,
+      "checkedAt": 1794620704626,
       "observations": [
         {
           "via": "direct",
@@ -311,7 +311,20 @@
           "eligibleIds": []
         }
       ],
-      "nextRetryAt": 1794618563839
+      "nextRetryAt": 1795225504626
+    },
+    "114757": {
+      "status": "success",
+      "checkedAt": 1794620705820,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "vrkm01920",
+          "returnedId": "vrkm01920",
+          "returnedCode": "VRKM-1920"
+        }
+      ],
+      "nextRetryAt": 0
     },
     "116714": {
       "status": "success",
@@ -501,6 +514,19 @@
       ],
       "nextRetryAt": 0
     },
+    "134888": {
+      "status": "success",
+      "checkedAt": 1794620707026,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "snos00449",
+          "returnedId": "snos00449",
+          "returnedCode": "SNOS-449"
+        }
+      ],
+      "nextRetryAt": 0
+    },
     "135038": {
       "status": "success",
       "checkedAt": 1793328313551,
@@ -547,6 +573,34 @@
         }
       ],
       "nextRetryAt": 0
+    },
+    "139110": {
+      "status": "unavailable",
+      "checkedAt": 1794620710740,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "vod00005",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "vod005",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "vod00033",
+            "vod00008",
+            "104svod00005"
+          ],
+          "eligibleIds": []
+        }
+      ],
+      "nextRetryAt": 1795225510740
     },
     "141039": {
       "status": "success",
@@ -606,7 +660,7 @@
     },
     "155402": {
       "status": "unavailable",
-      "checkedAt": 1794013767507,
+      "checkedAt": 1794620714421,
       "observations": [
         {
           "via": "direct",
@@ -631,7 +685,7 @@
           "eligibleIds": []
         }
       ],
-      "nextRetryAt": 1794618567507
+      "nextRetryAt": 1795225514421
     },
     "158586": {
       "status": "success",

@@ -1,65 +1,83 @@
 {
-  "generatedAt": 1794535530095,
+  "generatedAt": 1794620482489,
   "exitCode": 0,
-  "selected": 8,
+  "selected": 11,
   "batch": {
-    "profileSuccess": 8,
+    "profileSuccess": 11,
     "profileFailed": 0,
     "profileNotAttempted": 0,
     "missingAvatars": 0
   },
   "total": {
-    "people": 966,
-    "profileSuccess": 965,
-    "profileFieldsSaved": 965,
+    "people": 978,
+    "profileSuccess": 977,
+    "profileFieldsSaved": 977,
     "missingAvatars": 2
   },
   "results": [
     {
-      "mnid": "407739",
-      "name": "桜木なぎさ",
+      "mnid": "280340",
+      "name": "奏音かのん",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "467947",
-      "name": "町村京子",
+      "mnid": "37206",
+      "name": "前原育子(パコパコママ)",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "530410",
-      "name": "碧那美海",
+      "mnid": "376472",
+      "name": "愛花沙也",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "584585",
-      "name": "長澤あずさ",
+      "mnid": "444349",
+      "name": "一場れいか",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "658111",
-      "name": "唯井まひろ",
+      "mnid": "514003",
+      "name": "高橋美緒",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "684595",
-      "name": "KINGレイナ",
+      "mnid": "541327",
+      "name": "鈴掛さら【登録重複】",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "745335",
-      "name": "加山なつこ",
+      "mnid": "549901",
+      "name": "あんづ杏",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "892757",
-      "name": "一色さら",
+      "mnid": "876195",
+      "name": "MINAMO",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "909216",
+      "name": "春日々音",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "822325",
+      "name": "渡会日菜",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "981785",
+      "name": "夏目琴理",
       "profile": "success",
       "avatar": "available"
     }

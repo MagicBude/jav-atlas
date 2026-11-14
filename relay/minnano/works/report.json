@@ -1,5 +1,5 @@
 {
-  "startedAt": 1794535640700,
+  "startedAt": 1794620593035,
   "scope": "ranked",
   "budgets": {
     "people": 5,
@@ -8,53 +8,58 @@
     "details": 50,
     "requests": 100
   },
-  "pages": 3,
-  "details": 1,
+  "pages": 4,
+  "details": 27,
   "failures": [
     {
-      "actorId": "631323",
+      "actorId": "272417",
       "page": 2,
       "error": "返回页码不匹配"
     },
     {
-      "actorId": "25709",
+      "actorId": "673176",
+      "page": 2,
+      "error": "返回页码不匹配"
+    },
+    {
+      "actorId": "945093",
       "page": 2,
       "error": "返回页码不匹配"
     }
   ],
   "people": [
     {
-      "actorId": "631323",
-      "formal": 20,
+      "actorId": "272417",
+      "formal": 31,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "25709",
-      "formal": 101,
+      "actorId": "673176",
+      "formal": 22,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "684595",
+      "actorId": "467947",
+      "formal": 10,
+      "placeholders": 1,
+      "nextPage": null,
+      "stable": true
+    },
+    {
+      "actorId": "945093",
+      "formal": 19,
+      "placeholders": 1,
+      "nextPage": 2,
+      "stable": false
+    },
+    {
+      "actorId": "230858",
       "formal": 0,
       "placeholders": 1,
-      "nextPage": null,
-      "stable": true
-    },
-    {
-      "actorId": "699749",
-      "formal": 1,
-      "placeholders": 1,
-      "nextPage": null,
-      "stable": true
-    },
-    {
-      "actorId": "131852",
-      "formal": 4,
-      "placeholders": 0,
       "nextPage": null,
       "stable": true
     }
@@ -73,15 +78,15 @@
       "waiting": 0
     }
   },
-  "eligiblePeople": 966,
+  "eligiblePeople": 978,
   "selectedPeople": [
-    "631323",
-    "25709",
-    "684595",
-    "699749",
-    "131852"
+    "272417",
+    "673176",
+    "467947",
+    "945093",
+    "230858"
   ],
-  "finishedAt": 1794535645023,
-  "requests": 9,
+  "finishedAt": 1794620610739,
+  "requests": 36,
   "pendingDetails": 0
 }
