@@ -1,83 +1,119 @@
 {
-  "generatedAt": 1794620482489,
+  "generatedAt": 1794705334803,
   "exitCode": 0,
-  "selected": 11,
+  "selected": 17,
   "batch": {
-    "profileSuccess": 11,
+    "profileSuccess": 17,
     "profileFailed": 0,
     "profileNotAttempted": 0,
     "missingAvatars": 0
   },
   "total": {
-    "people": 978,
-    "profileSuccess": 977,
-    "profileFieldsSaved": 977,
+    "people": 995,
+    "profileSuccess": 994,
+    "profileFieldsSaved": 994,
     "missingAvatars": 2
   },
   "results": [
     {
-      "mnid": "280340",
-      "name": "奏音かのん",
+      "mnid": "137096",
+      "name": "蜜香",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "37206",
-      "name": "前原育子(パコパコママ)",
+      "mnid": "151459",
+      "name": "桃咲ゆり菜",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "376472",
-      "name": "愛花沙也",
+      "mnid": "252604",
+      "name": "吉永あかね",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "444349",
-      "name": "一場れいか",
+      "mnid": "295183",
+      "name": "恋川こもも",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "514003",
-      "name": "高橋美緒",
+      "mnid": "313793",
+      "name": "田村香奈",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "541327",
-      "name": "鈴掛さら【登録重複】",
+      "mnid": "433382",
+      "name": "香月萌",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "549901",
-      "name": "あんづ杏",
+      "mnid": "489896",
+      "name": "糸井ありさ",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "876195",
-      "name": "MINAMO",
+      "mnid": "518025",
+      "name": "清水優愛",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "909216",
-      "name": "春日々音",
+      "mnid": "56611",
+      "name": "松本まりな",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "822325",
-      "name": "渡会日菜",
+      "mnid": "608242",
+      "name": "友利七葉",
       "profile": "success",
       "avatar": "available"
     },
     {
-      "mnid": "981785",
-      "name": "夏目琴理",
+      "mnid": "63710",
+      "name": "望月つぼみ",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "724560",
+      "name": "一花琴音",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "783717",
+      "name": "てんしちゃん（同人モデル）",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "786499",
+      "name": "大石忍",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "854002",
+      "name": "西田瑞希",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "900426",
+      "name": "中田かな",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "502886",
+      "name": "長谷川雪音",
       "profile": "success",
       "avatar": "available"
     }

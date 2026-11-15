@@ -20,8 +20,8 @@
         "maker": "ムーディーズ / MOODYZ DIVA"
       },
       "firstSeenAt": 1792724395943,
-      "lastSeenAt": 1792724395943,
-      "sourceOrdinal": 0,
+      "lastSeenAt": 1794705419421,
+      "sourceOrdinal": 1,
       "seenOnPages": [
         1
       ],
@@ -34,10 +34,44 @@
         }
       ],
       "missingFromLatestCompleteScan": false
+    },
+    {
+      "id": "590635",
+      "kind": "work",
+      "title": "AIにも計算できない。本性エロス覚醒ムラムラびしょびしょ汗だく潮吹きイキ狂いスペシャル 奏たまき",
+      "sourceUrl": "https://www.minnano-av.com/av590635.html",
+      "releaseDate": "2026-11-12",
+      "coverUrl": "https://www.minnano-av.com/p_package/2611/590635.jpg",
+      "makerText": "ムーディーズ / MOODYZ DIVA",
+      "cast": [
+        {
+          "id": "236732",
+          "name": "奏たまき"
+        }
+      ],
+      "raw": {
+        "date": "2026/11/12",
+        "maker": "ムーディーズ / MOODYZ DIVA"
+      },
+      "firstSeenAt": 1794705419421,
+      "lastSeenAt": 1794705419421,
+      "sourceOrdinal": 0,
+      "seenOnPages": [
+        1
+      ],
+      "observations": [
+        {
+          "page": 1,
+          "title": "AIにも計算できない。本性エロス覚醒ムラムラびしょびしょ汗だく潮吹きイキ狂いスペシャル 奏たまき",
+          "releaseDate": "2026-11-12",
+          "makerText": "ムーディーズ / MOODYZ DIVA"
+        }
+      ],
+      "missingFromLatestCompleteScan": false
     }
   ],
-  "completedAt": 1792724396325,
-  "updatedAt": 1792724395943,
-  "visitedAllPagesAt": 1792724396325,
-  "scanId": "236732-1792724395324"
+  "completedAt": 1794705419931,
+  "updatedAt": 1794705419421,
+  "visitedAllPagesAt": 1794705419931,
+  "scanId": "236732-1794705418918"
 }
