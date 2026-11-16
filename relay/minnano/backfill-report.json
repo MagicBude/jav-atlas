@@ -1,9 +1,9 @@
 {
-  "generatedAt": 1794705334803,
+  "generatedAt": 1794792110106,
   "exitCode": 0,
-  "selected": 17,
+  "selected": 0,
   "batch": {
-    "profileSuccess": 17,
+    "profileSuccess": 0,
     "profileFailed": 0,
     "profileNotAttempted": 0,
     "missingAvatars": 0
@@ -14,109 +14,6 @@
     "profileFieldsSaved": 994,
     "missingAvatars": 2
   },
-  "results": [
-    {
-      "mnid": "137096",
-      "name": "蜜香",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "151459",
-      "name": "桃咲ゆり菜",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "252604",
-      "name": "吉永あかね",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "295183",
-      "name": "恋川こもも",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "313793",
-      "name": "田村香奈",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "433382",
-      "name": "香月萌",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "489896",
-      "name": "糸井ありさ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "518025",
-      "name": "清水優愛",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "56611",
-      "name": "松本まりな",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "608242",
-      "name": "友利七葉",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "63710",
-      "name": "望月つぼみ",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "724560",
-      "name": "一花琴音",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "783717",
-      "name": "てんしちゃん（同人モデル）",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "786499",
-      "name": "大石忍",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "854002",
-      "name": "西田瑞希",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "900426",
-      "name": "中田かな",
-      "profile": "success",
-      "avatar": "available"
-    },
-    {
-      "mnid": "502886",
-      "name": "長谷川雪音",
-      "profile": "success",
-      "avatar": "available"
-    }
-  ],
+  "results": [],
   "scope": "ranked-pool"
 }

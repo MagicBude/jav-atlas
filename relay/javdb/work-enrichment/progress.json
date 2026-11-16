@@ -28,6 +28,13 @@
       "checkedAt": 1794535677511,
       "nextRetryAt": 1794535797511
     },
+    "70335": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792283239,
+      "nextRetryAt": 1794792403239
+    },
     "95573": {
       "status": "failed",
       "attempts": 1,
@@ -228,6 +235,13 @@
       "checkedAt": 1794360564443,
       "nextRetryAt": 1794360684443
     },
+    "136925": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792259243,
+      "nextRetryAt": 1794792379243
+    },
     "138638": {
       "status": "success",
       "checkedAt": 1793675143597,
@@ -274,6 +288,13 @@
       "checkedAt": 1794535668510,
       "nextRetryAt": 1794535788510
     },
+    "143228": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792247239,
+      "nextRetryAt": 1794792367239
+    },
     "143512": {
       "status": "success",
       "checkedAt": 1793581380664,
@@ -297,6 +318,13 @@
       "checkedAt": 1793325966049,
       "attempts": 0,
       "nextRetryAt": 0
+    },
+    "153596": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792208271,
+      "nextRetryAt": 1794792328271
     },
     "154994": {
       "status": "success",
@@ -349,12 +377,26 @@
       "checkedAt": 1794360540441,
       "nextRetryAt": 1794360660441
     },
+    "168494": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792271241,
+      "nextRetryAt": 1794792391241
+    },
     "170288": {
       "status": "failed",
       "attempts": 1,
       "lastError": "来源接口未返回有效资料",
       "checkedAt": 1794450632005,
       "nextRetryAt": 1794450752005
+    },
+    "171089": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792265243,
+      "nextRetryAt": 1794792385243
     },
     "171278": {
       "status": "success",
@@ -460,6 +502,13 @@
       "checkedAt": 1792829830769,
       "attempts": 0,
       "nextRetryAt": 0
+    },
+    "188327": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792232240,
+      "nextRetryAt": 1794792352240
     },
     "190457": {
       "status": "success",
@@ -759,6 +808,13 @@
       "checkedAt": 1794099381644,
       "attempts": 0,
       "nextRetryAt": 0
+    },
+    "242196": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792289243,
+      "nextRetryAt": 1794792409243
     },
     "242298": {
       "status": "success",
@@ -1193,6 +1249,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "295991": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792220253,
+      "nextRetryAt": 1794792340253
+    },
     "297821": {
       "status": "unmatched",
       "attempts": 1,
@@ -1299,6 +1362,13 @@
       "lastError": "来源接口未返回有效资料",
       "checkedAt": 1794705444715,
       "nextRetryAt": 1794705564715
+    },
+    "316604": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792274241,
+      "nextRetryAt": 1794792394241
     },
     "316913": {
       "status": "success",
@@ -1453,6 +1523,13 @@
       "lastError": "来源接口未返回有效资料",
       "checkedAt": 1794705510711,
       "nextRetryAt": 1794705630711
+    },
+    "350606": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792250251,
+      "nextRetryAt": 1794792370251
     },
     "350921": {
       "status": "unmatched",
@@ -2450,6 +2527,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "512154": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792277278,
+      "nextRetryAt": 1794792397278
+    },
     "512468": {
       "status": "success",
       "checkedAt": 1793675145579,
@@ -2629,6 +2713,13 @@
       "lastError": "来源接口未返回有效资料",
       "checkedAt": 1794620628094,
       "nextRetryAt": 1794620748094
+    },
+    "533665": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792217264,
+      "nextRetryAt": 1794792337264
     },
     "533973": {
       "status": "success",
@@ -2847,6 +2938,13 @@
       "lastError": "来源接口未返回有效资料",
       "checkedAt": 1794450656018,
       "nextRetryAt": 1794450776018
+    },
+    "589170": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792214256,
+      "nextRetryAt": 1794792334256
     },
     "590338": {
       "status": "success",
@@ -3212,6 +3310,13 @@
       "lastError": "番号未唯一精确匹配",
       "checkedAt": 1792799993189,
       "nextRetryAt": 1793404793189
+    },
+    "644297": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792262242,
+      "nextRetryAt": 1794792382242
     },
     "644531": {
       "status": "success",
@@ -3693,6 +3798,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "738813": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792268242,
+      "nextRetryAt": 1794792388242
+    },
     "740125": {
       "status": "success",
       "checkedAt": 1792733631636,
@@ -3808,6 +3920,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "763359": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792253243,
+      "nextRetryAt": 1794792373243
+    },
     "765923": {
       "status": "failed",
       "attempts": 1,
@@ -3900,6 +4019,13 @@
       "checkedAt": 1793323300182,
       "attempts": 0,
       "nextRetryAt": 0
+    },
+    "794160": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792223252,
+      "nextRetryAt": 1794792343252
     },
     "795815": {
       "status": "success",
@@ -4003,6 +4129,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "809979": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792229241,
+      "nextRetryAt": 1794792349241
+    },
     "811223": {
       "status": "success",
       "checkedAt": 1793326017190,
@@ -4033,6 +4166,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "816903": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792280243,
+      "nextRetryAt": 1794792400243
+    },
     "818614": {
       "status": "success",
       "checkedAt": 1793323296177,
@@ -4057,6 +4197,13 @@
       "checkedAt": 1792885030373,
       "attempts": 0,
       "nextRetryAt": 0
+    },
+    "820937": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792286252,
+      "nextRetryAt": 1794792406252
     },
     "824230": {
       "status": "failed",
@@ -4085,11 +4232,25 @@
       "checkedAt": 1793148266997,
       "nextRetryAt": 1793753066997
     },
+    "829462": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792202408,
+      "nextRetryAt": 1794792322408
+    },
     "831678": {
       "status": "success",
       "checkedAt": 1793581404648,
       "attempts": 0,
       "nextRetryAt": 0
+    },
+    "832894": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792241239,
+      "nextRetryAt": 1794792361239
     },
     "833093": {
       "status": "failed",
@@ -4148,6 +4309,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "843947": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792244241,
+      "nextRetryAt": 1794792364241
+    },
     "849968": {
       "status": "success",
       "checkedAt": 1793325984585,
@@ -4178,6 +4346,13 @@
       "lastError": "来源接口未返回有效资料",
       "checkedAt": 1794535698513,
       "nextRetryAt": 1794535818513
+    },
+    "853386": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792211254,
+      "nextRetryAt": 1794792331254
     },
     "853506": {
       "status": "success",
@@ -4289,6 +4464,13 @@
       "checkedAt": 1793325341003,
       "attempts": 0,
       "nextRetryAt": 0
+    },
+    "876388": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792235238,
+      "nextRetryAt": 1794792355238
     },
     "876832": {
       "status": "success",
@@ -4446,6 +4628,13 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "906356": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792205252,
+      "nextRetryAt": 1794792325252
+    },
     "907102": {
       "status": "success",
       "checkedAt": 1794186824733,
@@ -4579,6 +4768,20 @@
       "attempts": 0,
       "nextRetryAt": 0
     },
+    "935712": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792226258,
+      "nextRetryAt": 1794792346258
+    },
+    "936584": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792256275,
+      "nextRetryAt": 1794792376275
+    },
     "936792": {
       "status": "success",
       "checkedAt": 1794013722453,
@@ -4604,6 +4807,13 @@
       "lastError": "来源接口未返回有效资料",
       "checkedAt": 1794620667074,
       "nextRetryAt": 1794620787074
+    },
+    "940389": {
+      "status": "failed",
+      "attempts": 1,
+      "lastError": "来源接口未返回有效资料",
+      "checkedAt": 1794792238254,
+      "nextRetryAt": 1794792358254
     },
     "941105": {
       "status": "success",

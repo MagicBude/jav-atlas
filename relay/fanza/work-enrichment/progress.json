@@ -105,7 +105,7 @@
     },
     "20462": {
       "status": "unavailable",
-      "checkedAt": 1794099428840,
+      "checkedAt": 1794792297871,
       "observations": [
         {
           "via": "direct",
@@ -125,7 +125,7 @@
           "eligibleIds": []
         }
       ],
-      "nextRetryAt": 1794704228840
+      "nextRetryAt": 1795397097871
     },
     "25666": {
       "status": "unavailable",
@@ -706,6 +706,19 @@
       ],
       "nextRetryAt": 0
     },
+    "143228": {
+      "status": "success",
+      "checkedAt": 1794792291222,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "ofje00622",
+          "returnedId": "ofje00622",
+          "returnedCode": "OFJE-622"
+        }
+      ],
+      "nextRetryAt": 0
+    },
     "145961": {
       "status": "success",
       "checkedAt": 1793327358625,
@@ -714,6 +727,19 @@
     "149166": {
       "status": "success",
       "checkedAt": 1793327359840,
+      "nextRetryAt": 0
+    },
+    "153596": {
+      "status": "success",
+      "checkedAt": 1794792292435,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "mngs00089",
+          "returnedId": "mngs00089",
+          "returnedCode": "MNGS-089"
+        }
+      ],
       "nextRetryAt": 0
     },
     "155402": {
@@ -1130,6 +1156,19 @@
       ],
       "nextRetryAt": 0
     },
+    "188327": {
+      "status": "success",
+      "checkedAt": 1794792293653,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "mizd00563",
+          "returnedId": "mizd00563",
+          "returnedCode": "MIZD-563"
+        }
+      ],
+      "nextRetryAt": 0
+    },
     "188377": {
       "status": "success",
       "checkedAt": 1793328814024,
@@ -1374,6 +1413,40 @@
           "candidateId": "advo00106",
           "returnedId": "advo00106",
           "returnedCode": "ADVO-106"
+        }
+      ],
+      "nextRetryAt": 0
+    },
+    "206285": {
+      "status": "success",
+      "checkedAt": 1794792302820,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "hmdnv00897",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "hmdnv897",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "h_1472hmdnv00897"
+          ],
+          "eligibleIds": [
+            "h_1472hmdnv00897"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "h_1472hmdnv00897",
+          "returnedId": "h_1472hmdnv00897",
+          "returnedCode": "HMDNV-897"
         }
       ],
       "nextRetryAt": 0
