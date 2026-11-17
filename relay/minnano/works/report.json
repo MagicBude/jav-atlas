@@ -1,5 +1,5 @@
 {
-  "startedAt": 1794792186829,
+  "startedAt": 1794888643543,
   "scope": "ranked",
   "budgets": {
     "people": 5,
@@ -9,64 +9,69 @@
     "requests": 100
   },
   "pages": 5,
-  "details": 16,
+  "details": 29,
   "failures": [
     {
-      "actorId": "630128",
+      "actorId": "125605",
       "page": 2,
       "error": "返回页码不匹配"
     },
     {
-      "actorId": "504478",
+      "actorId": "910982",
       "page": 2,
       "error": "返回页码不匹配"
     },
     {
-      "actorId": "182874",
+      "actorId": "889287",
       "page": 2,
       "error": "返回页码不匹配"
     },
     {
-      "actorId": "113949",
+      "actorId": "105019",
+      "page": 2,
+      "error": "返回页码不匹配"
+    },
+    {
+      "actorId": "875339",
       "page": 2,
       "error": "返回页码不匹配"
     }
   ],
   "people": [
     {
-      "actorId": "630128",
-      "formal": 24,
-      "placeholders": 0,
+      "actorId": "125605",
+      "formal": 98,
+      "placeholders": 2,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "504478",
-      "formal": 22,
-      "placeholders": 0,
-      "nextPage": 2,
-      "stable": false
-    },
-    {
-      "actorId": "182874",
+      "actorId": "910982",
       "formal": 20,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "113949",
+      "actorId": "889287",
       "formal": 20,
       "placeholders": 0,
       "nextPage": 2,
       "stable": false
     },
     {
-      "actorId": "677891",
-      "formal": 0,
-      "placeholders": 1,
-      "nextPage": null,
-      "stable": true
+      "actorId": "105019",
+      "formal": 20,
+      "placeholders": 0,
+      "nextPage": 2,
+      "stable": false
+    },
+    {
+      "actorId": "875339",
+      "formal": 67,
+      "placeholders": 2,
+      "nextPage": 2,
+      "stable": false
     }
   ],
   "budgetExhausted": false,
@@ -83,15 +88,15 @@
       "waiting": 0
     }
   },
-  "eligiblePeople": 995,
+  "eligiblePeople": 1011,
   "selectedPeople": [
-    "630128",
-    "504478",
-    "182874",
-    "113949",
-    "677891"
+    "125605",
+    "910982",
+    "889287",
+    "105019",
+    "875339"
   ],
-  "finishedAt": 1794792199991,
-  "requests": 26,
+  "finishedAt": 1794888662923,
+  "requests": 39,
   "pendingDetails": 0
 }

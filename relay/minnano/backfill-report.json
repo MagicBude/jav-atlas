@@ -1,19 +1,110 @@
 {
-  "generatedAt": 1794792110106,
+  "generatedAt": 1794888557505,
   "exitCode": 0,
-  "selected": 0,
+  "selected": 15,
   "batch": {
-    "profileSuccess": 0,
+    "profileSuccess": 15,
     "profileFailed": 0,
     "profileNotAttempted": 0,
     "missingAvatars": 0
   },
   "total": {
-    "people": 995,
-    "profileSuccess": 994,
-    "profileFieldsSaved": 994,
+    "people": 1011,
+    "profileSuccess": 1010,
+    "profileFieldsSaved": 1010,
     "missingAvatars": 2
   },
-  "results": [],
+  "results": [
+    {
+      "mnid": "147689",
+      "name": "小野りんか",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "250177",
+      "name": "乙葉いおり",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "308265",
+      "name": "つかもと友希",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "338531",
+      "name": "皆野みらい",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "36230",
+      "name": "谷村凪咲",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "385731",
+      "name": "八蜜凛",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "640728",
+      "name": "南原美智子",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "734536",
+      "name": "三舩みすず",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "75353",
+      "name": "白石透羽",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "802233",
+      "name": "佐々野ひまり",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "832419",
+      "name": "春乃るる",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "904248",
+      "name": "泉ももか",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "923677",
+      "name": "春日野結衣",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "872837",
+      "name": "相澤麗羅",
+      "profile": "success",
+      "avatar": "available"
+    },
+    {
+      "mnid": "732132",
+      "name": "西条ありさ",
+      "profile": "success",
+      "avatar": "available"
+    }
+  ],
   "scope": "ranked-pool"
 }

@@ -431,7 +431,7 @@
     },
     "126601": {
       "status": "unavailable",
-      "checkedAt": 1794282588503,
+      "checkedAt": 1794888756211,
       "observations": [
         {
           "via": "direct",
@@ -453,7 +453,7 @@
           "eligibleIds": []
         }
       ],
-      "nextRetryAt": 1794887388503
+      "nextRetryAt": 1795493556211
     },
     "127524": {
       "status": "success",
@@ -742,6 +742,40 @@
       ],
       "nextRetryAt": 0
     },
+    "154291": {
+      "status": "success",
+      "checkedAt": 1794888762148,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "dldss00496",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "dldss496",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "1dldss00496"
+          ],
+          "eligibleIds": [
+            "1dldss00496"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "1dldss00496",
+          "returnedId": "1dldss00496",
+          "returnedCode": "DLDSS-496"
+        }
+      ],
+      "nextRetryAt": 0
+    },
     "155402": {
       "status": "unavailable",
       "checkedAt": 1794620714421,
@@ -770,6 +804,40 @@
         }
       ],
       "nextRetryAt": 1795225514421
+    },
+    "155903": {
+      "status": "success",
+      "checkedAt": 1794888767106,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "dldss00468",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "dldss468",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "1dldss00468"
+          ],
+          "eligibleIds": [
+            "1dldss00468"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "1dldss00468",
+          "returnedId": "1dldss00468",
+          "returnedCode": "DLDSS-468"
+        }
+      ],
+      "nextRetryAt": 0
     },
     "158586": {
       "status": "success",
@@ -1451,6 +1519,40 @@
       ],
       "nextRetryAt": 0
     },
+    "207966": {
+      "status": "success",
+      "checkedAt": 1794888772046,
+      "observations": [
+        {
+          "via": "direct",
+          "candidateId": "dldss00545",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "direct",
+          "candidateId": "dldss545",
+          "returnedId": null,
+          "returnedCode": null
+        },
+        {
+          "via": "search",
+          "returnedIds": [
+            "1dldss00545"
+          ],
+          "eligibleIds": [
+            "1dldss00545"
+          ]
+        },
+        {
+          "via": "search-detail",
+          "candidateId": "1dldss00545",
+          "returnedId": "1dldss00545",
+          "returnedCode": "DLDSS-545"
+        }
+      ],
+      "nextRetryAt": 0
+    },
     "208211": {
       "status": "success",
       "checkedAt": 1793328840677,
@@ -1479,7 +1581,7 @@
     },
     "216858": {
       "status": "unavailable",
-      "checkedAt": 1794099432318,
+      "checkedAt": 1794888775757,
       "observations": [
         {
           "via": "direct",
@@ -1499,7 +1601,7 @@
           "eligibleIds": []
         }
       ],
-      "nextRetryAt": 1794704232318
+      "nextRetryAt": 1795493575757
     },
     "220857": {
       "status": "success",
